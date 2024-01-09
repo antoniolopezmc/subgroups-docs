@@ -1,0 +1,45 @@
+subgroups.tests.core package
+============================
+
+Submodules
+----------
+
+subgroups.tests.core.test\_operator module
+------------------------------------------
+
+.. automodule:: subgroups.tests.core.test_operator
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+subgroups.tests.core.test\_pattern module
+-----------------------------------------
+
+.. automodule:: subgroups.tests.core.test_pattern
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+subgroups.tests.core.test\_selector module
+------------------------------------------
+
+.. automodule:: subgroups.tests.core.test_selector
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+subgroups.tests.core.test\_subgroup module
+------------------------------------------
+
+.. automodule:: subgroups.tests.core.test_subgroup
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: subgroups.tests.core
+   :members:
+   :undoc-members:
+   :show-inheritance:

@@ -1,0 +1,30 @@
+subgroups.algorithms package
+============================
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   subgroups.algorithms.subgroup_lists
+   subgroups.algorithms.subgroup_sets
+
+Submodules
+----------
+
+subgroups.algorithms.algorithm module
+-------------------------------------
+
+.. automodule:: subgroups.algorithms.algorithm
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: subgroups.algorithms
+   :members:
+   :undoc-members:
+   :show-inheritance:

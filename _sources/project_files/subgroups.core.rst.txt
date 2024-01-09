@@ -1,0 +1,45 @@
+subgroups.core package
+======================
+
+Submodules
+----------
+
+subgroups.core.operator module
+------------------------------
+
+.. automodule:: subgroups.core.operator
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+subgroups.core.pattern module
+-----------------------------
+
+.. automodule:: subgroups.core.pattern
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+subgroups.core.selector module
+------------------------------
+
+.. automodule:: subgroups.core.selector
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+subgroups.core.subgroup module
+------------------------------
+
+.. automodule:: subgroups.core.subgroup
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: subgroups.core
+   :members:
+   :undoc-members:
+   :show-inheritance:

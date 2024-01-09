@@ -1,0 +1,69 @@
+subgroups.algorithms.subgroup\_sets package
+===========================================
+
+Submodules
+----------
+
+subgroups.algorithms.subgroup\_sets.bsd module
+----------------------------------------------
+
+.. automodule:: subgroups.algorithms.subgroup_sets.bsd
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+subgroups.algorithms.subgroup\_sets.cbsd module
+-----------------------------------------------
+
+.. automodule:: subgroups.algorithms.subgroup_sets.cbsd
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+subgroups.algorithms.subgroup\_sets.cpbsd module
+------------------------------------------------
+
+.. automodule:: subgroups.algorithms.subgroup_sets.cpbsd
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+subgroups.algorithms.subgroup\_sets.qfinder module
+--------------------------------------------------
+
+.. automodule:: subgroups.algorithms.subgroup_sets.qfinder
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+subgroups.algorithms.subgroup\_sets.sdmap module
+------------------------------------------------
+
+.. automodule:: subgroups.algorithms.subgroup_sets.sdmap
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+subgroups.algorithms.subgroup\_sets.sdmapstar module
+----------------------------------------------------
+
+.. automodule:: subgroups.algorithms.subgroup_sets.sdmapstar
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+subgroups.algorithms.subgroup\_sets.vlsd module
+-----------------------------------------------
+
+.. automodule:: subgroups.algorithms.subgroup_sets.vlsd
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: subgroups.algorithms.subgroup_sets
+   :members:
+   :undoc-members:
+   :show-inheritance:

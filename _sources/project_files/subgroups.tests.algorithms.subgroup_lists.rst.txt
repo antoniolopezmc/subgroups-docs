@@ -1,0 +1,29 @@
+subgroups.tests.algorithms.subgroup\_lists package
+==================================================
+
+Submodules
+----------
+
+subgroups.tests.algorithms.subgroup\_lists.test\_dslm module
+------------------------------------------------------------
+
+.. automodule:: subgroups.tests.algorithms.subgroup_lists.test_dslm
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+subgroups.tests.algorithms.subgroup\_lists.test\_gmsl module
+------------------------------------------------------------
+
+.. automodule:: subgroups.tests.algorithms.subgroup_lists.test_gmsl
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: subgroups.tests.algorithms.subgroup_lists
+   :members:
+   :undoc-members:
+   :show-inheritance:

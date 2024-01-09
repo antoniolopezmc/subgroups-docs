@@ -1,0 +1,53 @@
+subgroups.tests.data\_structures package
+========================================
+
+Submodules
+----------
+
+subgroups.tests.data\_structures.test\_fp\_tree\_for\_sdmap module
+------------------------------------------------------------------
+
+.. automodule:: subgroups.tests.data_structures.test_fp_tree_for_sdmap
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+subgroups.tests.data\_structures.test\_fp\_tree\_node module
+------------------------------------------------------------
+
+.. automodule:: subgroups.tests.data_structures.test_fp_tree_node
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+subgroups.tests.data\_structures.test\_subgroup\_list module
+------------------------------------------------------------
+
+.. automodule:: subgroups.tests.data_structures.test_subgroup_list
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+subgroups.tests.data\_structures.test\_vertical\_list\_with\_bitsets module
+---------------------------------------------------------------------------
+
+.. automodule:: subgroups.tests.data_structures.test_vertical_list_with_bitsets
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+subgroups.tests.data\_structures.test\_vertical\_list\_with\_sets module
+------------------------------------------------------------------------
+
+.. automodule:: subgroups.tests.data_structures.test_vertical_list_with_sets
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: subgroups.tests.data_structures
+   :members:
+   :undoc-members:
+   :show-inheritance:

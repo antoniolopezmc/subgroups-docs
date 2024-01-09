@@ -1,0 +1,37 @@
+subgroups.algorithms.subgroup\_lists package
+============================================
+
+Submodules
+----------
+
+subgroups.algorithms.subgroup\_lists.dslm module
+------------------------------------------------
+
+.. automodule:: subgroups.algorithms.subgroup_lists.dslm
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+subgroups.algorithms.subgroup\_lists.gmsl module
+------------------------------------------------
+
+.. automodule:: subgroups.algorithms.subgroup_lists.gmsl
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+subgroups.algorithms.subgroup\_lists.psld module
+------------------------------------------------
+
+.. automodule:: subgroups.algorithms.subgroup_lists.psld
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: subgroups.algorithms.subgroup_lists
+   :members:
+   :undoc-members:
+   :show-inheritance:

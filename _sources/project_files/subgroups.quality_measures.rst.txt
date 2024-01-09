@@ -1,0 +1,165 @@
+subgroups.quality\_measures package
+===================================
+
+Submodules
+----------
+
+subgroups.quality\_measures.absolute\_wracc module
+--------------------------------------------------
+
+.. automodule:: subgroups.quality_measures.absolute_wracc
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+subgroups.quality\_measures.binomial\_test module
+-------------------------------------------------
+
+.. automodule:: subgroups.quality_measures.binomial_test
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+subgroups.quality\_measures.binomial\_test\_optimistic\_estimate\_1 module
+--------------------------------------------------------------------------
+
+.. automodule:: subgroups.quality_measures.binomial_test_optimistic_estimate_1
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+subgroups.quality\_measures.coverage module
+-------------------------------------------
+
+.. automodule:: subgroups.quality_measures.coverage
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+subgroups.quality\_measures.f1\_score module
+--------------------------------------------
+
+.. automodule:: subgroups.quality_measures.f1_score
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+subgroups.quality\_measures.irr module
+--------------------------------------
+
+.. automodule:: subgroups.quality_measures.irr
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+subgroups.quality\_measures.npv module
+--------------------------------------
+
+.. automodule:: subgroups.quality_measures.npv
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+subgroups.quality\_measures.piatetsky\_shapiro module
+-----------------------------------------------------
+
+.. automodule:: subgroups.quality_measures.piatetsky_shapiro
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+subgroups.quality\_measures.piatetsky\_shapiro\_optimistic\_estimate\_1 module
+------------------------------------------------------------------------------
+
+.. automodule:: subgroups.quality_measures.piatetsky_shapiro_optimistic_estimate_1
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+subgroups.quality\_measures.piatetsky\_shapiro\_optimistic\_estimate\_2 module
+------------------------------------------------------------------------------
+
+.. automodule:: subgroups.quality_measures.piatetsky_shapiro_optimistic_estimate_2
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+subgroups.quality\_measures.ppv module
+--------------------------------------
+
+.. automodule:: subgroups.quality_measures.ppv
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+subgroups.quality\_measures.qg module
+-------------------------------------
+
+.. automodule:: subgroups.quality_measures.qg
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+subgroups.quality\_measures.quality\_measure module
+---------------------------------------------------
+
+.. automodule:: subgroups.quality_measures.quality_measure
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+subgroups.quality\_measures.sensitivity module
+----------------------------------------------
+
+.. automodule:: subgroups.quality_measures.sensitivity
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+subgroups.quality\_measures.specificity module
+----------------------------------------------
+
+.. automodule:: subgroups.quality_measures.specificity
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+subgroups.quality\_measures.support module
+------------------------------------------
+
+.. automodule:: subgroups.quality_measures.support
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+subgroups.quality\_measures.wracc module
+----------------------------------------
+
+.. automodule:: subgroups.quality_measures.wracc
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+subgroups.quality\_measures.wracc\_optimistic\_estimate\_1 module
+-----------------------------------------------------------------
+
+.. automodule:: subgroups.quality_measures.wracc_optimistic_estimate_1
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+subgroups.quality\_measures.youden module
+-----------------------------------------
+
+.. automodule:: subgroups.quality_measures.youden
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: subgroups.quality_measures
+   :members:
+   :undoc-members:
+   :show-inheritance:

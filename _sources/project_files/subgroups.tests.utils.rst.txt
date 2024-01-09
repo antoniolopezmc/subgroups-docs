@@ -1,0 +1,21 @@
+subgroups.tests.utils package
+=============================
+
+Submodules
+----------
+
+subgroups.tests.utils.test\_dataframe\_filters module
+-----------------------------------------------------
+
+.. automodule:: subgroups.tests.utils.test_dataframe_filters
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: subgroups.tests.utils
+   :members:
+   :undoc-members:
+   :show-inheritance:

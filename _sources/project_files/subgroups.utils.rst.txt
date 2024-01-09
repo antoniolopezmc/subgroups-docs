@@ -1,0 +1,29 @@
+subgroups.utils package
+=======================
+
+Submodules
+----------
+
+subgroups.utils.dataframe\_filters module
+-----------------------------------------
+
+.. automodule:: subgroups.utils.dataframe_filters
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+subgroups.utils.mdl module
+--------------------------
+
+.. automodule:: subgroups.utils.mdl
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: subgroups.utils
+   :members:
+   :undoc-members:
+   :show-inheritance:

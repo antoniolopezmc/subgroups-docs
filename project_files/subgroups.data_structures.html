@@ -1,0 +1,1192 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>subgroups.data_structures package &mdash; subgroups 0.1.5 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=92fd9be5" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=59fadc99"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="subgroups.datasets package" href="subgroups.datasets.html" />
+    <link rel="prev" title="subgroups.core package" href="subgroups.core.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            subgroups
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="subgroups.html">subgroups package</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="subgroups.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="subgroups.algorithms.html">subgroups.algorithms package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="subgroups.core.html">subgroups.core package</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">subgroups.data_structures package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-subgroups.data_structures.bitset_bsd">subgroups.data_structures.bitset_bsd module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-subgroups.data_structures.bitset_qfinder">subgroups.data_structures.bitset_qfinder module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-subgroups.data_structures.fp_tree_for_sdmap">subgroups.data_structures.fp_tree_for_sdmap module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-subgroups.data_structures.fp_tree_for_sdmapstar">subgroups.data_structures.fp_tree_for_sdmapstar module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-subgroups.data_structures.fp_tree_node">subgroups.data_structures.fp_tree_node module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-subgroups.data_structures.subgroup_list">subgroups.data_structures.subgroup_list module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-subgroups.data_structures.vertical_list">subgroups.data_structures.vertical_list module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-subgroups.data_structures.vertical_list_with_bitsets">subgroups.data_structures.vertical_list_with_bitsets module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-subgroups.data_structures.vertical_list_with_sets">subgroups.data_structures.vertical_list_with_sets module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-subgroups.data_structures">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="subgroups.datasets.html">subgroups.datasets package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="subgroups.quality_measures.html">subgroups.quality_measures package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="subgroups.tests.html">subgroups.tests package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="subgroups.utils.html">subgroups.utils package</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="subgroups.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="subgroups.html#module-subgroups.exceptions">subgroups.exceptions module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="subgroups.html#module-subgroups">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="subgroups.algorithms.html">subgroups.algorithms package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="subgroups.core.html">subgroups.core package</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">subgroups.data_structures package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-subgroups.data_structures.bitset_bsd">subgroups.data_structures.bitset_bsd module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#subgroups.data_structures.bitset_bsd.BitsetBSD"><code class="docutils literal notranslate"><span class="pre">BitsetBSD</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.data_structures.bitset_bsd.BitsetBSD.bitset_neg"><code class="docutils literal notranslate"><span class="pre">BitsetBSD.bitset_neg</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.data_structures.bitset_bsd.BitsetBSD.bitset_pos"><code class="docutils literal notranslate"><span class="pre">BitsetBSD.bitset_pos</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.data_structures.bitset_bsd.BitsetBSD.build_bitset"><code class="docutils literal notranslate"><span class="pre">BitsetBSD.build_bitset()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.data_structures.bitset_bsd.BitsetBSD.generate_set_of_frequent_selectors"><code class="docutils literal notranslate"><span class="pre">BitsetBSD.generate_set_of_frequent_selectors()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#subgroups.data_structures.bitset_bsd.BitsetDictionary"><code class="docutils literal notranslate"><span class="pre">BitsetDictionary</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-subgroups.data_structures.bitset_qfinder">subgroups.data_structures.bitset_qfinder module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#subgroups.data_structures.bitset_qfinder.Bitset_QFinder"><code class="docutils literal notranslate"><span class="pre">Bitset_QFinder</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.data_structures.bitset_qfinder.Bitset_QFinder.compute_credibility_measures"><code class="docutils literal notranslate"><span class="pre">Bitset_QFinder.compute_credibility_measures()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.data_structures.bitset_qfinder.Bitset_QFinder.generate_bitset"><code class="docutils literal notranslate"><span class="pre">Bitset_QFinder.generate_bitset()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.data_structures.bitset_qfinder.Bitset_QFinder.get_non_empty_patterns"><code class="docutils literal notranslate"><span class="pre">Bitset_QFinder.get_non_empty_patterns()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-subgroups.data_structures.fp_tree_for_sdmap">subgroups.data_structures.fp_tree_for_sdmap module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#subgroups.data_structures.fp_tree_for_sdmap.FPTreeForSDMap"><code class="docutils literal notranslate"><span class="pre">FPTreeForSDMap</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.data_structures.fp_tree_for_sdmap.FPTreeForSDMap.build_tree"><code class="docutils literal notranslate"><span class="pre">FPTreeForSDMap.build_tree()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.data_structures.fp_tree_for_sdmap.FPTreeForSDMap.generate_conditional_fp_tree"><code class="docutils literal notranslate"><span class="pre">FPTreeForSDMap.generate_conditional_fp_tree()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.data_structures.fp_tree_for_sdmap.FPTreeForSDMap.generate_set_of_frequent_selectors"><code class="docutils literal notranslate"><span class="pre">FPTreeForSDMap.generate_set_of_frequent_selectors()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.data_structures.fp_tree_for_sdmap.FPTreeForSDMap.header_table"><code class="docutils literal notranslate"><span class="pre">FPTreeForSDMap.header_table</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.data_structures.fp_tree_for_sdmap.FPTreeForSDMap.header_table_as_str"><code class="docutils literal notranslate"><span class="pre">FPTreeForSDMap.header_table_as_str()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.data_structures.fp_tree_for_sdmap.FPTreeForSDMap.is_empty"><code class="docutils literal notranslate"><span class="pre">FPTreeForSDMap.is_empty()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.data_structures.fp_tree_for_sdmap.FPTreeForSDMap.root_node"><code class="docutils literal notranslate"><span class="pre">FPTreeForSDMap.root_node</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.data_structures.fp_tree_for_sdmap.FPTreeForSDMap.sorted_header_table"><code class="docutils literal notranslate"><span class="pre">FPTreeForSDMap.sorted_header_table</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.data_structures.fp_tree_for_sdmap.FPTreeForSDMap.there_is_a_single_path"><code class="docutils literal notranslate"><span class="pre">FPTreeForSDMap.there_is_a_single_path()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.data_structures.fp_tree_for_sdmap.FPTreeForSDMap.tree_as_str"><code class="docutils literal notranslate"><span class="pre">FPTreeForSDMap.tree_as_str()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-subgroups.data_structures.fp_tree_for_sdmapstar">subgroups.data_structures.fp_tree_for_sdmapstar module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#subgroups.data_structures.fp_tree_for_sdmapstar.FPTreeForSDMapStar"><code class="docutils literal notranslate"><span class="pre">FPTreeForSDMapStar</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.data_structures.fp_tree_for_sdmapstar.FPTreeForSDMapStar.generate_conditional_fp_tree_star"><code class="docutils literal notranslate"><span class="pre">FPTreeForSDMapStar.generate_conditional_fp_tree_star()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-subgroups.data_structures.fp_tree_node">subgroups.data_structures.fp_tree_node module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#subgroups.data_structures.fp_tree_node.FPTreeNode"><code class="docutils literal notranslate"><span class="pre">FPTreeNode</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.data_structures.fp_tree_node.FPTreeNode.add_child"><code class="docutils literal notranslate"><span class="pre">FPTreeNode.add_child()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.data_structures.fp_tree_node.FPTreeNode.counters"><code class="docutils literal notranslate"><span class="pre">FPTreeNode.counters</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.data_structures.fp_tree_node.FPTreeNode.delete_child_by_selector"><code class="docutils literal notranslate"><span class="pre">FPTreeNode.delete_child_by_selector()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.data_structures.fp_tree_node.FPTreeNode.get_child_by_selector"><code class="docutils literal notranslate"><span class="pre">FPTreeNode.get_child_by_selector()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.data_structures.fp_tree_node.FPTreeNode.has_this_child"><code class="docutils literal notranslate"><span class="pre">FPTreeNode.has_this_child()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.data_structures.fp_tree_node.FPTreeNode.is_child_of"><code class="docutils literal notranslate"><span class="pre">FPTreeNode.is_child_of()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.data_structures.fp_tree_node.FPTreeNode.node_link"><code class="docutils literal notranslate"><span class="pre">FPTreeNode.node_link</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.data_structures.fp_tree_node.FPTreeNode.number_of_children"><code class="docutils literal notranslate"><span class="pre">FPTreeNode.number_of_children</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.data_structures.fp_tree_node.FPTreeNode.parent"><code class="docutils literal notranslate"><span class="pre">FPTreeNode.parent</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.data_structures.fp_tree_node.FPTreeNode.selector"><code class="docutils literal notranslate"><span class="pre">FPTreeNode.selector</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.data_structures.fp_tree_node.FPTreeNode.tree_as_str"><code class="docutils literal notranslate"><span class="pre">FPTreeNode.tree_as_str()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-subgroups.data_structures.subgroup_list">subgroups.data_structures.subgroup_list module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#subgroups.data_structures.subgroup_list.SubgroupList"><code class="docutils literal notranslate"><span class="pre">SubgroupList</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.data_structures.subgroup_list.SubgroupList.add_subgroup"><code class="docutils literal notranslate"><span class="pre">SubgroupList.add_subgroup()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.data_structures.subgroup_list.SubgroupList.dataset_number_of_negatives"><code class="docutils literal notranslate"><span class="pre">SubgroupList.dataset_number_of_negatives</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.data_structures.subgroup_list.SubgroupList.dataset_number_of_positives"><code class="docutils literal notranslate"><span class="pre">SubgroupList.dataset_number_of_positives</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.data_structures.subgroup_list.SubgroupList.dataset_target_distribution"><code class="docutils literal notranslate"><span class="pre">SubgroupList.dataset_target_distribution</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.data_structures.subgroup_list.SubgroupList.default_rule_bitarray_of_negatives"><code class="docutils literal notranslate"><span class="pre">SubgroupList.default_rule_bitarray_of_negatives</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.data_structures.subgroup_list.SubgroupList.default_rule_bitarray_of_positives"><code class="docutils literal notranslate"><span class="pre">SubgroupList.default_rule_bitarray_of_positives</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.data_structures.subgroup_list.SubgroupList.delete_last_subgroup"><code class="docutils literal notranslate"><span class="pre">SubgroupList.delete_last_subgroup()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.data_structures.subgroup_list.SubgroupList.get_subgroup"><code class="docutils literal notranslate"><span class="pre">SubgroupList.get_subgroup()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.data_structures.subgroup_list.SubgroupList.get_subgroup_bitarray_of_negatives"><code class="docutils literal notranslate"><span class="pre">SubgroupList.get_subgroup_bitarray_of_negatives()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.data_structures.subgroup_list.SubgroupList.get_subgroup_bitarray_of_positives"><code class="docutils literal notranslate"><span class="pre">SubgroupList.get_subgroup_bitarray_of_positives()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.data_structures.subgroup_list.SubgroupList.get_subgroup_original_bitarray_of_negatives"><code class="docutils literal notranslate"><span class="pre">SubgroupList.get_subgroup_original_bitarray_of_negatives()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.data_structures.subgroup_list.SubgroupList.get_subgroup_original_bitarray_of_positives"><code class="docutils literal notranslate"><span class="pre">SubgroupList.get_subgroup_original_bitarray_of_positives()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.data_structures.subgroup_list.SubgroupList.is_empty"><code class="docutils literal notranslate"><span class="pre">SubgroupList.is_empty()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.data_structures.subgroup_list.SubgroupList.number_of_dataset_instances"><code class="docutils literal notranslate"><span class="pre">SubgroupList.number_of_dataset_instances</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-subgroups.data_structures.vertical_list">subgroups.data_structures.vertical_list module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#subgroups.data_structures.vertical_list.VerticalList"><code class="docutils literal notranslate"><span class="pre">VerticalList</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.data_structures.vertical_list.VerticalList.compute_quality_value"><code class="docutils literal notranslate"><span class="pre">VerticalList.compute_quality_value()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.data_structures.vertical_list.VerticalList.fp"><code class="docutils literal notranslate"><span class="pre">VerticalList.fp</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.data_structures.vertical_list.VerticalList.join"><code class="docutils literal notranslate"><span class="pre">VerticalList.join()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.data_structures.vertical_list.VerticalList.list_of_selectors"><code class="docutils literal notranslate"><span class="pre">VerticalList.list_of_selectors</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.data_structures.vertical_list.VerticalList.n"><code class="docutils literal notranslate"><span class="pre">VerticalList.n</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.data_structures.vertical_list.VerticalList.number_of_dataset_instances"><code class="docutils literal notranslate"><span class="pre">VerticalList.number_of_dataset_instances</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.data_structures.vertical_list.VerticalList.quality_value"><code class="docutils literal notranslate"><span class="pre">VerticalList.quality_value</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.data_structures.vertical_list.VerticalList.sequence_of_instances_fp"><code class="docutils literal notranslate"><span class="pre">VerticalList.sequence_of_instances_fp</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.data_structures.vertical_list.VerticalList.sequence_of_instances_tp"><code class="docutils literal notranslate"><span class="pre">VerticalList.sequence_of_instances_tp</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.data_structures.vertical_list.VerticalList.tp"><code class="docutils literal notranslate"><span class="pre">VerticalList.tp</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-subgroups.data_structures.vertical_list_with_bitsets">subgroups.data_structures.vertical_list_with_bitsets module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#subgroups.data_structures.vertical_list_with_bitsets.VerticalListWithBitsets"><code class="docutils literal notranslate"><span class="pre">VerticalListWithBitsets</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.data_structures.vertical_list_with_bitsets.VerticalListWithBitsets.compute_quality_value"><code class="docutils literal notranslate"><span class="pre">VerticalListWithBitsets.compute_quality_value()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.data_structures.vertical_list_with_bitsets.VerticalListWithBitsets.fp"><code class="docutils literal notranslate"><span class="pre">VerticalListWithBitsets.fp</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.data_structures.vertical_list_with_bitsets.VerticalListWithBitsets.join"><code class="docutils literal notranslate"><span class="pre">VerticalListWithBitsets.join()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.data_structures.vertical_list_with_bitsets.VerticalListWithBitsets.n"><code class="docutils literal notranslate"><span class="pre">VerticalListWithBitsets.n</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.data_structures.vertical_list_with_bitsets.VerticalListWithBitsets.sequence_of_instances_fp"><code class="docutils literal notranslate"><span class="pre">VerticalListWithBitsets.sequence_of_instances_fp</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.data_structures.vertical_list_with_bitsets.VerticalListWithBitsets.sequence_of_instances_tp"><code class="docutils literal notranslate"><span class="pre">VerticalListWithBitsets.sequence_of_instances_tp</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.data_structures.vertical_list_with_bitsets.VerticalListWithBitsets.tp"><code class="docutils literal notranslate"><span class="pre">VerticalListWithBitsets.tp</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-subgroups.data_structures.vertical_list_with_sets">subgroups.data_structures.vertical_list_with_sets module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#subgroups.data_structures.vertical_list_with_sets.VerticalListWithSets"><code class="docutils literal notranslate"><span class="pre">VerticalListWithSets</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.data_structures.vertical_list_with_sets.VerticalListWithSets.compute_quality_value"><code class="docutils literal notranslate"><span class="pre">VerticalListWithSets.compute_quality_value()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.data_structures.vertical_list_with_sets.VerticalListWithSets.fp"><code class="docutils literal notranslate"><span class="pre">VerticalListWithSets.fp</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.data_structures.vertical_list_with_sets.VerticalListWithSets.join"><code class="docutils literal notranslate"><span class="pre">VerticalListWithSets.join()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.data_structures.vertical_list_with_sets.VerticalListWithSets.n"><code class="docutils literal notranslate"><span class="pre">VerticalListWithSets.n</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.data_structures.vertical_list_with_sets.VerticalListWithSets.sequence_of_instances_fp"><code class="docutils literal notranslate"><span class="pre">VerticalListWithSets.sequence_of_instances_fp</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.data_structures.vertical_list_with_sets.VerticalListWithSets.sequence_of_instances_tp"><code class="docutils literal notranslate"><span class="pre">VerticalListWithSets.sequence_of_instances_tp</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.data_structures.vertical_list_with_sets.VerticalListWithSets.tp"><code class="docutils literal notranslate"><span class="pre">VerticalListWithSets.tp</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-subgroups.data_structures">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="subgroups.quality_measures.html">subgroups.quality_measures package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="subgroups.tests.html">subgroups.tests package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="subgroups.utils.html">subgroups.utils package</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">subgroups</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="subgroups.html">subgroups package</a></li>
+      <li class="breadcrumb-item active">subgroups.data_structures package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/project_files/subgroups.data_structures.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="subgroups-data-structures-package">
+<h1>subgroups.data_structures package<a class="headerlink" href="#subgroups-data-structures-package" title="Link to this heading"></a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
+</section>
+<section id="module-subgroups.data_structures.bitset_bsd">
+<span id="subgroups-data-structures-bitset-bsd-module"></span><h2>subgroups.data_structures.bitset_bsd module<a class="headerlink" href="#module-subgroups.data_structures.bitset_bsd" title="Link to this heading"></a></h2>
+<p>This file contains the implementation of the Bitset data structure used in the BSD algorithm and its variants.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="subgroups.data_structures.bitset_bsd.BitsetBSD">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">subgroups.data_structures.bitset_bsd.</span></span><span class="sig-name descname"><span class="pre">BitsetBSD</span></span><a class="headerlink" href="#subgroups.data_structures.bitset_bsd.BitsetBSD" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>This class represents a bitset used in the BSD algorithm and its variants.</p>
+<dl class="py property">
+<dt class="sig sig-object py" id="subgroups.data_structures.bitset_bsd.BitsetBSD.bitset_neg">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">bitset_neg</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dict</span></em><a class="headerlink" href="#subgroups.data_structures.bitset_bsd.BitsetBSD.bitset_neg" title="Link to this definition"></a></dt>
+<dd><p>The bitset dictionary for rows that do not match the target value.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="subgroups.data_structures.bitset_bsd.BitsetBSD.bitset_pos">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">bitset_pos</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dict</span></em><a class="headerlink" href="#subgroups.data_structures.bitset_bsd.BitsetBSD.bitset_pos" title="Link to this definition"></a></dt>
+<dd><p>The bitset dictionary for rows that match the target value.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.data_structures.bitset_bsd.BitsetBSD.build_bitset">
+<span class="sig-name descname"><span class="pre">build_bitset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pandas_dataframe</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">set_of_frequent_selectors</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tuple_target_attribute_value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.data_structures.bitset_bsd.BitsetBSD.build_bitset" title="Link to this definition"></a></dt>
+<dd><p>Method to build the complete tree from the root node using a set of frequent selectors.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pandas_dataframe</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.core.frame.DataFrame</span></code></span>) – Input dataset. It is VERY IMPORTANT to respect the following conditions:
+(1) the dataset must be a pandas dataframe,
+(2) the dataset must not contain missing values,
+(3) for each attribute, all its values must be of the same type.</p></li>
+<li><p><strong>set_of_frequent_selectors</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></span>) – The set of frequent selectors (L) to use in the building of the tree.</p></li>
+<li><p><strong>tuple_target_attribute_value</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code></span>) – Tuple with the name of the target attribute (first element) and with the value of this attribute (second element). EXAMPLE1: (“age”, 25). EXAMPLE2: (“class”, “Setosa”). It is VERY IMPORTANT to respect the following conditions:
+(1) the name of the target attribute MUST be a string,
+(2) the name of the target attribute MUST exist in the dataset,
+(3) it is VERY IMPORTANT to respect the types of the attributes: the value in the tuple (second element) MUST BE comparable with the values of the corresponding attribute in the dataset,
+(4) the value of the target attribute MUST exist in the dataset.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.data_structures.bitset_bsd.BitsetBSD.generate_set_of_frequent_selectors">
+<span class="sig-name descname"><span class="pre">generate_set_of_frequent_selectors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pandas_dataframe</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tuple_target_attribute_value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_support</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.data_structures.bitset_bsd.BitsetBSD.generate_set_of_frequent_selectors" title="Link to this definition"></a></dt>
+<dd><p>Method to scan the dataset (ONLY DISCRETE/NOMINAL ATTRIBUTES) and collect the sorted set of frequent selectors (L).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pandas_dataframe</strong> (<em>pandas.DataFrame</em>) – Input dataset. It is VERY IMPORTANT to respect the following conditions:
+(1) the dataset must be a pandas dataframe,
+(2) the dataset must not contain missing values,
+(3) for each attribute, all its values must be of the same type.</p></li>
+<li><p><strong>tuple_target_attribute_value</strong> (<em>tuple</em>) – Tuple with the name of the target attribute (first element) and with the value of this attribute (second element). EXAMPLE1: (“age”, 25). EXAMPLE2: (“class”, “Setosa”). It is VERY IMPORTANT to respect the following conditions:
+(1) the name of the target attribute MUST be a string,
+(2) the name of the target attribute MUST exist in the dataset,
+(3) it is VERY IMPORTANT to respect the types of the attributes: the value in the tuple (second element) MUST BE comparable with the values of the corresponding attribute in the dataset,
+(4) the value of the target attribute MUST exist in the dataset.</p></li>
+<li><p><strong>min_support</strong> (<em>int</em>) – Minimum support threshold (NUMBER OF TIMES, NOT A PROPORTION).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>list</p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>the sorted set of frequent selectors (L) as a list.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="subgroups.data_structures.bitset_bsd.BitsetDictionary">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">subgroups.data_structures.bitset_bsd.</span></span><span class="sig-name descname"><span class="pre">BitsetDictionary</span></span><a class="headerlink" href="#subgroups.data_structures.bitset_bsd.BitsetDictionary" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></p>
+<p>Internal class to implement the dicttionaries used in the bitset. This dictionary only allows to insert a Pattern or a Selector as key.
+If a Selector is inserted, it is converted to a Pattern. Each entry must store a bitarray.</p>
+</dd></dl>
+
+</section>
+<section id="module-subgroups.data_structures.bitset_qfinder">
+<span id="subgroups-data-structures-bitset-qfinder-module"></span><h2>subgroups.data_structures.bitset_qfinder module<a class="headerlink" href="#module-subgroups.data_structures.bitset_qfinder" title="Link to this heading"></a></h2>
+<p>This file contains the implementation of the Bitset data structure used in the QFinder to create the regression models.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="subgroups.data_structures.bitset_qfinder.Bitset_QFinder">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">subgroups.data_structures.bitset_qfinder.</span></span><span class="sig-name descname"><span class="pre">Bitset_QFinder</span></span><a class="headerlink" href="#subgroups.data_structures.bitset_qfinder.Bitset_QFinder" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>This class represents a bitset used in the QFinder algorithm.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.data_structures.bitset_qfinder.Bitset_QFinder.compute_credibility_measures">
+<span class="sig-name descname"><span class="pre">compute_credibility_measures</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target_column</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.data_structures.bitset_qfinder.Bitset_QFinder.compute_credibility_measures" title="Link to this definition"></a></dt>
+<dd><p>Method to compute the credibility measures for each candidate pattern.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>target_column</strong> – target column of the dataset.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code>]</span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>a tuple with dictionaries with the credibility values for each candidate pattern.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.data_structures.bitset_qfinder.Bitset_QFinder.generate_bitset">
+<span class="sig-name descname"><span class="pre">generate_bitset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tuple_target_attribute_value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">list_of_candidate_patterns</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.data_structures.bitset_qfinder.Bitset_QFinder.generate_bitset" title="Link to this definition"></a></dt>
+<dd><p>This method generates a bitset from a dataset and a list of candidate patterns.
+Each column of the bitset represents a candidate pattern and each row represents an instance of the dataset.
+The value of each cell is True if the corresponding pattern appears in the corresponding instance and False otherwise.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.core.frame.DataFrame</span></code></span>) – dataset from which the bitset is generated.</p></li>
+<li><p><strong>tuple_target_attribute_value</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code></span>) – tuple which contains the name of the target attribute and its value.</p></li>
+<li><p><strong>list_of_candidate_patterns</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code>[<a class="reference internal" href="subgroups.core.html#subgroups.core.pattern.Pattern" title="subgroups.core.pattern.Pattern"><code class="xref py py-class docutils literal notranslate"><span class="pre">subgroups.core.pattern.Pattern</span></code></a>]</span>) – list of candidate patterns.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.data_structures.bitset_qfinder.Bitset_QFinder.get_non_empty_patterns">
+<span class="sig-name descname"><span class="pre">get_non_empty_patterns</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.data_structures.bitset_qfinder.Bitset_QFinder.get_non_empty_patterns" title="Link to this definition"></a></dt>
+<dd><p>Method to get the candidate patterns after removing those that do not appear in the dataset.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code>[<a class="reference internal" href="subgroups.core.html#subgroups.core.pattern.Pattern" title="subgroups.core.pattern.Pattern"><code class="xref py py-class docutils literal notranslate"><span class="pre">subgroups.core.pattern.Pattern</span></code></a>]</span></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-subgroups.data_structures.fp_tree_for_sdmap">
+<span id="subgroups-data-structures-fp-tree-for-sdmap-module"></span><h2>subgroups.data_structures.fp_tree_for_sdmap module<a class="headerlink" href="#module-subgroups.data_structures.fp_tree_for_sdmap" title="Link to this heading"></a></h2>
+<p>This file contains the implementation of the FPTree data structure used in the SDMap algorithm.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="subgroups.data_structures.fp_tree_for_sdmap.FPTreeForSDMap">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">subgroups.data_structures.fp_tree_for_sdmap.</span></span><span class="sig-name descname"><span class="pre">FPTreeForSDMap</span></span><a class="headerlink" href="#subgroups.data_structures.fp_tree_for_sdmap.FPTreeForSDMap" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>This class represents the FPTree data structure used in the SDMap algorithm.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.data_structures.fp_tree_for_sdmap.FPTreeForSDMap.build_tree">
+<span class="sig-name descname"><span class="pre">build_tree</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pandas_dataframe</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">set_of_frequent_selectors</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.data_structures.fp_tree_for_sdmap.FPTreeForSDMap.build_tree" title="Link to this definition"></a></dt>
+<dd><p>Method to build the complete FPTree from a pandas DataFrame and using the set of frequent selectors. IMPORTANT: missing values are not supported yet.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pandas_dataframe</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.core.frame.DataFrame</span></code></span>) – the DataFrame which is scanned. IMPORTANT: missing values are not supported yet.</p></li>
+<li><p><strong>set_of_frequent_selectors</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code>[<a class="reference internal" href="subgroups.core.html#subgroups.core.selector.Selector" title="subgroups.core.selector.Selector"><code class="xref py py-class docutils literal notranslate"><span class="pre">subgroups.core.selector.Selector</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>], <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]]</span>) – the set of frequent selectors generated by the method ‘generate_set_of_frequent_selectors’.</p></li>
+<li><p><strong>target</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-data docutils literal notranslate"><span class="pre">typing.Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]]</span>) – a tuple with 2 elements: the target attribute name and the target value.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.data_structures.fp_tree_for_sdmap.FPTreeForSDMap.generate_conditional_fp_tree">
+<span class="sig-name descname"><span class="pre">generate_conditional_fp_tree</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">list_of_selectors</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minimum_tp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minimum_fp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minimum_n</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.data_structures.fp_tree_for_sdmap.FPTreeForSDMap.generate_conditional_fp_tree" title="Link to this definition"></a></dt>
+<dd><p>Method to get the conditional FPTree with a list of selectors. Two threshold types could be used: (1) the true positives tp and the false positives fp separately or (2) the subgroup description size n (n = tp + fp). This means that: (1) if ‘minimum_tp’ and ‘minimum_fp’ have a value of type ‘int’, ‘minimum_n’ must be None; and (2) if ‘minimum_n’ has a value of type ‘int’, ‘minimum_tp’ and ‘minimum_fp’ must be None.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>list_of_selectors</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code>[<a class="reference internal" href="subgroups.core.html#subgroups.core.selector.Selector" title="subgroups.core.selector.Selector"><code class="xref py py-class docutils literal notranslate"><span class="pre">subgroups.core.selector.Selector</span></code></a>]</span>) – the list of selectors which is used. IMPORTANT: we assume that the list of selectors only contains selectors.</p></li>
+<li><p><strong>minimum_tp</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">typing.Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]</span>) – the minimum true positives (tp) threshold.</p></li>
+<li><p><strong>minimum_fp</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">typing.Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]</span>) – the minimum false positives (fp) threshold.</p></li>
+<li><p><strong>minimum_n</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">typing.Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]</span>) – the minimum subgroup description size (n) threshold.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="#subgroups.data_structures.fp_tree_for_sdmap.FPTreeForSDMap" title="subgroups.data_structures.fp_tree_for_sdmap.FPTreeForSDMap"><code class="xref py py-class docutils literal notranslate"><span class="pre">subgroups.data_structures.fp_tree_for_sdmap.FPTreeForSDMap</span></code></a></span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>the generated conditional FPTree.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.data_structures.fp_tree_for_sdmap.FPTreeForSDMap.generate_set_of_frequent_selectors">
+<span class="sig-name descname"><span class="pre">generate_set_of_frequent_selectors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pandas_dataframe</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minimum_tp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minimum_fp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minimum_n</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.data_structures.fp_tree_for_sdmap.FPTreeForSDMap.generate_set_of_frequent_selectors" title="Link to this definition"></a></dt>
+<dd><p>Method to scan the pandas DataFrame in order to generate the set of frequent selectors. Two threshold types could be used: (1) the true positives tp and the false positives fp separately or (2) the subgroup description size n (n = tp + fp). This means that: (1) if ‘minimum_tp’ and ‘minimum_fp’ have a value of type ‘int’, ‘minimum_n’ must be None; and (2) if ‘minimum_n’ has a value of type ‘int’, ‘minimum_tp’ and ‘minimum_fp’ must be None. IMPORTANT: missing values are not supported yet.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pandas_dataframe</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.core.frame.DataFrame</span></code></span>) – the DataFrame which is scanned. IMPORTANT: missing values are not supported yet.</p></li>
+<li><p><strong>target</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-data docutils literal notranslate"><span class="pre">typing.Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]]</span>) – a tuple with 2 elements: the target attribute name and the target value.</p></li>
+<li><p><strong>minimum_tp</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">typing.Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]</span>) – the minimum true positives (tp) threshold.</p></li>
+<li><p><strong>minimum_fp</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">typing.Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]</span>) – the minimum false positives (fp) threshold.</p></li>
+<li><p><strong>minimum_n</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">typing.Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]</span>) – the minimum subgroup description size (n) threshold.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code>[<a class="reference internal" href="subgroups.core.html#subgroups.core.selector.Selector" title="subgroups.core.selector.Selector"><code class="xref py py-class docutils literal notranslate"><span class="pre">subgroups.core.selector.Selector</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>], <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]]</span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>a dictionary in which the keys are strings (the concatenation of the selector attribute name and the selector value) and the values are tuples with 3 elements: (1) the selector, (2) a list with 2 elements: the true positives tp of it and the false positives fp of it, and (3) a number indicating the insertion order in this dictionary (starting from 0).</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="subgroups.data_structures.fp_tree_for_sdmap.FPTreeForSDMap.header_table">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">header_table</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="subgroups.core.html#subgroups.core.selector.Selector" title="subgroups.core.selector.Selector"><span class="pre">Selector</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">object</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#subgroups.data_structures.fp_tree_for_sdmap.FPTreeForSDMap.header_table" title="Link to this definition"></a></dt>
+<dd><p>The header table.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.data_structures.fp_tree_for_sdmap.FPTreeForSDMap.header_table_as_str">
+<span class="sig-name descname"><span class="pre">header_table_as_str</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">follow_node_links</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.data_structures.fp_tree_for_sdmap.FPTreeForSDMap.header_table_as_str" title="Link to this definition"></a></dt>
+<dd><p>Method to print all the entries of the FPTree header table.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>follow_node_links</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></span>) – whether print all the FPTreeNode ids in the horizontal list or only the first one. By default, True.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>the printed header table.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.data_structures.fp_tree_for_sdmap.FPTreeForSDMap.is_empty">
+<span class="sig-name descname"><span class="pre">is_empty</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.data_structures.fp_tree_for_sdmap.FPTreeForSDMap.is_empty" title="Link to this definition"></a></dt>
+<dd><p>Method to check whether the FPTree only has the root node.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></span></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>whether the FPTree only has the root node.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="subgroups.data_structures.fp_tree_for_sdmap.FPTreeForSDMap.root_node">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">root_node</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#subgroups.data_structures.fp_tree_node.FPTreeNode" title="subgroups.data_structures.fp_tree_node.FPTreeNode"><span class="pre">FPTreeNode</span></a></em><a class="headerlink" href="#subgroups.data_structures.fp_tree_for_sdmap.FPTreeForSDMap.root_node" title="Link to this definition"></a></dt>
+<dd><p>The root of the tree.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="subgroups.data_structures.fp_tree_for_sdmap.FPTreeForSDMap.sorted_header_table">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">sorted_header_table</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">list</span></em><a class="headerlink" href="#subgroups.data_structures.fp_tree_for_sdmap.FPTreeForSDMap.sorted_header_table" title="Link to this definition"></a></dt>
+<dd><p>A list with the selectors of the header table sorted according to the summation of the ‘n’ (summation of the true positives tp + summation of the false positives fp).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.data_structures.fp_tree_for_sdmap.FPTreeForSDMap.there_is_a_single_path">
+<span class="sig-name descname"><span class="pre">there_is_a_single_path</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.data_structures.fp_tree_for_sdmap.FPTreeForSDMap.there_is_a_single_path" title="Link to this definition"></a></dt>
+<dd><p>Method to check whether all internal nodes only have 1 child.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></span></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>whether all internal nodes only have 1 child.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.data_structures.fp_tree_for_sdmap.FPTreeForSDMap.tree_as_str">
+<span class="sig-name descname"><span class="pre">tree_as_str</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.data_structures.fp_tree_for_sdmap.FPTreeForSDMap.tree_as_str" title="Link to this definition"></a></dt>
+<dd><p>Method to print as str the complete FPTree from the root node.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>the printed FPTree.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-subgroups.data_structures.fp_tree_for_sdmapstar">
+<span id="subgroups-data-structures-fp-tree-for-sdmapstar-module"></span><h2>subgroups.data_structures.fp_tree_for_sdmapstar module<a class="headerlink" href="#module-subgroups.data_structures.fp_tree_for_sdmapstar" title="Link to this heading"></a></h2>
+<p>This file contains the implementation of the FPTree data structure used in the SDMapStar algorithm.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="subgroups.data_structures.fp_tree_for_sdmapstar.FPTreeForSDMapStar">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">subgroups.data_structures.fp_tree_for_sdmapstar.</span></span><span class="sig-name descname"><span class="pre">FPTreeForSDMapStar</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">TP</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">FP</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.data_structures.fp_tree_for_sdmapstar.FPTreeForSDMapStar" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#subgroups.data_structures.fp_tree_for_sdmap.FPTreeForSDMap" title="subgroups.data_structures.fp_tree_for_sdmap.FPTreeForSDMap"><code class="xref py py-class docutils literal notranslate"><span class="pre">FPTreeForSDMap</span></code></a></p>
+<p>This class represents the FPTree data structure used in the SDMapStar algorithm.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.data_structures.fp_tree_for_sdmapstar.FPTreeForSDMapStar.generate_conditional_fp_tree_star">
+<span class="sig-name descname"><span class="pre">generate_conditional_fp_tree_star</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">list_of_selectors</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_optimistic_estimate</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optimistic_estimate</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">additional_parameters</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minimum_tp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minimum_fp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minimum_n</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.data_structures.fp_tree_for_sdmapstar.FPTreeForSDMapStar.generate_conditional_fp_tree_star" title="Link to this definition"></a></dt>
+<dd><p>Method to get the conditional FPTree with a list of selectors. Two threshold types could be used: (1) the true positives tp and the false positives fp separately or (2) the subgroup description size n (n = tp + fp). This means that: (1) if ‘minimum_tp’ and ‘minimum_fp’ have a value of type ‘int’, ‘minimum_n’ must be None; and (2) if ‘minimum_n’ has a value of type ‘int’, ‘minimum_tp’ and ‘minimum_fp’ must be None.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>list_of_selectors</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code>[<a class="reference internal" href="subgroups.core.html#subgroups.core.selector.Selector" title="subgroups.core.selector.Selector"><code class="xref py py-class docutils literal notranslate"><span class="pre">subgroups.core.selector.Selector</span></code></a>]</span>) – the list of selectors which is used. IMPORTANT: we assume that the list of selectors only contains selectors.</p></li>
+<li><p><strong>min_optimistic_estimate</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span>) – the minimum optimistic estimate threshold.</p></li>
+<li><p><strong>optimistic_estimate</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="subgroups.quality_measures.html#subgroups.quality_measures.quality_measure.QualityMeasure" title="subgroups.quality_measures.quality_measure.QualityMeasure"><code class="xref py py-class docutils literal notranslate"><span class="pre">subgroups.quality_measures.quality_measure.QualityMeasure</span></code></a></span>) – the optimistic estimate quality measure.</p></li>
+<li><p><strong>additional_parameters</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></span>) – the additional parameters for the optimistic estimate quality measure.</p></li>
+<li><p><strong>minimum_tp</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">typing.Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]</span>) – the minimum true positives (tp) threshold.</p></li>
+<li><p><strong>minimum_fp</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">typing.Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]</span>) – the minimum false positives (fp) threshold.</p></li>
+<li><p><strong>minimum_n</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">typing.Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]</span>) – the minimum subgroup description size (n) threshold.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code>[FPTreeForSDMapStar, <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]</span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>the generated conditional FPTree and the number of pruned branches.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-subgroups.data_structures.fp_tree_node">
+<span id="subgroups-data-structures-fp-tree-node-module"></span><h2>subgroups.data_structures.fp_tree_node module<a class="headerlink" href="#module-subgroups.data_structures.fp_tree_node" title="Link to this heading"></a></h2>
+<p>This file contains the implementation of a generic FPTree Node.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="subgroups.data_structures.fp_tree_node.FPTreeNode">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">subgroups.data_structures.fp_tree_node.</span></span><span class="sig-name descname"><span class="pre">FPTreeNode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">selector</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">counters</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">node_link</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.data_structures.fp_tree_node.FPTreeNode" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>This class represents a generic FPTree Node.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>selector</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="subgroups.core.html#subgroups.core.selector.Selector" title="subgroups.core.selector.Selector"><code class="xref py py-class docutils literal notranslate"><span class="pre">subgroups.core.selector.Selector</span></code></a></span>) – the Selector which is represented by this node.</p></li>
+<li><p><strong>counters</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]</span>) – a list with the needed counters (the meaning of its elements depends on the situation). IMPORTANT: we assume that this list only contains values of type ‘int’.</p></li>
+<li><p><strong>node_link</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">typing.Optional</span></code>[<a class="reference internal" href="#subgroups.data_structures.fp_tree_node.FPTreeNode" title="subgroups.data_structures.fp_tree_node.FPTreeNode"><code class="xref py py-class docutils literal notranslate"><span class="pre">subgroups.data_structures.fp_tree_node.FPTreeNode</span></code></a>]</span>) – the next node in the FPTree with the same selector as this one (or None if it does not exist).</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.data_structures.fp_tree_node.FPTreeNode.add_child">
+<span class="sig-name descname"><span class="pre">add_child</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">child_node</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.data_structures.fp_tree_node.FPTreeNode.add_child" title="Link to this definition"></a></dt>
+<dd><p>Method to add a child node to the current node. The current node will be the parent of the added child node. IMPORTANT: if there is already a child node with the same selector, a DuplicateFpTreeNodeError exception is raised.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>child_node</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="#subgroups.data_structures.fp_tree_node.FPTreeNode" title="subgroups.data_structures.fp_tree_node.FPTreeNode"><code class="xref py py-class docutils literal notranslate"><span class="pre">subgroups.data_structures.fp_tree_node.FPTreeNode</span></code></a></span>) – the child node which is added.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="subgroups.data_structures.fp_tree_node.FPTreeNode.counters">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">counters</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#subgroups.data_structures.fp_tree_node.FPTreeNode.counters" title="Link to this definition"></a></dt>
+<dd><p>A list with the needed counters (the meaning of its elements depends on the situation). IMPORTANT: we assume that this list only contains values of type ‘int’.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.data_structures.fp_tree_node.FPTreeNode.delete_child_by_selector">
+<span class="sig-name descname"><span class="pre">delete_child_by_selector</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">selector</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.data_structures.fp_tree_node.FPTreeNode.delete_child_by_selector" title="Link to this definition"></a></dt>
+<dd><p>Method to delete a child node from the current node by selector. The current node will not be the parent of the deleted child node anymore. IMPORTANT: if there is no child node with the selector, a KeyError exception is raised.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>selector</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="subgroups.core.html#subgroups.core.selector.Selector" title="subgroups.core.selector.Selector"><code class="xref py py-class docutils literal notranslate"><span class="pre">subgroups.core.selector.Selector</span></code></a></span>) – the selector which is used in order to delete the child node.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.data_structures.fp_tree_node.FPTreeNode.get_child_by_selector">
+<span class="sig-name descname"><span class="pre">get_child_by_selector</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">selector</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.data_structures.fp_tree_node.FPTreeNode.get_child_by_selector" title="Link to this definition"></a></dt>
+<dd><p>Method to get the child whose selector is passed by parameter. IMPORTANT: if there is no child node with that selector, this method return None.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>selector</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="subgroups.core.html#subgroups.core.selector.Selector" title="subgroups.core.selector.Selector"><code class="xref py py-class docutils literal notranslate"><span class="pre">subgroups.core.selector.Selector</span></code></a></span>) – the selector which is checked.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">typing.Optional</span></code>[<a class="reference internal" href="#subgroups.data_structures.fp_tree_node.FPTreeNode" title="subgroups.data_structures.fp_tree_node.FPTreeNode"><code class="xref py py-class docutils literal notranslate"><span class="pre">subgroups.data_structures.fp_tree_node.FPTreeNode</span></code></a>]</span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>the child whose selector is passed by parameter or None if it does not exist.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.data_structures.fp_tree_node.FPTreeNode.has_this_child">
+<span class="sig-name descname"><span class="pre">has_this_child</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.data_structures.fp_tree_node.FPTreeNode.has_this_child" title="Link to this definition"></a></dt>
+<dd><p>Method to check whether the node passed by parameter is a child of this one.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>node</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="#subgroups.data_structures.fp_tree_node.FPTreeNode" title="subgroups.data_structures.fp_tree_node.FPTreeNode"><code class="xref py py-class docutils literal notranslate"><span class="pre">subgroups.data_structures.fp_tree_node.FPTreeNode</span></code></a></span>) – the node which is checked.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>whether the node passed by parameter is a child of this one.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.data_structures.fp_tree_node.FPTreeNode.is_child_of">
+<span class="sig-name descname"><span class="pre">is_child_of</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.data_structures.fp_tree_node.FPTreeNode.is_child_of" title="Link to this definition"></a></dt>
+<dd><p>Method to check whether the node passed by parameter is the parent of this one or to check whether it does not exist parent (passing None by parameter).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>node</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">typing.Optional</span></code>[<a class="reference internal" href="#subgroups.data_structures.fp_tree_node.FPTreeNode" title="subgroups.data_structures.fp_tree_node.FPTreeNode"><code class="xref py py-class docutils literal notranslate"><span class="pre">subgroups.data_structures.fp_tree_node.FPTreeNode</span></code></a>]</span>) – the node which is checked or None.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>whether the node passed by parameter is the parent of this one or whether it does not exist parent (if None was passed by parameter).</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="subgroups.data_structures.fp_tree_node.FPTreeNode.node_link">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">node_link</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#subgroups.data_structures.fp_tree_node.FPTreeNode" title="subgroups.data_structures.fp_tree_node.FPTreeNode"><span class="pre">FPTreeNode</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#subgroups.data_structures.fp_tree_node.FPTreeNode.node_link" title="Link to this definition"></a></dt>
+<dd><p>The next node in the FPTree with the same selector as this one (or None if it does not exist).</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="subgroups.data_structures.fp_tree_node.FPTreeNode.number_of_children">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">number_of_children</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#subgroups.data_structures.fp_tree_node.FPTreeNode.number_of_children" title="Link to this definition"></a></dt>
+<dd><p>The number of children of this node.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="subgroups.data_structures.fp_tree_node.FPTreeNode.parent">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">parent</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#subgroups.data_structures.fp_tree_node.FPTreeNode" title="subgroups.data_structures.fp_tree_node.FPTreeNode"><span class="pre">FPTreeNode</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#subgroups.data_structures.fp_tree_node.FPTreeNode.parent" title="Link to this definition"></a></dt>
+<dd><p>The parent of this node</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="subgroups.data_structures.fp_tree_node.FPTreeNode.selector">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">selector</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="subgroups.core.html#subgroups.core.selector.Selector" title="subgroups.core.selector.Selector"><span class="pre">Selector</span></a></em><a class="headerlink" href="#subgroups.data_structures.fp_tree_node.FPTreeNode.selector" title="Link to this definition"></a></dt>
+<dd><p>The Selector which is represented by this node.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.data_structures.fp_tree_node.FPTreeNode.tree_as_str">
+<span class="sig-name descname"><span class="pre">tree_as_str</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">current_depth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.data_structures.fp_tree_node.FPTreeNode.tree_as_str" title="Link to this definition"></a></dt>
+<dd><p>Method to print as str the current node and the complete subtree from the current node.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>current_depth</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span>) – the depth of the current node. By default, 0.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>the printed result (the current node and the complete subtree from the current node).</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-subgroups.data_structures.subgroup_list">
+<span id="subgroups-data-structures-subgroup-list-module"></span><h2>subgroups.data_structures.subgroup_list module<a class="headerlink" href="#module-subgroups.data_structures.subgroup_list" title="Link to this heading"></a></h2>
+<p>This file contains the implementation of the Subgroup List data structure.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="subgroups.data_structures.subgroup_list.SubgroupList">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">subgroups.data_structures.subgroup_list.</span></span><span class="sig-name descname"><span class="pre">SubgroupList</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataset_target_bitarray_of_positives</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dataset_target_bitarray_of_negatives</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">number_of_dataset_instances</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.data_structures.subgroup_list.SubgroupList" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>This class represents a Subgroup List.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>bitarray_of_positives</strong> – the bitarray of the dataset instances which are covered by the target (its length must be equal to the number of instances of the dataset).</p></li>
+<li><p><strong>bitarray_of_negatives</strong> – the bitarray of the dataset instances which are not covered by the target (its length must be equal to the number of instances of the dataset).</p></li>
+<li><p><strong>number_of_dataset_instances</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span>) – number of instances of the dataset.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.data_structures.subgroup_list.SubgroupList.add_subgroup">
+<span class="sig-name descname"><span class="pre">add_subgroup</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">subgroup</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bitarray_of_positives</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bitarray_of_negatives</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.data_structures.subgroup_list.SubgroupList.add_subgroup" title="Link to this definition"></a></dt>
+<dd><p>Method to add an individual subgroup at the end of the subgroup list (and before the default rule).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>subgroup</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="subgroups.core.html#subgroups.core.subgroup.Subgroup" title="subgroups.core.subgroup.Subgroup"><code class="xref py py-class docutils literal notranslate"><span class="pre">subgroups.core.subgroup.Subgroup</span></code></a></span>) – subgroup which is added.</p></li>
+<li><p><strong>bitarray_of_positives</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">bitarray.bitarray</span></code></span>) – the bitarray of the dataset instances (considering the complete dataset) which are covered by the subgroup description and by the subgroup target.</p></li>
+<li><p><strong>bitarray_of_negatives</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">bitarray.bitarray</span></code></span>) – the bitarray of the dataset instances (considering the complete dataset) which are covered by the subgroup description, but not by the subgroup target.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="subgroups.data_structures.subgroup_list.SubgroupList.dataset_number_of_negatives">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">dataset_number_of_negatives</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#subgroups.data_structures.subgroup_list.SubgroupList.dataset_number_of_negatives" title="Link to this definition"></a></dt>
+<dd><p>Number of instances (considering the complete dataset) which are not covered by the target.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="subgroups.data_structures.subgroup_list.SubgroupList.dataset_number_of_positives">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">dataset_number_of_positives</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#subgroups.data_structures.subgroup_list.SubgroupList.dataset_number_of_positives" title="Link to this definition"></a></dt>
+<dd><p>Number of instances (considering the complete dataset) which are covered by the target.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="subgroups.data_structures.subgroup_list.SubgroupList.dataset_target_distribution">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">dataset_target_distribution</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#subgroups.data_structures.subgroup_list.SubgroupList.dataset_target_distribution" title="Link to this definition"></a></dt>
+<dd><p>Target distribution considering the complete dataset.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="subgroups.data_structures.subgroup_list.SubgroupList.default_rule_bitarray_of_negatives">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">default_rule_bitarray_of_negatives</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bitarray</span></em><a class="headerlink" href="#subgroups.data_structures.subgroup_list.SubgroupList.default_rule_bitarray_of_negatives" title="Link to this definition"></a></dt>
+<dd><p>The bitarray of the dataset instances which are not covered by the target.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="subgroups.data_structures.subgroup_list.SubgroupList.default_rule_bitarray_of_positives">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">default_rule_bitarray_of_positives</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bitarray</span></em><a class="headerlink" href="#subgroups.data_structures.subgroup_list.SubgroupList.default_rule_bitarray_of_positives" title="Link to this definition"></a></dt>
+<dd><p>The bitarray of the dataset instances which are covered by the target.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.data_structures.subgroup_list.SubgroupList.delete_last_subgroup">
+<span class="sig-name descname"><span class="pre">delete_last_subgroup</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.data_structures.subgroup_list.SubgroupList.delete_last_subgroup" title="Link to this definition"></a></dt>
+<dd><p>Method to delete the last individual subgroup from the subgroup list. If the subgroup list is empty, this method does nothing.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.data_structures.subgroup_list.SubgroupList.get_subgroup">
+<span class="sig-name descname"><span class="pre">get_subgroup</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.data_structures.subgroup_list.SubgroupList.get_subgroup" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="subgroups.core.html#subgroups.core.subgroup.Subgroup" title="subgroups.core.subgroup.Subgroup"><code class="xref py py-class docutils literal notranslate"><span class="pre">subgroups.core.subgroup.Subgroup</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.data_structures.subgroup_list.SubgroupList.get_subgroup_bitarray_of_negatives">
+<span class="sig-name descname"><span class="pre">get_subgroup_bitarray_of_negatives</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.data_structures.subgroup_list.SubgroupList.get_subgroup_bitarray_of_negatives" title="Link to this definition"></a></dt>
+<dd><p>Get the bitarray of negatives of the subgroup in the position ‘index’. This bitarray depends on the position of the subgroup in the list (i.e., it DOES NOT consider the complete dataset).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">bitarray.bitarray</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.data_structures.subgroup_list.SubgroupList.get_subgroup_bitarray_of_positives">
+<span class="sig-name descname"><span class="pre">get_subgroup_bitarray_of_positives</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.data_structures.subgroup_list.SubgroupList.get_subgroup_bitarray_of_positives" title="Link to this definition"></a></dt>
+<dd><p>Get the bitarray of positives of the subgroup in the position ‘index’. This bitarray depends on the position of the subgroup in the list (i.e., it DOES NOT consider the complete dataset).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">bitarray.bitarray</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.data_structures.subgroup_list.SubgroupList.get_subgroup_original_bitarray_of_negatives">
+<span class="sig-name descname"><span class="pre">get_subgroup_original_bitarray_of_negatives</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.data_structures.subgroup_list.SubgroupList.get_subgroup_original_bitarray_of_negatives" title="Link to this definition"></a></dt>
+<dd><p>Get the original bitarray of negatives of the subgroup in the position ‘index’. This bitarray considers the subgroup individually (i.e., with respect to the complete dataset).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">bitarray.bitarray</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.data_structures.subgroup_list.SubgroupList.get_subgroup_original_bitarray_of_positives">
+<span class="sig-name descname"><span class="pre">get_subgroup_original_bitarray_of_positives</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.data_structures.subgroup_list.SubgroupList.get_subgroup_original_bitarray_of_positives" title="Link to this definition"></a></dt>
+<dd><p>Get the original bitarray of positives of the subgroup in the position ‘index’. This bitarray considers the subgroup individually (i.e., with respect to the complete dataset).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">bitarray.bitarray</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.data_structures.subgroup_list.SubgroupList.is_empty">
+<span class="sig-name descname"><span class="pre">is_empty</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.data_structures.subgroup_list.SubgroupList.is_empty" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="subgroups.data_structures.subgroup_list.SubgroupList.number_of_dataset_instances">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">number_of_dataset_instances</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#subgroups.data_structures.subgroup_list.SubgroupList.number_of_dataset_instances" title="Link to this definition"></a></dt>
+<dd><p>Number of instances of the dataset.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-subgroups.data_structures.vertical_list">
+<span id="subgroups-data-structures-vertical-list-module"></span><h2>subgroups.data_structures.vertical_list module<a class="headerlink" href="#module-subgroups.data_structures.vertical_list" title="Link to this heading"></a></h2>
+<p>This file contains the implementation of the root class of all the implemented Vertical Lists (data structure used by the VLSD algorithm). Conceptually, a Vertical List is similar to a Subgroup. This class is an abstract class and cannot be instantiated.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="subgroups.data_structures.vertical_list.VerticalList">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">subgroups.data_structures.vertical_list.</span></span><span class="sig-name descname"><span class="pre">VerticalList</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">list_of_selectors</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sequence_of_instances_tp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sequence_of_instances_fp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">number_of_dataset_instances</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">quality_value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.data_structures.vertical_list.VerticalList" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ABC</span></code></p>
+<p>This abstract class defines the root class of all the implemented Vertical Lists (data structure used by the VLSD algorithm). Conceptually, a Vertical List is similar to a Subgroup.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.data_structures.vertical_list.VerticalList.compute_quality_value">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">compute_quality_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">quality_measure</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dict_of_parameters</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.data_structures.vertical_list.VerticalList.compute_quality_value" title="Link to this definition"></a></dt>
+<dd><p>Method to compute the Vertical List quality value using the dictionary of parameters passed by parameter. This method uses the parameters ‘tp’ and ‘fp’ of the Vertical List, not of the dictionary of parameters passed by parameter. IMPORTANT: this method does not modify the Vertical List.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>quality_measure</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="subgroups.quality_measures.html#subgroups.quality_measures.quality_measure.QualityMeasure" title="subgroups.quality_measures.quality_measure.QualityMeasure"><code class="xref py py-class docutils literal notranslate"><span class="pre">subgroups.quality_measures.quality_measure.QualityMeasure</span></code></a></span>) – the quality measure which is used.</p></li>
+<li><p><strong>dict_of_parameters</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-data docutils literal notranslate"><span class="pre">typing.Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>]]</span>) – python dictionary which contains all the needed parameters with which to compute the Vertical List quality value. IMPORTANT: this method uses the ‘tp’ and ‘fp’ parameters of the Vertical List, not of the dictionary of parameters passed by parameter.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>the computed value for the Vertical List quality value.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="subgroups.data_structures.vertical_list.VerticalList.fp">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">fp</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#subgroups.data_structures.vertical_list.VerticalList.fp" title="Link to this definition"></a></dt>
+<dd><p>The number of dataset instances which are covered by the selectors (‘list_of_selectors’), but not by the target.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.data_structures.vertical_list.VerticalList.join">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">join</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other_vertical_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">quality_measure</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dict_of_parameters</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_None_if_n_is_0</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.data_structures.vertical_list.VerticalList.join" title="Link to this definition"></a></dt>
+<dd><p>Method to create a new Vertical List as a result of the join of two Vertical Lists. The join of two Vertical Lists implies the following: (1) the last selector of the list of selectors of the second Vertical List is added to the end of the list of selectors of the first Vertical List, and (2) the new sequences of IDs (both) are the intersection of the corresponding original ones.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>other_vertical_list</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="#subgroups.data_structures.vertical_list.VerticalList" title="subgroups.data_structures.vertical_list.VerticalList"><code class="xref py py-class docutils literal notranslate"><span class="pre">subgroups.data_structures.vertical_list.VerticalList</span></code></a></span>) – the Vertical List with which to make the join.</p></li>
+<li><p><strong>quality_measure</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="subgroups.quality_measures.html#subgroups.quality_measures.quality_measure.QualityMeasure" title="subgroups.quality_measures.quality_measure.QualityMeasure"><code class="xref py py-class docutils literal notranslate"><span class="pre">subgroups.quality_measures.quality_measure.QualityMeasure</span></code></a></span>) – the quality measure which is used to compute the quality value of the created Vertical List.</p></li>
+<li><p><strong>dict_of_parameters</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-data docutils literal notranslate"><span class="pre">typing.Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>]]</span>) – python dictionary which contains all the needed parameters with which to compute the Vertical List quality value. IMPORTANT: this method uses the ‘tp’ and ‘fp’ parameters of the created Vertical List, not of the dictionary of parameters passed by parameter.</p></li>
+<li><p><strong>return_None_if_n_is_0</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></span>) – if the subgroup parameter n (i.e., tp + fp) of the resulting Vertical List (i.e., the join) is 0, this means that both sequence of instances are empty and, therefore, this means that the pattern represented by the Vertical List is not in any instance in the dataset. If the parameter ‘return_None_if_n_is_0’ is True, None will be returned instead of a Vertical List object. By default, this parameter is False.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">typing.Optional</span></code>[<a class="reference internal" href="#subgroups.data_structures.vertical_list.VerticalList" title="subgroups.data_structures.vertical_list.VerticalList"><code class="xref py py-class docutils literal notranslate"><span class="pre">subgroups.data_structures.vertical_list.VerticalList</span></code></a>]</span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>a new Vertical List as a result of the join of this Vertical List (self) and ‘other_vertical_list’.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="subgroups.data_structures.vertical_list.VerticalList.list_of_selectors">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">list_of_selectors</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="subgroups.core.html#subgroups.core.selector.Selector" title="subgroups.core.selector.Selector"><span class="pre">Selector</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#subgroups.data_structures.vertical_list.VerticalList.list_of_selectors" title="Link to this definition"></a></dt>
+<dd><p>The list of selectors represented by the Vertical List.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="subgroups.data_structures.vertical_list.VerticalList.n">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">n</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#subgroups.data_structures.vertical_list.VerticalList.n" title="Link to this definition"></a></dt>
+<dd><p>The number of dataset instances which are covered by the selectors (‘list_of_selectors’), no matter the target.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="subgroups.data_structures.vertical_list.VerticalList.number_of_dataset_instances">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">number_of_dataset_instances</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#subgroups.data_structures.vertical_list.VerticalList.number_of_dataset_instances" title="Link to this definition"></a></dt>
+<dd><p>Number of instances of the dataset from which this Vertical List has been generated.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="subgroups.data_structures.vertical_list.VerticalList.quality_value">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">quality_value</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#subgroups.data_structures.vertical_list.VerticalList.quality_value" title="Link to this definition"></a></dt>
+<dd><p>The Vertical List quality value.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="subgroups.data_structures.vertical_list.VerticalList.sequence_of_instances_fp">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">sequence_of_instances_fp</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Collection</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#subgroups.data_structures.vertical_list.VerticalList.sequence_of_instances_fp" title="Link to this definition"></a></dt>
+<dd><p>The sequence of IDs of the dataset instances which are covered by the selectors (‘list_of_selectors’), but not by the target.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="subgroups.data_structures.vertical_list.VerticalList.sequence_of_instances_tp">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">sequence_of_instances_tp</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Collection</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#subgroups.data_structures.vertical_list.VerticalList.sequence_of_instances_tp" title="Link to this definition"></a></dt>
+<dd><p>The sequence of IDs of the dataset instances which are covered by the selectors (‘list_of_selectors’) and also by the target.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="subgroups.data_structures.vertical_list.VerticalList.tp">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">tp</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#subgroups.data_structures.vertical_list.VerticalList.tp" title="Link to this definition"></a></dt>
+<dd><p>The number of dataset instances which are covered by the selectors (‘list_of_selectors’) and also by the target.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-subgroups.data_structures.vertical_list_with_bitsets">
+<span id="subgroups-data-structures-vertical-list-with-bitsets-module"></span><h2>subgroups.data_structures.vertical_list_with_bitsets module<a class="headerlink" href="#module-subgroups.data_structures.vertical_list_with_bitsets" title="Link to this heading"></a></h2>
+<p>This file contains the implementation of a Vertical List data structure whose sequences are implemented using bitsets.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="subgroups.data_structures.vertical_list_with_bitsets.VerticalListWithBitsets">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">subgroups.data_structures.vertical_list_with_bitsets.</span></span><span class="sig-name descname"><span class="pre">VerticalListWithBitsets</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">list_of_selectors</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sequence_of_instances_tp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sequence_of_instances_fp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">number_of_dataset_instances</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">quality_value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.data_structures.vertical_list_with_bitsets.VerticalListWithBitsets" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#subgroups.data_structures.vertical_list.VerticalList" title="subgroups.data_structures.vertical_list.VerticalList"><code class="xref py py-class docutils literal notranslate"><span class="pre">VerticalList</span></code></a></p>
+<p>This class represents a Vertical List data structure whose sequences are implemented using bitsets.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>list_of_selectors</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code>[<a class="reference internal" href="subgroups.core.html#subgroups.core.selector.Selector" title="subgroups.core.selector.Selector"><code class="xref py py-class docutils literal notranslate"><span class="pre">subgroups.core.selector.Selector</span></code></a>]</span>) – the list of selectors represented by the Vertical List.</p></li>
+<li><p><strong>sequence_of_instances_tp</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">collections.abc.Collection</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]</span>) – the sequence of IDs of the dataset instances which are covered by the selectors (‘list_of_selectors’) and also by the target. The number of elements in this sequence would be the true positives tp of the equivalent subgroup with the same list of selectors and with the same target.</p></li>
+<li><p><strong>sequence_of_instances_fp</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">collections.abc.Collection</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]</span>) – the sequence of IDs of the dataset instances which are covered by the selectors (‘list_of_selectors’), but not by the target. The number of elements in this sequence would be the false positives fp of the equivalent subgroup with the same list of selectors and with the same target.</p></li>
+<li><p><strong>number_of_dataset_instances</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span>) – number of instances of the dataset.</p></li>
+<li><p><strong>quality_value</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">typing.Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>]</span>) – the Vertical List quality value.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.data_structures.vertical_list_with_bitsets.VerticalListWithBitsets.compute_quality_value">
+<span class="sig-name descname"><span class="pre">compute_quality_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">quality_measure</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dict_of_parameters</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.data_structures.vertical_list_with_bitsets.VerticalListWithBitsets.compute_quality_value" title="Link to this definition"></a></dt>
+<dd><p>Method to compute the Vertical List quality value using the dictionary of parameters passed by parameter. This method uses the parameters ‘tp’ and ‘fp’ of the Vertical List, not of the dictionary of parameters passed by parameter. IMPORTANT: this method does not modify the Vertical List.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>quality_measure</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="subgroups.quality_measures.html#subgroups.quality_measures.quality_measure.QualityMeasure" title="subgroups.quality_measures.quality_measure.QualityMeasure"><code class="xref py py-class docutils literal notranslate"><span class="pre">subgroups.quality_measures.quality_measure.QualityMeasure</span></code></a></span>) – the quality measure which is used.</p></li>
+<li><p><strong>dict_of_parameters</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-data docutils literal notranslate"><span class="pre">typing.Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>]]</span>) – python dictionary which contains all needed parameters with which to compute the Vertical List quality value. IMPORTANT: this method uses the ‘tp’ and ‘fp’ parameters of the Vertical List, not of the dictionary of parameters passed by parameter.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>the computed value for the Vertical List quality value.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="subgroups.data_structures.vertical_list_with_bitsets.VerticalListWithBitsets.fp">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">fp</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#subgroups.data_structures.vertical_list_with_bitsets.VerticalListWithBitsets.fp" title="Link to this definition"></a></dt>
+<dd><p>The number of dataset instances which are covered by the selectors (‘list_of_selectors’), but not by the target.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.data_structures.vertical_list_with_bitsets.VerticalListWithBitsets.join">
+<span class="sig-name descname"><span class="pre">join</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other_vertical_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">quality_measure</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dict_of_parameters</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_None_if_n_is_0</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.data_structures.vertical_list_with_bitsets.VerticalListWithBitsets.join" title="Link to this definition"></a></dt>
+<dd><p>Method to create a new Vertical List as a result of the join of two Vertical Lists. The join of two Vertical Lists implies the following: (1) the last selector of the list of selectors of the second Vertical List is added to the end of the list of selectors of the first Vertical List, and (2) the new sequences of IDs (both) are the intersection of the corresponding original ones.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>other_vertical_list</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="#subgroups.data_structures.vertical_list_with_bitsets.VerticalListWithBitsets" title="subgroups.data_structures.vertical_list_with_bitsets.VerticalListWithBitsets"><code class="xref py py-class docutils literal notranslate"><span class="pre">subgroups.data_structures.vertical_list_with_bitsets.VerticalListWithBitsets</span></code></a></span>) – the Vertical List with which to make the join.</p></li>
+<li><p><strong>quality_measure</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="subgroups.quality_measures.html#subgroups.quality_measures.quality_measure.QualityMeasure" title="subgroups.quality_measures.quality_measure.QualityMeasure"><code class="xref py py-class docutils literal notranslate"><span class="pre">subgroups.quality_measures.quality_measure.QualityMeasure</span></code></a></span>) – the quality measure which is used to compute the quality value of the created Vertical List.</p></li>
+<li><p><strong>dict_of_parameters</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-data docutils literal notranslate"><span class="pre">typing.Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>]]</span>) – python dictionary which contains all needed parameters with which to compute the Vertical List quality value. IMPORTANT: this method uses the ‘tp’ and ‘fp’ parameters of the created Vertical List, not of the dictionary of parameters passed by parameter.</p></li>
+<li><p><strong>return_None_if_n_is_0</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></span>) – if the subgroup parameter n (i.e., tp + fp) of the resulting Vertical List (i.e., the join) is 0, this means that both sequence of instances are empty and, therefore, this means that the pattern represented by the Vertical List is not in any instance in the dataset. If the parameter ‘return_None_if_n_is_0’ is True, None will be returned instead of a Vertical List object. By default, this parameter is False.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">typing.Optional</span></code>[<a class="reference internal" href="#subgroups.data_structures.vertical_list_with_bitsets.VerticalListWithBitsets" title="subgroups.data_structures.vertical_list_with_bitsets.VerticalListWithBitsets"><code class="xref py py-class docutils literal notranslate"><span class="pre">subgroups.data_structures.vertical_list_with_bitsets.VerticalListWithBitsets</span></code></a>]</span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>a new Vertical List as a result of the join of this Vertical List (self) and ‘other_vertical_list’.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="subgroups.data_structures.vertical_list_with_bitsets.VerticalListWithBitsets.n">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">n</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#subgroups.data_structures.vertical_list_with_bitsets.VerticalListWithBitsets.n" title="Link to this definition"></a></dt>
+<dd><p>The number of dataset instances which are covered by the selectors (‘list_of_selectors’), no matter the target.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="subgroups.data_structures.vertical_list_with_bitsets.VerticalListWithBitsets.sequence_of_instances_fp">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">sequence_of_instances_fp</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bitarray</span></em><a class="headerlink" href="#subgroups.data_structures.vertical_list_with_bitsets.VerticalListWithBitsets.sequence_of_instances_fp" title="Link to this definition"></a></dt>
+<dd><p>The sequence of IDs of the dataset instances which are covered by the selectors (‘list_of_selectors’), but not by the target.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="subgroups.data_structures.vertical_list_with_bitsets.VerticalListWithBitsets.sequence_of_instances_tp">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">sequence_of_instances_tp</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bitarray</span></em><a class="headerlink" href="#subgroups.data_structures.vertical_list_with_bitsets.VerticalListWithBitsets.sequence_of_instances_tp" title="Link to this definition"></a></dt>
+<dd><p>The sequence of IDs of the dataset instances which are covered by the selectors (‘list_of_selectors’) and also by the target.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="subgroups.data_structures.vertical_list_with_bitsets.VerticalListWithBitsets.tp">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">tp</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#subgroups.data_structures.vertical_list_with_bitsets.VerticalListWithBitsets.tp" title="Link to this definition"></a></dt>
+<dd><p>The number of dataset instances which are covered by the selectors (‘list_of_selectors’) and also by the target.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-subgroups.data_structures.vertical_list_with_sets">
+<span id="subgroups-data-structures-vertical-list-with-sets-module"></span><h2>subgroups.data_structures.vertical_list_with_sets module<a class="headerlink" href="#module-subgroups.data_structures.vertical_list_with_sets" title="Link to this heading"></a></h2>
+<p>This file contains the implementation of a Vertical List data structure whose sequences are implemented using python sets.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="subgroups.data_structures.vertical_list_with_sets.VerticalListWithSets">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">subgroups.data_structures.vertical_list_with_sets.</span></span><span class="sig-name descname"><span class="pre">VerticalListWithSets</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">list_of_selectors</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sequence_of_instances_tp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sequence_of_instances_fp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">number_of_dataset_instances</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">quality_value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.data_structures.vertical_list_with_sets.VerticalListWithSets" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#subgroups.data_structures.vertical_list.VerticalList" title="subgroups.data_structures.vertical_list.VerticalList"><code class="xref py py-class docutils literal notranslate"><span class="pre">VerticalList</span></code></a></p>
+<p>This class represents a Vertical List data structure whose sequences are implemented using python sets.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>list_of_selectors</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code>[<a class="reference internal" href="subgroups.core.html#subgroups.core.selector.Selector" title="subgroups.core.selector.Selector"><code class="xref py py-class docutils literal notranslate"><span class="pre">subgroups.core.selector.Selector</span></code></a>]</span>) – the list of selectors represented by the Vertical List.</p></li>
+<li><p><strong>sequence_of_instances_tp</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">collections.abc.Collection</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]</span>) – the sequence of IDs of the dataset instances which are covered by the selectors (‘list_of_selectors’) and also by the target. The number of elements in this sequence would be the true positives tp of the equivalent subgroup with the same list of selectors and with the same target.</p></li>
+<li><p><strong>sequence_of_instances_fp</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">collections.abc.Collection</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]</span>) – the sequence of IDs of the dataset instances which are covered by the selectors (‘list_of_selectors’), but not by the target. The number of elements in this sequence would be the false positives fp of the equivalent subgroup with the same list of selectors and with the same target.</p></li>
+<li><p><strong>number_of_dataset_instances</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span>) – number of instances of the dataset.</p></li>
+<li><p><strong>quality_value</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">typing.Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>]</span>) – the Vertical List quality value.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.data_structures.vertical_list_with_sets.VerticalListWithSets.compute_quality_value">
+<span class="sig-name descname"><span class="pre">compute_quality_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">quality_measure</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dict_of_parameters</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.data_structures.vertical_list_with_sets.VerticalListWithSets.compute_quality_value" title="Link to this definition"></a></dt>
+<dd><p>Method to compute the Vertical List quality value using the dictionary of parameters passed by parameter. This method uses the parameters ‘tp’ and ‘fp’ of the Vertical List, not of the dictionary of parameters passed by parameter. IMPORTANT: this method does not modify the Vertical List.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>quality_measure</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="subgroups.quality_measures.html#subgroups.quality_measures.quality_measure.QualityMeasure" title="subgroups.quality_measures.quality_measure.QualityMeasure"><code class="xref py py-class docutils literal notranslate"><span class="pre">subgroups.quality_measures.quality_measure.QualityMeasure</span></code></a></span>) – the quality measure which is used.</p></li>
+<li><p><strong>dict_of_parameters</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-data docutils literal notranslate"><span class="pre">typing.Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>]]</span>) – python dictionary which contains all needed parameters with which to compute the Vertical List quality value. IMPORTANT: this method uses the ‘tp’ and ‘fp’ parameters of the Vertical List, not of the dictionary of parameters passed by parameter.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>the computed value for the Vertical List quality value.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="subgroups.data_structures.vertical_list_with_sets.VerticalListWithSets.fp">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">fp</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#subgroups.data_structures.vertical_list_with_sets.VerticalListWithSets.fp" title="Link to this definition"></a></dt>
+<dd><p>The number of dataset instances which are covered by the selectors (‘list_of_selectors’), but not by the target.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.data_structures.vertical_list_with_sets.VerticalListWithSets.join">
+<span class="sig-name descname"><span class="pre">join</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other_vertical_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">quality_measure</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dict_of_parameters</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_None_if_n_is_0</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.data_structures.vertical_list_with_sets.VerticalListWithSets.join" title="Link to this definition"></a></dt>
+<dd><p>Method to create a new Vertical List as a result of the join of two Vertical Lists. The join of two Vertical Lists implies the following: (1) the last selector of the list of selectors of the second Vertical List is added to the end of the list of selectors of the first Vertical List, and (2) the new sequences of IDs (both) are the intersection of the corresponding original ones.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>other_vertical_list</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="#subgroups.data_structures.vertical_list_with_sets.VerticalListWithSets" title="subgroups.data_structures.vertical_list_with_sets.VerticalListWithSets"><code class="xref py py-class docutils literal notranslate"><span class="pre">subgroups.data_structures.vertical_list_with_sets.VerticalListWithSets</span></code></a></span>) – the Vertical List with which to make the join.</p></li>
+<li><p><strong>quality_measure</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="subgroups.quality_measures.html#subgroups.quality_measures.quality_measure.QualityMeasure" title="subgroups.quality_measures.quality_measure.QualityMeasure"><code class="xref py py-class docutils literal notranslate"><span class="pre">subgroups.quality_measures.quality_measure.QualityMeasure</span></code></a></span>) – the quality measure which is used to compute the quality value of the created Vertical List.</p></li>
+<li><p><strong>dict_of_parameters</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-data docutils literal notranslate"><span class="pre">typing.Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>]]</span>) – python dictionary which contains all needed parameters with which to compute the Vertical List quality value. IMPORTANT: this method uses the ‘tp’ and ‘fp’ parameters of the created Vertical List, not of the dictionary of parameters passed by parameter.</p></li>
+<li><p><strong>return_None_if_n_is_0</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></span>) – if the subgroup parameter n (i.e., tp + fp) of the resulting Vertical List (i.e., the join) is 0, this means that both sequence of instances are empty and, therefore, this means that the pattern represented by the Vertical List is not in any instance in the dataset. If the parameter ‘return_None_if_n_is_0’ is True, None will be returned instead of a Vertical List object. By default, this parameter is False.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">typing.Optional</span></code>[<a class="reference internal" href="#subgroups.data_structures.vertical_list_with_sets.VerticalListWithSets" title="subgroups.data_structures.vertical_list_with_sets.VerticalListWithSets"><code class="xref py py-class docutils literal notranslate"><span class="pre">subgroups.data_structures.vertical_list_with_sets.VerticalListWithSets</span></code></a>]</span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>a new Vertical List as a result of the join of this Vertical List (self) and ‘other_vertical_list’.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="subgroups.data_structures.vertical_list_with_sets.VerticalListWithSets.n">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">n</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#subgroups.data_structures.vertical_list_with_sets.VerticalListWithSets.n" title="Link to this definition"></a></dt>
+<dd><p>The number of dataset instances which are covered by the selectors (‘list_of_selectors’), no matter the target.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="subgroups.data_structures.vertical_list_with_sets.VerticalListWithSets.sequence_of_instances_fp">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">sequence_of_instances_fp</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">set</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#subgroups.data_structures.vertical_list_with_sets.VerticalListWithSets.sequence_of_instances_fp" title="Link to this definition"></a></dt>
+<dd><p>The sequence of IDs of the dataset instances which are covered by the selectors (‘list_of_selectors’), but not by the target.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="subgroups.data_structures.vertical_list_with_sets.VerticalListWithSets.sequence_of_instances_tp">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">sequence_of_instances_tp</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">set</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#subgroups.data_structures.vertical_list_with_sets.VerticalListWithSets.sequence_of_instances_tp" title="Link to this definition"></a></dt>
+<dd><p>The sequence of IDs of the dataset instances which are covered by the selectors (‘list_of_selectors’) and also by the target.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="subgroups.data_structures.vertical_list_with_sets.VerticalListWithSets.tp">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">tp</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#subgroups.data_structures.vertical_list_with_sets.VerticalListWithSets.tp" title="Link to this definition"></a></dt>
+<dd><p>The number of dataset instances which are covered by the selectors (‘list_of_selectors’) and also by the target.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-subgroups.data_structures">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-subgroups.data_structures" title="Link to this heading"></a></h2>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="subgroups.core.html" class="btn btn-neutral float-left" title="subgroups.core package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="subgroups.datasets.html" class="btn btn-neutral float-right" title="subgroups.datasets package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Antonio López Martínez-Carrasco.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

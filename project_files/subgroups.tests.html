@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>subgroups.tests package &mdash; subgroups 0.1.5 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=92fd9be5" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=59fadc99"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="subgroups.tests.algorithms package" href="subgroups.tests.algorithms.html" />
+    <link rel="prev" title="subgroups.quality_measures package" href="subgroups.quality_measures.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            subgroups
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="subgroups.html">subgroups package</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="subgroups.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="subgroups.algorithms.html">subgroups.algorithms package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="subgroups.core.html">subgroups.core package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="subgroups.data_structures.html">subgroups.data_structures package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="subgroups.datasets.html">subgroups.datasets package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="subgroups.quality_measures.html">subgroups.quality_measures package</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">subgroups.tests package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#subpackages">Subpackages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-subgroups.tests">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="subgroups.utils.html">subgroups.utils package</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="subgroups.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="subgroups.html#module-subgroups.exceptions">subgroups.exceptions module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="subgroups.html#module-subgroups">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="subgroups.algorithms.html">subgroups.algorithms package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="subgroups.core.html">subgroups.core package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="subgroups.data_structures.html">subgroups.data_structures package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="subgroups.quality_measures.html">subgroups.quality_measures package</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">subgroups.tests package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="subgroups.tests.algorithms.html">subgroups.tests.algorithms package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="subgroups.tests.core.html">subgroups.tests.core package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="subgroups.tests.data_structures.html">subgroups.tests.data_structures package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="subgroups.tests.quality_measures.html">subgroups.tests.quality_measures package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="subgroups.tests.utils.html">subgroups.tests.utils package</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-subgroups.tests">Module contents</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#subgroups.tests.run_all_tests"><code class="docutils literal notranslate"><span class="pre">run_all_tests()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="subgroups.utils.html">subgroups.utils package</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">subgroups</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="subgroups.html">subgroups package</a></li>
+      <li class="breadcrumb-item active">subgroups.tests package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/project_files/subgroups.tests.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="subgroups-tests-package">
+<h1>subgroups.tests package<a class="headerlink" href="#subgroups-tests-package" title="Link to this heading"></a></h1>
+<section id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Link to this heading"></a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="subgroups.tests.algorithms.html">subgroups.tests.algorithms package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="subgroups.tests.algorithms.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="subgroups.tests.algorithms.subgroup_lists.html">subgroups.tests.algorithms.subgroup_lists package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.tests.algorithms.subgroup_lists.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.tests.algorithms.subgroup_lists.html#module-subgroups.tests.algorithms.subgroup_lists.test_dslm">subgroups.tests.algorithms.subgroup_lists.test_dslm module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.tests.algorithms.subgroup_lists.html#module-subgroups.tests.algorithms.subgroup_lists.test_gmsl">subgroups.tests.algorithms.subgroup_lists.test_gmsl module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.tests.algorithms.subgroup_lists.html#module-subgroups.tests.algorithms.subgroup_lists">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="subgroups.tests.algorithms.subgroup_sets.html">subgroups.tests.algorithms.subgroup_sets package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.tests.algorithms.subgroup_sets.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.tests.algorithms.subgroup_sets.html#module-subgroups.tests.algorithms.subgroup_sets.test_bsd">subgroups.tests.algorithms.subgroup_sets.test_bsd module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.tests.algorithms.subgroup_sets.html#module-subgroups.tests.algorithms.subgroup_sets.test_cbsd">subgroups.tests.algorithms.subgroup_sets.test_cbsd module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.tests.algorithms.subgroup_sets.html#module-subgroups.tests.algorithms.subgroup_sets.test_cpbsd">subgroups.tests.algorithms.subgroup_sets.test_cpbsd module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.tests.algorithms.subgroup_sets.html#module-subgroups.tests.algorithms.subgroup_sets.test_qfinder">subgroups.tests.algorithms.subgroup_sets.test_qfinder module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.tests.algorithms.subgroup_sets.html#module-subgroups.tests.algorithms.subgroup_sets.test_sdmap">subgroups.tests.algorithms.subgroup_sets.test_sdmap module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.tests.algorithms.subgroup_sets.html#module-subgroups.tests.algorithms.subgroup_sets.test_sdmapstar">subgroups.tests.algorithms.subgroup_sets.test_sdmapstar module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.tests.algorithms.subgroup_sets.html#module-subgroups.tests.algorithms.subgroup_sets.test_vlsd">subgroups.tests.algorithms.subgroup_sets.test_vlsd module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.tests.algorithms.subgroup_sets.html#module-subgroups.tests.algorithms.subgroup_sets">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="subgroups.tests.algorithms.html#module-subgroups.tests.algorithms">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="subgroups.tests.core.html">subgroups.tests.core package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="subgroups.tests.core.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="subgroups.tests.core.html#module-subgroups.tests.core.test_operator">subgroups.tests.core.test_operator module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="subgroups.tests.core.html#subgroups.tests.core.test_operator.TestOperator"><code class="docutils literal notranslate"><span class="pre">TestOperator</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.tests.core.html#subgroups.tests.core.test_operator.TestOperator.test_Operator_evaluate_method"><code class="docutils literal notranslate"><span class="pre">TestOperator.test_Operator_evaluate_method()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.tests.core.html#subgroups.tests.core.test_operator.TestOperator.test_Operator_evaluate_method_with_pandasSeries"><code class="docutils literal notranslate"><span class="pre">TestOperator.test_Operator_evaluate_method_with_pandasSeries()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.tests.core.html#subgroups.tests.core.test_operator.TestOperator.test_Operator_generate_from_str_method"><code class="docutils literal notranslate"><span class="pre">TestOperator.test_Operator_generate_from_str_method()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.tests.core.html#subgroups.tests.core.test_operator.TestOperator.test_Operator_string_representation"><code class="docutils literal notranslate"><span class="pre">TestOperator.test_Operator_string_representation()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="subgroups.tests.core.html#module-subgroups.tests.core.test_pattern">subgroups.tests.core.test_pattern module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="subgroups.tests.core.html#subgroups.tests.core.test_pattern.TestPattern"><code class="docutils literal notranslate"><span class="pre">TestPattern</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.tests.core.html#subgroups.tests.core.test_pattern.TestPattern.test_Pattern_contains_method"><code class="docutils literal notranslate"><span class="pre">TestPattern.test_Pattern_contains_method()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.tests.core.html#subgroups.tests.core.test_pattern.TestPattern.test_Pattern_general"><code class="docutils literal notranslate"><span class="pre">TestPattern.test_Pattern_general()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.tests.core.html#subgroups.tests.core.test_pattern.TestPattern.test_Pattern_is_contained_method"><code class="docutils literal notranslate"><span class="pre">TestPattern.test_Pattern_is_contained_method()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.tests.core.html#subgroups.tests.core.test_pattern.TestPattern.test_Pattern_is_refinement_method"><code class="docutils literal notranslate"><span class="pre">TestPattern.test_Pattern_is_refinement_method()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="subgroups.tests.core.html#module-subgroups.tests.core.test_selector">subgroups.tests.core.test_selector module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="subgroups.tests.core.html#subgroups.tests.core.test_selector.TestSelector"><code class="docutils literal notranslate"><span class="pre">TestSelector</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.tests.core.html#subgroups.tests.core.test_selector.TestSelector.setUp"><code class="docutils literal notranslate"><span class="pre">TestSelector.setUp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.tests.core.html#subgroups.tests.core.test_selector.TestSelector.test_Selector_attributes"><code class="docutils literal notranslate"><span class="pre">TestSelector.test_Selector_attributes()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.tests.core.html#subgroups.tests.core.test_selector.TestSelector.test_Selector_comparisons"><code class="docutils literal notranslate"><span class="pre">TestSelector.test_Selector_comparisons()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.tests.core.html#subgroups.tests.core.test_selector.TestSelector.test_Selector_creation_process"><code class="docutils literal notranslate"><span class="pre">TestSelector.test_Selector_creation_process()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.tests.core.html#subgroups.tests.core.test_selector.TestSelector.test_Selector_deletion_process"><code class="docutils literal notranslate"><span class="pre">TestSelector.test_Selector_deletion_process()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.tests.core.html#subgroups.tests.core.test_selector.TestSelector.test_Selector_generate_from_str_method"><code class="docutils literal notranslate"><span class="pre">TestSelector.test_Selector_generate_from_str_method()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.tests.core.html#subgroups.tests.core.test_selector.TestSelector.test_Selector_match_method"><code class="docutils literal notranslate"><span class="pre">TestSelector.test_Selector_match_method()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.tests.core.html#subgroups.tests.core.test_selector.TestSelector.test_Selector_same_value_different_type"><code class="docutils literal notranslate"><span class="pre">TestSelector.test_Selector_same_value_different_type()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="subgroups.tests.core.html#module-subgroups.tests.core.test_subgroup">subgroups.tests.core.test_subgroup module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="subgroups.tests.core.html#subgroups.tests.core.test_subgroup.TestSubgroup"><code class="docutils literal notranslate"><span class="pre">TestSubgroup</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.tests.core.html#subgroups.tests.core.test_subgroup.TestSubgroup.test_Subgroup_filter"><code class="docutils literal notranslate"><span class="pre">TestSubgroup.test_Subgroup_filter()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.tests.core.html#subgroups.tests.core.test_subgroup.TestSubgroup.test_Subgroup_general"><code class="docutils literal notranslate"><span class="pre">TestSubgroup.test_Subgroup_general()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.tests.core.html#subgroups.tests.core.test_subgroup.TestSubgroup.test_Subgroup_is_refinement_method"><code class="docutils literal notranslate"><span class="pre">TestSubgroup.test_Subgroup_is_refinement_method()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="subgroups.tests.core.html#module-subgroups.tests.core">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="subgroups.tests.data_structures.html">subgroups.tests.data_structures package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="subgroups.tests.data_structures.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="subgroups.tests.data_structures.html#module-subgroups.tests.data_structures.test_fp_tree_for_sdmap">subgroups.tests.data_structures.test_fp_tree_for_sdmap module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="subgroups.tests.data_structures.html#subgroups.tests.data_structures.test_fp_tree_for_sdmap.TestFPTreeForSDMap"><code class="docutils literal notranslate"><span class="pre">TestFPTreeForSDMap</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.tests.data_structures.html#subgroups.tests.data_structures.test_fp_tree_for_sdmap.TestFPTreeForSDMap.test_FPTreeForSDMap_build_tree_1"><code class="docutils literal notranslate"><span class="pre">TestFPTreeForSDMap.test_FPTreeForSDMap_build_tree_1()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.tests.data_structures.html#subgroups.tests.data_structures.test_fp_tree_for_sdmap.TestFPTreeForSDMap.test_FPTreeForSDMap_build_tree_2"><code class="docutils literal notranslate"><span class="pre">TestFPTreeForSDMap.test_FPTreeForSDMap_build_tree_2()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.tests.data_structures.html#subgroups.tests.data_structures.test_fp_tree_for_sdmap.TestFPTreeForSDMap.test_FPTreeForSDMap_build_tree_3"><code class="docutils literal notranslate"><span class="pre">TestFPTreeForSDMap.test_FPTreeForSDMap_build_tree_3()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.tests.data_structures.html#subgroups.tests.data_structures.test_fp_tree_for_sdmap.TestFPTreeForSDMap.test_FPTreeForSDMap_build_tree_4"><code class="docutils literal notranslate"><span class="pre">TestFPTreeForSDMap.test_FPTreeForSDMap_build_tree_4()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.tests.data_structures.html#subgroups.tests.data_structures.test_fp_tree_for_sdmap.TestFPTreeForSDMap.test_FPTreeForSDMap_generate_conditional_fp_tree_1"><code class="docutils literal notranslate"><span class="pre">TestFPTreeForSDMap.test_FPTreeForSDMap_generate_conditional_fp_tree_1()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.tests.data_structures.html#subgroups.tests.data_structures.test_fp_tree_for_sdmap.TestFPTreeForSDMap.test_FPTreeForSDMap_generate_conditional_fp_tree_2"><code class="docutils literal notranslate"><span class="pre">TestFPTreeForSDMap.test_FPTreeForSDMap_generate_conditional_fp_tree_2()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.tests.data_structures.html#subgroups.tests.data_structures.test_fp_tree_for_sdmap.TestFPTreeForSDMap.test_FPTreeForSDMap_generate_set_of_frequent_selectors_1"><code class="docutils literal notranslate"><span class="pre">TestFPTreeForSDMap.test_FPTreeForSDMap_generate_set_of_frequent_selectors_1()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.tests.data_structures.html#subgroups.tests.data_structures.test_fp_tree_for_sdmap.TestFPTreeForSDMap.test_FPTreeForSDMap_generate_set_of_frequent_selectors_2"><code class="docutils literal notranslate"><span class="pre">TestFPTreeForSDMap.test_FPTreeForSDMap_generate_set_of_frequent_selectors_2()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.tests.data_structures.html#subgroups.tests.data_structures.test_fp_tree_for_sdmap.TestFPTreeForSDMap.test_FPTreeForSDMap_generate_set_of_frequent_selectors_3"><code class="docutils literal notranslate"><span class="pre">TestFPTreeForSDMap.test_FPTreeForSDMap_generate_set_of_frequent_selectors_3()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="subgroups.tests.data_structures.html#module-subgroups.tests.data_structures.test_fp_tree_node">subgroups.tests.data_structures.test_fp_tree_node module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="subgroups.tests.data_structures.html#subgroups.tests.data_structures.test_fp_tree_node.TestFPTreeNode"><code class="docutils literal notranslate"><span class="pre">TestFPTreeNode</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.tests.data_structures.html#subgroups.tests.data_structures.test_fp_tree_node.TestFPTreeNode.test_FPTreeNode_general"><code class="docutils literal notranslate"><span class="pre">TestFPTreeNode.test_FPTreeNode_general()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="subgroups.tests.data_structures.html#module-subgroups.tests.data_structures.test_subgroup_list">subgroups.tests.data_structures.test_subgroup_list module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="subgroups.tests.data_structures.html#subgroups.tests.data_structures.test_subgroup_list.TestSubgroupList"><code class="docutils literal notranslate"><span class="pre">TestSubgroupList</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.tests.data_structures.html#subgroups.tests.data_structures.test_subgroup_list.TestSubgroupList.test_subgroup_list_1"><code class="docutils literal notranslate"><span class="pre">TestSubgroupList.test_subgroup_list_1()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.tests.data_structures.html#subgroups.tests.data_structures.test_subgroup_list.TestSubgroupList.test_subgroup_list_2"><code class="docutils literal notranslate"><span class="pre">TestSubgroupList.test_subgroup_list_2()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.tests.data_structures.html#subgroups.tests.data_structures.test_subgroup_list.TestSubgroupList.test_subgroup_list_3"><code class="docutils literal notranslate"><span class="pre">TestSubgroupList.test_subgroup_list_3()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.tests.data_structures.html#subgroups.tests.data_structures.test_subgroup_list.TestSubgroupList.test_subgroup_list_4"><code class="docutils literal notranslate"><span class="pre">TestSubgroupList.test_subgroup_list_4()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="subgroups.tests.data_structures.html#module-subgroups.tests.data_structures.test_vertical_list_with_bitsets">subgroups.tests.data_structures.test_vertical_list_with_bitsets module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="subgroups.tests.data_structures.html#subgroups.tests.data_structures.test_vertical_list_with_bitsets.TestVerticalListWithBitsets"><code class="docutils literal notranslate"><span class="pre">TestVerticalListWithBitsets</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.tests.data_structures.html#subgroups.tests.data_structures.test_vertical_list_with_bitsets.TestVerticalListWithBitsets.test_vertical_list_1"><code class="docutils literal notranslate"><span class="pre">TestVerticalListWithBitsets.test_vertical_list_1()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.tests.data_structures.html#subgroups.tests.data_structures.test_vertical_list_with_bitsets.TestVerticalListWithBitsets.test_vertical_list_2"><code class="docutils literal notranslate"><span class="pre">TestVerticalListWithBitsets.test_vertical_list_2()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.tests.data_structures.html#subgroups.tests.data_structures.test_vertical_list_with_bitsets.TestVerticalListWithBitsets.test_vertical_list_3"><code class="docutils literal notranslate"><span class="pre">TestVerticalListWithBitsets.test_vertical_list_3()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.tests.data_structures.html#subgroups.tests.data_structures.test_vertical_list_with_bitsets.TestVerticalListWithBitsets.test_vertical_list_str_method"><code class="docutils literal notranslate"><span class="pre">TestVerticalListWithBitsets.test_vertical_list_str_method()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="subgroups.tests.data_structures.html#module-subgroups.tests.data_structures.test_vertical_list_with_sets">subgroups.tests.data_structures.test_vertical_list_with_sets module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="subgroups.tests.data_structures.html#subgroups.tests.data_structures.test_vertical_list_with_sets.TestVerticalListWithSets"><code class="docutils literal notranslate"><span class="pre">TestVerticalListWithSets</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.tests.data_structures.html#subgroups.tests.data_structures.test_vertical_list_with_sets.TestVerticalListWithSets.test_vertical_list_1"><code class="docutils literal notranslate"><span class="pre">TestVerticalListWithSets.test_vertical_list_1()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.tests.data_structures.html#subgroups.tests.data_structures.test_vertical_list_with_sets.TestVerticalListWithSets.test_vertical_list_2"><code class="docutils literal notranslate"><span class="pre">TestVerticalListWithSets.test_vertical_list_2()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.tests.data_structures.html#subgroups.tests.data_structures.test_vertical_list_with_sets.TestVerticalListWithSets.test_vertical_list_3"><code class="docutils literal notranslate"><span class="pre">TestVerticalListWithSets.test_vertical_list_3()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.tests.data_structures.html#subgroups.tests.data_structures.test_vertical_list_with_sets.TestVerticalListWithSets.test_vertical_list_str_method"><code class="docutils literal notranslate"><span class="pre">TestVerticalListWithSets.test_vertical_list_str_method()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="subgroups.tests.data_structures.html#module-subgroups.tests.data_structures">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="subgroups.tests.quality_measures.html">subgroups.tests.quality_measures package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="subgroups.tests.quality_measures.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="subgroups.tests.quality_measures.html#module-subgroups.tests.quality_measures.test_quality_measures">subgroups.tests.quality_measures.test_quality_measures module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="subgroups.tests.quality_measures.html#subgroups.tests.quality_measures.test_quality_measures.TestQualityMeasures"><code class="docutils literal notranslate"><span class="pre">TestQualityMeasures</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.tests.quality_measures.html#subgroups.tests.quality_measures.test_quality_measures.TestQualityMeasures.test_quality_measures_compute"><code class="docutils literal notranslate"><span class="pre">TestQualityMeasures.test_quality_measures_compute()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.tests.quality_measures.html#subgroups.tests.quality_measures.test_quality_measures.TestQualityMeasures.test_quality_measures_general"><code class="docutils literal notranslate"><span class="pre">TestQualityMeasures.test_quality_measures_general()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.tests.quality_measures.html#subgroups.tests.quality_measures.test_quality_measures.TestQualityMeasures.test_quality_measures_value_of_class_variables"><code class="docutils literal notranslate"><span class="pre">TestQualityMeasures.test_quality_measures_value_of_class_variables()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="subgroups.tests.quality_measures.html#module-subgroups.tests.quality_measures">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="subgroups.tests.utils.html">subgroups.tests.utils package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="subgroups.tests.utils.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="subgroups.tests.utils.html#module-subgroups.tests.utils.test_dataframe_filters">subgroups.tests.utils.test_dataframe_filters module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="subgroups.tests.utils.html#subgroups.tests.utils.test_dataframe_filters.TestDataFrameFilter"><code class="docutils literal notranslate"><span class="pre">TestDataFrameFilter</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.tests.utils.html#subgroups.tests.utils.test_dataframe_filters.TestDataFrameFilter.test_dataframe_filters_general"><code class="docutils literal notranslate"><span class="pre">TestDataFrameFilter.test_dataframe_filters_general()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="subgroups.tests.utils.html#module-subgroups.tests.utils">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="module-subgroups.tests">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-subgroups.tests" title="Link to this heading"></a></h2>
+<p>We use the __init__.py file to create a function with which to run all tests.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="subgroups.tests.run_all_tests">
+<span class="sig-prename descclassname"><span class="pre">subgroups.tests.</span></span><span class="sig-name descname"><span class="pre">run_all_tests</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.tests.run_all_tests" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="subgroups.quality_measures.html" class="btn btn-neutral float-left" title="subgroups.quality_measures package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="subgroups.tests.algorithms.html" class="btn btn-neutral float-right" title="subgroups.tests.algorithms package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Antonio López Martínez-Carrasco.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

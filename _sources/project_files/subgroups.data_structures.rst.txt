@@ -1,0 +1,85 @@
+subgroups.data\_structures package
+==================================
+
+Submodules
+----------
+
+subgroups.data\_structures.bitset\_bsd module
+---------------------------------------------
+
+.. automodule:: subgroups.data_structures.bitset_bsd
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+subgroups.data\_structures.bitset\_qfinder module
+-------------------------------------------------
+
+.. automodule:: subgroups.data_structures.bitset_qfinder
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+subgroups.data\_structures.fp\_tree\_for\_sdmap module
+------------------------------------------------------
+
+.. automodule:: subgroups.data_structures.fp_tree_for_sdmap
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+subgroups.data\_structures.fp\_tree\_for\_sdmapstar module
+----------------------------------------------------------
+
+.. automodule:: subgroups.data_structures.fp_tree_for_sdmapstar
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+subgroups.data\_structures.fp\_tree\_node module
+------------------------------------------------
+
+.. automodule:: subgroups.data_structures.fp_tree_node
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+subgroups.data\_structures.subgroup\_list module
+------------------------------------------------
+
+.. automodule:: subgroups.data_structures.subgroup_list
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+subgroups.data\_structures.vertical\_list module
+------------------------------------------------
+
+.. automodule:: subgroups.data_structures.vertical_list
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+subgroups.data\_structures.vertical\_list\_with\_bitsets module
+---------------------------------------------------------------
+
+.. automodule:: subgroups.data_structures.vertical_list_with_bitsets
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+subgroups.data\_structures.vertical\_list\_with\_sets module
+------------------------------------------------------------
+
+.. automodule:: subgroups.data_structures.vertical_list_with_sets
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: subgroups.data_structures
+   :members:
+   :undoc-members:
+   :show-inheritance:

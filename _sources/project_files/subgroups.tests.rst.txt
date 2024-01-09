@@ -1,0 +1,22 @@
+subgroups.tests package
+=======================
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   subgroups.tests.algorithms
+   subgroups.tests.core
+   subgroups.tests.data_structures
+   subgroups.tests.quality_measures
+   subgroups.tests.utils
+
+Module contents
+---------------
+
+.. automodule:: subgroups.tests
+   :members:
+   :undoc-members:
+   :show-inheritance:

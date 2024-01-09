@@ -1,0 +1,1368 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>subgroups.quality_measures package &mdash; subgroups 0.1.5 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=92fd9be5" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=59fadc99"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="subgroups.tests package" href="subgroups.tests.html" />
+    <link rel="prev" title="subgroups.datasets package" href="subgroups.datasets.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            subgroups
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="subgroups.html">subgroups package</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="subgroups.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="subgroups.algorithms.html">subgroups.algorithms package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="subgroups.core.html">subgroups.core package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="subgroups.data_structures.html">subgroups.data_structures package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="subgroups.datasets.html">subgroups.datasets package</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">subgroups.quality_measures package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-subgroups.quality_measures.absolute_wracc">subgroups.quality_measures.absolute_wracc module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-subgroups.quality_measures.binomial_test">subgroups.quality_measures.binomial_test module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-subgroups.quality_measures.binomial_test_optimistic_estimate_1">subgroups.quality_measures.binomial_test_optimistic_estimate_1 module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-subgroups.quality_measures.coverage">subgroups.quality_measures.coverage module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-subgroups.quality_measures.f1_score">subgroups.quality_measures.f1_score module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-subgroups.quality_measures.irr">subgroups.quality_measures.irr module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-subgroups.quality_measures.npv">subgroups.quality_measures.npv module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-subgroups.quality_measures.piatetsky_shapiro">subgroups.quality_measures.piatetsky_shapiro module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-subgroups.quality_measures.piatetsky_shapiro_optimistic_estimate_1">subgroups.quality_measures.piatetsky_shapiro_optimistic_estimate_1 module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-subgroups.quality_measures.piatetsky_shapiro_optimistic_estimate_2">subgroups.quality_measures.piatetsky_shapiro_optimistic_estimate_2 module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-subgroups.quality_measures.ppv">subgroups.quality_measures.ppv module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-subgroups.quality_measures.qg">subgroups.quality_measures.qg module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-subgroups.quality_measures.quality_measure">subgroups.quality_measures.quality_measure module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-subgroups.quality_measures.sensitivity">subgroups.quality_measures.sensitivity module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-subgroups.quality_measures.specificity">subgroups.quality_measures.specificity module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-subgroups.quality_measures.support">subgroups.quality_measures.support module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-subgroups.quality_measures.wracc">subgroups.quality_measures.wracc module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-subgroups.quality_measures.wracc_optimistic_estimate_1">subgroups.quality_measures.wracc_optimistic_estimate_1 module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-subgroups.quality_measures.youden">subgroups.quality_measures.youden module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-subgroups.quality_measures">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="subgroups.tests.html">subgroups.tests package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="subgroups.utils.html">subgroups.utils package</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="subgroups.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="subgroups.html#module-subgroups.exceptions">subgroups.exceptions module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="subgroups.html#module-subgroups">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="subgroups.algorithms.html">subgroups.algorithms package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="subgroups.core.html">subgroups.core package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="subgroups.data_structures.html">subgroups.data_structures package</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">subgroups.quality_measures package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-subgroups.quality_measures.absolute_wracc">subgroups.quality_measures.absolute_wracc module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#subgroups.quality_measures.absolute_wracc.AbsoluteWRAcc"><code class="docutils literal notranslate"><span class="pre">AbsoluteWRAcc</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.quality_measures.absolute_wracc.AbsoluteWRAcc.compute"><code class="docutils literal notranslate"><span class="pre">AbsoluteWRAcc.compute()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.quality_measures.absolute_wracc.AbsoluteWRAcc.get_name"><code class="docutils literal notranslate"><span class="pre">AbsoluteWRAcc.get_name()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.quality_measures.absolute_wracc.AbsoluteWRAcc.optimistic_estimate_of"><code class="docutils literal notranslate"><span class="pre">AbsoluteWRAcc.optimistic_estimate_of()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-subgroups.quality_measures.binomial_test">subgroups.quality_measures.binomial_test module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#subgroups.quality_measures.binomial_test.BinomialTest"><code class="docutils literal notranslate"><span class="pre">BinomialTest</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.quality_measures.binomial_test.BinomialTest.compute"><code class="docutils literal notranslate"><span class="pre">BinomialTest.compute()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.quality_measures.binomial_test.BinomialTest.get_name"><code class="docutils literal notranslate"><span class="pre">BinomialTest.get_name()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.quality_measures.binomial_test.BinomialTest.optimistic_estimate_of"><code class="docutils literal notranslate"><span class="pre">BinomialTest.optimistic_estimate_of()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-subgroups.quality_measures.binomial_test_optimistic_estimate_1">subgroups.quality_measures.binomial_test_optimistic_estimate_1 module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#subgroups.quality_measures.binomial_test_optimistic_estimate_1.BinomialTestOptimisticEstimate1"><code class="docutils literal notranslate"><span class="pre">BinomialTestOptimisticEstimate1</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.quality_measures.binomial_test_optimistic_estimate_1.BinomialTestOptimisticEstimate1.compute"><code class="docutils literal notranslate"><span class="pre">BinomialTestOptimisticEstimate1.compute()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.quality_measures.binomial_test_optimistic_estimate_1.BinomialTestOptimisticEstimate1.get_name"><code class="docutils literal notranslate"><span class="pre">BinomialTestOptimisticEstimate1.get_name()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.quality_measures.binomial_test_optimistic_estimate_1.BinomialTestOptimisticEstimate1.optimistic_estimate_of"><code class="docutils literal notranslate"><span class="pre">BinomialTestOptimisticEstimate1.optimistic_estimate_of()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-subgroups.quality_measures.coverage">subgroups.quality_measures.coverage module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#subgroups.quality_measures.coverage.Coverage"><code class="docutils literal notranslate"><span class="pre">Coverage</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.quality_measures.coverage.Coverage.compute"><code class="docutils literal notranslate"><span class="pre">Coverage.compute()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.quality_measures.coverage.Coverage.get_name"><code class="docutils literal notranslate"><span class="pre">Coverage.get_name()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.quality_measures.coverage.Coverage.optimistic_estimate_of"><code class="docutils literal notranslate"><span class="pre">Coverage.optimistic_estimate_of()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-subgroups.quality_measures.f1_score">subgroups.quality_measures.f1_score module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#subgroups.quality_measures.f1_score.F1Score"><code class="docutils literal notranslate"><span class="pre">F1Score</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.quality_measures.f1_score.F1Score.compute"><code class="docutils literal notranslate"><span class="pre">F1Score.compute()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.quality_measures.f1_score.F1Score.get_name"><code class="docutils literal notranslate"><span class="pre">F1Score.get_name()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.quality_measures.f1_score.F1Score.optimistic_estimate_of"><code class="docutils literal notranslate"><span class="pre">F1Score.optimistic_estimate_of()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-subgroups.quality_measures.irr">subgroups.quality_measures.irr module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#subgroups.quality_measures.irr.IRR"><code class="docutils literal notranslate"><span class="pre">IRR</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.quality_measures.irr.IRR.compute"><code class="docutils literal notranslate"><span class="pre">IRR.compute()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.quality_measures.irr.IRR.get_name"><code class="docutils literal notranslate"><span class="pre">IRR.get_name()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.quality_measures.irr.IRR.optimistic_estimate_of"><code class="docutils literal notranslate"><span class="pre">IRR.optimistic_estimate_of()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-subgroups.quality_measures.npv">subgroups.quality_measures.npv module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#subgroups.quality_measures.npv.NPV"><code class="docutils literal notranslate"><span class="pre">NPV</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.quality_measures.npv.NPV.compute"><code class="docutils literal notranslate"><span class="pre">NPV.compute()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.quality_measures.npv.NPV.get_name"><code class="docutils literal notranslate"><span class="pre">NPV.get_name()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.quality_measures.npv.NPV.optimistic_estimate_of"><code class="docutils literal notranslate"><span class="pre">NPV.optimistic_estimate_of()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-subgroups.quality_measures.piatetsky_shapiro">subgroups.quality_measures.piatetsky_shapiro module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#subgroups.quality_measures.piatetsky_shapiro.PiatetskyShapiro"><code class="docutils literal notranslate"><span class="pre">PiatetskyShapiro</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.quality_measures.piatetsky_shapiro.PiatetskyShapiro.compute"><code class="docutils literal notranslate"><span class="pre">PiatetskyShapiro.compute()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.quality_measures.piatetsky_shapiro.PiatetskyShapiro.get_name"><code class="docutils literal notranslate"><span class="pre">PiatetskyShapiro.get_name()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.quality_measures.piatetsky_shapiro.PiatetskyShapiro.optimistic_estimate_of"><code class="docutils literal notranslate"><span class="pre">PiatetskyShapiro.optimistic_estimate_of()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-subgroups.quality_measures.piatetsky_shapiro_optimistic_estimate_1">subgroups.quality_measures.piatetsky_shapiro_optimistic_estimate_1 module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#subgroups.quality_measures.piatetsky_shapiro_optimistic_estimate_1.PiatetskyShapiroOptimisticEstimate1"><code class="docutils literal notranslate"><span class="pre">PiatetskyShapiroOptimisticEstimate1</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.quality_measures.piatetsky_shapiro_optimistic_estimate_1.PiatetskyShapiroOptimisticEstimate1.compute"><code class="docutils literal notranslate"><span class="pre">PiatetskyShapiroOptimisticEstimate1.compute()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.quality_measures.piatetsky_shapiro_optimistic_estimate_1.PiatetskyShapiroOptimisticEstimate1.get_name"><code class="docutils literal notranslate"><span class="pre">PiatetskyShapiroOptimisticEstimate1.get_name()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.quality_measures.piatetsky_shapiro_optimistic_estimate_1.PiatetskyShapiroOptimisticEstimate1.optimistic_estimate_of"><code class="docutils literal notranslate"><span class="pre">PiatetskyShapiroOptimisticEstimate1.optimistic_estimate_of()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-subgroups.quality_measures.piatetsky_shapiro_optimistic_estimate_2">subgroups.quality_measures.piatetsky_shapiro_optimistic_estimate_2 module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#subgroups.quality_measures.piatetsky_shapiro_optimistic_estimate_2.PiatetskyShapiroOptimisticEstimate2"><code class="docutils literal notranslate"><span class="pre">PiatetskyShapiroOptimisticEstimate2</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.quality_measures.piatetsky_shapiro_optimistic_estimate_2.PiatetskyShapiroOptimisticEstimate2.compute"><code class="docutils literal notranslate"><span class="pre">PiatetskyShapiroOptimisticEstimate2.compute()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.quality_measures.piatetsky_shapiro_optimistic_estimate_2.PiatetskyShapiroOptimisticEstimate2.get_name"><code class="docutils literal notranslate"><span class="pre">PiatetskyShapiroOptimisticEstimate2.get_name()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.quality_measures.piatetsky_shapiro_optimistic_estimate_2.PiatetskyShapiroOptimisticEstimate2.optimistic_estimate_of"><code class="docutils literal notranslate"><span class="pre">PiatetskyShapiroOptimisticEstimate2.optimistic_estimate_of()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-subgroups.quality_measures.ppv">subgroups.quality_measures.ppv module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#subgroups.quality_measures.ppv.PPV"><code class="docutils literal notranslate"><span class="pre">PPV</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.quality_measures.ppv.PPV.compute"><code class="docutils literal notranslate"><span class="pre">PPV.compute()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.quality_measures.ppv.PPV.get_name"><code class="docutils literal notranslate"><span class="pre">PPV.get_name()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.quality_measures.ppv.PPV.optimistic_estimate_of"><code class="docutils literal notranslate"><span class="pre">PPV.optimistic_estimate_of()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-subgroups.quality_measures.qg">subgroups.quality_measures.qg module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#subgroups.quality_measures.qg.Qg"><code class="docutils literal notranslate"><span class="pre">Qg</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.quality_measures.qg.Qg.compute"><code class="docutils literal notranslate"><span class="pre">Qg.compute()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.quality_measures.qg.Qg.get_name"><code class="docutils literal notranslate"><span class="pre">Qg.get_name()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.quality_measures.qg.Qg.optimistic_estimate_of"><code class="docutils literal notranslate"><span class="pre">Qg.optimistic_estimate_of()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-subgroups.quality_measures.quality_measure">subgroups.quality_measures.quality_measure module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#subgroups.quality_measures.quality_measure.QualityMeasure"><code class="docutils literal notranslate"><span class="pre">QualityMeasure</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.quality_measures.quality_measure.QualityMeasure.FALSE_POPULATION"><code class="docutils literal notranslate"><span class="pre">QualityMeasure.FALSE_POPULATION</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.quality_measures.quality_measure.QualityMeasure.FALSE_POSITIVES"><code class="docutils literal notranslate"><span class="pre">QualityMeasure.FALSE_POSITIVES</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.quality_measures.quality_measure.QualityMeasure.TRUE_POPULATION"><code class="docutils literal notranslate"><span class="pre">QualityMeasure.TRUE_POPULATION</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.quality_measures.quality_measure.QualityMeasure.TRUE_POSITIVES"><code class="docutils literal notranslate"><span class="pre">QualityMeasure.TRUE_POSITIVES</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.quality_measures.quality_measure.QualityMeasure.compute"><code class="docutils literal notranslate"><span class="pre">QualityMeasure.compute()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.quality_measures.quality_measure.QualityMeasure.get_name"><code class="docutils literal notranslate"><span class="pre">QualityMeasure.get_name()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.quality_measures.quality_measure.QualityMeasure.optimistic_estimate_of"><code class="docutils literal notranslate"><span class="pre">QualityMeasure.optimistic_estimate_of()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-subgroups.quality_measures.sensitivity">subgroups.quality_measures.sensitivity module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#subgroups.quality_measures.sensitivity.Sensitivity"><code class="docutils literal notranslate"><span class="pre">Sensitivity</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.quality_measures.sensitivity.Sensitivity.compute"><code class="docutils literal notranslate"><span class="pre">Sensitivity.compute()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.quality_measures.sensitivity.Sensitivity.get_name"><code class="docutils literal notranslate"><span class="pre">Sensitivity.get_name()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.quality_measures.sensitivity.Sensitivity.optimistic_estimate_of"><code class="docutils literal notranslate"><span class="pre">Sensitivity.optimistic_estimate_of()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-subgroups.quality_measures.specificity">subgroups.quality_measures.specificity module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#subgroups.quality_measures.specificity.Specificity"><code class="docutils literal notranslate"><span class="pre">Specificity</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.quality_measures.specificity.Specificity.compute"><code class="docutils literal notranslate"><span class="pre">Specificity.compute()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.quality_measures.specificity.Specificity.get_name"><code class="docutils literal notranslate"><span class="pre">Specificity.get_name()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.quality_measures.specificity.Specificity.optimistic_estimate_of"><code class="docutils literal notranslate"><span class="pre">Specificity.optimistic_estimate_of()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-subgroups.quality_measures.support">subgroups.quality_measures.support module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#subgroups.quality_measures.support.Support"><code class="docutils literal notranslate"><span class="pre">Support</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.quality_measures.support.Support.compute"><code class="docutils literal notranslate"><span class="pre">Support.compute()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.quality_measures.support.Support.get_name"><code class="docutils literal notranslate"><span class="pre">Support.get_name()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.quality_measures.support.Support.optimistic_estimate_of"><code class="docutils literal notranslate"><span class="pre">Support.optimistic_estimate_of()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-subgroups.quality_measures.wracc">subgroups.quality_measures.wracc module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#subgroups.quality_measures.wracc.WRAcc"><code class="docutils literal notranslate"><span class="pre">WRAcc</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.quality_measures.wracc.WRAcc.compute"><code class="docutils literal notranslate"><span class="pre">WRAcc.compute()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.quality_measures.wracc.WRAcc.get_name"><code class="docutils literal notranslate"><span class="pre">WRAcc.get_name()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.quality_measures.wracc.WRAcc.optimistic_estimate_of"><code class="docutils literal notranslate"><span class="pre">WRAcc.optimistic_estimate_of()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-subgroups.quality_measures.wracc_optimistic_estimate_1">subgroups.quality_measures.wracc_optimistic_estimate_1 module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#subgroups.quality_measures.wracc_optimistic_estimate_1.WRAccOptimisticEstimate1"><code class="docutils literal notranslate"><span class="pre">WRAccOptimisticEstimate1</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.quality_measures.wracc_optimistic_estimate_1.WRAccOptimisticEstimate1.compute"><code class="docutils literal notranslate"><span class="pre">WRAccOptimisticEstimate1.compute()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.quality_measures.wracc_optimistic_estimate_1.WRAccOptimisticEstimate1.get_name"><code class="docutils literal notranslate"><span class="pre">WRAccOptimisticEstimate1.get_name()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.quality_measures.wracc_optimistic_estimate_1.WRAccOptimisticEstimate1.optimistic_estimate_of"><code class="docutils literal notranslate"><span class="pre">WRAccOptimisticEstimate1.optimistic_estimate_of()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-subgroups.quality_measures.youden">subgroups.quality_measures.youden module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#subgroups.quality_measures.youden.Youden"><code class="docutils literal notranslate"><span class="pre">Youden</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.quality_measures.youden.Youden.compute"><code class="docutils literal notranslate"><span class="pre">Youden.compute()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.quality_measures.youden.Youden.get_name"><code class="docutils literal notranslate"><span class="pre">Youden.get_name()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.quality_measures.youden.Youden.optimistic_estimate_of"><code class="docutils literal notranslate"><span class="pre">Youden.optimistic_estimate_of()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-subgroups.quality_measures">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="subgroups.tests.html">subgroups.tests package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="subgroups.utils.html">subgroups.utils package</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">subgroups</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="subgroups.html">subgroups package</a></li>
+      <li class="breadcrumb-item active">subgroups.quality_measures package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/project_files/subgroups.quality_measures.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="subgroups-quality-measures-package">
+<h1>subgroups.quality_measures package<a class="headerlink" href="#subgroups-quality-measures-package" title="Link to this heading"></a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
+</section>
+<section id="module-subgroups.quality_measures.absolute_wracc">
+<span id="subgroups-quality-measures-absolute-wracc-module"></span><h2>subgroups.quality_measures.absolute_wracc module<a class="headerlink" href="#module-subgroups.quality_measures.absolute_wracc" title="Link to this heading"></a></h2>
+<p>This file contains a modification of the Weighted Relative Accuracy (WRAcc) quality measure. This new quality measure called AbsoluteWRAcc always returns the absolute value of the original WRAcc quality measure.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="subgroups.quality_measures.absolute_wracc.AbsoluteWRAcc">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">subgroups.quality_measures.absolute_wracc.</span></span><span class="sig-name descname"><span class="pre">AbsoluteWRAcc</span></span><a class="headerlink" href="#subgroups.quality_measures.absolute_wracc.AbsoluteWRAcc" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#subgroups.quality_measures.wracc.WRAcc" title="subgroups.quality_measures.wracc.WRAcc"><code class="xref py py-class docutils literal notranslate"><span class="pre">WRAcc</span></code></a></p>
+<p>This class defines the AbsoluteWRAcc quality measure. This new quality measure always returns the absolute value of the original WRAcc quality measure.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.quality_measures.absolute_wracc.AbsoluteWRAcc.compute">
+<span class="sig-name descname"><span class="pre">compute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dict_of_parameters</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.quality_measures.absolute_wracc.AbsoluteWRAcc.compute" title="Link to this definition"></a></dt>
+<dd><p>Method to compute the AbsoluteWRAcc quality measure (you can also call to the instance for this purpose).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>dict_of_parameters</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-data docutils literal notranslate"><span class="pre">typing.Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>]]</span>) – python dictionary which contains all the necessary parameters used to compute this quality measure.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>the computed value for the AbsoluteWRAcc quality measure.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.quality_measures.absolute_wracc.AbsoluteWRAcc.get_name">
+<span class="sig-name descname"><span class="pre">get_name</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.quality_measures.absolute_wracc.AbsoluteWRAcc.get_name" title="Link to this definition"></a></dt>
+<dd><p>Method to get the quality measure name (equal to the class name).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.quality_measures.absolute_wracc.AbsoluteWRAcc.optimistic_estimate_of">
+<span class="sig-name descname"><span class="pre">optimistic_estimate_of</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.quality_measures.absolute_wracc.AbsoluteWRAcc.optimistic_estimate_of" title="Link to this definition"></a></dt>
+<dd><p>Method to get a python dictionary with the quality measures of which this one is an optimistic estimate.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <a class="reference internal" href="#subgroups.quality_measures.quality_measure.QualityMeasure" title="subgroups.quality_measures.quality_measure.QualityMeasure"><code class="xref py py-class docutils literal notranslate"><span class="pre">subgroups.quality_measures.quality_measure.QualityMeasure</span></code></a>]</span></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>a python dictionary in which the keys are the quality measure names and the values are the instances of those quality measures.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-subgroups.quality_measures.binomial_test">
+<span id="subgroups-quality-measures-binomial-test-module"></span><h2>subgroups.quality_measures.binomial_test module<a class="headerlink" href="#module-subgroups.quality_measures.binomial_test" title="Link to this heading"></a></h2>
+<p>This file contains the implementation of the Binomial Test quality measure.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="subgroups.quality_measures.binomial_test.BinomialTest">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">subgroups.quality_measures.binomial_test.</span></span><span class="sig-name descname"><span class="pre">BinomialTest</span></span><a class="headerlink" href="#subgroups.quality_measures.binomial_test.BinomialTest" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#subgroups.quality_measures.quality_measure.QualityMeasure" title="subgroups.quality_measures.quality_measure.QualityMeasure"><code class="xref py py-class docutils literal notranslate"><span class="pre">QualityMeasure</span></code></a></p>
+<p>This class defines the Binomial Test quality measure.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.quality_measures.binomial_test.BinomialTest.compute">
+<span class="sig-name descname"><span class="pre">compute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dict_of_parameters</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.quality_measures.binomial_test.BinomialTest.compute" title="Link to this definition"></a></dt>
+<dd><p>Method to compute the BinomialTest quality measure (you can also call to the instance for this purpose).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>dict_of_parameters</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-data docutils literal notranslate"><span class="pre">typing.Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>]]</span>) – python dictionary which contains all the necessary parameters used to compute this quality measure.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>the computed value for the BinomialTest quality measure.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.quality_measures.binomial_test.BinomialTest.get_name">
+<span class="sig-name descname"><span class="pre">get_name</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.quality_measures.binomial_test.BinomialTest.get_name" title="Link to this definition"></a></dt>
+<dd><p>Method to get the quality measure name (equal to the class name).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.quality_measures.binomial_test.BinomialTest.optimistic_estimate_of">
+<span class="sig-name descname"><span class="pre">optimistic_estimate_of</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.quality_measures.binomial_test.BinomialTest.optimistic_estimate_of" title="Link to this definition"></a></dt>
+<dd><p>Method to get a python dictionary with the quality measures of which this one is an optimistic estimate.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <a class="reference internal" href="#subgroups.quality_measures.quality_measure.QualityMeasure" title="subgroups.quality_measures.quality_measure.QualityMeasure"><code class="xref py py-class docutils literal notranslate"><span class="pre">subgroups.quality_measures.quality_measure.QualityMeasure</span></code></a>]</span></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>a python dictionary in which the keys are the quality measure names and the values are the instances of those quality measures.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-subgroups.quality_measures.binomial_test_optimistic_estimate_1">
+<span id="subgroups-quality-measures-binomial-test-optimistic-estimate-1-module"></span><h2>subgroups.quality_measures.binomial_test_optimistic_estimate_1 module<a class="headerlink" href="#module-subgroups.quality_measures.binomial_test_optimistic_estimate_1" title="Link to this heading"></a></h2>
+<p>This file contains the implementation of an Optimistic Estimate of the Binomial Test quality measure.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="subgroups.quality_measures.binomial_test_optimistic_estimate_1.BinomialTestOptimisticEstimate1">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">subgroups.quality_measures.binomial_test_optimistic_estimate_1.</span></span><span class="sig-name descname"><span class="pre">BinomialTestOptimisticEstimate1</span></span><a class="headerlink" href="#subgroups.quality_measures.binomial_test_optimistic_estimate_1.BinomialTestOptimisticEstimate1" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#subgroups.quality_measures.quality_measure.QualityMeasure" title="subgroups.quality_measures.quality_measure.QualityMeasure"><code class="xref py py-class docutils literal notranslate"><span class="pre">QualityMeasure</span></code></a></p>
+<p>This class defines an Optimistic Estimate of the Binomial Test quality measure.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.quality_measures.binomial_test_optimistic_estimate_1.BinomialTestOptimisticEstimate1.compute">
+<span class="sig-name descname"><span class="pre">compute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dict_of_parameters</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.quality_measures.binomial_test_optimistic_estimate_1.BinomialTestOptimisticEstimate1.compute" title="Link to this definition"></a></dt>
+<dd><p>Method to compute the BinomialTestOptimisticEstimate1 quality measure (you can also call to the instance for this purpose).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>dict_of_parameters</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-data docutils literal notranslate"><span class="pre">typing.Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>]]</span>) – python dictionary which contains all the necessary parameters used to compute this quality measure.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>the computed value for the BinomialTestOptimisticEstimate1 quality measure.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.quality_measures.binomial_test_optimistic_estimate_1.BinomialTestOptimisticEstimate1.get_name">
+<span class="sig-name descname"><span class="pre">get_name</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.quality_measures.binomial_test_optimistic_estimate_1.BinomialTestOptimisticEstimate1.get_name" title="Link to this definition"></a></dt>
+<dd><p>Method to get the quality measure name (equal to the class name).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.quality_measures.binomial_test_optimistic_estimate_1.BinomialTestOptimisticEstimate1.optimistic_estimate_of">
+<span class="sig-name descname"><span class="pre">optimistic_estimate_of</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.quality_measures.binomial_test_optimistic_estimate_1.BinomialTestOptimisticEstimate1.optimistic_estimate_of" title="Link to this definition"></a></dt>
+<dd><p>Method to get a python dictionary with the quality measures of which this one is an optimistic estimate.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <a class="reference internal" href="#subgroups.quality_measures.quality_measure.QualityMeasure" title="subgroups.quality_measures.quality_measure.QualityMeasure"><code class="xref py py-class docutils literal notranslate"><span class="pre">subgroups.quality_measures.quality_measure.QualityMeasure</span></code></a>]</span></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>a python dictionary in which the keys are the quality measure names and the values are the instances of those quality measures.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-subgroups.quality_measures.coverage">
+<span id="subgroups-quality-measures-coverage-module"></span><h2>subgroups.quality_measures.coverage module<a class="headerlink" href="#module-subgroups.quality_measures.coverage" title="Link to this heading"></a></h2>
+<p>This file contains the implementation of the Coverage quality measure.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="subgroups.quality_measures.coverage.Coverage">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">subgroups.quality_measures.coverage.</span></span><span class="sig-name descname"><span class="pre">Coverage</span></span><a class="headerlink" href="#subgroups.quality_measures.coverage.Coverage" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#subgroups.quality_measures.quality_measure.QualityMeasure" title="subgroups.quality_measures.quality_measure.QualityMeasure"><code class="xref py py-class docutils literal notranslate"><span class="pre">QualityMeasure</span></code></a></p>
+<p>This class defines the Coverage quality measure.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.quality_measures.coverage.Coverage.compute">
+<span class="sig-name descname"><span class="pre">compute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dict_of_parameters</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.quality_measures.coverage.Coverage.compute" title="Link to this definition"></a></dt>
+<dd><p>Method to compute the Coverage quality measure (you can also call to the instance for this purpose).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>dict_of_parameters</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-data docutils literal notranslate"><span class="pre">typing.Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>]]</span>) – python dictionary which contains all the necessary parameters used to compute this quality measure.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>the computed value for the Coverage quality measure.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.quality_measures.coverage.Coverage.get_name">
+<span class="sig-name descname"><span class="pre">get_name</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.quality_measures.coverage.Coverage.get_name" title="Link to this definition"></a></dt>
+<dd><p>Method to get the quality measure name (equal to the class name).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.quality_measures.coverage.Coverage.optimistic_estimate_of">
+<span class="sig-name descname"><span class="pre">optimistic_estimate_of</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.quality_measures.coverage.Coverage.optimistic_estimate_of" title="Link to this definition"></a></dt>
+<dd><p>Method to get a python dictionary with the quality measures of which this one is an optimistic estimate.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <a class="reference internal" href="#subgroups.quality_measures.quality_measure.QualityMeasure" title="subgroups.quality_measures.quality_measure.QualityMeasure"><code class="xref py py-class docutils literal notranslate"><span class="pre">subgroups.quality_measures.quality_measure.QualityMeasure</span></code></a>]</span></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>a python dictionary in which the keys are the quality measure names and the values are the instances of those quality measures.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-subgroups.quality_measures.f1_score">
+<span id="subgroups-quality-measures-f1-score-module"></span><h2>subgroups.quality_measures.f1_score module<a class="headerlink" href="#module-subgroups.quality_measures.f1_score" title="Link to this heading"></a></h2>
+<p>This file contains the implementation of the F1 Score. This quality measure is also called as F1 Measure.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="subgroups.quality_measures.f1_score.F1Score">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">subgroups.quality_measures.f1_score.</span></span><span class="sig-name descname"><span class="pre">F1Score</span></span><a class="headerlink" href="#subgroups.quality_measures.f1_score.F1Score" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#subgroups.quality_measures.quality_measure.QualityMeasure" title="subgroups.quality_measures.quality_measure.QualityMeasure"><code class="xref py py-class docutils literal notranslate"><span class="pre">QualityMeasure</span></code></a></p>
+<p>This class defines the F1 Score. This quality measure is also called as F1 Measure.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.quality_measures.f1_score.F1Score.compute">
+<span class="sig-name descname"><span class="pre">compute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dict_of_parameters</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.quality_measures.f1_score.F1Score.compute" title="Link to this definition"></a></dt>
+<dd><p>Method to compute the F1Score quality measure (you can also call to the instance for this purpose).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>dict_of_parameters</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-data docutils literal notranslate"><span class="pre">typing.Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>]]</span>) – python dictionary which contains all the necessary parameters used to compute this quality measure.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>the computed value for the F1Score quality measure.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.quality_measures.f1_score.F1Score.get_name">
+<span class="sig-name descname"><span class="pre">get_name</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.quality_measures.f1_score.F1Score.get_name" title="Link to this definition"></a></dt>
+<dd><p>Method to get the quality measure name (equal to the class name).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.quality_measures.f1_score.F1Score.optimistic_estimate_of">
+<span class="sig-name descname"><span class="pre">optimistic_estimate_of</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.quality_measures.f1_score.F1Score.optimistic_estimate_of" title="Link to this definition"></a></dt>
+<dd><p>Method to get a python dictionary with the quality measures of which this one is an optimistic estimate.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <a class="reference internal" href="#subgroups.quality_measures.quality_measure.QualityMeasure" title="subgroups.quality_measures.quality_measure.QualityMeasure"><code class="xref py py-class docutils literal notranslate"><span class="pre">subgroups.quality_measures.quality_measure.QualityMeasure</span></code></a>]</span></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>a python dictionary in which the keys are the quality measure names and the values are the instances of those quality measures.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-subgroups.quality_measures.irr">
+<span id="subgroups-quality-measures-irr-module"></span><h2>subgroups.quality_measures.irr module<a class="headerlink" href="#module-subgroups.quality_measures.irr" title="Link to this heading"></a></h2>
+<p>This file contains the implementation of the Incremental Response Rate (IRR) quality measure.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="subgroups.quality_measures.irr.IRR">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">subgroups.quality_measures.irr.</span></span><span class="sig-name descname"><span class="pre">IRR</span></span><a class="headerlink" href="#subgroups.quality_measures.irr.IRR" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#subgroups.quality_measures.quality_measure.QualityMeasure" title="subgroups.quality_measures.quality_measure.QualityMeasure"><code class="xref py py-class docutils literal notranslate"><span class="pre">QualityMeasure</span></code></a></p>
+<p>This class defines the Incremental Response Rate (IRR) quality measure.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.quality_measures.irr.IRR.compute">
+<span class="sig-name descname"><span class="pre">compute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dict_of_parameters</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.quality_measures.irr.IRR.compute" title="Link to this definition"></a></dt>
+<dd><p>Method to compute the IRR quality measure (you can also call to the instance for this purpose).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>dict_of_parameters</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-data docutils literal notranslate"><span class="pre">typing.Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>]]</span>) – python dictionary which contains all the necessary parameters used to compute this quality measure.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>the computed value for the IRR quality measure.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.quality_measures.irr.IRR.get_name">
+<span class="sig-name descname"><span class="pre">get_name</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.quality_measures.irr.IRR.get_name" title="Link to this definition"></a></dt>
+<dd><p>Method to get the quality measure name (equal to the class name).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.quality_measures.irr.IRR.optimistic_estimate_of">
+<span class="sig-name descname"><span class="pre">optimistic_estimate_of</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.quality_measures.irr.IRR.optimistic_estimate_of" title="Link to this definition"></a></dt>
+<dd><p>Method to get a python dictionary with the quality measures of which this one is an optimistic estimate.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <a class="reference internal" href="#subgroups.quality_measures.quality_measure.QualityMeasure" title="subgroups.quality_measures.quality_measure.QualityMeasure"><code class="xref py py-class docutils literal notranslate"><span class="pre">subgroups.quality_measures.quality_measure.QualityMeasure</span></code></a>]</span></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>a python dictionary in which the keys are the quality measure names and the values are the instances of those quality measures.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-subgroups.quality_measures.npv">
+<span id="subgroups-quality-measures-npv-module"></span><h2>subgroups.quality_measures.npv module<a class="headerlink" href="#module-subgroups.quality_measures.npv" title="Link to this heading"></a></h2>
+<p>This file contains the implementation of the Negative Predictive Value (NPV) quality measure.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="subgroups.quality_measures.npv.NPV">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">subgroups.quality_measures.npv.</span></span><span class="sig-name descname"><span class="pre">NPV</span></span><a class="headerlink" href="#subgroups.quality_measures.npv.NPV" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#subgroups.quality_measures.quality_measure.QualityMeasure" title="subgroups.quality_measures.quality_measure.QualityMeasure"><code class="xref py py-class docutils literal notranslate"><span class="pre">QualityMeasure</span></code></a></p>
+<p>This class defines the Negative Predictive Value (NPV) quality measure.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.quality_measures.npv.NPV.compute">
+<span class="sig-name descname"><span class="pre">compute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dict_of_parameters</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.quality_measures.npv.NPV.compute" title="Link to this definition"></a></dt>
+<dd><p>Method to compute the NPV quality measure (you can also call to the instance for this purpose).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>dict_of_parameters</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-data docutils literal notranslate"><span class="pre">typing.Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>]]</span>) – python dictionary which contains all the necessary parameters used to compute this quality measure.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>the computed value for the NPV quality measure.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.quality_measures.npv.NPV.get_name">
+<span class="sig-name descname"><span class="pre">get_name</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.quality_measures.npv.NPV.get_name" title="Link to this definition"></a></dt>
+<dd><p>Method to get the quality measure name (equal to the class name).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.quality_measures.npv.NPV.optimistic_estimate_of">
+<span class="sig-name descname"><span class="pre">optimistic_estimate_of</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.quality_measures.npv.NPV.optimistic_estimate_of" title="Link to this definition"></a></dt>
+<dd><p>Method to get a python dictionary with the quality measures of which this one is an optimistic estimate.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <a class="reference internal" href="#subgroups.quality_measures.quality_measure.QualityMeasure" title="subgroups.quality_measures.quality_measure.QualityMeasure"><code class="xref py py-class docutils literal notranslate"><span class="pre">subgroups.quality_measures.quality_measure.QualityMeasure</span></code></a>]</span></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>a python dictionary in which the keys are the quality measure names and the values are the instances of those quality measures.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-subgroups.quality_measures.piatetsky_shapiro">
+<span id="subgroups-quality-measures-piatetsky-shapiro-module"></span><h2>subgroups.quality_measures.piatetsky_shapiro module<a class="headerlink" href="#module-subgroups.quality_measures.piatetsky_shapiro" title="Link to this heading"></a></h2>
+<p>This file contains the implementation of the Piatetsky-Shapiro quality measure.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="subgroups.quality_measures.piatetsky_shapiro.PiatetskyShapiro">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">subgroups.quality_measures.piatetsky_shapiro.</span></span><span class="sig-name descname"><span class="pre">PiatetskyShapiro</span></span><a class="headerlink" href="#subgroups.quality_measures.piatetsky_shapiro.PiatetskyShapiro" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#subgroups.quality_measures.quality_measure.QualityMeasure" title="subgroups.quality_measures.quality_measure.QualityMeasure"><code class="xref py py-class docutils literal notranslate"><span class="pre">QualityMeasure</span></code></a></p>
+<p>This class defines the Piatetsky-Shapiro quality measure.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.quality_measures.piatetsky_shapiro.PiatetskyShapiro.compute">
+<span class="sig-name descname"><span class="pre">compute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dict_of_parameters</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.quality_measures.piatetsky_shapiro.PiatetskyShapiro.compute" title="Link to this definition"></a></dt>
+<dd><p>Method to compute the PiatetskyShapiro quality measure (you can also call to the instance for this purpose).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>dict_of_parameters</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-data docutils literal notranslate"><span class="pre">typing.Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>]]</span>) – python dictionary which contains all the necessary parameters used to compute this quality measure.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>the computed value for the PiatetskyShapiro quality measure.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.quality_measures.piatetsky_shapiro.PiatetskyShapiro.get_name">
+<span class="sig-name descname"><span class="pre">get_name</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.quality_measures.piatetsky_shapiro.PiatetskyShapiro.get_name" title="Link to this definition"></a></dt>
+<dd><p>Method to get the quality measure name (equal to the class name).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.quality_measures.piatetsky_shapiro.PiatetskyShapiro.optimistic_estimate_of">
+<span class="sig-name descname"><span class="pre">optimistic_estimate_of</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.quality_measures.piatetsky_shapiro.PiatetskyShapiro.optimistic_estimate_of" title="Link to this definition"></a></dt>
+<dd><p>Method to get a python dictionary with the quality measures of which this one is an optimistic estimate.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <a class="reference internal" href="#subgroups.quality_measures.quality_measure.QualityMeasure" title="subgroups.quality_measures.quality_measure.QualityMeasure"><code class="xref py py-class docutils literal notranslate"><span class="pre">subgroups.quality_measures.quality_measure.QualityMeasure</span></code></a>]</span></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>a python dictionary in which the keys are the quality measure names and the values are the instances of those quality measures.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-subgroups.quality_measures.piatetsky_shapiro_optimistic_estimate_1">
+<span id="subgroups-quality-measures-piatetsky-shapiro-optimistic-estimate-1-module"></span><h2>subgroups.quality_measures.piatetsky_shapiro_optimistic_estimate_1 module<a class="headerlink" href="#module-subgroups.quality_measures.piatetsky_shapiro_optimistic_estimate_1" title="Link to this heading"></a></h2>
+<p>This file contains the implementation of an Optimistic Estimate of the Piatetsky-Shapiro quality measure.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="subgroups.quality_measures.piatetsky_shapiro_optimistic_estimate_1.PiatetskyShapiroOptimisticEstimate1">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">subgroups.quality_measures.piatetsky_shapiro_optimistic_estimate_1.</span></span><span class="sig-name descname"><span class="pre">PiatetskyShapiroOptimisticEstimate1</span></span><a class="headerlink" href="#subgroups.quality_measures.piatetsky_shapiro_optimistic_estimate_1.PiatetskyShapiroOptimisticEstimate1" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#subgroups.quality_measures.quality_measure.QualityMeasure" title="subgroups.quality_measures.quality_measure.QualityMeasure"><code class="xref py py-class docutils literal notranslate"><span class="pre">QualityMeasure</span></code></a></p>
+<p>This class defines an Optimistic Estimate of the Piatetsky-Shapiro quality measure.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.quality_measures.piatetsky_shapiro_optimistic_estimate_1.PiatetskyShapiroOptimisticEstimate1.compute">
+<span class="sig-name descname"><span class="pre">compute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dict_of_parameters</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.quality_measures.piatetsky_shapiro_optimistic_estimate_1.PiatetskyShapiroOptimisticEstimate1.compute" title="Link to this definition"></a></dt>
+<dd><p>Method to compute the PiatetskyShapiroOptimisticEstimate1 quality measure (you can also call to the instance for this purpose).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>dict_of_parameters</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-data docutils literal notranslate"><span class="pre">typing.Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>]]</span>) – python dictionary which contains all the necessary parameters used to compute this quality measure.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>the computed value for the PiatetskyShapiroOptimisticEstimate1 quality measure.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.quality_measures.piatetsky_shapiro_optimistic_estimate_1.PiatetskyShapiroOptimisticEstimate1.get_name">
+<span class="sig-name descname"><span class="pre">get_name</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.quality_measures.piatetsky_shapiro_optimistic_estimate_1.PiatetskyShapiroOptimisticEstimate1.get_name" title="Link to this definition"></a></dt>
+<dd><p>Method to get the quality measure name (equal to the class name).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.quality_measures.piatetsky_shapiro_optimistic_estimate_1.PiatetskyShapiroOptimisticEstimate1.optimistic_estimate_of">
+<span class="sig-name descname"><span class="pre">optimistic_estimate_of</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.quality_measures.piatetsky_shapiro_optimistic_estimate_1.PiatetskyShapiroOptimisticEstimate1.optimistic_estimate_of" title="Link to this definition"></a></dt>
+<dd><p>Method to get a python dictionary with the quality measures of which this one is an optimistic estimate.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <a class="reference internal" href="#subgroups.quality_measures.quality_measure.QualityMeasure" title="subgroups.quality_measures.quality_measure.QualityMeasure"><code class="xref py py-class docutils literal notranslate"><span class="pre">subgroups.quality_measures.quality_measure.QualityMeasure</span></code></a>]</span></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>a python dictionary in which the keys are the quality measure names and the values are the instances of those quality measures.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-subgroups.quality_measures.piatetsky_shapiro_optimistic_estimate_2">
+<span id="subgroups-quality-measures-piatetsky-shapiro-optimistic-estimate-2-module"></span><h2>subgroups.quality_measures.piatetsky_shapiro_optimistic_estimate_2 module<a class="headerlink" href="#module-subgroups.quality_measures.piatetsky_shapiro_optimistic_estimate_2" title="Link to this heading"></a></h2>
+<p>This file contains the implementation of an Optimistic Estimate of the Piatetsky-Shapiro quality measure.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="subgroups.quality_measures.piatetsky_shapiro_optimistic_estimate_2.PiatetskyShapiroOptimisticEstimate2">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">subgroups.quality_measures.piatetsky_shapiro_optimistic_estimate_2.</span></span><span class="sig-name descname"><span class="pre">PiatetskyShapiroOptimisticEstimate2</span></span><a class="headerlink" href="#subgroups.quality_measures.piatetsky_shapiro_optimistic_estimate_2.PiatetskyShapiroOptimisticEstimate2" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#subgroups.quality_measures.quality_measure.QualityMeasure" title="subgroups.quality_measures.quality_measure.QualityMeasure"><code class="xref py py-class docutils literal notranslate"><span class="pre">QualityMeasure</span></code></a></p>
+<p>This class defines an Optimistic Estimate of the Piatetsky-Shapiro quality measure.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.quality_measures.piatetsky_shapiro_optimistic_estimate_2.PiatetskyShapiroOptimisticEstimate2.compute">
+<span class="sig-name descname"><span class="pre">compute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dict_of_parameters</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.quality_measures.piatetsky_shapiro_optimistic_estimate_2.PiatetskyShapiroOptimisticEstimate2.compute" title="Link to this definition"></a></dt>
+<dd><p>Method to compute the PiatetskyShapiroOptimisticEstimate2 quality measure (you can also call to the instance for this purpose).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>dict_of_parameters</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-data docutils literal notranslate"><span class="pre">typing.Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>]]</span>) – python dictionary which contains all the necessary parameters used to compute this quality measure.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>the computed value for the PiatetskyShapiroOptimisticEstimate2 quality measure.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.quality_measures.piatetsky_shapiro_optimistic_estimate_2.PiatetskyShapiroOptimisticEstimate2.get_name">
+<span class="sig-name descname"><span class="pre">get_name</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.quality_measures.piatetsky_shapiro_optimistic_estimate_2.PiatetskyShapiroOptimisticEstimate2.get_name" title="Link to this definition"></a></dt>
+<dd><p>Method to get the quality measure name (equal to the class name).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.quality_measures.piatetsky_shapiro_optimistic_estimate_2.PiatetskyShapiroOptimisticEstimate2.optimistic_estimate_of">
+<span class="sig-name descname"><span class="pre">optimistic_estimate_of</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.quality_measures.piatetsky_shapiro_optimistic_estimate_2.PiatetskyShapiroOptimisticEstimate2.optimistic_estimate_of" title="Link to this definition"></a></dt>
+<dd><p>Method to get a python dictionary with the quality measures of which this one is an optimistic estimate.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <a class="reference internal" href="#subgroups.quality_measures.quality_measure.QualityMeasure" title="subgroups.quality_measures.quality_measure.QualityMeasure"><code class="xref py py-class docutils literal notranslate"><span class="pre">subgroups.quality_measures.quality_measure.QualityMeasure</span></code></a>]</span></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>a python dictionary in which the keys are the quality measure names and the values are the instances of those quality measures.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-subgroups.quality_measures.ppv">
+<span id="subgroups-quality-measures-ppv-module"></span><h2>subgroups.quality_measures.ppv module<a class="headerlink" href="#module-subgroups.quality_measures.ppv" title="Link to this heading"></a></h2>
+<p>This file contains the implementation of the Positive Predictive Value (PPV) quality measure.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="subgroups.quality_measures.ppv.PPV">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">subgroups.quality_measures.ppv.</span></span><span class="sig-name descname"><span class="pre">PPV</span></span><a class="headerlink" href="#subgroups.quality_measures.ppv.PPV" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#subgroups.quality_measures.quality_measure.QualityMeasure" title="subgroups.quality_measures.quality_measure.QualityMeasure"><code class="xref py py-class docutils literal notranslate"><span class="pre">QualityMeasure</span></code></a></p>
+<p>This class defines the Positive Predictive Value (PPV) quality measure.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.quality_measures.ppv.PPV.compute">
+<span class="sig-name descname"><span class="pre">compute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dict_of_parameters</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.quality_measures.ppv.PPV.compute" title="Link to this definition"></a></dt>
+<dd><p>Method to compute the PPV quality measure (you can also call to the instance for this purpose).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>dict_of_parameters</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-data docutils literal notranslate"><span class="pre">typing.Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>]]</span>) – python dictionary which contains all the necessary parameters used to compute this quality measure.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>the computed value for the PPV quality measure.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.quality_measures.ppv.PPV.get_name">
+<span class="sig-name descname"><span class="pre">get_name</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.quality_measures.ppv.PPV.get_name" title="Link to this definition"></a></dt>
+<dd><p>Method to get the quality measure name (equal to the class name).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.quality_measures.ppv.PPV.optimistic_estimate_of">
+<span class="sig-name descname"><span class="pre">optimistic_estimate_of</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.quality_measures.ppv.PPV.optimistic_estimate_of" title="Link to this definition"></a></dt>
+<dd><p>Method to get a python dictionary with the quality measures of which this one is an optimistic estimate.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <a class="reference internal" href="#subgroups.quality_measures.quality_measure.QualityMeasure" title="subgroups.quality_measures.quality_measure.QualityMeasure"><code class="xref py py-class docutils literal notranslate"><span class="pre">subgroups.quality_measures.quality_measure.QualityMeasure</span></code></a>]</span></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>a python dictionary in which the keys are the quality measure names and the values are the instances of those quality measures.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-subgroups.quality_measures.qg">
+<span id="subgroups-quality-measures-qg-module"></span><h2>subgroups.quality_measures.qg module<a class="headerlink" href="#module-subgroups.quality_measures.qg" title="Link to this heading"></a></h2>
+<p>This file contains the implementation of the Qg quality measure.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="subgroups.quality_measures.qg.Qg">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">subgroups.quality_measures.qg.</span></span><span class="sig-name descname"><span class="pre">Qg</span></span><a class="headerlink" href="#subgroups.quality_measures.qg.Qg" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#subgroups.quality_measures.quality_measure.QualityMeasure" title="subgroups.quality_measures.quality_measure.QualityMeasure"><code class="xref py py-class docutils literal notranslate"><span class="pre">QualityMeasure</span></code></a></p>
+<p>This class defines the Qg quality measure.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.quality_measures.qg.Qg.compute">
+<span class="sig-name descname"><span class="pre">compute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dict_of_parameters</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.quality_measures.qg.Qg.compute" title="Link to this definition"></a></dt>
+<dd><p>Method to compute the Qg quality measure (you can also call to the instance for this purpose). IMPORTANT: the generalisation parameter ‘g’ is needed in order to compute this quality measure. It also has to be in the dict of parameters.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>dict_of_parameters</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-data docutils literal notranslate"><span class="pre">typing.Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>]]</span>) – python dictionary which contains all the necessary parameters used to compute this quality measure. IMPORTANT: the generalisation parameter ‘g’ needs to be included.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>the computed value for the Qg quality measure.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.quality_measures.qg.Qg.get_name">
+<span class="sig-name descname"><span class="pre">get_name</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.quality_measures.qg.Qg.get_name" title="Link to this definition"></a></dt>
+<dd><p>Method to get the quality measure name (equal to the class name).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.quality_measures.qg.Qg.optimistic_estimate_of">
+<span class="sig-name descname"><span class="pre">optimistic_estimate_of</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.quality_measures.qg.Qg.optimistic_estimate_of" title="Link to this definition"></a></dt>
+<dd><p>Method to get a python dictionary with the quality measures of which this one is an optimistic estimate.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <a class="reference internal" href="#subgroups.quality_measures.quality_measure.QualityMeasure" title="subgroups.quality_measures.quality_measure.QualityMeasure"><code class="xref py py-class docutils literal notranslate"><span class="pre">subgroups.quality_measures.quality_measure.QualityMeasure</span></code></a>]</span></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>a python dictionary in which the keys are the quality measure names and the values are the instances of those quality measures.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-subgroups.quality_measures.quality_measure">
+<span id="subgroups-quality-measures-quality-measure-module"></span><h2>subgroups.quality_measures.quality_measure module<a class="headerlink" href="#module-subgroups.quality_measures.quality_measure" title="Link to this heading"></a></h2>
+<p>This file contains the implementation of the root class of all the implemented quality measures. This class is an abstract class and cannot be instantiated.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="subgroups.quality_measures.quality_measure.QualityMeasure">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">subgroups.quality_measures.quality_measure.</span></span><span class="sig-name descname"><span class="pre">QualityMeasure</span></span><a class="headerlink" href="#subgroups.quality_measures.quality_measure.QualityMeasure" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ABC</span></code></p>
+<p>This abstract class defines the root class of all the implemented quality measures.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="subgroups.quality_measures.quality_measure.QualityMeasure.FALSE_POPULATION">
+<span class="sig-name descname"><span class="pre">FALSE_POPULATION</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">typing.ClassVar</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'FP'</span></em><a class="headerlink" href="#subgroups.quality_measures.quality_measure.QualityMeasure.FALSE_POPULATION" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="subgroups.quality_measures.quality_measure.QualityMeasure.FALSE_POSITIVES">
+<span class="sig-name descname"><span class="pre">FALSE_POSITIVES</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">typing.ClassVar</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'fp'</span></em><a class="headerlink" href="#subgroups.quality_measures.quality_measure.QualityMeasure.FALSE_POSITIVES" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="subgroups.quality_measures.quality_measure.QualityMeasure.TRUE_POPULATION">
+<span class="sig-name descname"><span class="pre">TRUE_POPULATION</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">typing.ClassVar</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'TP'</span></em><a class="headerlink" href="#subgroups.quality_measures.quality_measure.QualityMeasure.TRUE_POPULATION" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="subgroups.quality_measures.quality_measure.QualityMeasure.TRUE_POSITIVES">
+<span class="sig-name descname"><span class="pre">TRUE_POSITIVES</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">typing.ClassVar</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'tp'</span></em><a class="headerlink" href="#subgroups.quality_measures.quality_measure.QualityMeasure.TRUE_POSITIVES" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.quality_measures.quality_measure.QualityMeasure.compute">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">compute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dict_of_parameters</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.quality_measures.quality_measure.QualityMeasure.compute" title="Link to this definition"></a></dt>
+<dd><p>Method to compute the corresponding quality measure (you can also call to the instance for this purpose).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>dict_of_parameters</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-data docutils literal notranslate"><span class="pre">typing.Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>]]</span>) – python dictionary which contains all the necessary parameters used to compute this quality measure.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>the computed value for the corresponding quality measure.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.quality_measures.quality_measure.QualityMeasure.get_name">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_name</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.quality_measures.quality_measure.QualityMeasure.get_name" title="Link to this definition"></a></dt>
+<dd><p>Method to get the quality measure name (equal to the class name).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.quality_measures.quality_measure.QualityMeasure.optimistic_estimate_of">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">optimistic_estimate_of</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.quality_measures.quality_measure.QualityMeasure.optimistic_estimate_of" title="Link to this definition"></a></dt>
+<dd><p>Method to get a python dictionary with the quality measures of which this one is an optimistic estimate.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, QualityMeasure]</span></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>a python dictionary in which the keys are the quality measure names and the values are the instances of those quality measures.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-subgroups.quality_measures.sensitivity">
+<span id="subgroups-quality-measures-sensitivity-module"></span><h2>subgroups.quality_measures.sensitivity module<a class="headerlink" href="#module-subgroups.quality_measures.sensitivity" title="Link to this heading"></a></h2>
+<p>This file contains the implementation of the Sensitivity quality measure. This quality measure is also called as Recall or True Positive Rate.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="subgroups.quality_measures.sensitivity.Sensitivity">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">subgroups.quality_measures.sensitivity.</span></span><span class="sig-name descname"><span class="pre">Sensitivity</span></span><a class="headerlink" href="#subgroups.quality_measures.sensitivity.Sensitivity" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#subgroups.quality_measures.quality_measure.QualityMeasure" title="subgroups.quality_measures.quality_measure.QualityMeasure"><code class="xref py py-class docutils literal notranslate"><span class="pre">QualityMeasure</span></code></a></p>
+<p>This class defines the Sensitivity quality measure. This quality measure is also called as Recall or True Positive Rate.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.quality_measures.sensitivity.Sensitivity.compute">
+<span class="sig-name descname"><span class="pre">compute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dict_of_parameters</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.quality_measures.sensitivity.Sensitivity.compute" title="Link to this definition"></a></dt>
+<dd><p>Method to compute the Sensitivity quality measure (you can also call to the instance for this purpose).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>dict_of_parameters</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-data docutils literal notranslate"><span class="pre">typing.Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>]]</span>) – python dictionary which contains all the necessary parameters used to compute this quality measure.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>the computed value for the Sensitivity quality measure.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.quality_measures.sensitivity.Sensitivity.get_name">
+<span class="sig-name descname"><span class="pre">get_name</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.quality_measures.sensitivity.Sensitivity.get_name" title="Link to this definition"></a></dt>
+<dd><p>Method to get the quality measure name (equal to the class name).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.quality_measures.sensitivity.Sensitivity.optimistic_estimate_of">
+<span class="sig-name descname"><span class="pre">optimistic_estimate_of</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.quality_measures.sensitivity.Sensitivity.optimistic_estimate_of" title="Link to this definition"></a></dt>
+<dd><p>Method to get a python dictionary with the quality measures of which this one is an optimistic estimate.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <a class="reference internal" href="#subgroups.quality_measures.quality_measure.QualityMeasure" title="subgroups.quality_measures.quality_measure.QualityMeasure"><code class="xref py py-class docutils literal notranslate"><span class="pre">subgroups.quality_measures.quality_measure.QualityMeasure</span></code></a>]</span></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>a python dictionary in which the keys are the quality measure names and the values are the instances of those quality measures.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-subgroups.quality_measures.specificity">
+<span id="subgroups-quality-measures-specificity-module"></span><h2>subgroups.quality_measures.specificity module<a class="headerlink" href="#module-subgroups.quality_measures.specificity" title="Link to this heading"></a></h2>
+<p>This file contains the implementation of the Specificity quality measure. This quality measure is also called as True Negative Rate.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="subgroups.quality_measures.specificity.Specificity">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">subgroups.quality_measures.specificity.</span></span><span class="sig-name descname"><span class="pre">Specificity</span></span><a class="headerlink" href="#subgroups.quality_measures.specificity.Specificity" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#subgroups.quality_measures.quality_measure.QualityMeasure" title="subgroups.quality_measures.quality_measure.QualityMeasure"><code class="xref py py-class docutils literal notranslate"><span class="pre">QualityMeasure</span></code></a></p>
+<p>This class defines the Specificity quality measure. This quality measure is also called as True Negative Rate.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.quality_measures.specificity.Specificity.compute">
+<span class="sig-name descname"><span class="pre">compute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dict_of_parameters</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.quality_measures.specificity.Specificity.compute" title="Link to this definition"></a></dt>
+<dd><p>Method to compute the Specificity quality measure (you can also call to the instance for this purpose).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>dict_of_parameters</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-data docutils literal notranslate"><span class="pre">typing.Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>]]</span>) – python dictionary which contains all the necessary parameters used to compute this quality measure.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>the computed value for the Specificity quality measure.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.quality_measures.specificity.Specificity.get_name">
+<span class="sig-name descname"><span class="pre">get_name</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.quality_measures.specificity.Specificity.get_name" title="Link to this definition"></a></dt>
+<dd><p>Method to get the quality measure name (equal to the class name).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.quality_measures.specificity.Specificity.optimistic_estimate_of">
+<span class="sig-name descname"><span class="pre">optimistic_estimate_of</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.quality_measures.specificity.Specificity.optimistic_estimate_of" title="Link to this definition"></a></dt>
+<dd><p>Method to get a python dictionary with the quality measures of which this one is an optimistic estimate.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <a class="reference internal" href="#subgroups.quality_measures.quality_measure.QualityMeasure" title="subgroups.quality_measures.quality_measure.QualityMeasure"><code class="xref py py-class docutils literal notranslate"><span class="pre">subgroups.quality_measures.quality_measure.QualityMeasure</span></code></a>]</span></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>a python dictionary in which the keys are the quality measure names and the values are the instances of those quality measures.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-subgroups.quality_measures.support">
+<span id="subgroups-quality-measures-support-module"></span><h2>subgroups.quality_measures.support module<a class="headerlink" href="#module-subgroups.quality_measures.support" title="Link to this heading"></a></h2>
+<p>This file contains the implementation of the Support quality measure.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="subgroups.quality_measures.support.Support">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">subgroups.quality_measures.support.</span></span><span class="sig-name descname"><span class="pre">Support</span></span><a class="headerlink" href="#subgroups.quality_measures.support.Support" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#subgroups.quality_measures.quality_measure.QualityMeasure" title="subgroups.quality_measures.quality_measure.QualityMeasure"><code class="xref py py-class docutils literal notranslate"><span class="pre">QualityMeasure</span></code></a></p>
+<p>This class defines the Support quality measure.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.quality_measures.support.Support.compute">
+<span class="sig-name descname"><span class="pre">compute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dict_of_parameters</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.quality_measures.support.Support.compute" title="Link to this definition"></a></dt>
+<dd><p>Method to compute the Support quality measure (you can also call to the instance for this purpose).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>dict_of_parameters</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-data docutils literal notranslate"><span class="pre">typing.Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>]]</span>) – python dictionary which contains all the necessary parameters used to compute this quality measure.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>the computed value for the Support quality measure.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.quality_measures.support.Support.get_name">
+<span class="sig-name descname"><span class="pre">get_name</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.quality_measures.support.Support.get_name" title="Link to this definition"></a></dt>
+<dd><p>Method to get the quality measure name (equal to the class name).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.quality_measures.support.Support.optimistic_estimate_of">
+<span class="sig-name descname"><span class="pre">optimistic_estimate_of</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.quality_measures.support.Support.optimistic_estimate_of" title="Link to this definition"></a></dt>
+<dd><p>Method to get a python dictionary with the quality measures of which this one is an optimistic estimate.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <a class="reference internal" href="#subgroups.quality_measures.quality_measure.QualityMeasure" title="subgroups.quality_measures.quality_measure.QualityMeasure"><code class="xref py py-class docutils literal notranslate"><span class="pre">subgroups.quality_measures.quality_measure.QualityMeasure</span></code></a>]</span></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>a python dictionary in which the keys are the quality measure names and the values are the instances of those quality measures.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-subgroups.quality_measures.wracc">
+<span id="subgroups-quality-measures-wracc-module"></span><h2>subgroups.quality_measures.wracc module<a class="headerlink" href="#module-subgroups.quality_measures.wracc" title="Link to this heading"></a></h2>
+<p>This file contains the implementation of the Weighted Relative Accuracy (WRAcc) quality measure.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="subgroups.quality_measures.wracc.WRAcc">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">subgroups.quality_measures.wracc.</span></span><span class="sig-name descname"><span class="pre">WRAcc</span></span><a class="headerlink" href="#subgroups.quality_measures.wracc.WRAcc" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#subgroups.quality_measures.quality_measure.QualityMeasure" title="subgroups.quality_measures.quality_measure.QualityMeasure"><code class="xref py py-class docutils literal notranslate"><span class="pre">QualityMeasure</span></code></a></p>
+<p>This class defines the Weighted Relative Accuracy (WRAcc) quality measure.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.quality_measures.wracc.WRAcc.compute">
+<span class="sig-name descname"><span class="pre">compute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dict_of_parameters</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.quality_measures.wracc.WRAcc.compute" title="Link to this definition"></a></dt>
+<dd><p>Method to compute the WRAcc quality measure (you can also call to the instance for this purpose).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>dict_of_parameters</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-data docutils literal notranslate"><span class="pre">typing.Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>]]</span>) – python dictionary which contains all the necessary parameters used to compute this quality measure.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>the computed value for the WRAcc quality measure.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.quality_measures.wracc.WRAcc.get_name">
+<span class="sig-name descname"><span class="pre">get_name</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.quality_measures.wracc.WRAcc.get_name" title="Link to this definition"></a></dt>
+<dd><p>Method to get the quality measure name (equal to the class name).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.quality_measures.wracc.WRAcc.optimistic_estimate_of">
+<span class="sig-name descname"><span class="pre">optimistic_estimate_of</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.quality_measures.wracc.WRAcc.optimistic_estimate_of" title="Link to this definition"></a></dt>
+<dd><p>Method to get a python dictionary with the quality measures of which this one is an optimistic estimate.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <a class="reference internal" href="#subgroups.quality_measures.quality_measure.QualityMeasure" title="subgroups.quality_measures.quality_measure.QualityMeasure"><code class="xref py py-class docutils literal notranslate"><span class="pre">subgroups.quality_measures.quality_measure.QualityMeasure</span></code></a>]</span></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>a python dictionary in which the keys are the quality measure names and the values are the instances of those quality measures.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-subgroups.quality_measures.wracc_optimistic_estimate_1">
+<span id="subgroups-quality-measures-wracc-optimistic-estimate-1-module"></span><h2>subgroups.quality_measures.wracc_optimistic_estimate_1 module<a class="headerlink" href="#module-subgroups.quality_measures.wracc_optimistic_estimate_1" title="Link to this heading"></a></h2>
+<p>This file contains the implementation of an Optimistic Estimate of the Weighted Relative Accuracy (WRAcc) quality measure.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="subgroups.quality_measures.wracc_optimistic_estimate_1.WRAccOptimisticEstimate1">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">subgroups.quality_measures.wracc_optimistic_estimate_1.</span></span><span class="sig-name descname"><span class="pre">WRAccOptimisticEstimate1</span></span><a class="headerlink" href="#subgroups.quality_measures.wracc_optimistic_estimate_1.WRAccOptimisticEstimate1" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#subgroups.quality_measures.quality_measure.QualityMeasure" title="subgroups.quality_measures.quality_measure.QualityMeasure"><code class="xref py py-class docutils literal notranslate"><span class="pre">QualityMeasure</span></code></a></p>
+<p>This class defines an Optimistic Estimate of the Weighted Relative Accuracy (WRAcc) quality measure.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.quality_measures.wracc_optimistic_estimate_1.WRAccOptimisticEstimate1.compute">
+<span class="sig-name descname"><span class="pre">compute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dict_of_parameters</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.quality_measures.wracc_optimistic_estimate_1.WRAccOptimisticEstimate1.compute" title="Link to this definition"></a></dt>
+<dd><p>Method to compute the WRAccOptimisticEstimate1 quality measure (you can also call to the instance for this purpose).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>dict_of_parameters</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-data docutils literal notranslate"><span class="pre">typing.Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>]]</span>) – python dictionary which contains all the necessary parameters used to compute this quality measure.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>the computed value for the WRAccOptimisticEstimate1 quality measure.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.quality_measures.wracc_optimistic_estimate_1.WRAccOptimisticEstimate1.get_name">
+<span class="sig-name descname"><span class="pre">get_name</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.quality_measures.wracc_optimistic_estimate_1.WRAccOptimisticEstimate1.get_name" title="Link to this definition"></a></dt>
+<dd><p>Method to get the quality measure name (equal to the class name).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.quality_measures.wracc_optimistic_estimate_1.WRAccOptimisticEstimate1.optimistic_estimate_of">
+<span class="sig-name descname"><span class="pre">optimistic_estimate_of</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.quality_measures.wracc_optimistic_estimate_1.WRAccOptimisticEstimate1.optimistic_estimate_of" title="Link to this definition"></a></dt>
+<dd><p>Method to get a python dictionary with the quality measures of which this one is an optimistic estimate.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <a class="reference internal" href="#subgroups.quality_measures.quality_measure.QualityMeasure" title="subgroups.quality_measures.quality_measure.QualityMeasure"><code class="xref py py-class docutils literal notranslate"><span class="pre">subgroups.quality_measures.quality_measure.QualityMeasure</span></code></a>]</span></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>a python dictionary in which the keys are the quality measure names and the values are the instances of those quality measures.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-subgroups.quality_measures.youden">
+<span id="subgroups-quality-measures-youden-module"></span><h2>subgroups.quality_measures.youden module<a class="headerlink" href="#module-subgroups.quality_measures.youden" title="Link to this heading"></a></h2>
+<p>This file contains the implementation of the Youden quality measure.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="subgroups.quality_measures.youden.Youden">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">subgroups.quality_measures.youden.</span></span><span class="sig-name descname"><span class="pre">Youden</span></span><a class="headerlink" href="#subgroups.quality_measures.youden.Youden" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#subgroups.quality_measures.quality_measure.QualityMeasure" title="subgroups.quality_measures.quality_measure.QualityMeasure"><code class="xref py py-class docutils literal notranslate"><span class="pre">QualityMeasure</span></code></a></p>
+<p>This class defines the Youden quality measure.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.quality_measures.youden.Youden.compute">
+<span class="sig-name descname"><span class="pre">compute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dict_of_parameters</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.quality_measures.youden.Youden.compute" title="Link to this definition"></a></dt>
+<dd><p>Method to compute the Youden quality measure (you can also call to the instance for this purpose).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>dict_of_parameters</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-data docutils literal notranslate"><span class="pre">typing.Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>]]</span>) – python dictionary which contains all the necessary parameters used to compute this quality measure.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>the computed value for the Youden quality measure.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.quality_measures.youden.Youden.get_name">
+<span class="sig-name descname"><span class="pre">get_name</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.quality_measures.youden.Youden.get_name" title="Link to this definition"></a></dt>
+<dd><p>Method to get the quality measure name (equal to the class name).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.quality_measures.youden.Youden.optimistic_estimate_of">
+<span class="sig-name descname"><span class="pre">optimistic_estimate_of</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.quality_measures.youden.Youden.optimistic_estimate_of" title="Link to this definition"></a></dt>
+<dd><p>Method to get a python dictionary with the quality measures of which this one is an optimistic estimate.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <a class="reference internal" href="#subgroups.quality_measures.quality_measure.QualityMeasure" title="subgroups.quality_measures.quality_measure.QualityMeasure"><code class="xref py py-class docutils literal notranslate"><span class="pre">subgroups.quality_measures.quality_measure.QualityMeasure</span></code></a>]</span></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>a python dictionary in which the keys are the quality measure names and the values are the instances of those quality measures.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-subgroups.quality_measures">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-subgroups.quality_measures" title="Link to this heading"></a></h2>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="subgroups.datasets.html" class="btn btn-neutral float-left" title="subgroups.datasets package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="subgroups.tests.html" class="btn btn-neutral float-right" title="subgroups.tests package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Antonio López Martínez-Carrasco.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

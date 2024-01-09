@@ -1,0 +1,21 @@
+subgroups.tests.quality\_measures package
+=========================================
+
+Submodules
+----------
+
+subgroups.tests.quality\_measures.test\_quality\_measures module
+----------------------------------------------------------------
+
+.. automodule:: subgroups.tests.quality_measures.test_quality_measures
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: subgroups.tests.quality_measures
+   :members:
+   :undoc-members:
+   :show-inheritance:

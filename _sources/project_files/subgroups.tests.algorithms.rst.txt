@@ -1,0 +1,19 @@
+subgroups.tests.algorithms package
+==================================
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   subgroups.tests.algorithms.subgroup_lists
+   subgroups.tests.algorithms.subgroup_sets
+
+Module contents
+---------------
+
+.. automodule:: subgroups.tests.algorithms
+   :members:
+   :undoc-members:
+   :show-inheritance:

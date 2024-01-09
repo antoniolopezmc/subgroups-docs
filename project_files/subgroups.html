@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>subgroups package &mdash; subgroups 0.1.5 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=92fd9be5" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=59fadc99"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="subgroups.algorithms package" href="subgroups.algorithms.html" />
+    <link rel="prev" title="subgroups documentation" href="../index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            subgroups
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">subgroups package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="subgroups.algorithms.html">subgroups.algorithms package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="subgroups.core.html">subgroups.core package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="subgroups.data_structures.html">subgroups.data_structures package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="subgroups.datasets.html">subgroups.datasets package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="subgroups.quality_measures.html">subgroups.quality_measures package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="subgroups.tests.html">subgroups.tests package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="subgroups.utils.html">subgroups.utils package</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-subgroups.exceptions">subgroups.exceptions module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#subgroups.exceptions.DatasetAttributeTypeError"><code class="docutils literal notranslate"><span class="pre">DatasetAttributeTypeError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#subgroups.exceptions.DuplicateFpTreeNodeError"><code class="docutils literal notranslate"><span class="pre">DuplicateFpTreeNodeError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#subgroups.exceptions.InconsistentMethodParametersError"><code class="docutils literal notranslate"><span class="pre">InconsistentMethodParametersError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#subgroups.exceptions.OperatorNotSupportedError"><code class="docutils literal notranslate"><span class="pre">OperatorNotSupportedError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#subgroups.exceptions.ParameterNotFoundError"><code class="docutils literal notranslate"><span class="pre">ParameterNotFoundError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#subgroups.exceptions.SubgroupParameterNotFoundError"><code class="docutils literal notranslate"><span class="pre">SubgroupParameterNotFoundError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#subgroups.exceptions.VerticalListSizeError"><code class="docutils literal notranslate"><span class="pre">VerticalListSizeError</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-subgroups">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="subgroups.algorithms.html">subgroups.algorithms package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="subgroups.core.html">subgroups.core package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="subgroups.data_structures.html">subgroups.data_structures package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="subgroups.quality_measures.html">subgroups.quality_measures package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="subgroups.tests.html">subgroups.tests package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="subgroups.utils.html">subgroups.utils package</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">subgroups</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">subgroups package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/project_files/subgroups.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="subgroups-package">
+<h1>subgroups package<a class="headerlink" href="#subgroups-package" title="Link to this heading"></a></h1>
+<section id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Link to this heading"></a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="subgroups.algorithms.html">subgroups.algorithms package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="subgroups.algorithms.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="subgroups.algorithms.subgroup_lists.html">subgroups.algorithms.subgroup_lists package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.algorithms.subgroup_lists.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.algorithms.subgroup_lists.html#module-subgroups.algorithms.subgroup_lists.dslm">subgroups.algorithms.subgroup_lists.dslm module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.algorithms.subgroup_lists.html#module-subgroups.algorithms.subgroup_lists.gmsl">subgroups.algorithms.subgroup_lists.gmsl module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.algorithms.subgroup_lists.html#module-subgroups.algorithms.subgroup_lists.psld">subgroups.algorithms.subgroup_lists.psld module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.algorithms.subgroup_lists.html#module-subgroups.algorithms.subgroup_lists">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="subgroups.algorithms.subgroup_sets.html">subgroups.algorithms.subgroup_sets package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.algorithms.subgroup_sets.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.algorithms.subgroup_sets.html#module-subgroups.algorithms.subgroup_sets.bsd">subgroups.algorithms.subgroup_sets.bsd module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.algorithms.subgroup_sets.html#module-subgroups.algorithms.subgroup_sets.cbsd">subgroups.algorithms.subgroup_sets.cbsd module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.algorithms.subgroup_sets.html#module-subgroups.algorithms.subgroup_sets.cpbsd">subgroups.algorithms.subgroup_sets.cpbsd module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.algorithms.subgroup_sets.html#module-subgroups.algorithms.subgroup_sets.qfinder">subgroups.algorithms.subgroup_sets.qfinder module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.algorithms.subgroup_sets.html#module-subgroups.algorithms.subgroup_sets.sdmap">subgroups.algorithms.subgroup_sets.sdmap module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.algorithms.subgroup_sets.html#module-subgroups.algorithms.subgroup_sets.sdmapstar">subgroups.algorithms.subgroup_sets.sdmapstar module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.algorithms.subgroup_sets.html#module-subgroups.algorithms.subgroup_sets.vlsd">subgroups.algorithms.subgroup_sets.vlsd module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.algorithms.subgroup_sets.html#module-subgroups.algorithms.subgroup_sets">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="subgroups.algorithms.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="subgroups.algorithms.html#module-subgroups.algorithms.algorithm">subgroups.algorithms.algorithm module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="subgroups.algorithms.html#subgroups.algorithms.algorithm.Algorithm"><code class="docutils literal notranslate"><span class="pre">Algorithm</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.algorithms.html#subgroups.algorithms.algorithm.Algorithm.fit"><code class="docutils literal notranslate"><span class="pre">Algorithm.fit()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="subgroups.algorithms.html#module-subgroups.algorithms">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="subgroups.core.html">subgroups.core package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="subgroups.core.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="subgroups.core.html#module-subgroups.core.operator">subgroups.core.operator module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="subgroups.core.html#subgroups.core.operator.Operator"><code class="docutils literal notranslate"><span class="pre">Operator</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.core.html#subgroups.core.operator.Operator.EQUAL"><code class="docutils literal notranslate"><span class="pre">Operator.EQUAL</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.core.html#subgroups.core.operator.Operator.GREATER"><code class="docutils literal notranslate"><span class="pre">Operator.GREATER</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.core.html#subgroups.core.operator.Operator.GREATER_OR_EQUAL"><code class="docutils literal notranslate"><span class="pre">Operator.GREATER_OR_EQUAL</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.core.html#subgroups.core.operator.Operator.LESS"><code class="docutils literal notranslate"><span class="pre">Operator.LESS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.core.html#subgroups.core.operator.Operator.LESS_OR_EQUAL"><code class="docutils literal notranslate"><span class="pre">Operator.LESS_OR_EQUAL</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.core.html#subgroups.core.operator.Operator.NOT_EQUAL"><code class="docutils literal notranslate"><span class="pre">Operator.NOT_EQUAL</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.core.html#subgroups.core.operator.Operator.evaluate"><code class="docutils literal notranslate"><span class="pre">Operator.evaluate()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.core.html#subgroups.core.operator.Operator.generate_from_str"><code class="docutils literal notranslate"><span class="pre">Operator.generate_from_str()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="subgroups.core.html#module-subgroups.core.pattern">subgroups.core.pattern module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="subgroups.core.html#subgroups.core.pattern.Pattern"><code class="docutils literal notranslate"><span class="pre">Pattern</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.core.html#subgroups.core.pattern.Pattern.add_selector"><code class="docutils literal notranslate"><span class="pre">Pattern.add_selector()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.core.html#subgroups.core.pattern.Pattern.copy"><code class="docutils literal notranslate"><span class="pre">Pattern.copy()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.core.html#subgroups.core.pattern.Pattern.generate_from_str"><code class="docutils literal notranslate"><span class="pre">Pattern.generate_from_str()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.core.html#subgroups.core.pattern.Pattern.get_selector"><code class="docutils literal notranslate"><span class="pre">Pattern.get_selector()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.core.html#subgroups.core.pattern.Pattern.is_contained"><code class="docutils literal notranslate"><span class="pre">Pattern.is_contained()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.core.html#subgroups.core.pattern.Pattern.is_refinement"><code class="docutils literal notranslate"><span class="pre">Pattern.is_refinement()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.core.html#subgroups.core.pattern.Pattern.remove_selector"><code class="docutils literal notranslate"><span class="pre">Pattern.remove_selector()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.core.html#subgroups.core.pattern.Pattern.remove_selector_by_index"><code class="docutils literal notranslate"><span class="pre">Pattern.remove_selector_by_index()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="subgroups.core.html#module-subgroups.core.selector">subgroups.core.selector module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="subgroups.core.html#subgroups.core.selector.Selector"><code class="docutils literal notranslate"><span class="pre">Selector</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.core.html#subgroups.core.selector.Selector.attribute_name"><code class="docutils literal notranslate"><span class="pre">Selector.attribute_name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.core.html#subgroups.core.selector.Selector.generate_from_str"><code class="docutils literal notranslate"><span class="pre">Selector.generate_from_str()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.core.html#subgroups.core.selector.Selector.match"><code class="docutils literal notranslate"><span class="pre">Selector.match()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.core.html#subgroups.core.selector.Selector.operator"><code class="docutils literal notranslate"><span class="pre">Selector.operator</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.core.html#subgroups.core.selector.Selector.value"><code class="docutils literal notranslate"><span class="pre">Selector.value</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="subgroups.core.html#module-subgroups.core.subgroup">subgroups.core.subgroup module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="subgroups.core.html#subgroups.core.subgroup.Subgroup"><code class="docutils literal notranslate"><span class="pre">Subgroup</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.core.html#subgroups.core.subgroup.Subgroup.copy"><code class="docutils literal notranslate"><span class="pre">Subgroup.copy()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.core.html#subgroups.core.subgroup.Subgroup.description"><code class="docutils literal notranslate"><span class="pre">Subgroup.description</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.core.html#subgroups.core.subgroup.Subgroup.filter"><code class="docutils literal notranslate"><span class="pre">Subgroup.filter()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.core.html#subgroups.core.subgroup.Subgroup.generate_from_str"><code class="docutils literal notranslate"><span class="pre">Subgroup.generate_from_str()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.core.html#subgroups.core.subgroup.Subgroup.is_refinement"><code class="docutils literal notranslate"><span class="pre">Subgroup.is_refinement()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.core.html#subgroups.core.subgroup.Subgroup.target"><code class="docutils literal notranslate"><span class="pre">Subgroup.target</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="subgroups.core.html#module-subgroups.core">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="subgroups.data_structures.html">subgroups.data_structures package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="subgroups.data_structures.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="subgroups.data_structures.html#module-subgroups.data_structures.bitset_bsd">subgroups.data_structures.bitset_bsd module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="subgroups.data_structures.html#subgroups.data_structures.bitset_bsd.BitsetBSD"><code class="docutils literal notranslate"><span class="pre">BitsetBSD</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.data_structures.html#subgroups.data_structures.bitset_bsd.BitsetBSD.bitset_neg"><code class="docutils literal notranslate"><span class="pre">BitsetBSD.bitset_neg</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.data_structures.html#subgroups.data_structures.bitset_bsd.BitsetBSD.bitset_pos"><code class="docutils literal notranslate"><span class="pre">BitsetBSD.bitset_pos</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.data_structures.html#subgroups.data_structures.bitset_bsd.BitsetBSD.build_bitset"><code class="docutils literal notranslate"><span class="pre">BitsetBSD.build_bitset()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.data_structures.html#subgroups.data_structures.bitset_bsd.BitsetBSD.generate_set_of_frequent_selectors"><code class="docutils literal notranslate"><span class="pre">BitsetBSD.generate_set_of_frequent_selectors()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="subgroups.data_structures.html#subgroups.data_structures.bitset_bsd.BitsetDictionary"><code class="docutils literal notranslate"><span class="pre">BitsetDictionary</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="subgroups.data_structures.html#module-subgroups.data_structures.bitset_qfinder">subgroups.data_structures.bitset_qfinder module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="subgroups.data_structures.html#subgroups.data_structures.bitset_qfinder.Bitset_QFinder"><code class="docutils literal notranslate"><span class="pre">Bitset_QFinder</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.data_structures.html#subgroups.data_structures.bitset_qfinder.Bitset_QFinder.compute_credibility_measures"><code class="docutils literal notranslate"><span class="pre">Bitset_QFinder.compute_credibility_measures()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.data_structures.html#subgroups.data_structures.bitset_qfinder.Bitset_QFinder.generate_bitset"><code class="docutils literal notranslate"><span class="pre">Bitset_QFinder.generate_bitset()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.data_structures.html#subgroups.data_structures.bitset_qfinder.Bitset_QFinder.get_non_empty_patterns"><code class="docutils literal notranslate"><span class="pre">Bitset_QFinder.get_non_empty_patterns()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="subgroups.data_structures.html#module-subgroups.data_structures.fp_tree_for_sdmap">subgroups.data_structures.fp_tree_for_sdmap module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="subgroups.data_structures.html#subgroups.data_structures.fp_tree_for_sdmap.FPTreeForSDMap"><code class="docutils literal notranslate"><span class="pre">FPTreeForSDMap</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.data_structures.html#subgroups.data_structures.fp_tree_for_sdmap.FPTreeForSDMap.build_tree"><code class="docutils literal notranslate"><span class="pre">FPTreeForSDMap.build_tree()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.data_structures.html#subgroups.data_structures.fp_tree_for_sdmap.FPTreeForSDMap.generate_conditional_fp_tree"><code class="docutils literal notranslate"><span class="pre">FPTreeForSDMap.generate_conditional_fp_tree()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.data_structures.html#subgroups.data_structures.fp_tree_for_sdmap.FPTreeForSDMap.generate_set_of_frequent_selectors"><code class="docutils literal notranslate"><span class="pre">FPTreeForSDMap.generate_set_of_frequent_selectors()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.data_structures.html#subgroups.data_structures.fp_tree_for_sdmap.FPTreeForSDMap.header_table"><code class="docutils literal notranslate"><span class="pre">FPTreeForSDMap.header_table</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.data_structures.html#subgroups.data_structures.fp_tree_for_sdmap.FPTreeForSDMap.header_table_as_str"><code class="docutils literal notranslate"><span class="pre">FPTreeForSDMap.header_table_as_str()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.data_structures.html#subgroups.data_structures.fp_tree_for_sdmap.FPTreeForSDMap.is_empty"><code class="docutils literal notranslate"><span class="pre">FPTreeForSDMap.is_empty()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.data_structures.html#subgroups.data_structures.fp_tree_for_sdmap.FPTreeForSDMap.root_node"><code class="docutils literal notranslate"><span class="pre">FPTreeForSDMap.root_node</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.data_structures.html#subgroups.data_structures.fp_tree_for_sdmap.FPTreeForSDMap.sorted_header_table"><code class="docutils literal notranslate"><span class="pre">FPTreeForSDMap.sorted_header_table</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.data_structures.html#subgroups.data_structures.fp_tree_for_sdmap.FPTreeForSDMap.there_is_a_single_path"><code class="docutils literal notranslate"><span class="pre">FPTreeForSDMap.there_is_a_single_path()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.data_structures.html#subgroups.data_structures.fp_tree_for_sdmap.FPTreeForSDMap.tree_as_str"><code class="docutils literal notranslate"><span class="pre">FPTreeForSDMap.tree_as_str()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="subgroups.data_structures.html#module-subgroups.data_structures.fp_tree_for_sdmapstar">subgroups.data_structures.fp_tree_for_sdmapstar module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="subgroups.data_structures.html#subgroups.data_structures.fp_tree_for_sdmapstar.FPTreeForSDMapStar"><code class="docutils literal notranslate"><span class="pre">FPTreeForSDMapStar</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.data_structures.html#subgroups.data_structures.fp_tree_for_sdmapstar.FPTreeForSDMapStar.generate_conditional_fp_tree_star"><code class="docutils literal notranslate"><span class="pre">FPTreeForSDMapStar.generate_conditional_fp_tree_star()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="subgroups.data_structures.html#module-subgroups.data_structures.fp_tree_node">subgroups.data_structures.fp_tree_node module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="subgroups.data_structures.html#subgroups.data_structures.fp_tree_node.FPTreeNode"><code class="docutils literal notranslate"><span class="pre">FPTreeNode</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.data_structures.html#subgroups.data_structures.fp_tree_node.FPTreeNode.add_child"><code class="docutils literal notranslate"><span class="pre">FPTreeNode.add_child()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.data_structures.html#subgroups.data_structures.fp_tree_node.FPTreeNode.counters"><code class="docutils literal notranslate"><span class="pre">FPTreeNode.counters</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.data_structures.html#subgroups.data_structures.fp_tree_node.FPTreeNode.delete_child_by_selector"><code class="docutils literal notranslate"><span class="pre">FPTreeNode.delete_child_by_selector()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.data_structures.html#subgroups.data_structures.fp_tree_node.FPTreeNode.get_child_by_selector"><code class="docutils literal notranslate"><span class="pre">FPTreeNode.get_child_by_selector()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.data_structures.html#subgroups.data_structures.fp_tree_node.FPTreeNode.has_this_child"><code class="docutils literal notranslate"><span class="pre">FPTreeNode.has_this_child()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.data_structures.html#subgroups.data_structures.fp_tree_node.FPTreeNode.is_child_of"><code class="docutils literal notranslate"><span class="pre">FPTreeNode.is_child_of()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.data_structures.html#subgroups.data_structures.fp_tree_node.FPTreeNode.node_link"><code class="docutils literal notranslate"><span class="pre">FPTreeNode.node_link</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.data_structures.html#subgroups.data_structures.fp_tree_node.FPTreeNode.number_of_children"><code class="docutils literal notranslate"><span class="pre">FPTreeNode.number_of_children</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.data_structures.html#subgroups.data_structures.fp_tree_node.FPTreeNode.parent"><code class="docutils literal notranslate"><span class="pre">FPTreeNode.parent</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.data_structures.html#subgroups.data_structures.fp_tree_node.FPTreeNode.selector"><code class="docutils literal notranslate"><span class="pre">FPTreeNode.selector</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.data_structures.html#subgroups.data_structures.fp_tree_node.FPTreeNode.tree_as_str"><code class="docutils literal notranslate"><span class="pre">FPTreeNode.tree_as_str()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="subgroups.data_structures.html#module-subgroups.data_structures.subgroup_list">subgroups.data_structures.subgroup_list module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="subgroups.data_structures.html#subgroups.data_structures.subgroup_list.SubgroupList"><code class="docutils literal notranslate"><span class="pre">SubgroupList</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.data_structures.html#subgroups.data_structures.subgroup_list.SubgroupList.add_subgroup"><code class="docutils literal notranslate"><span class="pre">SubgroupList.add_subgroup()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.data_structures.html#subgroups.data_structures.subgroup_list.SubgroupList.dataset_number_of_negatives"><code class="docutils literal notranslate"><span class="pre">SubgroupList.dataset_number_of_negatives</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.data_structures.html#subgroups.data_structures.subgroup_list.SubgroupList.dataset_number_of_positives"><code class="docutils literal notranslate"><span class="pre">SubgroupList.dataset_number_of_positives</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.data_structures.html#subgroups.data_structures.subgroup_list.SubgroupList.dataset_target_distribution"><code class="docutils literal notranslate"><span class="pre">SubgroupList.dataset_target_distribution</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.data_structures.html#subgroups.data_structures.subgroup_list.SubgroupList.default_rule_bitarray_of_negatives"><code class="docutils literal notranslate"><span class="pre">SubgroupList.default_rule_bitarray_of_negatives</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.data_structures.html#subgroups.data_structures.subgroup_list.SubgroupList.default_rule_bitarray_of_positives"><code class="docutils literal notranslate"><span class="pre">SubgroupList.default_rule_bitarray_of_positives</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.data_structures.html#subgroups.data_structures.subgroup_list.SubgroupList.delete_last_subgroup"><code class="docutils literal notranslate"><span class="pre">SubgroupList.delete_last_subgroup()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.data_structures.html#subgroups.data_structures.subgroup_list.SubgroupList.get_subgroup"><code class="docutils literal notranslate"><span class="pre">SubgroupList.get_subgroup()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.data_structures.html#subgroups.data_structures.subgroup_list.SubgroupList.get_subgroup_bitarray_of_negatives"><code class="docutils literal notranslate"><span class="pre">SubgroupList.get_subgroup_bitarray_of_negatives()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.data_structures.html#subgroups.data_structures.subgroup_list.SubgroupList.get_subgroup_bitarray_of_positives"><code class="docutils literal notranslate"><span class="pre">SubgroupList.get_subgroup_bitarray_of_positives()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.data_structures.html#subgroups.data_structures.subgroup_list.SubgroupList.get_subgroup_original_bitarray_of_negatives"><code class="docutils literal notranslate"><span class="pre">SubgroupList.get_subgroup_original_bitarray_of_negatives()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.data_structures.html#subgroups.data_structures.subgroup_list.SubgroupList.get_subgroup_original_bitarray_of_positives"><code class="docutils literal notranslate"><span class="pre">SubgroupList.get_subgroup_original_bitarray_of_positives()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.data_structures.html#subgroups.data_structures.subgroup_list.SubgroupList.is_empty"><code class="docutils literal notranslate"><span class="pre">SubgroupList.is_empty()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.data_structures.html#subgroups.data_structures.subgroup_list.SubgroupList.number_of_dataset_instances"><code class="docutils literal notranslate"><span class="pre">SubgroupList.number_of_dataset_instances</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="subgroups.data_structures.html#module-subgroups.data_structures.vertical_list">subgroups.data_structures.vertical_list module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="subgroups.data_structures.html#subgroups.data_structures.vertical_list.VerticalList"><code class="docutils literal notranslate"><span class="pre">VerticalList</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.data_structures.html#subgroups.data_structures.vertical_list.VerticalList.compute_quality_value"><code class="docutils literal notranslate"><span class="pre">VerticalList.compute_quality_value()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.data_structures.html#subgroups.data_structures.vertical_list.VerticalList.fp"><code class="docutils literal notranslate"><span class="pre">VerticalList.fp</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.data_structures.html#subgroups.data_structures.vertical_list.VerticalList.join"><code class="docutils literal notranslate"><span class="pre">VerticalList.join()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.data_structures.html#subgroups.data_structures.vertical_list.VerticalList.list_of_selectors"><code class="docutils literal notranslate"><span class="pre">VerticalList.list_of_selectors</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.data_structures.html#subgroups.data_structures.vertical_list.VerticalList.n"><code class="docutils literal notranslate"><span class="pre">VerticalList.n</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.data_structures.html#subgroups.data_structures.vertical_list.VerticalList.number_of_dataset_instances"><code class="docutils literal notranslate"><span class="pre">VerticalList.number_of_dataset_instances</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.data_structures.html#subgroups.data_structures.vertical_list.VerticalList.quality_value"><code class="docutils literal notranslate"><span class="pre">VerticalList.quality_value</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.data_structures.html#subgroups.data_structures.vertical_list.VerticalList.sequence_of_instances_fp"><code class="docutils literal notranslate"><span class="pre">VerticalList.sequence_of_instances_fp</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.data_structures.html#subgroups.data_structures.vertical_list.VerticalList.sequence_of_instances_tp"><code class="docutils literal notranslate"><span class="pre">VerticalList.sequence_of_instances_tp</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.data_structures.html#subgroups.data_structures.vertical_list.VerticalList.tp"><code class="docutils literal notranslate"><span class="pre">VerticalList.tp</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="subgroups.data_structures.html#module-subgroups.data_structures.vertical_list_with_bitsets">subgroups.data_structures.vertical_list_with_bitsets module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="subgroups.data_structures.html#subgroups.data_structures.vertical_list_with_bitsets.VerticalListWithBitsets"><code class="docutils literal notranslate"><span class="pre">VerticalListWithBitsets</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.data_structures.html#subgroups.data_structures.vertical_list_with_bitsets.VerticalListWithBitsets.compute_quality_value"><code class="docutils literal notranslate"><span class="pre">VerticalListWithBitsets.compute_quality_value()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.data_structures.html#subgroups.data_structures.vertical_list_with_bitsets.VerticalListWithBitsets.fp"><code class="docutils literal notranslate"><span class="pre">VerticalListWithBitsets.fp</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.data_structures.html#subgroups.data_structures.vertical_list_with_bitsets.VerticalListWithBitsets.join"><code class="docutils literal notranslate"><span class="pre">VerticalListWithBitsets.join()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.data_structures.html#subgroups.data_structures.vertical_list_with_bitsets.VerticalListWithBitsets.n"><code class="docutils literal notranslate"><span class="pre">VerticalListWithBitsets.n</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.data_structures.html#subgroups.data_structures.vertical_list_with_bitsets.VerticalListWithBitsets.sequence_of_instances_fp"><code class="docutils literal notranslate"><span class="pre">VerticalListWithBitsets.sequence_of_instances_fp</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.data_structures.html#subgroups.data_structures.vertical_list_with_bitsets.VerticalListWithBitsets.sequence_of_instances_tp"><code class="docutils literal notranslate"><span class="pre">VerticalListWithBitsets.sequence_of_instances_tp</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.data_structures.html#subgroups.data_structures.vertical_list_with_bitsets.VerticalListWithBitsets.tp"><code class="docutils literal notranslate"><span class="pre">VerticalListWithBitsets.tp</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="subgroups.data_structures.html#module-subgroups.data_structures.vertical_list_with_sets">subgroups.data_structures.vertical_list_with_sets module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="subgroups.data_structures.html#subgroups.data_structures.vertical_list_with_sets.VerticalListWithSets"><code class="docutils literal notranslate"><span class="pre">VerticalListWithSets</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.data_structures.html#subgroups.data_structures.vertical_list_with_sets.VerticalListWithSets.compute_quality_value"><code class="docutils literal notranslate"><span class="pre">VerticalListWithSets.compute_quality_value()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.data_structures.html#subgroups.data_structures.vertical_list_with_sets.VerticalListWithSets.fp"><code class="docutils literal notranslate"><span class="pre">VerticalListWithSets.fp</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.data_structures.html#subgroups.data_structures.vertical_list_with_sets.VerticalListWithSets.join"><code class="docutils literal notranslate"><span class="pre">VerticalListWithSets.join()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.data_structures.html#subgroups.data_structures.vertical_list_with_sets.VerticalListWithSets.n"><code class="docutils literal notranslate"><span class="pre">VerticalListWithSets.n</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.data_structures.html#subgroups.data_structures.vertical_list_with_sets.VerticalListWithSets.sequence_of_instances_fp"><code class="docutils literal notranslate"><span class="pre">VerticalListWithSets.sequence_of_instances_fp</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.data_structures.html#subgroups.data_structures.vertical_list_with_sets.VerticalListWithSets.sequence_of_instances_tp"><code class="docutils literal notranslate"><span class="pre">VerticalListWithSets.sequence_of_instances_tp</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.data_structures.html#subgroups.data_structures.vertical_list_with_sets.VerticalListWithSets.tp"><code class="docutils literal notranslate"><span class="pre">VerticalListWithSets.tp</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="subgroups.data_structures.html#module-subgroups.data_structures">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="subgroups.datasets.html">subgroups.datasets package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="subgroups.datasets.html#module-subgroups.datasets">Module contents</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="subgroups.datasets.html#subgroups.datasets.load_ballons_csv"><code class="docutils literal notranslate"><span class="pre">load_ballons_csv()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="subgroups.datasets.html#subgroups.datasets.load_car_evaluation_csv"><code class="docutils literal notranslate"><span class="pre">load_car_evaluation_csv()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="subgroups.datasets.html#subgroups.datasets.load_covid_sp_csv"><code class="docutils literal notranslate"><span class="pre">load_covid_sp_csv()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="subgroups.datasets.html#subgroups.datasets.load_credit_g_csv"><code class="docutils literal notranslate"><span class="pre">load_credit_g_csv()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="subgroups.datasets.html#subgroups.datasets.load_heart_disease_csv"><code class="docutils literal notranslate"><span class="pre">load_heart_disease_csv()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="subgroups.datasets.html#subgroups.datasets.load_income_csv"><code class="docutils literal notranslate"><span class="pre">load_income_csv()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="subgroups.datasets.html#subgroups.datasets.load_lenses_csv"><code class="docutils literal notranslate"><span class="pre">load_lenses_csv()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="subgroups.datasets.html#subgroups.datasets.load_lymph_csv"><code class="docutils literal notranslate"><span class="pre">load_lymph_csv()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="subgroups.datasets.html#subgroups.datasets.load_mushroom_csv"><code class="docutils literal notranslate"><span class="pre">load_mushroom_csv()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="subgroups.datasets.html#subgroups.datasets.load_shop_csv"><code class="docutils literal notranslate"><span class="pre">load_shop_csv()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="subgroups.datasets.html#subgroups.datasets.load_sick_csv"><code class="docutils literal notranslate"><span class="pre">load_sick_csv()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="subgroups.datasets.html#subgroups.datasets.load_tic_tac_toe_csv"><code class="docutils literal notranslate"><span class="pre">load_tic_tac_toe_csv()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="subgroups.datasets.html#subgroups.datasets.load_vote_csv"><code class="docutils literal notranslate"><span class="pre">load_vote_csv()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="subgroups.quality_measures.html">subgroups.quality_measures package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="subgroups.quality_measures.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="subgroups.quality_measures.html#module-subgroups.quality_measures.absolute_wracc">subgroups.quality_measures.absolute_wracc module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="subgroups.quality_measures.html#subgroups.quality_measures.absolute_wracc.AbsoluteWRAcc"><code class="docutils literal notranslate"><span class="pre">AbsoluteWRAcc</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.quality_measures.html#subgroups.quality_measures.absolute_wracc.AbsoluteWRAcc.compute"><code class="docutils literal notranslate"><span class="pre">AbsoluteWRAcc.compute()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.quality_measures.html#subgroups.quality_measures.absolute_wracc.AbsoluteWRAcc.get_name"><code class="docutils literal notranslate"><span class="pre">AbsoluteWRAcc.get_name()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.quality_measures.html#subgroups.quality_measures.absolute_wracc.AbsoluteWRAcc.optimistic_estimate_of"><code class="docutils literal notranslate"><span class="pre">AbsoluteWRAcc.optimistic_estimate_of()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="subgroups.quality_measures.html#module-subgroups.quality_measures.binomial_test">subgroups.quality_measures.binomial_test module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="subgroups.quality_measures.html#subgroups.quality_measures.binomial_test.BinomialTest"><code class="docutils literal notranslate"><span class="pre">BinomialTest</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.quality_measures.html#subgroups.quality_measures.binomial_test.BinomialTest.compute"><code class="docutils literal notranslate"><span class="pre">BinomialTest.compute()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.quality_measures.html#subgroups.quality_measures.binomial_test.BinomialTest.get_name"><code class="docutils literal notranslate"><span class="pre">BinomialTest.get_name()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.quality_measures.html#subgroups.quality_measures.binomial_test.BinomialTest.optimistic_estimate_of"><code class="docutils literal notranslate"><span class="pre">BinomialTest.optimistic_estimate_of()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="subgroups.quality_measures.html#module-subgroups.quality_measures.binomial_test_optimistic_estimate_1">subgroups.quality_measures.binomial_test_optimistic_estimate_1 module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="subgroups.quality_measures.html#subgroups.quality_measures.binomial_test_optimistic_estimate_1.BinomialTestOptimisticEstimate1"><code class="docutils literal notranslate"><span class="pre">BinomialTestOptimisticEstimate1</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.quality_measures.html#subgroups.quality_measures.binomial_test_optimistic_estimate_1.BinomialTestOptimisticEstimate1.compute"><code class="docutils literal notranslate"><span class="pre">BinomialTestOptimisticEstimate1.compute()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.quality_measures.html#subgroups.quality_measures.binomial_test_optimistic_estimate_1.BinomialTestOptimisticEstimate1.get_name"><code class="docutils literal notranslate"><span class="pre">BinomialTestOptimisticEstimate1.get_name()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.quality_measures.html#subgroups.quality_measures.binomial_test_optimistic_estimate_1.BinomialTestOptimisticEstimate1.optimistic_estimate_of"><code class="docutils literal notranslate"><span class="pre">BinomialTestOptimisticEstimate1.optimistic_estimate_of()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="subgroups.quality_measures.html#module-subgroups.quality_measures.coverage">subgroups.quality_measures.coverage module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="subgroups.quality_measures.html#subgroups.quality_measures.coverage.Coverage"><code class="docutils literal notranslate"><span class="pre">Coverage</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.quality_measures.html#subgroups.quality_measures.coverage.Coverage.compute"><code class="docutils literal notranslate"><span class="pre">Coverage.compute()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.quality_measures.html#subgroups.quality_measures.coverage.Coverage.get_name"><code class="docutils literal notranslate"><span class="pre">Coverage.get_name()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.quality_measures.html#subgroups.quality_measures.coverage.Coverage.optimistic_estimate_of"><code class="docutils literal notranslate"><span class="pre">Coverage.optimistic_estimate_of()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="subgroups.quality_measures.html#module-subgroups.quality_measures.f1_score">subgroups.quality_measures.f1_score module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="subgroups.quality_measures.html#subgroups.quality_measures.f1_score.F1Score"><code class="docutils literal notranslate"><span class="pre">F1Score</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.quality_measures.html#subgroups.quality_measures.f1_score.F1Score.compute"><code class="docutils literal notranslate"><span class="pre">F1Score.compute()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.quality_measures.html#subgroups.quality_measures.f1_score.F1Score.get_name"><code class="docutils literal notranslate"><span class="pre">F1Score.get_name()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.quality_measures.html#subgroups.quality_measures.f1_score.F1Score.optimistic_estimate_of"><code class="docutils literal notranslate"><span class="pre">F1Score.optimistic_estimate_of()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="subgroups.quality_measures.html#module-subgroups.quality_measures.irr">subgroups.quality_measures.irr module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="subgroups.quality_measures.html#subgroups.quality_measures.irr.IRR"><code class="docutils literal notranslate"><span class="pre">IRR</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.quality_measures.html#subgroups.quality_measures.irr.IRR.compute"><code class="docutils literal notranslate"><span class="pre">IRR.compute()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.quality_measures.html#subgroups.quality_measures.irr.IRR.get_name"><code class="docutils literal notranslate"><span class="pre">IRR.get_name()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.quality_measures.html#subgroups.quality_measures.irr.IRR.optimistic_estimate_of"><code class="docutils literal notranslate"><span class="pre">IRR.optimistic_estimate_of()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="subgroups.quality_measures.html#module-subgroups.quality_measures.npv">subgroups.quality_measures.npv module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="subgroups.quality_measures.html#subgroups.quality_measures.npv.NPV"><code class="docutils literal notranslate"><span class="pre">NPV</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.quality_measures.html#subgroups.quality_measures.npv.NPV.compute"><code class="docutils literal notranslate"><span class="pre">NPV.compute()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.quality_measures.html#subgroups.quality_measures.npv.NPV.get_name"><code class="docutils literal notranslate"><span class="pre">NPV.get_name()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.quality_measures.html#subgroups.quality_measures.npv.NPV.optimistic_estimate_of"><code class="docutils literal notranslate"><span class="pre">NPV.optimistic_estimate_of()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="subgroups.quality_measures.html#module-subgroups.quality_measures.piatetsky_shapiro">subgroups.quality_measures.piatetsky_shapiro module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="subgroups.quality_measures.html#subgroups.quality_measures.piatetsky_shapiro.PiatetskyShapiro"><code class="docutils literal notranslate"><span class="pre">PiatetskyShapiro</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.quality_measures.html#subgroups.quality_measures.piatetsky_shapiro.PiatetskyShapiro.compute"><code class="docutils literal notranslate"><span class="pre">PiatetskyShapiro.compute()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.quality_measures.html#subgroups.quality_measures.piatetsky_shapiro.PiatetskyShapiro.get_name"><code class="docutils literal notranslate"><span class="pre">PiatetskyShapiro.get_name()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.quality_measures.html#subgroups.quality_measures.piatetsky_shapiro.PiatetskyShapiro.optimistic_estimate_of"><code class="docutils literal notranslate"><span class="pre">PiatetskyShapiro.optimistic_estimate_of()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="subgroups.quality_measures.html#module-subgroups.quality_measures.piatetsky_shapiro_optimistic_estimate_1">subgroups.quality_measures.piatetsky_shapiro_optimistic_estimate_1 module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="subgroups.quality_measures.html#subgroups.quality_measures.piatetsky_shapiro_optimistic_estimate_1.PiatetskyShapiroOptimisticEstimate1"><code class="docutils literal notranslate"><span class="pre">PiatetskyShapiroOptimisticEstimate1</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.quality_measures.html#subgroups.quality_measures.piatetsky_shapiro_optimistic_estimate_1.PiatetskyShapiroOptimisticEstimate1.compute"><code class="docutils literal notranslate"><span class="pre">PiatetskyShapiroOptimisticEstimate1.compute()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.quality_measures.html#subgroups.quality_measures.piatetsky_shapiro_optimistic_estimate_1.PiatetskyShapiroOptimisticEstimate1.get_name"><code class="docutils literal notranslate"><span class="pre">PiatetskyShapiroOptimisticEstimate1.get_name()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.quality_measures.html#subgroups.quality_measures.piatetsky_shapiro_optimistic_estimate_1.PiatetskyShapiroOptimisticEstimate1.optimistic_estimate_of"><code class="docutils literal notranslate"><span class="pre">PiatetskyShapiroOptimisticEstimate1.optimistic_estimate_of()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="subgroups.quality_measures.html#module-subgroups.quality_measures.piatetsky_shapiro_optimistic_estimate_2">subgroups.quality_measures.piatetsky_shapiro_optimistic_estimate_2 module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="subgroups.quality_measures.html#subgroups.quality_measures.piatetsky_shapiro_optimistic_estimate_2.PiatetskyShapiroOptimisticEstimate2"><code class="docutils literal notranslate"><span class="pre">PiatetskyShapiroOptimisticEstimate2</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.quality_measures.html#subgroups.quality_measures.piatetsky_shapiro_optimistic_estimate_2.PiatetskyShapiroOptimisticEstimate2.compute"><code class="docutils literal notranslate"><span class="pre">PiatetskyShapiroOptimisticEstimate2.compute()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.quality_measures.html#subgroups.quality_measures.piatetsky_shapiro_optimistic_estimate_2.PiatetskyShapiroOptimisticEstimate2.get_name"><code class="docutils literal notranslate"><span class="pre">PiatetskyShapiroOptimisticEstimate2.get_name()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.quality_measures.html#subgroups.quality_measures.piatetsky_shapiro_optimistic_estimate_2.PiatetskyShapiroOptimisticEstimate2.optimistic_estimate_of"><code class="docutils literal notranslate"><span class="pre">PiatetskyShapiroOptimisticEstimate2.optimistic_estimate_of()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="subgroups.quality_measures.html#module-subgroups.quality_measures.ppv">subgroups.quality_measures.ppv module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="subgroups.quality_measures.html#subgroups.quality_measures.ppv.PPV"><code class="docutils literal notranslate"><span class="pre">PPV</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.quality_measures.html#subgroups.quality_measures.ppv.PPV.compute"><code class="docutils literal notranslate"><span class="pre">PPV.compute()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.quality_measures.html#subgroups.quality_measures.ppv.PPV.get_name"><code class="docutils literal notranslate"><span class="pre">PPV.get_name()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.quality_measures.html#subgroups.quality_measures.ppv.PPV.optimistic_estimate_of"><code class="docutils literal notranslate"><span class="pre">PPV.optimistic_estimate_of()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="subgroups.quality_measures.html#module-subgroups.quality_measures.qg">subgroups.quality_measures.qg module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="subgroups.quality_measures.html#subgroups.quality_measures.qg.Qg"><code class="docutils literal notranslate"><span class="pre">Qg</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.quality_measures.html#subgroups.quality_measures.qg.Qg.compute"><code class="docutils literal notranslate"><span class="pre">Qg.compute()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.quality_measures.html#subgroups.quality_measures.qg.Qg.get_name"><code class="docutils literal notranslate"><span class="pre">Qg.get_name()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.quality_measures.html#subgroups.quality_measures.qg.Qg.optimistic_estimate_of"><code class="docutils literal notranslate"><span class="pre">Qg.optimistic_estimate_of()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="subgroups.quality_measures.html#module-subgroups.quality_measures.quality_measure">subgroups.quality_measures.quality_measure module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="subgroups.quality_measures.html#subgroups.quality_measures.quality_measure.QualityMeasure"><code class="docutils literal notranslate"><span class="pre">QualityMeasure</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.quality_measures.html#subgroups.quality_measures.quality_measure.QualityMeasure.FALSE_POPULATION"><code class="docutils literal notranslate"><span class="pre">QualityMeasure.FALSE_POPULATION</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.quality_measures.html#subgroups.quality_measures.quality_measure.QualityMeasure.FALSE_POSITIVES"><code class="docutils literal notranslate"><span class="pre">QualityMeasure.FALSE_POSITIVES</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.quality_measures.html#subgroups.quality_measures.quality_measure.QualityMeasure.TRUE_POPULATION"><code class="docutils literal notranslate"><span class="pre">QualityMeasure.TRUE_POPULATION</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.quality_measures.html#subgroups.quality_measures.quality_measure.QualityMeasure.TRUE_POSITIVES"><code class="docutils literal notranslate"><span class="pre">QualityMeasure.TRUE_POSITIVES</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.quality_measures.html#subgroups.quality_measures.quality_measure.QualityMeasure.compute"><code class="docutils literal notranslate"><span class="pre">QualityMeasure.compute()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.quality_measures.html#subgroups.quality_measures.quality_measure.QualityMeasure.get_name"><code class="docutils literal notranslate"><span class="pre">QualityMeasure.get_name()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.quality_measures.html#subgroups.quality_measures.quality_measure.QualityMeasure.optimistic_estimate_of"><code class="docutils literal notranslate"><span class="pre">QualityMeasure.optimistic_estimate_of()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="subgroups.quality_measures.html#module-subgroups.quality_measures.sensitivity">subgroups.quality_measures.sensitivity module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="subgroups.quality_measures.html#subgroups.quality_measures.sensitivity.Sensitivity"><code class="docutils literal notranslate"><span class="pre">Sensitivity</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.quality_measures.html#subgroups.quality_measures.sensitivity.Sensitivity.compute"><code class="docutils literal notranslate"><span class="pre">Sensitivity.compute()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.quality_measures.html#subgroups.quality_measures.sensitivity.Sensitivity.get_name"><code class="docutils literal notranslate"><span class="pre">Sensitivity.get_name()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.quality_measures.html#subgroups.quality_measures.sensitivity.Sensitivity.optimistic_estimate_of"><code class="docutils literal notranslate"><span class="pre">Sensitivity.optimistic_estimate_of()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="subgroups.quality_measures.html#module-subgroups.quality_measures.specificity">subgroups.quality_measures.specificity module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="subgroups.quality_measures.html#subgroups.quality_measures.specificity.Specificity"><code class="docutils literal notranslate"><span class="pre">Specificity</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.quality_measures.html#subgroups.quality_measures.specificity.Specificity.compute"><code class="docutils literal notranslate"><span class="pre">Specificity.compute()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.quality_measures.html#subgroups.quality_measures.specificity.Specificity.get_name"><code class="docutils literal notranslate"><span class="pre">Specificity.get_name()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.quality_measures.html#subgroups.quality_measures.specificity.Specificity.optimistic_estimate_of"><code class="docutils literal notranslate"><span class="pre">Specificity.optimistic_estimate_of()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="subgroups.quality_measures.html#module-subgroups.quality_measures.support">subgroups.quality_measures.support module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="subgroups.quality_measures.html#subgroups.quality_measures.support.Support"><code class="docutils literal notranslate"><span class="pre">Support</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.quality_measures.html#subgroups.quality_measures.support.Support.compute"><code class="docutils literal notranslate"><span class="pre">Support.compute()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.quality_measures.html#subgroups.quality_measures.support.Support.get_name"><code class="docutils literal notranslate"><span class="pre">Support.get_name()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.quality_measures.html#subgroups.quality_measures.support.Support.optimistic_estimate_of"><code class="docutils literal notranslate"><span class="pre">Support.optimistic_estimate_of()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="subgroups.quality_measures.html#module-subgroups.quality_measures.wracc">subgroups.quality_measures.wracc module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="subgroups.quality_measures.html#subgroups.quality_measures.wracc.WRAcc"><code class="docutils literal notranslate"><span class="pre">WRAcc</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.quality_measures.html#subgroups.quality_measures.wracc.WRAcc.compute"><code class="docutils literal notranslate"><span class="pre">WRAcc.compute()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.quality_measures.html#subgroups.quality_measures.wracc.WRAcc.get_name"><code class="docutils literal notranslate"><span class="pre">WRAcc.get_name()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.quality_measures.html#subgroups.quality_measures.wracc.WRAcc.optimistic_estimate_of"><code class="docutils literal notranslate"><span class="pre">WRAcc.optimistic_estimate_of()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="subgroups.quality_measures.html#module-subgroups.quality_measures.wracc_optimistic_estimate_1">subgroups.quality_measures.wracc_optimistic_estimate_1 module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="subgroups.quality_measures.html#subgroups.quality_measures.wracc_optimistic_estimate_1.WRAccOptimisticEstimate1"><code class="docutils literal notranslate"><span class="pre">WRAccOptimisticEstimate1</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.quality_measures.html#subgroups.quality_measures.wracc_optimistic_estimate_1.WRAccOptimisticEstimate1.compute"><code class="docutils literal notranslate"><span class="pre">WRAccOptimisticEstimate1.compute()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.quality_measures.html#subgroups.quality_measures.wracc_optimistic_estimate_1.WRAccOptimisticEstimate1.get_name"><code class="docutils literal notranslate"><span class="pre">WRAccOptimisticEstimate1.get_name()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.quality_measures.html#subgroups.quality_measures.wracc_optimistic_estimate_1.WRAccOptimisticEstimate1.optimistic_estimate_of"><code class="docutils literal notranslate"><span class="pre">WRAccOptimisticEstimate1.optimistic_estimate_of()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="subgroups.quality_measures.html#module-subgroups.quality_measures.youden">subgroups.quality_measures.youden module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="subgroups.quality_measures.html#subgroups.quality_measures.youden.Youden"><code class="docutils literal notranslate"><span class="pre">Youden</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.quality_measures.html#subgroups.quality_measures.youden.Youden.compute"><code class="docutils literal notranslate"><span class="pre">Youden.compute()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.quality_measures.html#subgroups.quality_measures.youden.Youden.get_name"><code class="docutils literal notranslate"><span class="pre">Youden.get_name()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.quality_measures.html#subgroups.quality_measures.youden.Youden.optimistic_estimate_of"><code class="docutils literal notranslate"><span class="pre">Youden.optimistic_estimate_of()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="subgroups.quality_measures.html#module-subgroups.quality_measures">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="subgroups.tests.html">subgroups.tests package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="subgroups.tests.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="subgroups.tests.algorithms.html">subgroups.tests.algorithms package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.tests.algorithms.html#subpackages">Subpackages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.tests.algorithms.html#module-subgroups.tests.algorithms">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="subgroups.tests.core.html">subgroups.tests.core package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.tests.core.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.tests.core.html#module-subgroups.tests.core.test_operator">subgroups.tests.core.test_operator module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.tests.core.html#module-subgroups.tests.core.test_pattern">subgroups.tests.core.test_pattern module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.tests.core.html#module-subgroups.tests.core.test_selector">subgroups.tests.core.test_selector module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.tests.core.html#module-subgroups.tests.core.test_subgroup">subgroups.tests.core.test_subgroup module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.tests.core.html#module-subgroups.tests.core">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="subgroups.tests.data_structures.html">subgroups.tests.data_structures package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.tests.data_structures.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.tests.data_structures.html#module-subgroups.tests.data_structures.test_fp_tree_for_sdmap">subgroups.tests.data_structures.test_fp_tree_for_sdmap module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.tests.data_structures.html#module-subgroups.tests.data_structures.test_fp_tree_node">subgroups.tests.data_structures.test_fp_tree_node module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.tests.data_structures.html#module-subgroups.tests.data_structures.test_subgroup_list">subgroups.tests.data_structures.test_subgroup_list module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.tests.data_structures.html#module-subgroups.tests.data_structures.test_vertical_list_with_bitsets">subgroups.tests.data_structures.test_vertical_list_with_bitsets module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.tests.data_structures.html#module-subgroups.tests.data_structures.test_vertical_list_with_sets">subgroups.tests.data_structures.test_vertical_list_with_sets module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.tests.data_structures.html#module-subgroups.tests.data_structures">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="subgroups.tests.quality_measures.html">subgroups.tests.quality_measures package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.tests.quality_measures.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.tests.quality_measures.html#module-subgroups.tests.quality_measures.test_quality_measures">subgroups.tests.quality_measures.test_quality_measures module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.tests.quality_measures.html#module-subgroups.tests.quality_measures">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="subgroups.tests.utils.html">subgroups.tests.utils package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.tests.utils.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.tests.utils.html#module-subgroups.tests.utils.test_dataframe_filters">subgroups.tests.utils.test_dataframe_filters module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.tests.utils.html#module-subgroups.tests.utils">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="subgroups.tests.html#module-subgroups.tests">Module contents</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="subgroups.tests.html#subgroups.tests.run_all_tests"><code class="docutils literal notranslate"><span class="pre">run_all_tests()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="subgroups.utils.html">subgroups.utils package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="subgroups.utils.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="subgroups.utils.html#module-subgroups.utils.dataframe_filters">subgroups.utils.dataframe_filters module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="subgroups.utils.html#subgroups.utils.dataframe_filters.filter_by_list_of_selectors"><code class="docutils literal notranslate"><span class="pre">filter_by_list_of_selectors()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="subgroups.utils.html#module-subgroups.utils.mdl">subgroups.utils.mdl module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="subgroups.utils.html#subgroups.utils.mdl.log2_multinomial_with_recurrence"><code class="docutils literal notranslate"><span class="pre">log2_multinomial_with_recurrence()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="subgroups.utils.html#subgroups.utils.mdl.multinomial_with_recurrence"><code class="docutils literal notranslate"><span class="pre">multinomial_with_recurrence()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="subgroups.utils.html#subgroups.utils.mdl.universal_code_for_integer"><code class="docutils literal notranslate"><span class="pre">universal_code_for_integer()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="subgroups.utils.html#subgroups.utils.mdl.universal_code_for_integer_with_maximum"><code class="docutils literal notranslate"><span class="pre">universal_code_for_integer_with_maximum()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="subgroups.utils.html#module-subgroups.utils">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
+</section>
+<section id="module-subgroups.exceptions">
+<span id="subgroups-exceptions-module"></span><h2>subgroups.exceptions module<a class="headerlink" href="#module-subgroups.exceptions" title="Link to this heading"></a></h2>
+<p>This file contains new exceptions used by the library.</p>
+<dl class="py exception">
+<dt class="sig sig-object py" id="subgroups.exceptions.DatasetAttributeTypeError">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">subgroups.exceptions.</span></span><span class="sig-name descname"><span class="pre">DatasetAttributeTypeError</span></span><a class="headerlink" href="#subgroups.exceptions.DatasetAttributeTypeError" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">TypeError</span></code></p>
+<p>This exception is raised when the type of an attribute in a dataset is not supported by a Subgroup Discovery (SD) algorithm.</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="subgroups.exceptions.DuplicateFpTreeNodeError">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">subgroups.exceptions.</span></span><span class="sig-name descname"><span class="pre">DuplicateFpTreeNodeError</span></span><a class="headerlink" href="#subgroups.exceptions.DuplicateFpTreeNodeError" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">RuntimeError</span></code></p>
+<p>This exception is raised when attempting to add a FPTreeNode which already exists.</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="subgroups.exceptions.InconsistentMethodParametersError">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">subgroups.exceptions.</span></span><span class="sig-name descname"><span class="pre">InconsistentMethodParametersError</span></span><a class="headerlink" href="#subgroups.exceptions.InconsistentMethodParametersError" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">RuntimeError</span></code></p>
+<p>This exception is raised when a method has not been called with the appropriate parameters.</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="subgroups.exceptions.OperatorNotSupportedError">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">subgroups.exceptions.</span></span><span class="sig-name descname"><span class="pre">OperatorNotSupportedError</span></span><a class="headerlink" href="#subgroups.exceptions.OperatorNotSupportedError" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">NotImplementedError</span></code></p>
+<p>This exception is raised when an operator is not correctly implemented in the Operator class.</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="subgroups.exceptions.ParameterNotFoundError">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">subgroups.exceptions.</span></span><span class="sig-name descname"><span class="pre">ParameterNotFoundError</span></span><a class="headerlink" href="#subgroups.exceptions.ParameterNotFoundError" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">KeyError</span></code></p>
+<p>This exception is raised when a needed parameter is not found in the quality measure computing process.</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="subgroups.exceptions.SubgroupParameterNotFoundError">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">subgroups.exceptions.</span></span><span class="sig-name descname"><span class="pre">SubgroupParameterNotFoundError</span></span><a class="headerlink" href="#subgroups.exceptions.SubgroupParameterNotFoundError" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#subgroups.exceptions.ParameterNotFoundError" title="subgroups.exceptions.ParameterNotFoundError"><code class="xref py py-class docutils literal notranslate"><span class="pre">ParameterNotFoundError</span></code></a></p>
+<p>This exception is raised when a subgroup parameter (i.e., tp, fp, TP or FP) is not found in the quality measure computing process.</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="subgroups.exceptions.VerticalListSizeError">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">subgroups.exceptions.</span></span><span class="sig-name descname"><span class="pre">VerticalListSizeError</span></span><a class="headerlink" href="#subgroups.exceptions.VerticalListSizeError" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ValueError</span></code></p>
+<p>This exception is raised when comparing Vertical Lists with different dataset sizes.</p>
+</dd></dl>
+
+</section>
+<section id="module-subgroups">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-subgroups" title="Link to this heading"></a></h2>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../index.html" class="btn btn-neutral float-left" title="subgroups documentation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="subgroups.algorithms.html" class="btn btn-neutral float-right" title="subgroups.algorithms package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Antonio López Martínez-Carrasco.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

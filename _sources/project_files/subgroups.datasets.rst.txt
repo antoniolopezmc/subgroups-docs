@@ -1,0 +1,10 @@
+subgroups.datasets package
+==========================
+
+Module contents
+---------------
+
+.. automodule:: subgroups.datasets
+   :members:
+   :undoc-members:
+   :show-inheritance:

@@ -1,0 +1,35 @@
+subgroups package
+=================
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   subgroups.algorithms
+   subgroups.core
+   subgroups.data_structures
+   subgroups.datasets
+   subgroups.quality_measures
+   subgroups.tests
+   subgroups.utils
+
+Submodules
+----------
+
+subgroups.exceptions module
+---------------------------
+
+.. automodule:: subgroups.exceptions
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: subgroups
+   :members:
+   :undoc-members:
+   :show-inheritance:

@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>subgroups.algorithms.subgroup_sets package &mdash; subgroups 0.1.5 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=92fd9be5" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=59fadc99"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="subgroups.core package" href="subgroups.core.html" />
+    <link rel="prev" title="subgroups.algorithms.subgroup_lists package" href="subgroups.algorithms.subgroup_lists.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            subgroups
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="subgroups.html">subgroups package</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="subgroups.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="subgroups.algorithms.html">subgroups.algorithms package</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="subgroups.algorithms.html#subpackages">Subpackages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.algorithms.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.algorithms.html#module-subgroups.algorithms.algorithm">subgroups.algorithms.algorithm module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.algorithms.html#module-subgroups.algorithms">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="subgroups.core.html">subgroups.core package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="subgroups.data_structures.html">subgroups.data_structures package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="subgroups.datasets.html">subgroups.datasets package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="subgroups.quality_measures.html">subgroups.quality_measures package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="subgroups.tests.html">subgroups.tests package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="subgroups.utils.html">subgroups.utils package</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="subgroups.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="subgroups.html#module-subgroups.exceptions">subgroups.exceptions module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="subgroups.html#module-subgroups">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="subgroups.algorithms.html">subgroups.algorithms package</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="subgroups.algorithms.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="subgroups.algorithms.subgroup_lists.html">subgroups.algorithms.subgroup_lists package</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">subgroups.algorithms.subgroup_sets package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-subgroups.algorithms.subgroup_sets.bsd">subgroups.algorithms.subgroup_sets.bsd module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-subgroups.algorithms.subgroup_sets.cbsd">subgroups.algorithms.subgroup_sets.cbsd module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-subgroups.algorithms.subgroup_sets.cpbsd">subgroups.algorithms.subgroup_sets.cpbsd module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-subgroups.algorithms.subgroup_sets.qfinder">subgroups.algorithms.subgroup_sets.qfinder module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-subgroups.algorithms.subgroup_sets.sdmap">subgroups.algorithms.subgroup_sets.sdmap module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-subgroups.algorithms.subgroup_sets.sdmapstar">subgroups.algorithms.subgroup_sets.sdmapstar module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-subgroups.algorithms.subgroup_sets.vlsd">subgroups.algorithms.subgroup_sets.vlsd module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-subgroups.algorithms.subgroup_sets">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="subgroups.algorithms.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="subgroups.algorithms.html#module-subgroups.algorithms.algorithm">subgroups.algorithms.algorithm module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="subgroups.algorithms.html#module-subgroups.algorithms">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="subgroups.core.html">subgroups.core package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="subgroups.data_structures.html">subgroups.data_structures package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="subgroups.quality_measures.html">subgroups.quality_measures package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="subgroups.tests.html">subgroups.tests package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="subgroups.utils.html">subgroups.utils package</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">subgroups</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="subgroups.html">subgroups package</a></li>
+          <li class="breadcrumb-item"><a href="subgroups.algorithms.html">subgroups.algorithms package</a></li>
+      <li class="breadcrumb-item active">subgroups.algorithms.subgroup_sets package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/project_files/subgroups.algorithms.subgroup_sets.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="subgroups-algorithms-subgroup-sets-package">
+<h1>subgroups.algorithms.subgroup_sets package<a class="headerlink" href="#subgroups-algorithms-subgroup-sets-package" title="Link to this heading"></a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
+</section>
+<section id="module-subgroups.algorithms.subgroup_sets.bsd">
+<span id="subgroups-algorithms-subgroup-sets-bsd-module"></span><h2>subgroups.algorithms.subgroup_sets.bsd module<a class="headerlink" href="#module-subgroups.algorithms.subgroup_sets.bsd" title="Link to this heading"></a></h2>
+<p>This file contains the implementation of the BSD algorithm.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="subgroups.algorithms.subgroup_sets.bsd.BSD">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">subgroups.algorithms.subgroup_sets.bsd.</span></span><span class="sig-name descname"><span class="pre">BSD</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">min_support</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">quality_measure</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optimistic_estimate</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_subgroups</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_depth</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">additional_parameters_for_the_quality_measure</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">additional_parameters_for_the_optimistic_estimate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">write_results_in_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.algorithms.subgroup_sets.bsd.BSD" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="subgroups.algorithms.html#subgroups.algorithms.algorithm.Algorithm" title="subgroups.algorithms.algorithm.Algorithm"><code class="xref py py-class docutils literal notranslate"><span class="pre">Algorithm</span></code></a></p>
+<p>This class represents the BSD algorithm.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>min_support</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">typing.Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>]</span>) – Minimum support threshold (NUMBER OF TIMES, NOT A PROPORTION).</p></li>
+<li><p><strong>quality_measure</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="subgroups.quality_measures.html#subgroups.quality_measures.quality_measure.QualityMeasure" title="subgroups.quality_measures.quality_measure.QualityMeasure"><code class="xref py py-class docutils literal notranslate"><span class="pre">subgroups.quality_measures.quality_measure.QualityMeasure</span></code></a></span>) – Specific quality measure to use for the final subgroups.</p></li>
+<li><p><strong>optimistic_estimate</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="subgroups.quality_measures.html#subgroups.quality_measures.quality_measure.QualityMeasure" title="subgroups.quality_measures.quality_measure.QualityMeasure"><code class="xref py py-class docutils literal notranslate"><span class="pre">subgroups.quality_measures.quality_measure.QualityMeasure</span></code></a></span>) – Optimistic estimate of the quality measure.</p></li>
+<li><p><strong>num_subgroups</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span>) – max of subgroups to calculate the prune threshold</p></li>
+<li><p><strong>max_depth</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span>) – max depth of search</p></li>
+<li><p><strong>additional_parameters_for_the_quality_measure</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-data docutils literal notranslate"><span class="pre">typing.Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>]]</span>) – if the quality measure passed by parameter needs more parameters apart from tp, fp, TP and FP to be computed, they need to be specified here.</p></li>
+<li><p><strong>additional_parameters_for_the_optimistic_estimate</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-data docutils literal notranslate"><span class="pre">typing.Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>]]</span>) – if the optimistic estimate passed by parameter needs more parameters apart from tp, fp, TP and FP to be computed, they need to be specified here.</p></li>
+<li><p><strong>write_results_in_file</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></span>) – whether the results obtained will be written in a file. By default, False.</p></li>
+<li><p><strong>file_path</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">typing.Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]</span>) – if ‘write_results_in_file’ is True, path of the file in which the results will be written.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.algorithms.subgroup_sets.bsd.BSD.fit">
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pandas_dataframe</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tuple_target_attribute_value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.algorithms.subgroup_sets.bsd.BSD.fit" title="Link to this definition"></a></dt>
+<dd><p>Method to run the BSD algorithm and generate subgroups.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pandas_dataframe</strong> (<em>pandas.DataFrame</em>) – Input dataset. It is VERY IMPORTANT to respect the following conditions:
+(1) the dataset must be a pandas dataframe,
+(2) the dataset must not contain missing values,
+(3) for each attribute, all its values must be of the same type.</p></li>
+<li><p><strong>tuple_target_attribute_value</strong> (<em>tuple</em>) – Tuple with the name of the target attribute (first element) and with the value of this attribute (second element). EXAMPLE1: (“age”, 25). EXAMPLE2: (“class”, “Setosa”). It is VERY IMPORTANT to respect the following conditions:
+(1) the name of the target attribute MUST be a string,
+(2) the name of the target attribute MUST exist in the dataset,
+(3) it is VERY IMPORTANT to respect the types of the attributes: the value in the tuple (second element) MUST BE comparable with the values of the corresponding attribute in the dataset,
+(4) the value of the target attribute MUST exist in the dataset.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>list</p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>a list of tuples with the best subgroups and its quality measures.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="subgroups.algorithms.subgroup_sets.bsd.BSD.max_depth">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">max_depth</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#subgroups.algorithms.subgroup_sets.bsd.BSD.max_depth" title="Link to this definition"></a></dt>
+<dd><p>The maximum depth of the search.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="subgroups.algorithms.subgroup_sets.bsd.BSD.minimum_support">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">minimum_support</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#subgroups.algorithms.subgroup_sets.bsd.BSD.minimum_support" title="Link to this definition"></a></dt>
+<dd><p>The minimum support threshold.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="subgroups.algorithms.subgroup_sets.bsd.BSD.num_subgroups">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">num_subgroups</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#subgroups.algorithms.subgroup_sets.bsd.BSD.num_subgroups" title="Link to this definition"></a></dt>
+<dd><p>The maximum number of subgroups to calculate the prune threshold.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="subgroups.algorithms.subgroup_sets.bsd.BSD.quality_measure">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">quality_measure</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="subgroups.quality_measures.html#subgroups.quality_measures.quality_measure.QualityMeasure" title="subgroups.quality_measures.quality_measure.QualityMeasure"><span class="pre">QualityMeasure</span></a></em><a class="headerlink" href="#subgroups.algorithms.subgroup_sets.bsd.BSD.quality_measure" title="Link to this definition"></a></dt>
+<dd><p>The quality measure used to evaluate the subgroups.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="subgroups.algorithms.subgroup_sets.bsd.BSD.selected_subgroups">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">selected_subgroups</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#subgroups.algorithms.subgroup_sets.bsd.BSD.selected_subgroups" title="Link to this definition"></a></dt>
+<dd><p>The number of selected subgroups.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="subgroups.algorithms.subgroup_sets.bsd.BSD.unselected_subgroups">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">unselected_subgroups</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#subgroups.algorithms.subgroup_sets.bsd.BSD.unselected_subgroups" title="Link to this definition"></a></dt>
+<dd><p>The number of pruned subgroups.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="subgroups.algorithms.subgroup_sets.bsd.BSD.visited_subgroups">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">visited_subgroups</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#subgroups.algorithms.subgroup_sets.bsd.BSD.visited_subgroups" title="Link to this definition"></a></dt>
+<dd><p>The number of visited subgroups.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-subgroups.algorithms.subgroup_sets.cbsd">
+<span id="subgroups-algorithms-subgroup-sets-cbsd-module"></span><h2>subgroups.algorithms.subgroup_sets.cbsd module<a class="headerlink" href="#module-subgroups.algorithms.subgroup_sets.cbsd" title="Link to this heading"></a></h2>
+<p>This file contains the implementation of the CBSD algorithm.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="subgroups.algorithms.subgroup_sets.cbsd.CBSD">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">subgroups.algorithms.subgroup_sets.cbsd.</span></span><span class="sig-name descname"><span class="pre">CBSD</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">min_support</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">quality_measure</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optimistic_estimate</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_subgroups</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_depth</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">additional_parameters_for_the_quality_measure</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">additional_parameters_for_the_optimistic_estimate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">write_results_in_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.algorithms.subgroup_sets.cbsd.CBSD" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#subgroups.algorithms.subgroup_sets.bsd.BSD" title="subgroups.algorithms.subgroup_sets.bsd.BSD"><code class="xref py py-class docutils literal notranslate"><span class="pre">BSD</span></code></a></p>
+</dd></dl>
+
+</section>
+<section id="module-subgroups.algorithms.subgroup_sets.cpbsd">
+<span id="subgroups-algorithms-subgroup-sets-cpbsd-module"></span><h2>subgroups.algorithms.subgroup_sets.cpbsd module<a class="headerlink" href="#module-subgroups.algorithms.subgroup_sets.cpbsd" title="Link to this heading"></a></h2>
+<p>This file contains the implementation of the CBSD algorithm.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="subgroups.algorithms.subgroup_sets.cpbsd.CPBSD">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">subgroups.algorithms.subgroup_sets.cpbsd.</span></span><span class="sig-name descname"><span class="pre">CPBSD</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">min_support</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">quality_measure</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optimistic_estimate</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_subgroups</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_depth</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">additional_parameters_for_the_quality_measure</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">additional_parameters_for_the_optimistic_estimate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">write_results_in_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.algorithms.subgroup_sets.cpbsd.CPBSD" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#subgroups.algorithms.subgroup_sets.bsd.BSD" title="subgroups.algorithms.subgroup_sets.bsd.BSD"><code class="xref py py-class docutils literal notranslate"><span class="pre">BSD</span></code></a></p>
+</dd></dl>
+
+</section>
+<section id="module-subgroups.algorithms.subgroup_sets.qfinder">
+<span id="subgroups-algorithms-subgroup-sets-qfinder-module"></span><h2>subgroups.algorithms.subgroup_sets.qfinder module<a class="headerlink" href="#module-subgroups.algorithms.subgroup_sets.qfinder" title="Link to this heading"></a></h2>
+<p>This file contains the implementation of the QFinder algorithm.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="subgroups.algorithms.subgroup_sets.qfinder.QFinder">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">subgroups.algorithms.subgroup_sets.qfinder.</span></span><span class="sig-name descname"><span class="pre">QFinder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_subgroups</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cats</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_complexity</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coverage_thld</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">or_thld</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_val_thld</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.05</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">abs_contribution_thld</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">contribution_thld</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delta</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">write_results_in_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">write_stats_in_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stats_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.algorithms.subgroup_sets.qfinder.QFinder" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="subgroups.algorithms.html#subgroups.algorithms.algorithm.Algorithm" title="subgroups.algorithms.algorithm.Algorithm"><code class="xref py py-class docutils literal notranslate"><span class="pre">Algorithm</span></code></a></p>
+<p>This class represents the QFinder algorithm.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>cats</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span>) – the number of maximum values for each column. If there is more values, we take the most frequent ones. If this value is -1, we take all the values.</p></li>
+<li><p><strong>max_complexity</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span>) – the maximum complexity (length) of the patterns.</p></li>
+<li><p><strong>coverage_thld</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></span>) – the minimum coverage threshold.</p></li>
+<li><p><strong>or_thld</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></span>) – the minimum odds ratio and adjusted odds ratio threshold.</p></li>
+<li><p><strong>p_val_thld</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></span>) – the maximum p-value threshold. This threshold is used for p-values corrected for confounders and adjusted p-values.</p></li>
+<li><p><strong>abs_contribution_thld</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></span>) – the minimum absolute contribution threshold.</p></li>
+<li><p><strong>contribution_thld</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></span>) – the minimum contribution ratio threshold.</p></li>
+<li><p><strong>write_results_in_file</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></span>) – if True, the results will be written in a file.</p></li>
+<li><p><strong>file_path</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">typing.Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]</span>) – the path of the file where the results will be written.</p></li>
+<li><p><strong>write_stats_in_file</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></span>) – if True, the statistics will be written in a HTML file.</p></li>
+<li><p><strong>stats_path</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">typing.Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]</span>) – the path of the file where the statistics will be written.</p></li>
+<li><p><strong>delta</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></span>) – minimum delta to consider that a subgroup has a higher effect size.</p></li>
+<li><p><strong>num_subgroups</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span>) – the number of top subgroups to return.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.algorithms.subgroup_sets.qfinder.QFinder.fit">
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pandas_dataframe</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tuple_target_attribute_value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.algorithms.subgroup_sets.qfinder.QFinder.fit" title="Link to this definition"></a></dt>
+<dd><p>Main method to run the QFinder algorithm. This algorithm only supports nominal attributes (i.e., type ‘str’). IMPORTANT: missing values are not supported yet.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> – the DataFrame which is scanned. This algorithm only supports nominal attributes (i.e., type ‘str’). IMPORTANT: missing values are not supported yet.</p></li>
+<li><p><strong>target</strong> – a tuple with 2 elements: the target attribute name and the target value.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="subgroups.algorithms.subgroup_sets.qfinder.QFinder.selected_subgroups">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">selected_subgroups</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#subgroups.algorithms.subgroup_sets.qfinder.QFinder.selected_subgroups" title="Link to this definition"></a></dt>
+<dd><p>The number of selected subgroups.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.algorithms.subgroup_sets.qfinder.QFinder.test_subgroups">
+<span class="sig-name descname"><span class="pre">test_subgroups</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">test_dataframe</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tuple_target_attribute_value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">write_to_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.algorithms.subgroup_sets.qfinder.QFinder.test_subgroups" title="Link to this definition"></a></dt>
+<dd><p>Method to test the best subgroups on a different dataset. This method can only be called after the fit method.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>test_dataframe</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.core.frame.DataFrame</span></code></span>) – the DataFrame which is scanned. This algorithm only supports nominal attributes (i.e., type ‘str’). IMPORTANT: missing values are not supported yet.</p></li>
+<li><p><strong>target</strong> – a tuple with 2 elements: the target attribute name and the target value.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>a dictionary with the credibility measures for each subgroup.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="subgroups.algorithms.subgroup_sets.qfinder.QFinder.top_patterns">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">top_patterns</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="subgroups.core.html#subgroups.core.pattern.Pattern" title="subgroups.core.pattern.Pattern"><span class="pre">Pattern</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#subgroups.algorithms.subgroup_sets.qfinder.QFinder.top_patterns" title="Link to this definition"></a></dt>
+<dd><p>The list of the selected patterns.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="subgroups.algorithms.subgroup_sets.qfinder.QFinder.unselected_subgroups">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">unselected_subgroups</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#subgroups.algorithms.subgroup_sets.qfinder.QFinder.unselected_subgroups" title="Link to this definition"></a></dt>
+<dd><p>The number of unselected subgroups.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="subgroups.algorithms.subgroup_sets.qfinder.QFinder.visited_subgroups">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">visited_subgroups</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#subgroups.algorithms.subgroup_sets.qfinder.QFinder.visited_subgroups" title="Link to this definition"></a></dt>
+<dd><p>The number of visited subgroups.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-subgroups.algorithms.subgroup_sets.sdmap">
+<span id="subgroups-algorithms-subgroup-sets-sdmap-module"></span><h2>subgroups.algorithms.subgroup_sets.sdmap module<a class="headerlink" href="#module-subgroups.algorithms.subgroup_sets.sdmap" title="Link to this heading"></a></h2>
+<p>This file contains the implementation of the SDMap algorithm.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="subgroups.algorithms.subgroup_sets.sdmap.SDMap">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">subgroups.algorithms.subgroup_sets.sdmap.</span></span><span class="sig-name descname"><span class="pre">SDMap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">quality_measure</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minimum_quality_measure_value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minimum_tp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minimum_fp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minimum_n</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">additional_parameters_for_the_quality_measure</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">write_results_in_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.algorithms.subgroup_sets.sdmap.SDMap" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="subgroups.algorithms.html#subgroups.algorithms.algorithm.Algorithm" title="subgroups.algorithms.algorithm.Algorithm"><code class="xref py py-class docutils literal notranslate"><span class="pre">Algorithm</span></code></a></p>
+<p>This class represents the SDMap algorithm. Two threshold types could be used: (1) the true positives tp and the false positives fp separately or (2) the subgroup description size n (n = tp + fp). This means that: (1) if ‘minimum_tp’ and ‘minimum_fp’ have a value of type ‘int’, ‘minimum_n’ must be None; and (2) if ‘minimum_n’ has a value of type ‘int’, ‘minimum_tp’ and ‘minimum_fp’ must be None.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>quality_measure</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="subgroups.quality_measures.html#subgroups.quality_measures.quality_measure.QualityMeasure" title="subgroups.quality_measures.quality_measure.QualityMeasure"><code class="xref py py-class docutils literal notranslate"><span class="pre">subgroups.quality_measures.quality_measure.QualityMeasure</span></code></a></span>) – the quality measure which is used.</p></li>
+<li><p><strong>minimum_quality_measure_value</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">typing.Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>]</span>) – the minimum quality measure value threshold.</p></li>
+<li><p><strong>minimum_tp</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">typing.Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]</span>) – the minimum true positives (tp) threshold.</p></li>
+<li><p><strong>minimum_fp</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">typing.Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]</span>) – the minimum false positives (fp) threshold.</p></li>
+<li><p><strong>minimum_n</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">typing.Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]</span>) – the minimum subgroup description size (n) threshold.</p></li>
+<li><p><strong>additional_parameters_for_the_quality_measure</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-data docutils literal notranslate"><span class="pre">typing.Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>]]</span>) – if the quality measure passed by parameter needs more parameters apart from tp, fp, TP and FP to be computed, they need to be specified here.</p></li>
+<li><p><strong>write_results_in_file</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></span>) – whether the results obtained will be written in a file. By default, False.</p></li>
+<li><p><strong>file_path</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">typing.Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]</span>) – if ‘write_results_in_file’ is True, path of the file in which the results will be written.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py property">
+<dt class="sig sig-object py" id="subgroups.algorithms.subgroup_sets.sdmap.SDMap.additional_parameters_for_the_quality_measure">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">additional_parameters_for_the_quality_measure</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#subgroups.algorithms.subgroup_sets.sdmap.SDMap.additional_parameters_for_the_quality_measure" title="Link to this definition"></a></dt>
+<dd><p>The additional needed parameters with which to compute the quality measure.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.algorithms.subgroup_sets.sdmap.SDMap.fit">
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pandas_dataframe</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.algorithms.subgroup_sets.sdmap.SDMap.fit" title="Link to this definition"></a></dt>
+<dd><p>Main method to run the SDMap algorithm. This algorithm only supports nominal attributes (i.e., type ‘str’). IMPORTANT: missing values are not supported yet.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pandas_dataframe</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.core.frame.DataFrame</span></code></span>) – the DataFrame which is scanned. This algorithm only supports nominal attributes (i.e., type ‘str’). IMPORTANT: missing values are not supported yet.</p></li>
+<li><p><strong>target</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]</span>) – a tuple with 2 elements: the target attribute name and the target value.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="subgroups.algorithms.subgroup_sets.sdmap.SDMap.minimum_fp">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">minimum_fp</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#subgroups.algorithms.subgroup_sets.sdmap.SDMap.minimum_fp" title="Link to this definition"></a></dt>
+<dd><p>The minimum false positives (fp) threshold.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="subgroups.algorithms.subgroup_sets.sdmap.SDMap.minimum_n">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">minimum_n</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#subgroups.algorithms.subgroup_sets.sdmap.SDMap.minimum_n" title="Link to this definition"></a></dt>
+<dd><p>The minimum subgroup description size (n) threshold.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="subgroups.algorithms.subgroup_sets.sdmap.SDMap.minimum_quality_measure_value">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">minimum_quality_measure_value</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#subgroups.algorithms.subgroup_sets.sdmap.SDMap.minimum_quality_measure_value" title="Link to this definition"></a></dt>
+<dd><p>The minimum quality measure value threshold.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="subgroups.algorithms.subgroup_sets.sdmap.SDMap.minimum_tp">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">minimum_tp</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#subgroups.algorithms.subgroup_sets.sdmap.SDMap.minimum_tp" title="Link to this definition"></a></dt>
+<dd><p>The minimum true positives (tp) threshold.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="subgroups.algorithms.subgroup_sets.sdmap.SDMap.quality_measure">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">quality_measure</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="subgroups.quality_measures.html#subgroups.quality_measures.quality_measure.QualityMeasure" title="subgroups.quality_measures.quality_measure.QualityMeasure"><span class="pre">QualityMeasure</span></a></em><a class="headerlink" href="#subgroups.algorithms.subgroup_sets.sdmap.SDMap.quality_measure" title="Link to this definition"></a></dt>
+<dd><p>The quality measure which is used.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="subgroups.algorithms.subgroup_sets.sdmap.SDMap.selected_subgroups">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">selected_subgroups</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#subgroups.algorithms.subgroup_sets.sdmap.SDMap.selected_subgroups" title="Link to this definition"></a></dt>
+<dd><p>Number of selected subgroups after executing the SDMap algorithm (before executing the ‘fit’ method, this attribute is 0).</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="subgroups.algorithms.subgroup_sets.sdmap.SDMap.unselected_subgroups">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">unselected_subgroups</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#subgroups.algorithms.subgroup_sets.sdmap.SDMap.unselected_subgroups" title="Link to this definition"></a></dt>
+<dd><p>Number of unselected subgroups after executing the SDMap algorithm (before executing the ‘fit’ method, this attribute is 0).</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="subgroups.algorithms.subgroup_sets.sdmap.SDMap.visited_nodes">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">visited_nodes</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#subgroups.algorithms.subgroup_sets.sdmap.SDMap.visited_nodes" title="Link to this definition"></a></dt>
+<dd><p>Number of visited nodes after executing the SDMap algorithm (before executing the ‘fit’ method, this attribute is 0).</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-subgroups.algorithms.subgroup_sets.sdmapstar">
+<span id="subgroups-algorithms-subgroup-sets-sdmapstar-module"></span><h2>subgroups.algorithms.subgroup_sets.sdmapstar module<a class="headerlink" href="#module-subgroups.algorithms.subgroup_sets.sdmapstar" title="Link to this heading"></a></h2>
+<p>This file contains the implementation of the SDMapStar algorithm.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="subgroups.algorithms.subgroup_sets.sdmapstar.SDMapStar">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">subgroups.algorithms.subgroup_sets.sdmapstar.</span></span><span class="sig-name descname"><span class="pre">SDMapStar</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">quality_measure</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optimistic_estimate</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minimum_quality_measure_value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minimum_tp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minimum_fp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minimum_n</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">additional_parameters_for_the_quality_measure</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">additional_parameters_for_the_optimistic_estimate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">write_results_in_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_subgroups</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.algorithms.subgroup_sets.sdmapstar.SDMapStar" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="subgroups.algorithms.html#subgroups.algorithms.algorithm.Algorithm" title="subgroups.algorithms.algorithm.Algorithm"><code class="xref py py-class docutils literal notranslate"><span class="pre">Algorithm</span></code></a></p>
+<p>This class represents the SDMapStar algorithm.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>quality_measure</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="subgroups.quality_measures.html#subgroups.quality_measures.quality_measure.QualityMeasure" title="subgroups.quality_measures.quality_measure.QualityMeasure"><code class="xref py py-class docutils literal notranslate"><span class="pre">subgroups.quality_measures.quality_measure.QualityMeasure</span></code></a></span>) – the quality measure which is used.</p></li>
+<li><p><strong>optimistic_estimate</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="subgroups.quality_measures.html#subgroups.quality_measures.quality_measure.QualityMeasure" title="subgroups.quality_measures.quality_measure.QualityMeasure"><code class="xref py py-class docutils literal notranslate"><span class="pre">subgroups.quality_measures.quality_measure.QualityMeasure</span></code></a></span>) – the optimistic estimate of the quality measure which is used.</p></li>
+<li><p><strong>minimum_quality_measure_value</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">typing.Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>]</span>) – the minimum quality measure value threshold.</p></li>
+<li><p><strong>minimum_tp</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">typing.Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]</span>) – the minimum true positives (tp) threshold.</p></li>
+<li><p><strong>minimum_fp</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">typing.Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]</span>) – the minimum false positives (fp) threshold.</p></li>
+<li><p><strong>minimum_n</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">typing.Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]</span>) – the minimum subgroup description size (n) threshold.</p></li>
+<li><p><strong>additional_parameters_for_the_quality_measure</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-data docutils literal notranslate"><span class="pre">typing.Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>]]</span>) – if the quality measure passed by parameter needs more parameters apart from tp, fp, TP and FP to be computed, they need to be specified here.</p></li>
+<li><p><strong>write_results_in_file</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></span>) – whether the results obtained will be written in a file. By default, False.</p></li>
+<li><p><strong>file_path</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">typing.Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]</span>) – if ‘write_results_in_file’ is True, path of the file in which the results will be written.</p></li>
+<li><p><strong>num_subgroups</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span>) – the number of subgroups used to prune the search space. By default, 0. This value is equivalent to using the SDMap algorithm.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py property">
+<dt class="sig sig-object py" id="subgroups.algorithms.subgroup_sets.sdmapstar.SDMapStar.additional_parameters_for_the_quality_measure">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">additional_parameters_for_the_quality_measure</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#subgroups.algorithms.subgroup_sets.sdmapstar.SDMapStar.additional_parameters_for_the_quality_measure" title="Link to this definition"></a></dt>
+<dd><p>The additional needed parameters with which to compute the quality measure.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="subgroups.algorithms.subgroup_sets.sdmapstar.SDMapStar.conditional_pruned_branches">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">conditional_pruned_branches</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#subgroups.algorithms.subgroup_sets.sdmapstar.SDMapStar.conditional_pruned_branches" title="Link to this definition"></a></dt>
+<dd><p>The number of conditional pruned branches.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.algorithms.subgroup_sets.sdmapstar.SDMapStar.fit">
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pandas_dataframe</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.algorithms.subgroup_sets.sdmapstar.SDMapStar.fit" title="Link to this definition"></a></dt>
+<dd><p>Main method to run the SDMapStar algorithm. This algorithm only supports nominal attributes (i.e., type ‘str’). IMPORTANT: missing values are not supported yet.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pandas_dataframe</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.core.frame.DataFrame</span></code></span>) – the DataFrame which is scanned. This algorithm only supports nominal attributes (i.e., type ‘str’). IMPORTANT: missing values are not supported yet.</p></li>
+<li><p><strong>target</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]</span>) – a tuple with 2 elements: the target attribute name and the target value.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="subgroups.algorithms.subgroup_sets.sdmapstar.SDMapStar.k_subgroups">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">k_subgroups</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">list</span></em><a class="headerlink" href="#subgroups.algorithms.subgroup_sets.sdmapstar.SDMapStar.k_subgroups" title="Link to this definition"></a></dt>
+<dd><p>The list of the k subgroups used to prune.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="subgroups.algorithms.subgroup_sets.sdmapstar.SDMapStar.minimum_fp">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">minimum_fp</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#subgroups.algorithms.subgroup_sets.sdmapstar.SDMapStar.minimum_fp" title="Link to this definition"></a></dt>
+<dd><p>The minimum false positives (fp) threshold.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="subgroups.algorithms.subgroup_sets.sdmapstar.SDMapStar.minimum_n">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">minimum_n</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#subgroups.algorithms.subgroup_sets.sdmapstar.SDMapStar.minimum_n" title="Link to this definition"></a></dt>
+<dd><p>The minimum subgroup description size (n) threshold.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="subgroups.algorithms.subgroup_sets.sdmapstar.SDMapStar.minimum_quality_measure_value">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">minimum_quality_measure_value</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#subgroups.algorithms.subgroup_sets.sdmapstar.SDMapStar.minimum_quality_measure_value" title="Link to this definition"></a></dt>
+<dd><p>The minimum quality measure value threshold.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="subgroups.algorithms.subgroup_sets.sdmapstar.SDMapStar.minimum_tp">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">minimum_tp</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#subgroups.algorithms.subgroup_sets.sdmapstar.SDMapStar.minimum_tp" title="Link to this definition"></a></dt>
+<dd><p>The minimum true positives (tp) threshold.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="subgroups.algorithms.subgroup_sets.sdmapstar.SDMapStar.num_subgroups">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">num_subgroups</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#subgroups.algorithms.subgroup_sets.sdmapstar.SDMapStar.num_subgroups" title="Link to this definition"></a></dt>
+<dd><p>The maximum number of subgroups in ‘k_subgroups’.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="subgroups.algorithms.subgroup_sets.sdmapstar.SDMapStar.optimistic_estimate">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">optimistic_estimate</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="subgroups.quality_measures.html#subgroups.quality_measures.quality_measure.QualityMeasure" title="subgroups.quality_measures.quality_measure.QualityMeasure"><span class="pre">QualityMeasure</span></a></em><a class="headerlink" href="#subgroups.algorithms.subgroup_sets.sdmapstar.SDMapStar.optimistic_estimate" title="Link to this definition"></a></dt>
+<dd><p>The optimistic estimate of the quality measure which is used.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="subgroups.algorithms.subgroup_sets.sdmapstar.SDMapStar.pruned_subgroups">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">pruned_subgroups</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#subgroups.algorithms.subgroup_sets.sdmapstar.SDMapStar.pruned_subgroups" title="Link to this definition"></a></dt>
+<dd><p>The number of pruned subgroups because of the top k threshold.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="subgroups.algorithms.subgroup_sets.sdmapstar.SDMapStar.quality_measure">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">quality_measure</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="subgroups.quality_measures.html#subgroups.quality_measures.quality_measure.QualityMeasure" title="subgroups.quality_measures.quality_measure.QualityMeasure"><span class="pre">QualityMeasure</span></a></em><a class="headerlink" href="#subgroups.algorithms.subgroup_sets.sdmapstar.SDMapStar.quality_measure" title="Link to this definition"></a></dt>
+<dd><p>The quality measure which is used.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="subgroups.algorithms.subgroup_sets.sdmapstar.SDMapStar.selected_subgroups">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">selected_subgroups</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#subgroups.algorithms.subgroup_sets.sdmapstar.SDMapStar.selected_subgroups" title="Link to this definition"></a></dt>
+<dd><p>Number of selected subgroups after executing the SDMapStar algorithm (before executing the ‘fit’ method, this attribute is 0).</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="subgroups.algorithms.subgroup_sets.sdmapstar.SDMapStar.unselected_subgroups">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">unselected_subgroups</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#subgroups.algorithms.subgroup_sets.sdmapstar.SDMapStar.unselected_subgroups" title="Link to this definition"></a></dt>
+<dd><p>Number of unselected subgroups after executing the SDMapStar algorithm (before executing the ‘fit’ method, this attribute is 0).</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="subgroups.algorithms.subgroup_sets.sdmapstar.SDMapStar.visited_nodes">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">visited_nodes</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#subgroups.algorithms.subgroup_sets.sdmapstar.SDMapStar.visited_nodes" title="Link to this definition"></a></dt>
+<dd><p>Number of visited nodes after executing the SDMapStar algorithm (before executing the ‘fit’ method, this attribute is 0).</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-subgroups.algorithms.subgroup_sets.vlsd">
+<span id="subgroups-algorithms-subgroup-sets-vlsd-module"></span><h2>subgroups.algorithms.subgroup_sets.vlsd module<a class="headerlink" href="#module-subgroups.algorithms.subgroup_sets.vlsd" title="Link to this heading"></a></h2>
+<p>This file contains the implementation of the VLSD algorithm.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="subgroups.algorithms.subgroup_sets.vlsd.VLSD">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">subgroups.algorithms.subgroup_sets.vlsd.</span></span><span class="sig-name descname"><span class="pre">VLSD</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">quality_measure</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">q_minimum_threshold</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optimistic_estimate</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">oe_minimum_threshold</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">additional_parameters_for_the_quality_measure</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">additional_parameters_for_the_optimistic_estimate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sort_criterion_in_s1</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'no-order'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sort_criterion_in_other_sizes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'no-order'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vertical_lists_implementation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'bitsets'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">write_results_in_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.algorithms.subgroup_sets.vlsd.VLSD" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="subgroups.algorithms.html#subgroups.algorithms.algorithm.Algorithm" title="subgroups.algorithms.algorithm.Algorithm"><code class="xref py py-class docutils literal notranslate"><span class="pre">Algorithm</span></code></a></p>
+<p>This class represents the VLSD algorithm.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>quality_measure</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="subgroups.quality_measures.html#subgroups.quality_measures.quality_measure.QualityMeasure" title="subgroups.quality_measures.quality_measure.QualityMeasure"><code class="xref py py-class docutils literal notranslate"><span class="pre">subgroups.quality_measures.quality_measure.QualityMeasure</span></code></a></span>) – the quality measure which is used.</p></li>
+<li><p><strong>q_minimum_threshold</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">typing.Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>]</span>) – the minimum quality threshold for the quality measure.</p></li>
+<li><p><strong>optimistic_estimate</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="subgroups.quality_measures.html#subgroups.quality_measures.quality_measure.QualityMeasure" title="subgroups.quality_measures.quality_measure.QualityMeasure"><code class="xref py py-class docutils literal notranslate"><span class="pre">subgroups.quality_measures.quality_measure.QualityMeasure</span></code></a></span>) – the optimistic estimate of the quality measure which is used.</p></li>
+<li><p><strong>oe_minimum_threshold</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">typing.Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>]</span>) – the minimum quality threshold for the optimistic estimate.</p></li>
+<li><p><strong>additional_parameters_for_the_quality_measure</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-data docutils literal notranslate"><span class="pre">typing.Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>]]</span>) – if the quality measure passed by parameter needs more parameters apart from tp, fp, TP and FP to be computed, they need to be specified here.</p></li>
+<li><p><strong>additional_parameters_for_the_optimistic_estimate</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-data docutils literal notranslate"><span class="pre">typing.Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>]]</span>) – if the optimistic estimate passed by parameter needs more parameters apart from tp, fp, TP and FP to be computed, they need to be specified here.</p></li>
+<li><p><strong>sort_criterion_in_s1</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>) – the criterion to use in order to sort the Vertical Lists with only one selector. Three values are possible: “quality-ascending” (sort ascending by quality value), “quality-descending” (sort descending by quality value), and “no-order” (do not sort and maintain the generation order). By default, “no-order”.</p></li>
+<li><p><strong>sort_criterion_in_other_sizes</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>) – the criterion to use in order to sort the Vertical Lists with more than one selector. Three values are possible: “quality-ascending” (sort ascending by quality value), “quality-descending” (sort descending by quality value), and “no-order” (do not sort and maintain the generation order). By default, “no-order”.</p></li>
+<li><p><strong>write_results_in_file</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></span>) – whether the results obtained will be written in a file. By default, False.</p></li>
+<li><p><strong>file_path</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">typing.Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]</span>) – if ‘write_results_in_file’ is True, path of the file in which the results will be written.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="subgroups.algorithms.subgroup_sets.vlsd.VLSD.SORT_CRITERION">
+<span class="sig-name descname"><span class="pre">SORT_CRITERION</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">typing.ClassVar</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['quality-ascending',</span> <span class="pre">'quality-descending',</span> <span class="pre">'no-order']</span></em><a class="headerlink" href="#subgroups.algorithms.subgroup_sets.vlsd.VLSD.SORT_CRITERION" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="subgroups.algorithms.subgroup_sets.vlsd.VLSD.SORT_CRITERION_NO_ORDER">
+<span class="sig-name descname"><span class="pre">SORT_CRITERION_NO_ORDER</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">typing.ClassVar</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'no-order'</span></em><a class="headerlink" href="#subgroups.algorithms.subgroup_sets.vlsd.VLSD.SORT_CRITERION_NO_ORDER" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="subgroups.algorithms.subgroup_sets.vlsd.VLSD.SORT_CRITERION_QUALITY_ASCENDING">
+<span class="sig-name descname"><span class="pre">SORT_CRITERION_QUALITY_ASCENDING</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">typing.ClassVar</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'quality-ascending'</span></em><a class="headerlink" href="#subgroups.algorithms.subgroup_sets.vlsd.VLSD.SORT_CRITERION_QUALITY_ASCENDING" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="subgroups.algorithms.subgroup_sets.vlsd.VLSD.SORT_CRITERION_QUALITY_DESCENDING">
+<span class="sig-name descname"><span class="pre">SORT_CRITERION_QUALITY_DESCENDING</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">typing.ClassVar</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'quality-descending'</span></em><a class="headerlink" href="#subgroups.algorithms.subgroup_sets.vlsd.VLSD.SORT_CRITERION_QUALITY_DESCENDING" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="subgroups.algorithms.subgroup_sets.vlsd.VLSD.VERTICAL_LISTS_IMPLEMENTATION">
+<span class="sig-name descname"><span class="pre">VERTICAL_LISTS_IMPLEMENTATION</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">typing.ClassVar</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['bitsets',</span> <span class="pre">'sets']</span></em><a class="headerlink" href="#subgroups.algorithms.subgroup_sets.vlsd.VLSD.VERTICAL_LISTS_IMPLEMENTATION" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="subgroups.algorithms.subgroup_sets.vlsd.VLSD.VERTICAL_LISTS_WITH_BITSETS">
+<span class="sig-name descname"><span class="pre">VERTICAL_LISTS_WITH_BITSETS</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">typing.ClassVar</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'bitsets'</span></em><a class="headerlink" href="#subgroups.algorithms.subgroup_sets.vlsd.VLSD.VERTICAL_LISTS_WITH_BITSETS" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="subgroups.algorithms.subgroup_sets.vlsd.VLSD.VERTICAL_LISTS_WITH_SETS">
+<span class="sig-name descname"><span class="pre">VERTICAL_LISTS_WITH_SETS</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">typing.ClassVar</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'sets'</span></em><a class="headerlink" href="#subgroups.algorithms.subgroup_sets.vlsd.VLSD.VERTICAL_LISTS_WITH_SETS" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="subgroups.algorithms.subgroup_sets.vlsd.VLSD.additional_parameters_for_the_optimistic_estimate">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">additional_parameters_for_the_optimistic_estimate</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#subgroups.algorithms.subgroup_sets.vlsd.VLSD.additional_parameters_for_the_optimistic_estimate" title="Link to this definition"></a></dt>
+<dd><p>The additional needed parameters with which to compute the optimistic estimate.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="subgroups.algorithms.subgroup_sets.vlsd.VLSD.additional_parameters_for_the_quality_measure">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">additional_parameters_for_the_quality_measure</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#subgroups.algorithms.subgroup_sets.vlsd.VLSD.additional_parameters_for_the_quality_measure" title="Link to this definition"></a></dt>
+<dd><p>The additional needed parameters with which to compute the quality measure.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.algorithms.subgroup_sets.vlsd.VLSD.fit">
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pandas_dataframe</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.algorithms.subgroup_sets.vlsd.VLSD.fit" title="Link to this definition"></a></dt>
+<dd><p>Main method to run the VLSD algorithm. This algorithm only supports nominal attributes (i.e., type ‘str’). IMPORTANT: missing values are not supported.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pandas_dataframe</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.core.frame.DataFrame</span></code></span>) – the DataFrame which is scanned. This algorithm only supports nominal attributes (i.e., type ‘str’). IMPORTANT: missing values are not supported.</p></li>
+<li><p><strong>target</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]</span>) – a tuple with 2 elements: the target attribute name and the target value.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="subgroups.algorithms.subgroup_sets.vlsd.VLSD.oe_minimum_threshold">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">oe_minimum_threshold</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#subgroups.algorithms.subgroup_sets.vlsd.VLSD.oe_minimum_threshold" title="Link to this definition"></a></dt>
+<dd><p>The minimum quality threshold for the optimistic estimate.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="subgroups.algorithms.subgroup_sets.vlsd.VLSD.optimistic_estimate">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">optimistic_estimate</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="subgroups.quality_measures.html#subgroups.quality_measures.quality_measure.QualityMeasure" title="subgroups.quality_measures.quality_measure.QualityMeasure"><span class="pre">QualityMeasure</span></a></em><a class="headerlink" href="#subgroups.algorithms.subgroup_sets.vlsd.VLSD.optimistic_estimate" title="Link to this definition"></a></dt>
+<dd><p>The optimistic estimate of the quality measure which is used.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="subgroups.algorithms.subgroup_sets.vlsd.VLSD.q_minimum_threshold">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">q_minimum_threshold</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#subgroups.algorithms.subgroup_sets.vlsd.VLSD.q_minimum_threshold" title="Link to this definition"></a></dt>
+<dd><p>The minimum quality threshold for the quality measure.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="subgroups.algorithms.subgroup_sets.vlsd.VLSD.quality_measure">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">quality_measure</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="subgroups.quality_measures.html#subgroups.quality_measures.quality_measure.QualityMeasure" title="subgroups.quality_measures.quality_measure.QualityMeasure"><span class="pre">QualityMeasure</span></a></em><a class="headerlink" href="#subgroups.algorithms.subgroup_sets.vlsd.VLSD.quality_measure" title="Link to this definition"></a></dt>
+<dd><p>The quality measure which is used.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="subgroups.algorithms.subgroup_sets.vlsd.VLSD.selected_subgroups">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">selected_subgroups</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#subgroups.algorithms.subgroup_sets.vlsd.VLSD.selected_subgroups" title="Link to this definition"></a></dt>
+<dd><p>Number of selected subgroups after executing the VLSD algorithm (before executing the ‘fit’ method, this attribute is 0).</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="subgroups.algorithms.subgroup_sets.vlsd.VLSD.sort_criterion_in_other_sizes">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">sort_criterion_in_other_sizes</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#subgroups.algorithms.subgroup_sets.vlsd.VLSD.sort_criterion_in_other_sizes" title="Link to this definition"></a></dt>
+<dd><p>The criterion to use in order to sort the Vertical Lists with more than one selector.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="subgroups.algorithms.subgroup_sets.vlsd.VLSD.sort_criterion_in_s1">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">sort_criterion_in_s1</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#subgroups.algorithms.subgroup_sets.vlsd.VLSD.sort_criterion_in_s1" title="Link to this definition"></a></dt>
+<dd><p>The criterion to use in order to sort the Vertical Lists with only one selector.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="subgroups.algorithms.subgroup_sets.vlsd.VLSD.unselected_subgroups">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">unselected_subgroups</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#subgroups.algorithms.subgroup_sets.vlsd.VLSD.unselected_subgroups" title="Link to this definition"></a></dt>
+<dd><p>Number of unselected subgroups after executing the VLSD algorithm (before executing the ‘fit’ method, this attribute is 0).</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="subgroups.algorithms.subgroup_sets.vlsd.VLSD.visited_nodes">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">visited_nodes</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#subgroups.algorithms.subgroup_sets.vlsd.VLSD.visited_nodes" title="Link to this definition"></a></dt>
+<dd><p>Number of visited nodes after executing the VLSD algorithm (before executing the ‘fit’ method, this attribute is 0).</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-subgroups.algorithms.subgroup_sets">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-subgroups.algorithms.subgroup_sets" title="Link to this heading"></a></h2>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="subgroups.algorithms.subgroup_lists.html" class="btn btn-neutral float-left" title="subgroups.algorithms.subgroup_lists package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="subgroups.core.html" class="btn btn-neutral float-right" title="subgroups.core package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Antonio López Martínez-Carrasco.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

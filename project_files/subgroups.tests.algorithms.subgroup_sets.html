@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>subgroups.tests.algorithms.subgroup_sets package &mdash; subgroups 0.1.5 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=92fd9be5" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=59fadc99"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="subgroups.tests.core package" href="subgroups.tests.core.html" />
+    <link rel="prev" title="subgroups.tests.algorithms.subgroup_lists package" href="subgroups.tests.algorithms.subgroup_lists.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            subgroups
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="subgroups.html">subgroups package</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="subgroups.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="subgroups.algorithms.html">subgroups.algorithms package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="subgroups.core.html">subgroups.core package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="subgroups.data_structures.html">subgroups.data_structures package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="subgroups.datasets.html">subgroups.datasets package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="subgroups.quality_measures.html">subgroups.quality_measures package</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="subgroups.tests.html">subgroups.tests package</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="subgroups.tests.html#subpackages">Subpackages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.tests.html#module-subgroups.tests">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="subgroups.utils.html">subgroups.utils package</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="subgroups.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="subgroups.html#module-subgroups.exceptions">subgroups.exceptions module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="subgroups.html#module-subgroups">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="subgroups.algorithms.html">subgroups.algorithms package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="subgroups.core.html">subgroups.core package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="subgroups.data_structures.html">subgroups.data_structures package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="subgroups.quality_measures.html">subgroups.quality_measures package</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="subgroups.tests.html">subgroups.tests package</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="subgroups.tests.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="subgroups.tests.algorithms.html">subgroups.tests.algorithms package</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="subgroups.tests.algorithms.html#subpackages">Subpackages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.tests.algorithms.html#module-subgroups.tests.algorithms">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="subgroups.tests.core.html">subgroups.tests.core package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="subgroups.tests.data_structures.html">subgroups.tests.data_structures package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="subgroups.tests.quality_measures.html">subgroups.tests.quality_measures package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="subgroups.tests.utils.html">subgroups.tests.utils package</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="subgroups.tests.html#module-subgroups.tests">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="subgroups.utils.html">subgroups.utils package</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">subgroups</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="subgroups.html">subgroups package</a></li>
+          <li class="breadcrumb-item"><a href="subgroups.tests.html">subgroups.tests package</a></li>
+          <li class="breadcrumb-item"><a href="subgroups.tests.algorithms.html">subgroups.tests.algorithms package</a></li>
+      <li class="breadcrumb-item active">subgroups.tests.algorithms.subgroup_sets package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/project_files/subgroups.tests.algorithms.subgroup_sets.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="subgroups-tests-algorithms-subgroup-sets-package">
+<h1>subgroups.tests.algorithms.subgroup_sets package<a class="headerlink" href="#subgroups-tests-algorithms-subgroup-sets-package" title="Link to this heading"></a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
+</section>
+<section id="module-subgroups.tests.algorithms.subgroup_sets.test_bsd">
+<span id="subgroups-tests-algorithms-subgroup-sets-test-bsd-module"></span><h2>subgroups.tests.algorithms.subgroup_sets.test_bsd module<a class="headerlink" href="#module-subgroups.tests.algorithms.subgroup_sets.test_bsd" title="Link to this heading"></a></h2>
+<p>Tests of the functionality contained in the file ‘algorithms/bsd.py’.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="subgroups.tests.algorithms.subgroup_sets.test_bsd.TestBSD">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">subgroups.tests.algorithms.subgroup_sets.test_bsd.</span></span><span class="sig-name descname"><span class="pre">TestBSD</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">methodName</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'runTest'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.tests.algorithms.subgroup_sets.test_bsd.TestBSD" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">TestCase</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.tests.algorithms.subgroup_sets.test_bsd.TestBSD.test_BSD_cardinality">
+<span class="sig-name descname"><span class="pre">test_BSD_cardinality</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.tests.algorithms.subgroup_sets.test_bsd.TestBSD.test_BSD_cardinality" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.tests.algorithms.subgroup_sets.test_bsd.TestBSD.test_BSD_checkRel">
+<span class="sig-name descname"><span class="pre">test_BSD_checkRel</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.tests.algorithms.subgroup_sets.test_bsd.TestBSD.test_BSD_checkRel" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.tests.algorithms.subgroup_sets.test_bsd.TestBSD.test_BSD_checkRelevancies">
+<span class="sig-name descname"><span class="pre">test_BSD_checkRelevancies</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.tests.algorithms.subgroup_sets.test_bsd.TestBSD.test_BSD_checkRelevancies" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.tests.algorithms.subgroup_sets.test_bsd.TestBSD.test_BSD_fit1">
+<span class="sig-name descname"><span class="pre">test_BSD_fit1</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.tests.algorithms.subgroup_sets.test_bsd.TestBSD.test_BSD_fit1" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.tests.algorithms.subgroup_sets.test_bsd.TestBSD.test_BSD_fit2">
+<span class="sig-name descname"><span class="pre">test_BSD_fit2</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.tests.algorithms.subgroup_sets.test_bsd.TestBSD.test_BSD_fit2" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.tests.algorithms.subgroup_sets.test_bsd.TestBSD.test_BSD_fit3">
+<span class="sig-name descname"><span class="pre">test_BSD_fit3</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.tests.algorithms.subgroup_sets.test_bsd.TestBSD.test_BSD_fit3" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.tests.algorithms.subgroup_sets.test_bsd.TestBSD.test_BSD_fit4">
+<span class="sig-name descname"><span class="pre">test_BSD_fit4</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.tests.algorithms.subgroup_sets.test_bsd.TestBSD.test_BSD_fit4" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.tests.algorithms.subgroup_sets.test_bsd.TestBSD.test_BSD_init_method">
+<span class="sig-name descname"><span class="pre">test_BSD_init_method</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.tests.algorithms.subgroup_sets.test_bsd.TestBSD.test_BSD_init_method" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.tests.algorithms.subgroup_sets.test_bsd.TestBSD.test_BSD_logicalAnd">
+<span class="sig-name descname"><span class="pre">test_BSD_logicalAnd</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.tests.algorithms.subgroup_sets.test_bsd.TestBSD.test_BSD_logicalAnd" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-subgroups.tests.algorithms.subgroup_sets.test_cbsd">
+<span id="subgroups-tests-algorithms-subgroup-sets-test-cbsd-module"></span><h2>subgroups.tests.algorithms.subgroup_sets.test_cbsd module<a class="headerlink" href="#module-subgroups.tests.algorithms.subgroup_sets.test_cbsd" title="Link to this heading"></a></h2>
+<p>Tests of the functionality contained in the file ‘algorithms/cbsd.py’.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="subgroups.tests.algorithms.subgroup_sets.test_cbsd.TestCBSD">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">subgroups.tests.algorithms.subgroup_sets.test_cbsd.</span></span><span class="sig-name descname"><span class="pre">TestCBSD</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">methodName</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'runTest'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.tests.algorithms.subgroup_sets.test_cbsd.TestCBSD" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">TestCase</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.tests.algorithms.subgroup_sets.test_cbsd.TestCBSD.test_CBSD_checkRel">
+<span class="sig-name descname"><span class="pre">test_CBSD_checkRel</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.tests.algorithms.subgroup_sets.test_cbsd.TestCBSD.test_CBSD_checkRel" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.tests.algorithms.subgroup_sets.test_cbsd.TestCBSD.test_CBSD_checkRelevancies">
+<span class="sig-name descname"><span class="pre">test_CBSD_checkRelevancies</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.tests.algorithms.subgroup_sets.test_cbsd.TestCBSD.test_CBSD_checkRelevancies" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.tests.algorithms.subgroup_sets.test_cbsd.TestCBSD.test_CBSD_fit1">
+<span class="sig-name descname"><span class="pre">test_CBSD_fit1</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.tests.algorithms.subgroup_sets.test_cbsd.TestCBSD.test_CBSD_fit1" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.tests.algorithms.subgroup_sets.test_cbsd.TestCBSD.test_CBSD_fit2">
+<span class="sig-name descname"><span class="pre">test_CBSD_fit2</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.tests.algorithms.subgroup_sets.test_cbsd.TestCBSD.test_CBSD_fit2" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.tests.algorithms.subgroup_sets.test_cbsd.TestCBSD.test_CBSD_fit3">
+<span class="sig-name descname"><span class="pre">test_CBSD_fit3</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.tests.algorithms.subgroup_sets.test_cbsd.TestCBSD.test_CBSD_fit3" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.tests.algorithms.subgroup_sets.test_cbsd.TestCBSD.test_CBSD_fit4">
+<span class="sig-name descname"><span class="pre">test_CBSD_fit4</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.tests.algorithms.subgroup_sets.test_cbsd.TestCBSD.test_CBSD_fit4" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.tests.algorithms.subgroup_sets.test_cbsd.TestCBSD.test_CBSD_init_method">
+<span class="sig-name descname"><span class="pre">test_CBSD_init_method</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.tests.algorithms.subgroup_sets.test_cbsd.TestCBSD.test_CBSD_init_method" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-subgroups.tests.algorithms.subgroup_sets.test_cpbsd">
+<span id="subgroups-tests-algorithms-subgroup-sets-test-cpbsd-module"></span><h2>subgroups.tests.algorithms.subgroup_sets.test_cpbsd module<a class="headerlink" href="#module-subgroups.tests.algorithms.subgroup_sets.test_cpbsd" title="Link to this heading"></a></h2>
+<p>Tests of the functionality contained in the file ‘algorithms/cpbsd.py’.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="subgroups.tests.algorithms.subgroup_sets.test_cpbsd.TestCPBSD">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">subgroups.tests.algorithms.subgroup_sets.test_cpbsd.</span></span><span class="sig-name descname"><span class="pre">TestCPBSD</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">methodName</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'runTest'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.tests.algorithms.subgroup_sets.test_cpbsd.TestCPBSD" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">TestCase</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.tests.algorithms.subgroup_sets.test_cpbsd.TestCPBSD.test_CPBSD_checkRel">
+<span class="sig-name descname"><span class="pre">test_CPBSD_checkRel</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.tests.algorithms.subgroup_sets.test_cpbsd.TestCPBSD.test_CPBSD_checkRel" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.tests.algorithms.subgroup_sets.test_cpbsd.TestCPBSD.test_CPBSD_checkRelevancies">
+<span class="sig-name descname"><span class="pre">test_CPBSD_checkRelevancies</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.tests.algorithms.subgroup_sets.test_cpbsd.TestCPBSD.test_CPBSD_checkRelevancies" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.tests.algorithms.subgroup_sets.test_cpbsd.TestCPBSD.test_CPBSD_fit1">
+<span class="sig-name descname"><span class="pre">test_CPBSD_fit1</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.tests.algorithms.subgroup_sets.test_cpbsd.TestCPBSD.test_CPBSD_fit1" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.tests.algorithms.subgroup_sets.test_cpbsd.TestCPBSD.test_CPBSD_fit2">
+<span class="sig-name descname"><span class="pre">test_CPBSD_fit2</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.tests.algorithms.subgroup_sets.test_cpbsd.TestCPBSD.test_CPBSD_fit2" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.tests.algorithms.subgroup_sets.test_cpbsd.TestCPBSD.test_CPBSD_fit3">
+<span class="sig-name descname"><span class="pre">test_CPBSD_fit3</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.tests.algorithms.subgroup_sets.test_cpbsd.TestCPBSD.test_CPBSD_fit3" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.tests.algorithms.subgroup_sets.test_cpbsd.TestCPBSD.test_CPBSD_fit4">
+<span class="sig-name descname"><span class="pre">test_CPBSD_fit4</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.tests.algorithms.subgroup_sets.test_cpbsd.TestCPBSD.test_CPBSD_fit4" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.tests.algorithms.subgroup_sets.test_cpbsd.TestCPBSD.test_CPBSD_init_method">
+<span class="sig-name descname"><span class="pre">test_CPBSD_init_method</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.tests.algorithms.subgroup_sets.test_cpbsd.TestCPBSD.test_CPBSD_init_method" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-subgroups.tests.algorithms.subgroup_sets.test_qfinder">
+<span id="subgroups-tests-algorithms-subgroup-sets-test-qfinder-module"></span><h2>subgroups.tests.algorithms.subgroup_sets.test_qfinder module<a class="headerlink" href="#module-subgroups.tests.algorithms.subgroup_sets.test_qfinder" title="Link to this heading"></a></h2>
+<p>Tests of the functionality contained in the file ‘algorithms/qfinder.py’.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="subgroups.tests.algorithms.subgroup_sets.test_qfinder.TestQFinder">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">subgroups.tests.algorithms.subgroup_sets.test_qfinder.</span></span><span class="sig-name descname"><span class="pre">TestQFinder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">methodName</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'runTest'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.tests.algorithms.subgroup_sets.test_qfinder.TestQFinder" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">TestCase</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.tests.algorithms.subgroup_sets.test_qfinder.TestQFinder.test_QFinder_fit">
+<span class="sig-name descname"><span class="pre">test_QFinder_fit</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.tests.algorithms.subgroup_sets.test_qfinder.TestQFinder.test_QFinder_fit" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.tests.algorithms.subgroup_sets.test_qfinder.TestQFinder.test_QFinder_generate_candidate_patterns1">
+<span class="sig-name descname"><span class="pre">test_QFinder_generate_candidate_patterns1</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.tests.algorithms.subgroup_sets.test_qfinder.TestQFinder.test_QFinder_generate_candidate_patterns1" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.tests.algorithms.subgroup_sets.test_qfinder.TestQFinder.test_QFinder_generate_candidate_patterns2">
+<span class="sig-name descname"><span class="pre">test_QFinder_generate_candidate_patterns2</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.tests.algorithms.subgroup_sets.test_qfinder.TestQFinder.test_QFinder_generate_candidate_patterns2" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.tests.algorithms.subgroup_sets.test_qfinder.TestQFinder.test_QFinder_handle_individual_result">
+<span class="sig-name descname"><span class="pre">test_QFinder_handle_individual_result</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.tests.algorithms.subgroup_sets.test_qfinder.TestQFinder.test_QFinder_handle_individual_result" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.tests.algorithms.subgroup_sets.test_qfinder.TestQFinder.test_QFinder_init_method1">
+<span class="sig-name descname"><span class="pre">test_QFinder_init_method1</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.tests.algorithms.subgroup_sets.test_qfinder.TestQFinder.test_QFinder_init_method1" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.tests.algorithms.subgroup_sets.test_qfinder.TestQFinder.test_QFinder_init_method2">
+<span class="sig-name descname"><span class="pre">test_QFinder_init_method2</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.tests.algorithms.subgroup_sets.test_qfinder.TestQFinder.test_QFinder_init_method2" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-subgroups.tests.algorithms.subgroup_sets.test_sdmap">
+<span id="subgroups-tests-algorithms-subgroup-sets-test-sdmap-module"></span><h2>subgroups.tests.algorithms.subgroup_sets.test_sdmap module<a class="headerlink" href="#module-subgroups.tests.algorithms.subgroup_sets.test_sdmap" title="Link to this heading"></a></h2>
+<p>Tests of the functionality contained in the file ‘algorithms/sdmap.py’.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="subgroups.tests.algorithms.subgroup_sets.test_sdmap.TestSDMap">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">subgroups.tests.algorithms.subgroup_sets.test_sdmap.</span></span><span class="sig-name descname"><span class="pre">TestSDMap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">methodName</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'runTest'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.tests.algorithms.subgroup_sets.test_sdmap.TestSDMap" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">TestCase</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.tests.algorithms.subgroup_sets.test_sdmap.TestSDMap.test_SDMap_additional_parameters_in_fit_method">
+<span class="sig-name descname"><span class="pre">test_SDMap_additional_parameters_in_fit_method</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.tests.algorithms.subgroup_sets.test_sdmap.TestSDMap.test_SDMap_additional_parameters_in_fit_method" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.tests.algorithms.subgroup_sets.test_sdmap.TestSDMap.test_SDMap_fit_method_1">
+<span class="sig-name descname"><span class="pre">test_SDMap_fit_method_1</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.tests.algorithms.subgroup_sets.test_sdmap.TestSDMap.test_SDMap_fit_method_1" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.tests.algorithms.subgroup_sets.test_sdmap.TestSDMap.test_SDMap_fit_method_10">
+<span class="sig-name descname"><span class="pre">test_SDMap_fit_method_10</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.tests.algorithms.subgroup_sets.test_sdmap.TestSDMap.test_SDMap_fit_method_10" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.tests.algorithms.subgroup_sets.test_sdmap.TestSDMap.test_SDMap_fit_method_11">
+<span class="sig-name descname"><span class="pre">test_SDMap_fit_method_11</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.tests.algorithms.subgroup_sets.test_sdmap.TestSDMap.test_SDMap_fit_method_11" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.tests.algorithms.subgroup_sets.test_sdmap.TestSDMap.test_SDMap_fit_method_2">
+<span class="sig-name descname"><span class="pre">test_SDMap_fit_method_2</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.tests.algorithms.subgroup_sets.test_sdmap.TestSDMap.test_SDMap_fit_method_2" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.tests.algorithms.subgroup_sets.test_sdmap.TestSDMap.test_SDMap_fit_method_3">
+<span class="sig-name descname"><span class="pre">test_SDMap_fit_method_3</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.tests.algorithms.subgroup_sets.test_sdmap.TestSDMap.test_SDMap_fit_method_3" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.tests.algorithms.subgroup_sets.test_sdmap.TestSDMap.test_SDMap_fit_method_4">
+<span class="sig-name descname"><span class="pre">test_SDMap_fit_method_4</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.tests.algorithms.subgroup_sets.test_sdmap.TestSDMap.test_SDMap_fit_method_4" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.tests.algorithms.subgroup_sets.test_sdmap.TestSDMap.test_SDMap_fit_method_5">
+<span class="sig-name descname"><span class="pre">test_SDMap_fit_method_5</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.tests.algorithms.subgroup_sets.test_sdmap.TestSDMap.test_SDMap_fit_method_5" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.tests.algorithms.subgroup_sets.test_sdmap.TestSDMap.test_SDMap_fit_method_6">
+<span class="sig-name descname"><span class="pre">test_SDMap_fit_method_6</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.tests.algorithms.subgroup_sets.test_sdmap.TestSDMap.test_SDMap_fit_method_6" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.tests.algorithms.subgroup_sets.test_sdmap.TestSDMap.test_SDMap_fit_method_7">
+<span class="sig-name descname"><span class="pre">test_SDMap_fit_method_7</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.tests.algorithms.subgroup_sets.test_sdmap.TestSDMap.test_SDMap_fit_method_7" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.tests.algorithms.subgroup_sets.test_sdmap.TestSDMap.test_SDMap_fit_method_8">
+<span class="sig-name descname"><span class="pre">test_SDMap_fit_method_8</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.tests.algorithms.subgroup_sets.test_sdmap.TestSDMap.test_SDMap_fit_method_8" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.tests.algorithms.subgroup_sets.test_sdmap.TestSDMap.test_SDMap_fit_method_9">
+<span class="sig-name descname"><span class="pre">test_SDMap_fit_method_9</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.tests.algorithms.subgroup_sets.test_sdmap.TestSDMap.test_SDMap_fit_method_9" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.tests.algorithms.subgroup_sets.test_sdmap.TestSDMap.test_SDMap_fpgrowth_method_1">
+<span class="sig-name descname"><span class="pre">test_SDMap_fpgrowth_method_1</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.tests.algorithms.subgroup_sets.test_sdmap.TestSDMap.test_SDMap_fpgrowth_method_1" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.tests.algorithms.subgroup_sets.test_sdmap.TestSDMap.test_SDMap_fpgrowth_method_2">
+<span class="sig-name descname"><span class="pre">test_SDMap_fpgrowth_method_2</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.tests.algorithms.subgroup_sets.test_sdmap.TestSDMap.test_SDMap_fpgrowth_method_2" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.tests.algorithms.subgroup_sets.test_sdmap.TestSDMap.test_SDMap_fpgrowth_method_3">
+<span class="sig-name descname"><span class="pre">test_SDMap_fpgrowth_method_3</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.tests.algorithms.subgroup_sets.test_sdmap.TestSDMap.test_SDMap_fpgrowth_method_3" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.tests.algorithms.subgroup_sets.test_sdmap.TestSDMap.test_SDMap_fpgrowth_method_4">
+<span class="sig-name descname"><span class="pre">test_SDMap_fpgrowth_method_4</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.tests.algorithms.subgroup_sets.test_sdmap.TestSDMap.test_SDMap_fpgrowth_method_4" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.tests.algorithms.subgroup_sets.test_sdmap.TestSDMap.test_SDMap_init_method_1">
+<span class="sig-name descname"><span class="pre">test_SDMap_init_method_1</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.tests.algorithms.subgroup_sets.test_sdmap.TestSDMap.test_SDMap_init_method_1" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.tests.algorithms.subgroup_sets.test_sdmap.TestSDMap.test_SDMap_init_method_2">
+<span class="sig-name descname"><span class="pre">test_SDMap_init_method_2</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.tests.algorithms.subgroup_sets.test_sdmap.TestSDMap.test_SDMap_init_method_2" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.tests.algorithms.subgroup_sets.test_sdmap.TestSDMap.test_SDMap_unselected_and_selected_subgroups">
+<span class="sig-name descname"><span class="pre">test_SDMap_unselected_and_selected_subgroups</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.tests.algorithms.subgroup_sets.test_sdmap.TestSDMap.test_SDMap_unselected_and_selected_subgroups" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-subgroups.tests.algorithms.subgroup_sets.test_sdmapstar">
+<span id="subgroups-tests-algorithms-subgroup-sets-test-sdmapstar-module"></span><h2>subgroups.tests.algorithms.subgroup_sets.test_sdmapstar module<a class="headerlink" href="#module-subgroups.tests.algorithms.subgroup_sets.test_sdmapstar" title="Link to this heading"></a></h2>
+<p>Tests of the functionality contained in the file ‘algorithms/sdmapstar.py’.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="subgroups.tests.algorithms.subgroup_sets.test_sdmapstar.TestSDMapStar">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">subgroups.tests.algorithms.subgroup_sets.test_sdmapstar.</span></span><span class="sig-name descname"><span class="pre">TestSDMapStar</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">methodName</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'runTest'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.tests.algorithms.subgroup_sets.test_sdmapstar.TestSDMapStar" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">TestCase</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.tests.algorithms.subgroup_sets.test_sdmapstar.TestSDMapStar.test_SDMapStar_additional_parameters_in_fit_method">
+<span class="sig-name descname"><span class="pre">test_SDMapStar_additional_parameters_in_fit_method</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.tests.algorithms.subgroup_sets.test_sdmapstar.TestSDMapStar.test_SDMapStar_additional_parameters_in_fit_method" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.tests.algorithms.subgroup_sets.test_sdmapstar.TestSDMapStar.test_SDMapStar_fit_method_1">
+<span class="sig-name descname"><span class="pre">test_SDMapStar_fit_method_1</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.tests.algorithms.subgroup_sets.test_sdmapstar.TestSDMapStar.test_SDMapStar_fit_method_1" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.tests.algorithms.subgroup_sets.test_sdmapstar.TestSDMapStar.test_SDMapStar_fit_method_10">
+<span class="sig-name descname"><span class="pre">test_SDMapStar_fit_method_10</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.tests.algorithms.subgroup_sets.test_sdmapstar.TestSDMapStar.test_SDMapStar_fit_method_10" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.tests.algorithms.subgroup_sets.test_sdmapstar.TestSDMapStar.test_SDMapStar_fit_method_2">
+<span class="sig-name descname"><span class="pre">test_SDMapStar_fit_method_2</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.tests.algorithms.subgroup_sets.test_sdmapstar.TestSDMapStar.test_SDMapStar_fit_method_2" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.tests.algorithms.subgroup_sets.test_sdmapstar.TestSDMapStar.test_SDMapStar_fit_method_3">
+<span class="sig-name descname"><span class="pre">test_SDMapStar_fit_method_3</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.tests.algorithms.subgroup_sets.test_sdmapstar.TestSDMapStar.test_SDMapStar_fit_method_3" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.tests.algorithms.subgroup_sets.test_sdmapstar.TestSDMapStar.test_SDMapStar_fit_method_4">
+<span class="sig-name descname"><span class="pre">test_SDMapStar_fit_method_4</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.tests.algorithms.subgroup_sets.test_sdmapstar.TestSDMapStar.test_SDMapStar_fit_method_4" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.tests.algorithms.subgroup_sets.test_sdmapstar.TestSDMapStar.test_SDMapStar_fit_method_5">
+<span class="sig-name descname"><span class="pre">test_SDMapStar_fit_method_5</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.tests.algorithms.subgroup_sets.test_sdmapstar.TestSDMapStar.test_SDMapStar_fit_method_5" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.tests.algorithms.subgroup_sets.test_sdmapstar.TestSDMapStar.test_SDMapStar_fit_method_6">
+<span class="sig-name descname"><span class="pre">test_SDMapStar_fit_method_6</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.tests.algorithms.subgroup_sets.test_sdmapstar.TestSDMapStar.test_SDMapStar_fit_method_6" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.tests.algorithms.subgroup_sets.test_sdmapstar.TestSDMapStar.test_SDMapStar_fit_method_7">
+<span class="sig-name descname"><span class="pre">test_SDMapStar_fit_method_7</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.tests.algorithms.subgroup_sets.test_sdmapstar.TestSDMapStar.test_SDMapStar_fit_method_7" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.tests.algorithms.subgroup_sets.test_sdmapstar.TestSDMapStar.test_SDMapStar_fit_method_8">
+<span class="sig-name descname"><span class="pre">test_SDMapStar_fit_method_8</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.tests.algorithms.subgroup_sets.test_sdmapstar.TestSDMapStar.test_SDMapStar_fit_method_8" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.tests.algorithms.subgroup_sets.test_sdmapstar.TestSDMapStar.test_SDMapStar_fit_method_9">
+<span class="sig-name descname"><span class="pre">test_SDMapStar_fit_method_9</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.tests.algorithms.subgroup_sets.test_sdmapstar.TestSDMapStar.test_SDMapStar_fit_method_9" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.tests.algorithms.subgroup_sets.test_sdmapstar.TestSDMapStar.test_SDMapStar_fpgrowth_method_1">
+<span class="sig-name descname"><span class="pre">test_SDMapStar_fpgrowth_method_1</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.tests.algorithms.subgroup_sets.test_sdmapstar.TestSDMapStar.test_SDMapStar_fpgrowth_method_1" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.tests.algorithms.subgroup_sets.test_sdmapstar.TestSDMapStar.test_SDMapStar_fpgrowth_method_2">
+<span class="sig-name descname"><span class="pre">test_SDMapStar_fpgrowth_method_2</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.tests.algorithms.subgroup_sets.test_sdmapstar.TestSDMapStar.test_SDMapStar_fpgrowth_method_2" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.tests.algorithms.subgroup_sets.test_sdmapstar.TestSDMapStar.test_SDMapStar_fpgrowth_method_3">
+<span class="sig-name descname"><span class="pre">test_SDMapStar_fpgrowth_method_3</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.tests.algorithms.subgroup_sets.test_sdmapstar.TestSDMapStar.test_SDMapStar_fpgrowth_method_3" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.tests.algorithms.subgroup_sets.test_sdmapstar.TestSDMapStar.test_SDMapStar_fpgrowth_method_4">
+<span class="sig-name descname"><span class="pre">test_SDMapStar_fpgrowth_method_4</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.tests.algorithms.subgroup_sets.test_sdmapstar.TestSDMapStar.test_SDMapStar_fpgrowth_method_4" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.tests.algorithms.subgroup_sets.test_sdmapstar.TestSDMapStar.test_SDMapStar_init_method_1">
+<span class="sig-name descname"><span class="pre">test_SDMapStar_init_method_1</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.tests.algorithms.subgroup_sets.test_sdmapstar.TestSDMapStar.test_SDMapStar_init_method_1" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.tests.algorithms.subgroup_sets.test_sdmapstar.TestSDMapStar.test_SDMapStar_init_method_2">
+<span class="sig-name descname"><span class="pre">test_SDMapStar_init_method_2</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.tests.algorithms.subgroup_sets.test_sdmapstar.TestSDMapStar.test_SDMapStar_init_method_2" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.tests.algorithms.subgroup_sets.test_sdmapstar.TestSDMapStar.test_SDMapStar_unselected_and_selected_subgroups_1">
+<span class="sig-name descname"><span class="pre">test_SDMapStar_unselected_and_selected_subgroups_1</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.tests.algorithms.subgroup_sets.test_sdmapstar.TestSDMapStar.test_SDMapStar_unselected_and_selected_subgroups_1" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.tests.algorithms.subgroup_sets.test_sdmapstar.TestSDMapStar.test_SDMapStar_unselected_and_selected_subgroups_2">
+<span class="sig-name descname"><span class="pre">test_SDMapStar_unselected_and_selected_subgroups_2</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.tests.algorithms.subgroup_sets.test_sdmapstar.TestSDMapStar.test_SDMapStar_unselected_and_selected_subgroups_2" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-subgroups.tests.algorithms.subgroup_sets.test_vlsd">
+<span id="subgroups-tests-algorithms-subgroup-sets-test-vlsd-module"></span><h2>subgroups.tests.algorithms.subgroup_sets.test_vlsd module<a class="headerlink" href="#module-subgroups.tests.algorithms.subgroup_sets.test_vlsd" title="Link to this heading"></a></h2>
+<p>Tests of the functionality contained in the file ‘algorithms/vlsd.py’.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="subgroups.tests.algorithms.subgroup_sets.test_vlsd.TestVLSD">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">subgroups.tests.algorithms.subgroup_sets.test_vlsd.</span></span><span class="sig-name descname"><span class="pre">TestVLSD</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">methodName</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'runTest'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.tests.algorithms.subgroup_sets.test_vlsd.TestVLSD" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">TestCase</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.tests.algorithms.subgroup_sets.test_vlsd.TestVLSD.test_VLSD_additional_parameters_in_fit_method">
+<span class="sig-name descname"><span class="pre">test_VLSD_additional_parameters_in_fit_method</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.tests.algorithms.subgroup_sets.test_vlsd.TestVLSD.test_VLSD_additional_parameters_in_fit_method" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.tests.algorithms.subgroup_sets.test_vlsd.TestVLSD.test_VLSD_fit_method_1">
+<span class="sig-name descname"><span class="pre">test_VLSD_fit_method_1</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.tests.algorithms.subgroup_sets.test_vlsd.TestVLSD.test_VLSD_fit_method_1" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.tests.algorithms.subgroup_sets.test_vlsd.TestVLSD.test_VLSD_fit_method_2">
+<span class="sig-name descname"><span class="pre">test_VLSD_fit_method_2</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.tests.algorithms.subgroup_sets.test_vlsd.TestVLSD.test_VLSD_fit_method_2" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.tests.algorithms.subgroup_sets.test_vlsd.TestVLSD.test_VLSD_fit_method_3">
+<span class="sig-name descname"><span class="pre">test_VLSD_fit_method_3</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.tests.algorithms.subgroup_sets.test_vlsd.TestVLSD.test_VLSD_fit_method_3" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.tests.algorithms.subgroup_sets.test_vlsd.TestVLSD.test_VLSD_fit_method_4">
+<span class="sig-name descname"><span class="pre">test_VLSD_fit_method_4</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.tests.algorithms.subgroup_sets.test_vlsd.TestVLSD.test_VLSD_fit_method_4" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.tests.algorithms.subgroup_sets.test_vlsd.TestVLSD.test_VLSD_fit_method_5">
+<span class="sig-name descname"><span class="pre">test_VLSD_fit_method_5</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.tests.algorithms.subgroup_sets.test_vlsd.TestVLSD.test_VLSD_fit_method_5" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.tests.algorithms.subgroup_sets.test_vlsd.TestVLSD.test_VLSD_fit_method_6">
+<span class="sig-name descname"><span class="pre">test_VLSD_fit_method_6</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.tests.algorithms.subgroup_sets.test_vlsd.TestVLSD.test_VLSD_fit_method_6" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.tests.algorithms.subgroup_sets.test_vlsd.TestVLSD.test_VLSD_fit_method_7">
+<span class="sig-name descname"><span class="pre">test_VLSD_fit_method_7</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.tests.algorithms.subgroup_sets.test_vlsd.TestVLSD.test_VLSD_fit_method_7" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.tests.algorithms.subgroup_sets.test_vlsd.TestVLSD.test_VLSD_init_method_1">
+<span class="sig-name descname"><span class="pre">test_VLSD_init_method_1</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.tests.algorithms.subgroup_sets.test_vlsd.TestVLSD.test_VLSD_init_method_1" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.tests.algorithms.subgroup_sets.test_vlsd.TestVLSD.test_VLSD_init_method_2">
+<span class="sig-name descname"><span class="pre">test_VLSD_init_method_2</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.tests.algorithms.subgroup_sets.test_vlsd.TestVLSD.test_VLSD_init_method_2" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-subgroups.tests.algorithms.subgroup_sets">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-subgroups.tests.algorithms.subgroup_sets" title="Link to this heading"></a></h2>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="subgroups.tests.algorithms.subgroup_lists.html" class="btn btn-neutral float-left" title="subgroups.tests.algorithms.subgroup_lists package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="subgroups.tests.core.html" class="btn btn-neutral float-right" title="subgroups.tests.core package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Antonio López Martínez-Carrasco.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

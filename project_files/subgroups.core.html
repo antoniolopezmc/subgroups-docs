@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>subgroups.core package &mdash; subgroups 0.1.5 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=92fd9be5" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=59fadc99"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="subgroups.data_structures package" href="subgroups.data_structures.html" />
+    <link rel="prev" title="subgroups.algorithms.subgroup_sets package" href="subgroups.algorithms.subgroup_sets.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            subgroups
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="subgroups.html">subgroups package</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="subgroups.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="subgroups.algorithms.html">subgroups.algorithms package</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">subgroups.core package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-subgroups.core.operator">subgroups.core.operator module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-subgroups.core.pattern">subgroups.core.pattern module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-subgroups.core.selector">subgroups.core.selector module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-subgroups.core.subgroup">subgroups.core.subgroup module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-subgroups.core">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="subgroups.data_structures.html">subgroups.data_structures package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="subgroups.datasets.html">subgroups.datasets package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="subgroups.quality_measures.html">subgroups.quality_measures package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="subgroups.tests.html">subgroups.tests package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="subgroups.utils.html">subgroups.utils package</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="subgroups.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="subgroups.html#module-subgroups.exceptions">subgroups.exceptions module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="subgroups.html#module-subgroups">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="subgroups.algorithms.html">subgroups.algorithms package</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">subgroups.core package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-subgroups.core.operator">subgroups.core.operator module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#subgroups.core.operator.Operator"><code class="docutils literal notranslate"><span class="pre">Operator</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.core.operator.Operator.EQUAL"><code class="docutils literal notranslate"><span class="pre">Operator.EQUAL</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.core.operator.Operator.GREATER"><code class="docutils literal notranslate"><span class="pre">Operator.GREATER</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.core.operator.Operator.GREATER_OR_EQUAL"><code class="docutils literal notranslate"><span class="pre">Operator.GREATER_OR_EQUAL</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.core.operator.Operator.LESS"><code class="docutils literal notranslate"><span class="pre">Operator.LESS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.core.operator.Operator.LESS_OR_EQUAL"><code class="docutils literal notranslate"><span class="pre">Operator.LESS_OR_EQUAL</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.core.operator.Operator.NOT_EQUAL"><code class="docutils literal notranslate"><span class="pre">Operator.NOT_EQUAL</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.core.operator.Operator.evaluate"><code class="docutils literal notranslate"><span class="pre">Operator.evaluate()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.core.operator.Operator.generate_from_str"><code class="docutils literal notranslate"><span class="pre">Operator.generate_from_str()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-subgroups.core.pattern">subgroups.core.pattern module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#subgroups.core.pattern.Pattern"><code class="docutils literal notranslate"><span class="pre">Pattern</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.core.pattern.Pattern.add_selector"><code class="docutils literal notranslate"><span class="pre">Pattern.add_selector()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.core.pattern.Pattern.copy"><code class="docutils literal notranslate"><span class="pre">Pattern.copy()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.core.pattern.Pattern.generate_from_str"><code class="docutils literal notranslate"><span class="pre">Pattern.generate_from_str()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.core.pattern.Pattern.get_selector"><code class="docutils literal notranslate"><span class="pre">Pattern.get_selector()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.core.pattern.Pattern.is_contained"><code class="docutils literal notranslate"><span class="pre">Pattern.is_contained()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.core.pattern.Pattern.is_refinement"><code class="docutils literal notranslate"><span class="pre">Pattern.is_refinement()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.core.pattern.Pattern.remove_selector"><code class="docutils literal notranslate"><span class="pre">Pattern.remove_selector()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.core.pattern.Pattern.remove_selector_by_index"><code class="docutils literal notranslate"><span class="pre">Pattern.remove_selector_by_index()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-subgroups.core.selector">subgroups.core.selector module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#subgroups.core.selector.Selector"><code class="docutils literal notranslate"><span class="pre">Selector</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.core.selector.Selector.attribute_name"><code class="docutils literal notranslate"><span class="pre">Selector.attribute_name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.core.selector.Selector.generate_from_str"><code class="docutils literal notranslate"><span class="pre">Selector.generate_from_str()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.core.selector.Selector.match"><code class="docutils literal notranslate"><span class="pre">Selector.match()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.core.selector.Selector.operator"><code class="docutils literal notranslate"><span class="pre">Selector.operator</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.core.selector.Selector.value"><code class="docutils literal notranslate"><span class="pre">Selector.value</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-subgroups.core.subgroup">subgroups.core.subgroup module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#subgroups.core.subgroup.Subgroup"><code class="docutils literal notranslate"><span class="pre">Subgroup</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.core.subgroup.Subgroup.copy"><code class="docutils literal notranslate"><span class="pre">Subgroup.copy()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.core.subgroup.Subgroup.description"><code class="docutils literal notranslate"><span class="pre">Subgroup.description</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.core.subgroup.Subgroup.filter"><code class="docutils literal notranslate"><span class="pre">Subgroup.filter()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.core.subgroup.Subgroup.generate_from_str"><code class="docutils literal notranslate"><span class="pre">Subgroup.generate_from_str()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.core.subgroup.Subgroup.is_refinement"><code class="docutils literal notranslate"><span class="pre">Subgroup.is_refinement()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.core.subgroup.Subgroup.target"><code class="docutils literal notranslate"><span class="pre">Subgroup.target</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-subgroups.core">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="subgroups.data_structures.html">subgroups.data_structures package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="subgroups.quality_measures.html">subgroups.quality_measures package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="subgroups.tests.html">subgroups.tests package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="subgroups.utils.html">subgroups.utils package</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">subgroups</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="subgroups.html">subgroups package</a></li>
+      <li class="breadcrumb-item active">subgroups.core package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/project_files/subgroups.core.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="subgroups-core-package">
+<h1>subgroups.core package<a class="headerlink" href="#subgroups-core-package" title="Link to this heading"></a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
+</section>
+<section id="module-subgroups.core.operator">
+<span id="subgroups-core-operator-module"></span><h2>subgroups.core.operator module<a class="headerlink" href="#module-subgroups.core.operator" title="Link to this heading"></a></h2>
+<p>This file contains the avaible operators which can be used by the selectors.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="subgroups.core.operator.Operator">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">subgroups.core.operator.</span></span><span class="sig-name descname"><span class="pre">Operator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.core.operator.Operator" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
+<p>This enumerator provides the available operators which can be used by the selectors.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="subgroups.core.operator.Operator.EQUAL">
+<span class="sig-name descname"><span class="pre">EQUAL</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#subgroups.core.operator.Operator.EQUAL" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="subgroups.core.operator.Operator.GREATER">
+<span class="sig-name descname"><span class="pre">GREATER</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">4</span></em><a class="headerlink" href="#subgroups.core.operator.Operator.GREATER" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="subgroups.core.operator.Operator.GREATER_OR_EQUAL">
+<span class="sig-name descname"><span class="pre">GREATER_OR_EQUAL</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">6</span></em><a class="headerlink" href="#subgroups.core.operator.Operator.GREATER_OR_EQUAL" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="subgroups.core.operator.Operator.LESS">
+<span class="sig-name descname"><span class="pre">LESS</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">3</span></em><a class="headerlink" href="#subgroups.core.operator.Operator.LESS" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="subgroups.core.operator.Operator.LESS_OR_EQUAL">
+<span class="sig-name descname"><span class="pre">LESS_OR_EQUAL</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">5</span></em><a class="headerlink" href="#subgroups.core.operator.Operator.LESS_OR_EQUAL" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="subgroups.core.operator.Operator.NOT_EQUAL">
+<span class="sig-name descname"><span class="pre">NOT_EQUAL</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></em><a class="headerlink" href="#subgroups.core.operator.Operator.NOT_EQUAL" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.core.operator.Operator.evaluate">
+<span class="sig-name descname"><span class="pre">evaluate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">left_element</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">right_element</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.core.operator.Operator.evaluate" title="Link to this definition"></a></dt>
+<dd><p>Method to evaluate whether the expression (left_element self right_element) is True. IMPORTANT: if the operator is not supported between both elements, a TypeError exception is raised.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>left_element</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">typing.Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.core.series.Series</span></code>]</span>) – the left element of the expression. It can be also of type ‘pandas.Series’ in order to allow comparisons with whole arrays.</p></li>
+<li><p><strong>right_element</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">typing.Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.core.series.Series</span></code>]</span>) – the right element of the expression. It can be also of type ‘pandas.Series’ in order to allow comparisons with whole arrays.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">typing.Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.core.series.Series</span></code>]</span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>whether the expression (left_element self right_element) is True. In case of both elements are of type Series, a Series in which each element is of type bool is returned.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.core.operator.Operator.generate_from_str">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">generate_from_str</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.core.operator.Operator.generate_from_str" title="Link to this definition"></a></dt>
+<dd><p>Static method to generate an Operator from a str.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>input_str</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>) – the str from which to generate the Operator.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="#subgroups.core.operator.Operator" title="subgroups.core.operator.Operator"><code class="xref py py-class docutils literal notranslate"><span class="pre">subgroups.core.operator.Operator</span></code></a></span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>the Operator generated from the str.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-subgroups.core.pattern">
+<span id="subgroups-core-pattern-module"></span><h2>subgroups.core.pattern module<a class="headerlink" href="#module-subgroups.core.pattern" title="Link to this heading"></a></h2>
+<p>This file contains the implementation of a ‘Pattern’. A ‘Pattern’ is a sorted list of non-repeated selectors.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="subgroups.core.pattern.Pattern">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">subgroups.core.pattern.</span></span><span class="sig-name descname"><span class="pre">Pattern</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">list_of_selectors</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.core.pattern.Pattern" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>This class represents a ‘Pattern’. A ‘Pattern’ is a sorted list of non-repeated selectors.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>list_of_selectors</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code>[<a class="reference internal" href="#subgroups.core.selector.Selector" title="subgroups.core.selector.Selector"><code class="xref py py-class docutils literal notranslate"><span class="pre">subgroups.core.selector.Selector</span></code></a>]</span>) – a list of selectors. IMPORTANT: we assume that the list only contains selectors.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.core.pattern.Pattern.add_selector">
+<span class="sig-name descname"><span class="pre">add_selector</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">selector</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.core.pattern.Pattern.add_selector" title="Link to this definition"></a></dt>
+<dd><p>Method to add a selector to the pattern. If the selector already exists, this method does nothing.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>selector</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="#subgroups.core.selector.Selector" title="subgroups.core.selector.Selector"><code class="xref py py-class docutils literal notranslate"><span class="pre">subgroups.core.selector.Selector</span></code></a></span>) – the selector which is added.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.core.pattern.Pattern.copy">
+<span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.core.pattern.Pattern.copy" title="Link to this definition"></a></dt>
+<dd><p>Method to copy the Pattern.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="#subgroups.core.pattern.Pattern" title="subgroups.core.pattern.Pattern"><code class="xref py py-class docutils literal notranslate"><span class="pre">subgroups.core.pattern.Pattern</span></code></a></span></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>the copy of the Pattern WITH THE SAME SELECTORS (THE SAME OBJECTS). This method does not copy the selectors of the list (it is not needed because the selectors are immutable).</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.core.pattern.Pattern.generate_from_str">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">generate_from_str</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.core.pattern.Pattern.generate_from_str" title="Link to this definition"></a></dt>
+<dd><p>Static method to generate a Pattern from a str.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>input_str</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>) – the str from which to generate the Pattern. We assume the format defined by one of the following regular expressions: (1) ‘\[\]’ (empty Pattern), (2) ‘\[selector\]’ (Pattern with only one selector), (3) ‘\[selector(, selector)+\]’ (Pattern with more than one selector).</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="#subgroups.core.pattern.Pattern" title="subgroups.core.pattern.Pattern"><code class="xref py py-class docutils literal notranslate"><span class="pre">subgroups.core.pattern.Pattern</span></code></a></span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>the Pattern generated from the str.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.core.pattern.Pattern.get_selector">
+<span class="sig-name descname"><span class="pre">get_selector</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.core.pattern.Pattern.get_selector" title="Link to this definition"></a></dt>
+<dd><p>Method to get a selector from the pattern by index. If the index is out of range, an ‘IndexError’ exception is raised.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>index</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span>) – the index which is used.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="#subgroups.core.selector.Selector" title="subgroups.core.selector.Selector"><code class="xref py py-class docutils literal notranslate"><span class="pre">subgroups.core.selector.Selector</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.core.pattern.Pattern.is_contained">
+<span class="sig-name descname"><span class="pre">is_contained</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pandas_dataframe</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.core.pattern.Pattern.is_contained" title="Link to this definition"></a></dt>
+<dd><p>Method to check whether the pattern is contained in each row of the pandas.DataFrame passed by parameter. IMPORTANT: If an attribute name of a selector of the pattern is not in the pandas.DataFrame passed by parameter, a KeyError exception is raised.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>pandas_dataframe</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.core.frame.DataFrame</span></code></span>) – the pandas.DataFrame with which the pattern is checked.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.core.series.Series</span></code></span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>whether the pattern is contained in each row of the pandas.DataFrame passed by parameter.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.core.pattern.Pattern.is_refinement">
+<span class="sig-name descname"><span class="pre">is_refinement</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">refinement_candidate</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">refinement_of_itself</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.core.pattern.Pattern.is_refinement" title="Link to this definition"></a></dt>
+<dd><p>Method to check whether ‘refinement_candidate’ is a refinement of this (i.e., of ‘self’).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>refinement_candidate</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="#subgroups.core.pattern.Pattern" title="subgroups.core.pattern.Pattern"><code class="xref py py-class docutils literal notranslate"><span class="pre">subgroups.core.pattern.Pattern</span></code></a></span>) – pattern candidate to be a refinement of this (i.e., of ‘self’).</p></li>
+<li><p><strong>refinement_of_itself</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></span>) – is a pattern a refinement of itself? Sometimes it may be better to assume yes and sometimes no. Therefore, if both patterns are equal, then this method returns the value of ‘refinement_of_itself’.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>whether ‘refinement_candidate’ is a refinement of this (i.e., ‘self’).</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.core.pattern.Pattern.remove_selector">
+<span class="sig-name descname"><span class="pre">remove_selector</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">selector</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.core.pattern.Pattern.remove_selector" title="Link to this definition"></a></dt>
+<dd><p>Method to remove a selector from the pattern. If the selector does not exist, this method does nothing.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>selector</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="#subgroups.core.selector.Selector" title="subgroups.core.selector.Selector"><code class="xref py py-class docutils literal notranslate"><span class="pre">subgroups.core.selector.Selector</span></code></a></span>) – the selector which is removed.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.core.pattern.Pattern.remove_selector_by_index">
+<span class="sig-name descname"><span class="pre">remove_selector_by_index</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.core.pattern.Pattern.remove_selector_by_index" title="Link to this definition"></a></dt>
+<dd><p>Method to remove a selector from the pattern by index. If the index is out of range, an ‘IndexError’ exception is raised.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>index</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span>) – the index which is used.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-subgroups.core.selector">
+<span id="subgroups-core-selector-module"></span><h2>subgroups.core.selector module<a class="headerlink" href="#module-subgroups.core.selector" title="Link to this heading"></a></h2>
+<p>This file contains the implementation of a ‘Selector’. A ‘Selector’ is an IMMUTABLE structure which contains an attribute name, an operator and a value.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="subgroups.core.selector.Selector">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">subgroups.core.selector.</span></span><span class="sig-name descname"><span class="pre">Selector</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">attribute_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">operator</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#subgroups.core.operator.Operator" title="subgroups.core.operator.Operator"><span class="pre">Operator</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.core.selector.Selector" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>This class represents a ‘Selector’. A ‘Selector’ is an IMMUTABLE structure which contains an attribute name, an operator and a value.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>attribute_name</strong> – the attribute name. It must be a non-empty str.</p></li>
+<li><p><strong>operator</strong> – the operator between the attribute name and the value. If the value is of type str, only EQUAL and NOT EQUAL operators are available.</p></li>
+<li><p><strong>value</strong> – the value.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py property">
+<dt class="sig sig-object py" id="subgroups.core.selector.Selector.attribute_name">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">attribute_name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#subgroups.core.selector.Selector.attribute_name" title="Link to this definition"></a></dt>
+<dd><p>The attribute name.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.core.selector.Selector.generate_from_str">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">generate_from_str</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.core.selector.Selector.generate_from_str" title="Link to this definition"></a></dt>
+<dd><p>Static method to generate a Selector from a str.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>input_str</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>) – the str from which to generate the Selector. We assume the following format: &lt;attribute_name&gt;&lt;whitespace&gt;&lt;operator&gt;&lt;whitespace&gt;&lt;value&gt;. Be careful with the whitespaces: (1) each part of the selector must be separated by only one whitespace and (2) whitespaces at the left side of the str or at the right side of the str are not allowed.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="#subgroups.core.selector.Selector" title="subgroups.core.selector.Selector"><code class="xref py py-class docutils literal notranslate"><span class="pre">subgroups.core.selector.Selector</span></code></a></span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>the Selector generated from the str.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.core.selector.Selector.match">
+<span class="sig-name descname"><span class="pre">match</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">attribute_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.core.selector.Selector.match" title="Link to this definition"></a></dt>
+<dd><p>Method to check whether the parameters ‘attribute_name’ and ‘value’ match with the selector. In this case, “match” means that the expression ((attribute_name == self.attribute_name) and (value self.operator self.value)) is True. IMPORTANT: if the selector operator is not supported between value and self.value, a TypeError exception is raised.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>attribute_name</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>) – the attribute name which is compared with self.attribute_name.</p></li>
+<li><p><strong>value</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">typing.Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.core.series.Series</span></code>]</span>) – the value which is compared with self.value. The value can be also of type ‘pandas.Series’ in order to allow comparisons with whole arrays.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">typing.Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.core.series.Series</span></code>]</span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>whether the parameters ‘attribute_name’ and ‘value’ match with the selector.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="subgroups.core.selector.Selector.operator">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">operator</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#subgroups.core.operator.Operator" title="subgroups.core.operator.Operator"><span class="pre">Operator</span></a></em><a class="headerlink" href="#subgroups.core.selector.Selector.operator" title="Link to this definition"></a></dt>
+<dd><p>The operator between the attribute name and the value.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="subgroups.core.selector.Selector.value">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">value</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#subgroups.core.selector.Selector.value" title="Link to this definition"></a></dt>
+<dd><p>The value.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-subgroups.core.subgroup">
+<span id="subgroups-core-subgroup-module"></span><h2>subgroups.core.subgroup module<a class="headerlink" href="#module-subgroups.core.subgroup" title="Link to this heading"></a></h2>
+<p>This file contains the implementation of a ‘Subgroup’. A ‘Subgroup’ has a description (Pattern) and a target variable of interest (Selector).</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="subgroups.core.subgroup.Subgroup">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">subgroups.core.subgroup.</span></span><span class="sig-name descname"><span class="pre">Subgroup</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">description</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.core.subgroup.Subgroup" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>This class represents a ‘Subgroup’. A ‘Subgroup’ has a description (Pattern) and a target variable of interest (Selector).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>description</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="#subgroups.core.pattern.Pattern" title="subgroups.core.pattern.Pattern"><code class="xref py py-class docutils literal notranslate"><span class="pre">subgroups.core.pattern.Pattern</span></code></a></span>) – a Pattern.</p></li>
+<li><p><strong>target</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="#subgroups.core.selector.Selector" title="subgroups.core.selector.Selector"><code class="xref py py-class docutils literal notranslate"><span class="pre">subgroups.core.selector.Selector</span></code></a></span>) – a Selector.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.core.subgroup.Subgroup.copy">
+<span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.core.subgroup.Subgroup.copy" title="Link to this definition"></a></dt>
+<dd><p>Method to copy the Subgroup.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="#subgroups.core.subgroup.Subgroup" title="subgroups.core.subgroup.Subgroup"><code class="xref py py-class docutils literal notranslate"><span class="pre">subgroups.core.subgroup.Subgroup</span></code></a></span></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>the copy of the Subgroup.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="subgroups.core.subgroup.Subgroup.description">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">description</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#subgroups.core.pattern.Pattern" title="subgroups.core.pattern.Pattern"><span class="pre">Pattern</span></a></em><a class="headerlink" href="#subgroups.core.subgroup.Subgroup.description" title="Link to this definition"></a></dt>
+<dd><p>The description.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.core.subgroup.Subgroup.filter">
+<span class="sig-name descname"><span class="pre">filter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pandas_dataframe</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.core.subgroup.Subgroup.filter" title="Link to this definition"></a></dt>
+<dd><p>Method to filter a pandas DataFrame, retrieving only certain information related to this subgroup.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>pandas_dataframe</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.core.frame.DataFrame</span></code></span>) – the DataFrame which is filtered. IMPORTANT: If an attribute name of a selector of the subgroup is not in the pandas.DataFrame passed by parameter, a KeyError exception is raised.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.core.series.Series</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.core.series.Series</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.core.series.Series</span></code>]</span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>a tuple of the form: (Series, Series, Series). It is formed by the following elements: (1) a pandas Series of booleans of the same size as pandas_dataframe indicating whether rows are covered by the description and the target, (2) a pandas Series of booleans of the same size as pandas_dataframe indicating whether rows are covered by the description but not by the target, and (3) a pandas Series of booleans of the same size as pandas_dataframe indicating whether rows are covered by the target.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.core.subgroup.Subgroup.generate_from_str">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">generate_from_str</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.core.subgroup.Subgroup.generate_from_str" title="Link to this definition"></a></dt>
+<dd><p>Static method to generate a Subgroup from a str.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>input_str</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>) – the str from which to generate the Subgroup. We assume the format defined by the following regular expressions: ‘Description: &lt;pattern&gt;, Target: &lt;selector&gt;’. The format of &lt;selector&gt; and &lt;pattern&gt; is defined by their corresponding ‘generate_from_str’ methods.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="#subgroups.core.subgroup.Subgroup" title="subgroups.core.subgroup.Subgroup"><code class="xref py py-class docutils literal notranslate"><span class="pre">subgroups.core.subgroup.Subgroup</span></code></a></span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>the Subgroup generated from the str.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.core.subgroup.Subgroup.is_refinement">
+<span class="sig-name descname"><span class="pre">is_refinement</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">refinement_candidate</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">refinement_of_itself</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.core.subgroup.Subgroup.is_refinement" title="Link to this definition"></a></dt>
+<dd><p>Method to check whether ‘refinement_candidate’ is a refinement of this (i.e., of ‘self’). A subgroup Y is a refinements of other subgroup X, if the description of Y is a refinement of the description of X, and the targets are equal.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>refinement_candidate</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="#subgroups.core.subgroup.Subgroup" title="subgroups.core.subgroup.Subgroup"><code class="xref py py-class docutils literal notranslate"><span class="pre">subgroups.core.subgroup.Subgroup</span></code></a></span>) – subgroup candidate to be a refinement of this (i.e., of ‘self’).</p></li>
+<li><p><strong>refinement_of_itself</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></span>) – is a pattern a refinement of itself (in this case, the description of a subgroup)? Sometimes it may be better to assume yes and sometimes no. Therefore, if both subgroups are equal (i.e., the descriptions of both subgroups and the targets), then this method returns the value of ‘refinement_of_itself’.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>whether ‘refinement_candidate’ is a refinement of this (i.e., ‘self’).</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="subgroups.core.subgroup.Subgroup.target">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">target</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#subgroups.core.selector.Selector" title="subgroups.core.selector.Selector"><span class="pre">Selector</span></a></em><a class="headerlink" href="#subgroups.core.subgroup.Subgroup.target" title="Link to this definition"></a></dt>
+<dd><p>The target variable of interest.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-subgroups.core">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-subgroups.core" title="Link to this heading"></a></h2>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="subgroups.algorithms.subgroup_sets.html" class="btn btn-neutral float-left" title="subgroups.algorithms.subgroup_sets package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="subgroups.data_structures.html" class="btn btn-neutral float-right" title="subgroups.data_structures package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Antonio López Martínez-Carrasco.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>subgroups.algorithms package &mdash; subgroups 0.1.5 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=92fd9be5" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=59fadc99"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="subgroups.algorithms.subgroup_lists package" href="subgroups.algorithms.subgroup_lists.html" />
+    <link rel="prev" title="subgroups package" href="subgroups.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            subgroups
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="subgroups.html">subgroups package</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="subgroups.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">subgroups.algorithms package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#subpackages">Subpackages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-subgroups.algorithms.algorithm">subgroups.algorithms.algorithm module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-subgroups.algorithms">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="subgroups.core.html">subgroups.core package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="subgroups.data_structures.html">subgroups.data_structures package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="subgroups.datasets.html">subgroups.datasets package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="subgroups.quality_measures.html">subgroups.quality_measures package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="subgroups.tests.html">subgroups.tests package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="subgroups.utils.html">subgroups.utils package</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="subgroups.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="subgroups.html#module-subgroups.exceptions">subgroups.exceptions module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="subgroups.html#module-subgroups">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">subgroups.algorithms package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="subgroups.algorithms.subgroup_lists.html">subgroups.algorithms.subgroup_lists package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="subgroups.algorithms.subgroup_sets.html">subgroups.algorithms.subgroup_sets package</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-subgroups.algorithms.algorithm">subgroups.algorithms.algorithm module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#subgroups.algorithms.algorithm.Algorithm"><code class="docutils literal notranslate"><span class="pre">Algorithm</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#subgroups.algorithms.algorithm.Algorithm.fit"><code class="docutils literal notranslate"><span class="pre">Algorithm.fit()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-subgroups.algorithms">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="subgroups.core.html">subgroups.core package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="subgroups.data_structures.html">subgroups.data_structures package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="subgroups.quality_measures.html">subgroups.quality_measures package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="subgroups.tests.html">subgroups.tests package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="subgroups.utils.html">subgroups.utils package</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">subgroups</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="subgroups.html">subgroups package</a></li>
+      <li class="breadcrumb-item active">subgroups.algorithms package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/project_files/subgroups.algorithms.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="subgroups-algorithms-package">
+<h1>subgroups.algorithms package<a class="headerlink" href="#subgroups-algorithms-package" title="Link to this heading"></a></h1>
+<section id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Link to this heading"></a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="subgroups.algorithms.subgroup_lists.html">subgroups.algorithms.subgroup_lists package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="subgroups.algorithms.subgroup_lists.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="subgroups.algorithms.subgroup_lists.html#module-subgroups.algorithms.subgroup_lists.dslm">subgroups.algorithms.subgroup_lists.dslm module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="subgroups.algorithms.subgroup_lists.html#subgroups.algorithms.subgroup_lists.dslm.DSLM"><code class="docutils literal notranslate"><span class="pre">DSLM</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.algorithms.subgroup_lists.html#subgroups.algorithms.subgroup_lists.dslm.DSLM.fit"><code class="docutils literal notranslate"><span class="pre">DSLM.fit()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.algorithms.subgroup_lists.html#subgroups.algorithms.subgroup_lists.dslm.DSLM.maximum_negative_overlap"><code class="docutils literal notranslate"><span class="pre">DSLM.maximum_negative_overlap</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.algorithms.subgroup_lists.html#subgroups.algorithms.subgroup_lists.dslm.DSLM.maximum_positive_overlap"><code class="docutils literal notranslate"><span class="pre">DSLM.maximum_positive_overlap</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="subgroups.algorithms.subgroup_lists.html#module-subgroups.algorithms.subgroup_lists.gmsl">subgroups.algorithms.subgroup_lists.gmsl module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="subgroups.algorithms.subgroup_lists.html#subgroups.algorithms.subgroup_lists.gmsl.GMSL"><code class="docutils literal notranslate"><span class="pre">GMSL</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.algorithms.subgroup_lists.html#subgroups.algorithms.subgroup_lists.gmsl.GMSL.INPUT_LINE_REGEX_PATTERN"><code class="docutils literal notranslate"><span class="pre">GMSL.INPUT_LINE_REGEX_PATTERN</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.algorithms.subgroup_lists.html#subgroups.algorithms.subgroup_lists.gmsl.GMSL.beta"><code class="docutils literal notranslate"><span class="pre">GMSL.beta</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.algorithms.subgroup_lists.html#subgroups.algorithms.subgroup_lists.gmsl.GMSL.fit"><code class="docutils literal notranslate"><span class="pre">GMSL.fit()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.algorithms.subgroup_lists.html#subgroups.algorithms.subgroup_lists.gmsl.GMSL.input_file_path"><code class="docutils literal notranslate"><span class="pre">GMSL.input_file_path</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.algorithms.subgroup_lists.html#subgroups.algorithms.subgroup_lists.gmsl.GMSL.max_sl"><code class="docutils literal notranslate"><span class="pre">GMSL.max_sl</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.algorithms.subgroup_lists.html#subgroups.algorithms.subgroup_lists.gmsl.GMSL.output_file_path"><code class="docutils literal notranslate"><span class="pre">GMSL.output_file_path</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="subgroups.algorithms.subgroup_lists.html#module-subgroups.algorithms.subgroup_lists.psld">subgroups.algorithms.subgroup_lists.psld module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="subgroups.algorithms.subgroup_lists.html#subgroups.algorithms.subgroup_lists.psld.PSLD"><code class="docutils literal notranslate"><span class="pre">PSLD</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.algorithms.subgroup_lists.html#subgroups.algorithms.subgroup_lists.psld.PSLD.fit"><code class="docutils literal notranslate"><span class="pre">PSLD.fit()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.algorithms.subgroup_lists.html#subgroups.algorithms.subgroup_lists.psld.PSLD.sl_max_size"><code class="docutils literal notranslate"><span class="pre">PSLD.sl_max_size</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="subgroups.algorithms.subgroup_lists.html#module-subgroups.algorithms.subgroup_lists">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="subgroups.algorithms.subgroup_sets.html">subgroups.algorithms.subgroup_sets package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="subgroups.algorithms.subgroup_sets.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="subgroups.algorithms.subgroup_sets.html#module-subgroups.algorithms.subgroup_sets.bsd">subgroups.algorithms.subgroup_sets.bsd module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="subgroups.algorithms.subgroup_sets.html#subgroups.algorithms.subgroup_sets.bsd.BSD"><code class="docutils literal notranslate"><span class="pre">BSD</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.algorithms.subgroup_sets.html#subgroups.algorithms.subgroup_sets.bsd.BSD.fit"><code class="docutils literal notranslate"><span class="pre">BSD.fit()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.algorithms.subgroup_sets.html#subgroups.algorithms.subgroup_sets.bsd.BSD.max_depth"><code class="docutils literal notranslate"><span class="pre">BSD.max_depth</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.algorithms.subgroup_sets.html#subgroups.algorithms.subgroup_sets.bsd.BSD.minimum_support"><code class="docutils literal notranslate"><span class="pre">BSD.minimum_support</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.algorithms.subgroup_sets.html#subgroups.algorithms.subgroup_sets.bsd.BSD.num_subgroups"><code class="docutils literal notranslate"><span class="pre">BSD.num_subgroups</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.algorithms.subgroup_sets.html#subgroups.algorithms.subgroup_sets.bsd.BSD.quality_measure"><code class="docutils literal notranslate"><span class="pre">BSD.quality_measure</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.algorithms.subgroup_sets.html#subgroups.algorithms.subgroup_sets.bsd.BSD.selected_subgroups"><code class="docutils literal notranslate"><span class="pre">BSD.selected_subgroups</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.algorithms.subgroup_sets.html#subgroups.algorithms.subgroup_sets.bsd.BSD.unselected_subgroups"><code class="docutils literal notranslate"><span class="pre">BSD.unselected_subgroups</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.algorithms.subgroup_sets.html#subgroups.algorithms.subgroup_sets.bsd.BSD.visited_subgroups"><code class="docutils literal notranslate"><span class="pre">BSD.visited_subgroups</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="subgroups.algorithms.subgroup_sets.html#module-subgroups.algorithms.subgroup_sets.cbsd">subgroups.algorithms.subgroup_sets.cbsd module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="subgroups.algorithms.subgroup_sets.html#subgroups.algorithms.subgroup_sets.cbsd.CBSD"><code class="docutils literal notranslate"><span class="pre">CBSD</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="subgroups.algorithms.subgroup_sets.html#module-subgroups.algorithms.subgroup_sets.cpbsd">subgroups.algorithms.subgroup_sets.cpbsd module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="subgroups.algorithms.subgroup_sets.html#subgroups.algorithms.subgroup_sets.cpbsd.CPBSD"><code class="docutils literal notranslate"><span class="pre">CPBSD</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="subgroups.algorithms.subgroup_sets.html#module-subgroups.algorithms.subgroup_sets.qfinder">subgroups.algorithms.subgroup_sets.qfinder module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="subgroups.algorithms.subgroup_sets.html#subgroups.algorithms.subgroup_sets.qfinder.QFinder"><code class="docutils literal notranslate"><span class="pre">QFinder</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.algorithms.subgroup_sets.html#subgroups.algorithms.subgroup_sets.qfinder.QFinder.fit"><code class="docutils literal notranslate"><span class="pre">QFinder.fit()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.algorithms.subgroup_sets.html#subgroups.algorithms.subgroup_sets.qfinder.QFinder.selected_subgroups"><code class="docutils literal notranslate"><span class="pre">QFinder.selected_subgroups</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.algorithms.subgroup_sets.html#subgroups.algorithms.subgroup_sets.qfinder.QFinder.test_subgroups"><code class="docutils literal notranslate"><span class="pre">QFinder.test_subgroups()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.algorithms.subgroup_sets.html#subgroups.algorithms.subgroup_sets.qfinder.QFinder.top_patterns"><code class="docutils literal notranslate"><span class="pre">QFinder.top_patterns</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.algorithms.subgroup_sets.html#subgroups.algorithms.subgroup_sets.qfinder.QFinder.unselected_subgroups"><code class="docutils literal notranslate"><span class="pre">QFinder.unselected_subgroups</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.algorithms.subgroup_sets.html#subgroups.algorithms.subgroup_sets.qfinder.QFinder.visited_subgroups"><code class="docutils literal notranslate"><span class="pre">QFinder.visited_subgroups</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="subgroups.algorithms.subgroup_sets.html#module-subgroups.algorithms.subgroup_sets.sdmap">subgroups.algorithms.subgroup_sets.sdmap module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="subgroups.algorithms.subgroup_sets.html#subgroups.algorithms.subgroup_sets.sdmap.SDMap"><code class="docutils literal notranslate"><span class="pre">SDMap</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.algorithms.subgroup_sets.html#subgroups.algorithms.subgroup_sets.sdmap.SDMap.additional_parameters_for_the_quality_measure"><code class="docutils literal notranslate"><span class="pre">SDMap.additional_parameters_for_the_quality_measure</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.algorithms.subgroup_sets.html#subgroups.algorithms.subgroup_sets.sdmap.SDMap.fit"><code class="docutils literal notranslate"><span class="pre">SDMap.fit()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.algorithms.subgroup_sets.html#subgroups.algorithms.subgroup_sets.sdmap.SDMap.minimum_fp"><code class="docutils literal notranslate"><span class="pre">SDMap.minimum_fp</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.algorithms.subgroup_sets.html#subgroups.algorithms.subgroup_sets.sdmap.SDMap.minimum_n"><code class="docutils literal notranslate"><span class="pre">SDMap.minimum_n</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.algorithms.subgroup_sets.html#subgroups.algorithms.subgroup_sets.sdmap.SDMap.minimum_quality_measure_value"><code class="docutils literal notranslate"><span class="pre">SDMap.minimum_quality_measure_value</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.algorithms.subgroup_sets.html#subgroups.algorithms.subgroup_sets.sdmap.SDMap.minimum_tp"><code class="docutils literal notranslate"><span class="pre">SDMap.minimum_tp</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.algorithms.subgroup_sets.html#subgroups.algorithms.subgroup_sets.sdmap.SDMap.quality_measure"><code class="docutils literal notranslate"><span class="pre">SDMap.quality_measure</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.algorithms.subgroup_sets.html#subgroups.algorithms.subgroup_sets.sdmap.SDMap.selected_subgroups"><code class="docutils literal notranslate"><span class="pre">SDMap.selected_subgroups</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.algorithms.subgroup_sets.html#subgroups.algorithms.subgroup_sets.sdmap.SDMap.unselected_subgroups"><code class="docutils literal notranslate"><span class="pre">SDMap.unselected_subgroups</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.algorithms.subgroup_sets.html#subgroups.algorithms.subgroup_sets.sdmap.SDMap.visited_nodes"><code class="docutils literal notranslate"><span class="pre">SDMap.visited_nodes</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="subgroups.algorithms.subgroup_sets.html#module-subgroups.algorithms.subgroup_sets.sdmapstar">subgroups.algorithms.subgroup_sets.sdmapstar module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="subgroups.algorithms.subgroup_sets.html#subgroups.algorithms.subgroup_sets.sdmapstar.SDMapStar"><code class="docutils literal notranslate"><span class="pre">SDMapStar</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.algorithms.subgroup_sets.html#subgroups.algorithms.subgroup_sets.sdmapstar.SDMapStar.additional_parameters_for_the_quality_measure"><code class="docutils literal notranslate"><span class="pre">SDMapStar.additional_parameters_for_the_quality_measure</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.algorithms.subgroup_sets.html#subgroups.algorithms.subgroup_sets.sdmapstar.SDMapStar.conditional_pruned_branches"><code class="docutils literal notranslate"><span class="pre">SDMapStar.conditional_pruned_branches</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.algorithms.subgroup_sets.html#subgroups.algorithms.subgroup_sets.sdmapstar.SDMapStar.fit"><code class="docutils literal notranslate"><span class="pre">SDMapStar.fit()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.algorithms.subgroup_sets.html#subgroups.algorithms.subgroup_sets.sdmapstar.SDMapStar.k_subgroups"><code class="docutils literal notranslate"><span class="pre">SDMapStar.k_subgroups</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.algorithms.subgroup_sets.html#subgroups.algorithms.subgroup_sets.sdmapstar.SDMapStar.minimum_fp"><code class="docutils literal notranslate"><span class="pre">SDMapStar.minimum_fp</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.algorithms.subgroup_sets.html#subgroups.algorithms.subgroup_sets.sdmapstar.SDMapStar.minimum_n"><code class="docutils literal notranslate"><span class="pre">SDMapStar.minimum_n</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.algorithms.subgroup_sets.html#subgroups.algorithms.subgroup_sets.sdmapstar.SDMapStar.minimum_quality_measure_value"><code class="docutils literal notranslate"><span class="pre">SDMapStar.minimum_quality_measure_value</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.algorithms.subgroup_sets.html#subgroups.algorithms.subgroup_sets.sdmapstar.SDMapStar.minimum_tp"><code class="docutils literal notranslate"><span class="pre">SDMapStar.minimum_tp</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.algorithms.subgroup_sets.html#subgroups.algorithms.subgroup_sets.sdmapstar.SDMapStar.num_subgroups"><code class="docutils literal notranslate"><span class="pre">SDMapStar.num_subgroups</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.algorithms.subgroup_sets.html#subgroups.algorithms.subgroup_sets.sdmapstar.SDMapStar.optimistic_estimate"><code class="docutils literal notranslate"><span class="pre">SDMapStar.optimistic_estimate</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.algorithms.subgroup_sets.html#subgroups.algorithms.subgroup_sets.sdmapstar.SDMapStar.pruned_subgroups"><code class="docutils literal notranslate"><span class="pre">SDMapStar.pruned_subgroups</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.algorithms.subgroup_sets.html#subgroups.algorithms.subgroup_sets.sdmapstar.SDMapStar.quality_measure"><code class="docutils literal notranslate"><span class="pre">SDMapStar.quality_measure</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.algorithms.subgroup_sets.html#subgroups.algorithms.subgroup_sets.sdmapstar.SDMapStar.selected_subgroups"><code class="docutils literal notranslate"><span class="pre">SDMapStar.selected_subgroups</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.algorithms.subgroup_sets.html#subgroups.algorithms.subgroup_sets.sdmapstar.SDMapStar.unselected_subgroups"><code class="docutils literal notranslate"><span class="pre">SDMapStar.unselected_subgroups</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.algorithms.subgroup_sets.html#subgroups.algorithms.subgroup_sets.sdmapstar.SDMapStar.visited_nodes"><code class="docutils literal notranslate"><span class="pre">SDMapStar.visited_nodes</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="subgroups.algorithms.subgroup_sets.html#module-subgroups.algorithms.subgroup_sets.vlsd">subgroups.algorithms.subgroup_sets.vlsd module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="subgroups.algorithms.subgroup_sets.html#subgroups.algorithms.subgroup_sets.vlsd.VLSD"><code class="docutils literal notranslate"><span class="pre">VLSD</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.algorithms.subgroup_sets.html#subgroups.algorithms.subgroup_sets.vlsd.VLSD.SORT_CRITERION"><code class="docutils literal notranslate"><span class="pre">VLSD.SORT_CRITERION</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.algorithms.subgroup_sets.html#subgroups.algorithms.subgroup_sets.vlsd.VLSD.SORT_CRITERION_NO_ORDER"><code class="docutils literal notranslate"><span class="pre">VLSD.SORT_CRITERION_NO_ORDER</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.algorithms.subgroup_sets.html#subgroups.algorithms.subgroup_sets.vlsd.VLSD.SORT_CRITERION_QUALITY_ASCENDING"><code class="docutils literal notranslate"><span class="pre">VLSD.SORT_CRITERION_QUALITY_ASCENDING</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.algorithms.subgroup_sets.html#subgroups.algorithms.subgroup_sets.vlsd.VLSD.SORT_CRITERION_QUALITY_DESCENDING"><code class="docutils literal notranslate"><span class="pre">VLSD.SORT_CRITERION_QUALITY_DESCENDING</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.algorithms.subgroup_sets.html#subgroups.algorithms.subgroup_sets.vlsd.VLSD.VERTICAL_LISTS_IMPLEMENTATION"><code class="docutils literal notranslate"><span class="pre">VLSD.VERTICAL_LISTS_IMPLEMENTATION</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.algorithms.subgroup_sets.html#subgroups.algorithms.subgroup_sets.vlsd.VLSD.VERTICAL_LISTS_WITH_BITSETS"><code class="docutils literal notranslate"><span class="pre">VLSD.VERTICAL_LISTS_WITH_BITSETS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.algorithms.subgroup_sets.html#subgroups.algorithms.subgroup_sets.vlsd.VLSD.VERTICAL_LISTS_WITH_SETS"><code class="docutils literal notranslate"><span class="pre">VLSD.VERTICAL_LISTS_WITH_SETS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.algorithms.subgroup_sets.html#subgroups.algorithms.subgroup_sets.vlsd.VLSD.additional_parameters_for_the_optimistic_estimate"><code class="docutils literal notranslate"><span class="pre">VLSD.additional_parameters_for_the_optimistic_estimate</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.algorithms.subgroup_sets.html#subgroups.algorithms.subgroup_sets.vlsd.VLSD.additional_parameters_for_the_quality_measure"><code class="docutils literal notranslate"><span class="pre">VLSD.additional_parameters_for_the_quality_measure</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.algorithms.subgroup_sets.html#subgroups.algorithms.subgroup_sets.vlsd.VLSD.fit"><code class="docutils literal notranslate"><span class="pre">VLSD.fit()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.algorithms.subgroup_sets.html#subgroups.algorithms.subgroup_sets.vlsd.VLSD.oe_minimum_threshold"><code class="docutils literal notranslate"><span class="pre">VLSD.oe_minimum_threshold</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.algorithms.subgroup_sets.html#subgroups.algorithms.subgroup_sets.vlsd.VLSD.optimistic_estimate"><code class="docutils literal notranslate"><span class="pre">VLSD.optimistic_estimate</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.algorithms.subgroup_sets.html#subgroups.algorithms.subgroup_sets.vlsd.VLSD.q_minimum_threshold"><code class="docutils literal notranslate"><span class="pre">VLSD.q_minimum_threshold</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.algorithms.subgroup_sets.html#subgroups.algorithms.subgroup_sets.vlsd.VLSD.quality_measure"><code class="docutils literal notranslate"><span class="pre">VLSD.quality_measure</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.algorithms.subgroup_sets.html#subgroups.algorithms.subgroup_sets.vlsd.VLSD.selected_subgroups"><code class="docutils literal notranslate"><span class="pre">VLSD.selected_subgroups</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.algorithms.subgroup_sets.html#subgroups.algorithms.subgroup_sets.vlsd.VLSD.sort_criterion_in_other_sizes"><code class="docutils literal notranslate"><span class="pre">VLSD.sort_criterion_in_other_sizes</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.algorithms.subgroup_sets.html#subgroups.algorithms.subgroup_sets.vlsd.VLSD.sort_criterion_in_s1"><code class="docutils literal notranslate"><span class="pre">VLSD.sort_criterion_in_s1</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.algorithms.subgroup_sets.html#subgroups.algorithms.subgroup_sets.vlsd.VLSD.unselected_subgroups"><code class="docutils literal notranslate"><span class="pre">VLSD.unselected_subgroups</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.algorithms.subgroup_sets.html#subgroups.algorithms.subgroup_sets.vlsd.VLSD.visited_nodes"><code class="docutils literal notranslate"><span class="pre">VLSD.visited_nodes</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="subgroups.algorithms.subgroup_sets.html#module-subgroups.algorithms.subgroup_sets">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
+</section>
+<section id="module-subgroups.algorithms.algorithm">
+<span id="subgroups-algorithms-algorithm-module"></span><h2>subgroups.algorithms.algorithm module<a class="headerlink" href="#module-subgroups.algorithms.algorithm" title="Link to this heading"></a></h2>
+<p>This file contains the implementation of the root class of all implemented algorithms. This class is an abstract class and cannot be instantiated.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="subgroups.algorithms.algorithm.Algorithm">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">subgroups.algorithms.algorithm.</span></span><span class="sig-name descname"><span class="pre">Algorithm</span></span><a class="headerlink" href="#subgroups.algorithms.algorithm.Algorithm" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ABC</span></code></p>
+<p>This abstract class defines the root class of all implemented algorithms.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.algorithms.algorithm.Algorithm.fit">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pandas_dataframe</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.algorithms.algorithm.Algorithm.fit" title="Link to this definition"></a></dt>
+<dd><p>Main method to run the corresponding algorithm.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pandas_dataframe</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.core.frame.DataFrame</span></code></span>) – the DataFrame which is scanned.</p></li>
+<li><p><strong>target</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]</span>) – a tuple with 2 elements: the target attribute name and the target value.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-subgroups.algorithms">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-subgroups.algorithms" title="Link to this heading"></a></h2>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="subgroups.html" class="btn btn-neutral float-left" title="subgroups package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="subgroups.algorithms.subgroup_lists.html" class="btn btn-neutral float-right" title="subgroups.algorithms.subgroup_lists package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Antonio López Martínez-Carrasco.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

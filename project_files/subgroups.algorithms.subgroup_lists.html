@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>subgroups.algorithms.subgroup_lists package &mdash; subgroups 0.1.5 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=92fd9be5" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=59fadc99"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="subgroups.algorithms.subgroup_sets package" href="subgroups.algorithms.subgroup_sets.html" />
+    <link rel="prev" title="subgroups.algorithms package" href="subgroups.algorithms.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            subgroups
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="subgroups.html">subgroups package</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="subgroups.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="subgroups.algorithms.html">subgroups.algorithms package</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="subgroups.algorithms.html#subpackages">Subpackages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.algorithms.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.algorithms.html#module-subgroups.algorithms.algorithm">subgroups.algorithms.algorithm module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.algorithms.html#module-subgroups.algorithms">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="subgroups.core.html">subgroups.core package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="subgroups.data_structures.html">subgroups.data_structures package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="subgroups.datasets.html">subgroups.datasets package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="subgroups.quality_measures.html">subgroups.quality_measures package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="subgroups.tests.html">subgroups.tests package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="subgroups.utils.html">subgroups.utils package</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="subgroups.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="subgroups.html#module-subgroups.exceptions">subgroups.exceptions module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="subgroups.html#module-subgroups">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="subgroups.algorithms.html">subgroups.algorithms package</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="subgroups.algorithms.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">subgroups.algorithms.subgroup_lists package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-subgroups.algorithms.subgroup_lists.dslm">subgroups.algorithms.subgroup_lists.dslm module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-subgroups.algorithms.subgroup_lists.gmsl">subgroups.algorithms.subgroup_lists.gmsl module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-subgroups.algorithms.subgroup_lists.psld">subgroups.algorithms.subgroup_lists.psld module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-subgroups.algorithms.subgroup_lists">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="subgroups.algorithms.subgroup_sets.html">subgroups.algorithms.subgroup_sets package</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="subgroups.algorithms.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="subgroups.algorithms.html#module-subgroups.algorithms.algorithm">subgroups.algorithms.algorithm module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="subgroups.algorithms.html#module-subgroups.algorithms">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="subgroups.core.html">subgroups.core package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="subgroups.data_structures.html">subgroups.data_structures package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="subgroups.quality_measures.html">subgroups.quality_measures package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="subgroups.tests.html">subgroups.tests package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="subgroups.utils.html">subgroups.utils package</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">subgroups</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="subgroups.html">subgroups package</a></li>
+          <li class="breadcrumb-item"><a href="subgroups.algorithms.html">subgroups.algorithms package</a></li>
+      <li class="breadcrumb-item active">subgroups.algorithms.subgroup_lists package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/project_files/subgroups.algorithms.subgroup_lists.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="subgroups-algorithms-subgroup-lists-package">
+<h1>subgroups.algorithms.subgroup_lists package<a class="headerlink" href="#subgroups-algorithms-subgroup-lists-package" title="Link to this heading"></a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
+</section>
+<section id="module-subgroups.algorithms.subgroup_lists.dslm">
+<span id="subgroups-algorithms-subgroup-lists-dslm-module"></span><h2>subgroups.algorithms.subgroup_lists.dslm module<a class="headerlink" href="#module-subgroups.algorithms.subgroup_lists.dslm" title="Link to this heading"></a></h2>
+<p>This file contains the implementation of the DSLM algorithm.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="subgroups.algorithms.subgroup_lists.dslm.DSLM">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">subgroups.algorithms.subgroup_lists.dslm.</span></span><span class="sig-name descname"><span class="pre">DSLM</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_file_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_sl</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sl_max_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maximum_positive_overlap</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maximum_negative_overlap</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_file_path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.algorithms.subgroup_lists.dslm.DSLM" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#subgroups.algorithms.subgroup_lists.psld.PSLD" title="subgroups.algorithms.subgroup_lists.psld.PSLD"><code class="xref py py-class docutils literal notranslate"><span class="pre">PSLD</span></code></a></p>
+<p>This class represents the DSLM algorithm.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>input_file_path</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>) – path of the file from which the subgroups and their bitarrays will be read.</p></li>
+<li><p><strong>max_sl</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span>) – maximum number of subgroups lists to generate.</p></li>
+<li><p><strong>sl_max_size</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span>) – maximum number of subgroups that each subgroup list will contain.</p></li>
+<li><p><strong>beta</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></span>) – level of normalization of the compression gain.</p></li>
+<li><p><strong>maximum_positive_overlap</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></span>) – maximum positive overlap factor permitted to add a subgroup candidate to the subgroup list (i.e., a subgroup candidate will be added to the subgroup list only if its positive overlap factor is less or equal than maximum_positive_overlap). Values close to 0 are stricter and allow candidates with less overlap, while values close to 1 allow candidates with more overlap.</p></li>
+<li><p><strong>maximum_negative_overlap</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></span>) – maximum negative overlap factor permitted to add a subgroup candidate to the subgroup list (i.e., a subgroup candidate will be added to the subgroup list only if its negative overlap factor is less or equal than maximum_negative_overlap). Values close to 0 are stricter and allow candidates with less overlap, while values close to 1 allow candidates with more overlap.</p></li>
+<li><p><strong>output_file_path</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>) – path of the file in which the results will be written.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.algorithms.subgroup_lists.dslm.DSLM.fit">
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pandas_dataframe</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.algorithms.subgroup_lists.dslm.DSLM.fit" title="Link to this definition"></a></dt>
+<dd><p>Main method to run the DSLM algorithm. This algorithm only supports nominal attributes (i.e., type ‘str’). IMPORTANT: missing values are not supported.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pandas_dataframe</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.core.frame.DataFrame</span></code></span>) – the DataFrame which is scanned. This algorithm only supports nominal attributes (i.e., type ‘str’). IMPORTANT: missing values are not supported.</p></li>
+<li><p><strong>target</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]</span>) – a tuple with 2 elements: the target attribute name and the target value.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="subgroups.algorithms.subgroup_lists.dslm.DSLM.maximum_negative_overlap">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">maximum_negative_overlap</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#subgroups.algorithms.subgroup_lists.dslm.DSLM.maximum_negative_overlap" title="Link to this definition"></a></dt>
+<dd><p>Maximum negative overlap factor permitted to add a subgroup candidate to the subgroup list (i.e., a subgroup candidate will be added to the subgroup list only if its negative overlap factor is less or equal than maximum_negative_overlap). Values close to 0 are stricter and allow candidates with less overlap, while values close to 1 allow candidates with more overlap.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="subgroups.algorithms.subgroup_lists.dslm.DSLM.maximum_positive_overlap">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">maximum_positive_overlap</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#subgroups.algorithms.subgroup_lists.dslm.DSLM.maximum_positive_overlap" title="Link to this definition"></a></dt>
+<dd><p>Maximum positive overlap factor permitted to add a subgroup candidate to the subgroup list (i.e., a subgroup candidate will be added to the subgroup list only if its positive overlap factor is less or equal than maximum_positive_overlap). Values close to 0 are stricter and allow candidates with less overlap, while values close to 1 allow candidates with more overlap.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-subgroups.algorithms.subgroup_lists.gmsl">
+<span id="subgroups-algorithms-subgroup-lists-gmsl-module"></span><h2>subgroups.algorithms.subgroup_lists.gmsl module<a class="headerlink" href="#module-subgroups.algorithms.subgroup_lists.gmsl" title="Link to this heading"></a></h2>
+<p>This file contains the implementation of the GMSL algorithm.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="subgroups.algorithms.subgroup_lists.gmsl.GMSL">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">subgroups.algorithms.subgroup_lists.gmsl.</span></span><span class="sig-name descname"><span class="pre">GMSL</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_file_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_sl</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_file_path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.algorithms.subgroup_lists.gmsl.GMSL" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="subgroups.algorithms.html#subgroups.algorithms.algorithm.Algorithm" title="subgroups.algorithms.algorithm.Algorithm"><code class="xref py py-class docutils literal notranslate"><span class="pre">Algorithm</span></code></a></p>
+<p>This class represents the GMSL algorithm.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>input_file_path</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>) – path of the file from which the subgroups and their bitarrays will be read.</p></li>
+<li><p><strong>max_sl</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span>) – maximum number of subgroups lists to generate.</p></li>
+<li><p><strong>beta</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></span>) – level of normalization of the compression gain.</p></li>
+<li><p><strong>output_file_path</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>) – path of the file in which the results will be written.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="subgroups.algorithms.subgroup_lists.gmsl.GMSL.INPUT_LINE_REGEX_PATTERN">
+<span class="sig-name descname"><span class="pre">INPUT_LINE_REGEX_PATTERN</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">typing.ClassVar</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&quot;^(?P&lt;subgroup&gt;Description:</span> <span class="pre">\\[[&amp;,\\.&lt;&gt;/=A-Za-z0-9_-]+</span> <span class="pre">=</span> <span class="pre">([&amp;,\\.&lt;&gt;/=A-Za-z0-9_-]+|'[&amp;,\\.&lt;&gt;/=A-Za-z0-9_-]+')(,</span> <span class="pre">[&amp;,\\.&lt;&gt;/=A-Za-z0-9_-]+</span> <span class="pre">=</span> <span class="pre">([&amp;,\\.&lt;&gt;/=A-Za-z0-9_-]+|'[&amp;,\\.&lt;&gt;/=A-Za-z0-9_-]+'))*\\],</span> <span class="pre">Target:</span> <span class="pre">[&amp;,\\.&lt;&gt;/=A-Za-z0-9_-]+</span> <span class="pre">=</span> <span class="pre">([&amp;,\\.&lt;&gt;/=A-Za-z0-9_-]+|'[&amp;,\\.&lt;&gt;/=A-Za-z0-9_-]+'))</span> <span class="pre">;</span> <span class="pre">(?P&lt;positive_bitarray&gt;[01]+)</span> <span class="pre">;</span> <span class="pre">(?P&lt;negative_bitarray&gt;[01]+)$&quot;</span></em><a class="headerlink" href="#subgroups.algorithms.subgroup_lists.gmsl.GMSL.INPUT_LINE_REGEX_PATTERN" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="subgroups.algorithms.subgroup_lists.gmsl.GMSL.beta">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">beta</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#subgroups.algorithms.subgroup_lists.gmsl.GMSL.beta" title="Link to this definition"></a></dt>
+<dd><p>Level of normalization of the compression gain.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.algorithms.subgroup_lists.gmsl.GMSL.fit">
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pandas_dataframe</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.algorithms.subgroup_lists.gmsl.GMSL.fit" title="Link to this definition"></a></dt>
+<dd><p>Main method to run the GMSL algorithm. This algorithm only supports nominal attributes (i.e., type ‘str’). IMPORTANT: missing values are not supported.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pandas_dataframe</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.core.frame.DataFrame</span></code></span>) – the DataFrame which is scanned. This algorithm only supports nominal attributes (i.e., type ‘str’). IMPORTANT: missing values are not supported.</p></li>
+<li><p><strong>target</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]</span>) – a tuple with 2 elements: the target attribute name and the target value.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="subgroups.algorithms.subgroup_lists.gmsl.GMSL.input_file_path">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">input_file_path</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#subgroups.algorithms.subgroup_lists.gmsl.GMSL.input_file_path" title="Link to this definition"></a></dt>
+<dd><p>Path of the file from which the subgroups and their bitarrays will be read.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="subgroups.algorithms.subgroup_lists.gmsl.GMSL.max_sl">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">max_sl</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#subgroups.algorithms.subgroup_lists.gmsl.GMSL.max_sl" title="Link to this definition"></a></dt>
+<dd><p>Maximum number of subgroups lists to generate.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="subgroups.algorithms.subgroup_lists.gmsl.GMSL.output_file_path">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">output_file_path</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#subgroups.algorithms.subgroup_lists.gmsl.GMSL.output_file_path" title="Link to this definition"></a></dt>
+<dd><p>Path of the file in which the results will be written.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-subgroups.algorithms.subgroup_lists.psld">
+<span id="subgroups-algorithms-subgroup-lists-psld-module"></span><h2>subgroups.algorithms.subgroup_lists.psld module<a class="headerlink" href="#module-subgroups.algorithms.subgroup_lists.psld" title="Link to this heading"></a></h2>
+<p>This file contains the implementation of the PSLD algorithm.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="subgroups.algorithms.subgroup_lists.psld.PSLD">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">subgroups.algorithms.subgroup_lists.psld.</span></span><span class="sig-name descname"><span class="pre">PSLD</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_file_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_sl</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sl_max_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_file_path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.algorithms.subgroup_lists.psld.PSLD" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#subgroups.algorithms.subgroup_lists.gmsl.GMSL" title="subgroups.algorithms.subgroup_lists.gmsl.GMSL"><code class="xref py py-class docutils literal notranslate"><span class="pre">GMSL</span></code></a></p>
+<p>This class represents the PSLD algorithm.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>input_file_path</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>) – path of the file from which the subgroups and their bitarrays will be read.</p></li>
+<li><p><strong>max_sl</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span>) – maximum number of subgroups lists to generate.</p></li>
+<li><p><strong>sl_max_size</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span>) – maximum number of subgroups that each subgroup list will contain.</p></li>
+<li><p><strong>beta</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></span>) – level of normalization of the compression gain.</p></li>
+<li><p><strong>output_file_path</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>) – path of the file in which the results will be written.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="subgroups.algorithms.subgroup_lists.psld.PSLD.fit">
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pandas_dataframe</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.algorithms.subgroup_lists.psld.PSLD.fit" title="Link to this definition"></a></dt>
+<dd><p>Main method to run the PSLD algorithm. This algorithm only supports nominal attributes (i.e., type ‘str’). IMPORTANT: missing values are not supported.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pandas_dataframe</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.core.frame.DataFrame</span></code></span>) – the DataFrame which is scanned. This algorithm only supports nominal attributes (i.e., type ‘str’). IMPORTANT: missing values are not supported.</p></li>
+<li><p><strong>target</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]</span>) – a tuple with 2 elements: the target attribute name and the target value.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="subgroups.algorithms.subgroup_lists.psld.PSLD.sl_max_size">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">sl_max_size</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#subgroups.algorithms.subgroup_lists.psld.PSLD.sl_max_size" title="Link to this definition"></a></dt>
+<dd><p>Maximum number of subgroups that each subgroup list will contain.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-subgroups.algorithms.subgroup_lists">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-subgroups.algorithms.subgroup_lists" title="Link to this heading"></a></h2>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="subgroups.algorithms.html" class="btn btn-neutral float-left" title="subgroups.algorithms package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="subgroups.algorithms.subgroup_sets.html" class="btn btn-neutral float-right" title="subgroups.algorithms.subgroup_sets package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Antonio López Martínez-Carrasco.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

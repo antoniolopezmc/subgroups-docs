@@ -1,0 +1,69 @@
+subgroups.tests.algorithms.subgroup\_sets package
+=================================================
+
+Submodules
+----------
+
+subgroups.tests.algorithms.subgroup\_sets.test\_bsd module
+----------------------------------------------------------
+
+.. automodule:: subgroups.tests.algorithms.subgroup_sets.test_bsd
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+subgroups.tests.algorithms.subgroup\_sets.test\_cbsd module
+-----------------------------------------------------------
+
+.. automodule:: subgroups.tests.algorithms.subgroup_sets.test_cbsd
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+subgroups.tests.algorithms.subgroup\_sets.test\_cpbsd module
+------------------------------------------------------------
+
+.. automodule:: subgroups.tests.algorithms.subgroup_sets.test_cpbsd
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+subgroups.tests.algorithms.subgroup\_sets.test\_qfinder module
+--------------------------------------------------------------
+
+.. automodule:: subgroups.tests.algorithms.subgroup_sets.test_qfinder
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+subgroups.tests.algorithms.subgroup\_sets.test\_sdmap module
+------------------------------------------------------------
+
+.. automodule:: subgroups.tests.algorithms.subgroup_sets.test_sdmap
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+subgroups.tests.algorithms.subgroup\_sets.test\_sdmapstar module
+----------------------------------------------------------------
+
+.. automodule:: subgroups.tests.algorithms.subgroup_sets.test_sdmapstar
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+subgroups.tests.algorithms.subgroup\_sets.test\_vlsd module
+-----------------------------------------------------------
+
+.. automodule:: subgroups.tests.algorithms.subgroup_sets.test_vlsd
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: subgroups.tests.algorithms.subgroup_sets
+   :members:
+   :undoc-members:
+   :show-inheritance:
