@@ -12,6 +12,14 @@ subgroups.tests.utils.test\_dataframe\_filters module
    :undoc-members:
    :show-inheritance:
 
+subgroups.tests.utils.test\_file\_format\_transformations module
+----------------------------------------------------------------
+
+.. automodule:: subgroups.tests.utils.test_file_format_transformations
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 Module contents
 ---------------
 

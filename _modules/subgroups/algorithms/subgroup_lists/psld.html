@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>subgroups.algorithms.subgroup_lists.psld &mdash; subgroups 0.1.6 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=92fd9be5" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../../_static/documentation_options.js?v=6e0256f3"></script>
+        <script src="../../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../../index.html" class="icon icon-home">
+            subgroups
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../project_files/subgroups.html">subgroups package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../project_files/subgroups.algorithms.html">subgroups.algorithms package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../project_files/subgroups.core.html">subgroups.core package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../project_files/subgroups.data_structures.html">subgroups.data_structures package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../project_files/subgroups.quality_measures.html">subgroups.quality_measures package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../project_files/subgroups.tests.html">subgroups.tests package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../project_files/subgroups.utils.html">subgroups.utils package</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">subgroups</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">subgroups.algorithms.subgroup_lists.psld</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for subgroups.algorithms.subgroup_lists.psld</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+
+<span class="c1"># Contributors:</span>
+<span class="c1">#    Antonio López Martínez-Carrasco &lt;antoniolopezmc1995@gmail.com&gt;</span>
+
+<span class="sd">&quot;&quot;&quot;This file contains the implementation of the PSLD algorithm.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">subgroups.algorithms.subgroup_lists.gmsl</span> <span class="kn">import</span> <span class="n">GMSL</span>
+<span class="kn">from</span> <span class="nn">subgroups.data_structures</span> <span class="kn">import</span> <span class="n">SubgroupList</span>
+<span class="kn">from</span> <span class="nn">pandas</span> <span class="kn">import</span> <span class="n">DataFrame</span>
+<span class="kn">from</span> <span class="nn">subgroups.utils.mdl</span> <span class="kn">import</span> <span class="n">log2_multinomial_with_recurrence</span>
+<span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">log2</span>
+<span class="kn">from</span> <span class="nn">subgroups.core</span> <span class="kn">import</span> <span class="n">Operator</span><span class="p">,</span> <span class="n">Selector</span><span class="p">,</span> <span class="n">Pattern</span><span class="p">,</span> <span class="n">Subgroup</span>
+<span class="kn">from</span> <span class="nn">bitarray</span> <span class="kn">import</span> <span class="n">bitarray</span>
+<span class="kn">from</span> <span class="nn">pandas.api.types</span> <span class="kn">import</span> <span class="n">is_string_dtype</span>
+<span class="kn">from</span> <span class="nn">subgroups.exceptions</span> <span class="kn">import</span> <span class="n">DatasetAttributeTypeError</span>
+
+<div class="viewcode-block" id="PSLD">
+<a class="viewcode-back" href="../../../../project_files/subgroups.algorithms.subgroup_lists.html#subgroups.algorithms.subgroup_lists.psld.PSLD">[docs]</a>
+<span class="k">class</span> <span class="nc">PSLD</span><span class="p">(</span><span class="n">GMSL</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;This class represents the PSLD algorithm.</span>
+<span class="sd">    </span>
+<span class="sd">    :param input_file_path: path of the file from which the subgroups and their bitarrays will be read.</span>
+<span class="sd">    :param max_sl: maximum number of subgroups lists to generate.</span>
+<span class="sd">    :param sl_max_size: maximum number of subgroups that each subgroup list will contain.</span>
+<span class="sd">    :param beta: level of normalization of the compression gain.</span>
+<span class="sd">    :param output_file_path: path of the file in which the results will be written.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;_sl_max_size&quot;</span><span class="p">)</span>
+    
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_file_path</span> <span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">max_sl</span> <span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">sl_max_size</span> <span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">beta</span> <span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">output_file_path</span> <span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">sl_max_size</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="nb">int</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;The type of the parameter &#39;sl_max_size&#39; must be &#39;int&#39;.&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">sl_max_size</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;The parameter &#39;sl_max_size&#39; is not greater than 0.&quot;</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">input_file_path</span><span class="p">,</span> <span class="n">max_sl</span><span class="p">,</span> <span class="n">beta</span><span class="p">,</span> <span class="n">output_file_path</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_sl_max_size</span> <span class="o">=</span> <span class="n">sl_max_size</span>
+    
+    <span class="k">def</span> <span class="nf">_get_sl_max_size</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sl_max_size</span>
+    
+    <span class="n">sl_max_size</span> <span class="o">=</span> <span class="nb">property</span><span class="p">(</span><span class="n">_get_sl_max_size</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;Maximum number of subgroups that each subgroup list will contain.&quot;</span><span class="p">)</span>
+    
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_compute_delta_data_model_candidate</span><span class="p">(</span><span class="n">pandas_dataframe</span> <span class="p">:</span> <span class="n">DataFrame</span><span class="p">,</span> <span class="n">subgroup_list</span> <span class="p">:</span> <span class="n">SubgroupList</span><span class="p">,</span> <span class="n">subgroup</span> <span class="p">:</span> <span class="n">Subgroup</span><span class="p">,</span> <span class="n">subgroup_bitarray_of_positives</span> <span class="p">:</span> <span class="n">bitarray</span><span class="p">,</span> <span class="n">subgroup_bitarray_of_negatives</span> <span class="p">:</span> <span class="n">bitarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Private static method to compute the compression gain considering the data, the model and the candidate.</span>
+<span class="sd">        </span>
+<span class="sd">        :param pandas_dataframe: the DataFrame from which the subgroups were extracted.</span>
+<span class="sd">        :param subgroup_list: subgroup list model. IMPORTANT: the model is not modified after the execution of this method.</span>
+<span class="sd">        :param subgroup: individual subgroup candidate which is added to the model.</span>
+<span class="sd">        :param bitarray_of_positives: the bitarray of the dataset instances (considering the complete dataset) which are covered by the subgroup description and by the subgroup target.</span>
+<span class="sd">        :param bitarray_of_negatives: the bitarray of the dataset instances (considering the complete dataset) which are covered by the subgroup description, but not by the subgroup target.</span>
+<span class="sd">        :return: a 3-tuple with (1) the compression gain considering the data, the model and the candidate; (2) the number of positive instances covered by the candidate (considering its position in the subgroup list); and (3) the number of negative instances covered by the candidate (considering its position in the subgroup list).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Number of rows of the dataset.</span>
+        <span class="n">dataset_number_of_rows</span> <span class="o">=</span> <span class="n">subgroup_list</span><span class="o">.</span><span class="n">dataset_number_of_positives</span> <span class="o">+</span> <span class="n">subgroup_list</span><span class="o">.</span><span class="n">dataset_number_of_negatives</span>
+        <span class="c1"># Default rule before adding the candidate.</span>
+        <span class="n">defrule_number_of_positives</span> <span class="o">=</span> <span class="n">subgroup_list</span><span class="o">.</span><span class="n">default_rule_bitarray_of_positives</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">defrule_number_of_negatives</span> <span class="o">=</span> <span class="n">subgroup_list</span><span class="o">.</span><span class="n">default_rule_bitarray_of_negatives</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">defrule_before_candidate</span> <span class="o">=</span> <span class="o">-</span> <span class="n">defrule_number_of_positives</span> <span class="o">*</span> <span class="n">log2</span><span class="p">(</span><span class="n">subgroup_list</span><span class="o">.</span><span class="n">dataset_number_of_positives</span><span class="o">/</span><span class="n">dataset_number_of_rows</span><span class="p">)</span> \
+                                <span class="o">-</span> <span class="n">defrule_number_of_negatives</span> <span class="o">*</span> <span class="n">log2</span><span class="p">(</span><span class="n">subgroup_list</span><span class="o">.</span><span class="n">dataset_number_of_negatives</span><span class="o">/</span><span class="n">dataset_number_of_rows</span><span class="p">)</span>
+        <span class="c1"># Add temporary the candidate to the model.</span>
+        <span class="n">subgroup_list</span><span class="o">.</span><span class="n">add_subgroup</span><span class="p">(</span><span class="n">subgroup</span><span class="p">,</span> <span class="n">subgroup_bitarray_of_positives</span><span class="p">,</span> <span class="n">subgroup_bitarray_of_negatives</span><span class="p">)</span>
+        <span class="c1"># Default rule after adding the candidate.</span>
+        <span class="n">defrule_number_of_positives</span> <span class="o">=</span> <span class="n">subgroup_list</span><span class="o">.</span><span class="n">default_rule_bitarray_of_positives</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">defrule_number_of_negatives</span> <span class="o">=</span> <span class="n">subgroup_list</span><span class="o">.</span><span class="n">default_rule_bitarray_of_negatives</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">defrule_after_candidate</span> <span class="o">=</span> <span class="o">-</span> <span class="n">defrule_number_of_positives</span> <span class="o">*</span> <span class="n">log2</span><span class="p">(</span><span class="n">subgroup_list</span><span class="o">.</span><span class="n">dataset_number_of_positives</span><span class="o">/</span><span class="n">dataset_number_of_rows</span><span class="p">)</span> \
+                                <span class="o">-</span> <span class="n">defrule_number_of_negatives</span> <span class="o">*</span> <span class="n">log2</span><span class="p">(</span><span class="n">subgroup_list</span><span class="o">.</span><span class="n">dataset_number_of_negatives</span><span class="o">/</span><span class="n">dataset_number_of_rows</span><span class="p">)</span>
+        <span class="c1"># Candidate (considering its position in the subgroup list).</span>
+        <span class="n">candidate_number_of_positives</span> <span class="o">=</span> <span class="n">subgroup_list</span><span class="o">.</span><span class="n">get_subgroup_bitarray_of_positives</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="c1"># -1 -&gt; Last subgroup (i.e., the candidate).</span>
+        <span class="n">candidate_number_of_negatives</span> <span class="o">=</span> <span class="n">subgroup_list</span><span class="o">.</span><span class="n">get_subgroup_bitarray_of_negatives</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="c1"># -1 -&gt; Last subgroup (i.e., the candidate).</span>
+        <span class="n">candidate_number_of_rows</span> <span class="o">=</span> <span class="n">candidate_number_of_positives</span> <span class="o">+</span> <span class="n">candidate_number_of_negatives</span>
+        <span class="k">if</span> <span class="n">candidate_number_of_rows</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">candidate_value</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">elif</span> <span class="n">candidate_number_of_positives</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">candidate_value</span> <span class="o">=</span> <span class="o">-</span> <span class="n">candidate_number_of_negatives</span> <span class="o">*</span> <span class="n">log2</span><span class="p">(</span><span class="n">candidate_number_of_negatives</span><span class="o">/</span><span class="n">candidate_number_of_rows</span><span class="p">)</span> \
+                            <span class="o">+</span> <span class="n">log2_multinomial_with_recurrence</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">candidate_number_of_rows</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">candidate_number_of_negatives</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">candidate_value</span> <span class="o">=</span> <span class="o">-</span> <span class="n">candidate_number_of_positives</span> <span class="o">*</span> <span class="n">log2</span><span class="p">(</span><span class="n">candidate_number_of_positives</span><span class="o">/</span><span class="n">candidate_number_of_rows</span><span class="p">)</span> \
+                            <span class="o">+</span> <span class="n">log2_multinomial_with_recurrence</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">candidate_number_of_rows</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">candidate_value</span> <span class="o">=</span> <span class="o">-</span> <span class="n">candidate_number_of_positives</span> <span class="o">*</span> <span class="n">log2</span><span class="p">(</span><span class="n">candidate_number_of_positives</span><span class="o">/</span><span class="n">candidate_number_of_rows</span><span class="p">)</span> \
+                            <span class="o">-</span> <span class="n">candidate_number_of_negatives</span> <span class="o">*</span> <span class="n">log2</span><span class="p">(</span><span class="n">candidate_number_of_negatives</span><span class="o">/</span><span class="n">candidate_number_of_rows</span><span class="p">)</span> \
+                            <span class="o">+</span> <span class="n">log2_multinomial_with_recurrence</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">candidate_number_of_rows</span><span class="p">)</span>
+        <span class="c1"># Delete the candidate from the model.</span>
+        <span class="n">subgroup_list</span><span class="o">.</span><span class="n">delete_last_subgroup</span><span class="p">()</span>
+        <span class="c1"># Return the result.</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">defrule_before_candidate</span> <span class="o">-</span> <span class="n">defrule_after_candidate</span> <span class="o">-</span> <span class="n">candidate_value</span><span class="p">,</span> <span class="n">candidate_number_of_positives</span><span class="p">,</span> <span class="n">candidate_number_of_negatives</span><span class="p">)</span>
+    
+<div class="viewcode-block" id="PSLD.fit">
+<a class="viewcode-back" href="../../../../project_files/subgroups.algorithms.subgroup_lists.html#subgroups.algorithms.subgroup_lists.psld.PSLD.fit">[docs]</a>
+    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pandas_dataframe</span> <span class="p">:</span> <span class="n">DataFrame</span><span class="p">,</span> <span class="n">target</span> <span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Main method to run the PSLD algorithm. This algorithm only supports nominal attributes (i.e., type &#39;str&#39;). IMPORTANT: missing values are not supported.</span>
+<span class="sd">        </span>
+<span class="sd">        :param pandas_dataframe: the DataFrame which is scanned. This algorithm only supports nominal attributes (i.e., type &#39;str&#39;). IMPORTANT: missing values are not supported.</span>
+<span class="sd">        :param target: a tuple with 2 elements: the target attribute name and the target value.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">pandas_dataframe</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">DataFrame</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;The type of the parameter &#39;pandas_dataframe&#39; must be &#39;DataFrame&#39;.&quot;</span><span class="p">)</span>
+        <span class="c1"># Get the dataset size (number of instances).</span>
+        <span class="n">number_of_dataset_instances</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">pandas_dataframe</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">number_of_dataset_instances</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;The number of instances of &#39;pandas_dataframe&#39; is not greater than 0.&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">target</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="nb">tuple</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;The type of the parameter &#39;target&#39; must be &#39;tuple&#39;.&quot;</span><span class="p">)</span>
+        <span class="c1"># IMPORTANT: this algorithm only supports nominal attributes (i.e., type &#39;str&#39;).</span>
+        <span class="k">for</span> <span class="n">column</span> <span class="ow">in</span> <span class="n">pandas_dataframe</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">is_string_dtype</span><span class="p">(</span><span class="n">pandas_dataframe</span><span class="p">[</span><span class="n">column</span><span class="p">]):</span>
+                <span class="k">raise</span> <span class="n">DatasetAttributeTypeError</span><span class="p">(</span><span class="s2">&quot;Error in attribute &#39;&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">column</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;&#39;. This algorithm only supports nominal attributes (i.e., type &#39;str&#39;).&quot;</span><span class="p">)</span>
+        <span class="c1"># Check the values from the target attribute and get a mask.</span>
+        <span class="n">mask</span> <span class="o">=</span> <span class="p">(</span><span class="n">pandas_dataframe</span><span class="p">[</span><span class="n">target</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">==</span> <span class="n">target</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="c1"># Create a list with empty subgroup lists.</span>
+        <span class="n">sl_list</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_max_sl</span><span class="p">):</span>
+            <span class="n">sl_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">SubgroupList</span><span class="p">(</span><span class="n">bitarray</span><span class="p">(</span><span class="n">mask</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span> <span class="n">endian</span> <span class="o">=</span> <span class="s2">&quot;big&quot;</span><span class="p">),</span> <span class="n">bitarray</span><span class="p">((</span><span class="o">~</span><span class="n">mask</span><span class="p">)</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span> <span class="n">endian</span> <span class="o">=</span> <span class="s2">&quot;big&quot;</span><span class="p">),</span> <span class="n">number_of_dataset_instances</span><span class="p">))</span>
+        <span class="c1"># Open the output file.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_output_file</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_output_file_path</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span>
+        <span class="c1"># Write some dataset info in the output file.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_output_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;Dataset information:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_output_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">- Number of instances: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">number_of_dataset_instances</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;.</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_output_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">- Number of positive instances: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">mask</span><span class="p">))</span> <span class="o">+</span> <span class="s2">&quot;.</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_output_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">- Number of negative instances: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">mask</span><span class="p">)</span> <span class="o">-</span> <span class="nb">sum</span><span class="p">(</span><span class="n">mask</span><span class="p">))</span> <span class="o">+</span> <span class="s2">&quot;.</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_output_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">- Total number of attributes (including the target): &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">pandas_dataframe</span><span class="o">.</span><span class="n">columns</span><span class="p">))</span> <span class="o">+</span> <span class="s2">&quot;.</span><span class="se">\n\n\n</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="c1"># Load the candidates from the input file.</span>
+        <span class="n">subgroups</span><span class="p">,</span> <span class="n">bitarrays_of_positives</span><span class="p">,</span> <span class="n">bitarrays_of_negatives</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_load_candidates</span><span class="p">(</span><span class="n">number_of_dataset_instances</span><span class="p">)</span>
+        <span class="c1"># Iterate through the subgroup lists.</span>
+        <span class="k">for</span> <span class="n">current_sl</span> <span class="ow">in</span> <span class="n">sl_list</span><span class="p">:</span>
+            <span class="c1"># We use the empty subgroup only to be able to enter to the loop the first time, because Python does not have do-while statement.</span>
+            <span class="n">best_subgroup</span> <span class="o">=</span> <span class="n">Subgroup</span><span class="p">(</span><span class="n">Pattern</span><span class="p">([]),</span> <span class="n">Selector</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">Operator</span><span class="o">.</span><span class="n">EQUAL</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">))</span>
+            <span class="c1"># While it is possible to add a new candidate to the subgroups list AND subgroup list size is less than the maximum permitted.</span>
+            <span class="k">while</span> <span class="p">(</span><span class="n">best_subgroup</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">current_sl</span><span class="p">)</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">sl_max_size</span><span class="p">):</span>
+                <span class="c1"># Initially, there is not best candidate.</span>
+                <span class="n">best_subgroup</span> <span class="o">=</span> <span class="kc">None</span>
+                <span class="n">best_subgroup_comp_gain</span> <span class="o">=</span> <span class="mf">0.0</span>
+                <span class="n">best_subgroup_index</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+                <span class="c1"># Iterate through the candidates.</span>
+                <span class="k">for</span> <span class="n">current_index</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">subgroups</span><span class="p">)):</span>
+                    <span class="n">current_subgroup</span> <span class="o">=</span> <span class="n">subgroups</span><span class="p">[</span><span class="n">current_index</span><span class="p">]</span>
+                    <span class="c1"># IMPORTANT: we replace a candidate by None, but not delete it from the list.</span>
+                    <span class="c1"># We do this to reduce the execution time, because when deleting an element from a python list, the rest to its right are shift to the left.</span>
+                    <span class="c1"># This means that a candidate from the list could be None.</span>
+                    <span class="k">if</span> <span class="n">current_subgroup</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                        <span class="n">current_bitarray_of_positives</span> <span class="o">=</span> <span class="n">bitarrays_of_positives</span><span class="p">[</span><span class="n">current_index</span><span class="p">]</span>
+                        <span class="n">current_bitarray_of_negatives</span> <span class="o">=</span> <span class="n">bitarrays_of_negatives</span><span class="p">[</span><span class="n">current_index</span><span class="p">]</span>
+                        <span class="n">delta_data_model_candidate</span><span class="p">,</span> <span class="n">candidate_number_of_positives</span><span class="p">,</span> <span class="n">candidate_number_of_negatives</span> <span class="o">=</span> <span class="n">PSLD</span><span class="o">.</span><span class="n">_compute_delta_data_model_candidate</span><span class="p">(</span><span class="n">pandas_dataframe</span><span class="p">,</span> <span class="n">current_sl</span><span class="p">,</span> <span class="n">current_subgroup</span><span class="p">,</span> <span class="n">current_bitarray_of_positives</span><span class="p">,</span> <span class="n">current_bitarray_of_negatives</span><span class="p">)</span>
+                        <span class="n">candidate_number_of_rows</span> <span class="o">=</span> <span class="n">candidate_number_of_positives</span> <span class="o">+</span> <span class="n">candidate_number_of_negatives</span>
+                        <span class="k">if</span> <span class="n">candidate_number_of_rows</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                            <span class="n">current_subgroup_compression_gain</span> <span class="o">=</span> <span class="mf">0.0</span>
+                        <span class="k">else</span><span class="p">:</span>
+                            <span class="n">delta_model_candidate</span> <span class="o">=</span> <span class="n">PSLD</span><span class="o">.</span><span class="n">_compute_delta_model_candidate</span><span class="p">(</span><span class="n">pandas_dataframe</span><span class="p">,</span> <span class="n">current_sl</span><span class="p">,</span> <span class="n">current_subgroup</span><span class="p">)</span>
+                            <span class="n">current_subgroup_compression_gain</span> <span class="o">=</span> <span class="p">(</span><span class="n">delta_model_candidate</span><span class="o">+</span><span class="n">delta_data_model_candidate</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">candidate_number_of_rows</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">_beta</span><span class="p">)</span>
+                        <span class="k">if</span> <span class="p">(</span><span class="n">current_subgroup_compression_gain</span> <span class="o">&gt;</span> <span class="n">best_subgroup_comp_gain</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">candidate_number_of_positives</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">):</span>
+                            <span class="n">best_subgroup</span> <span class="o">=</span> <span class="n">current_subgroup</span>
+                            <span class="n">best_subgroup_comp_gain</span> <span class="o">=</span> <span class="n">current_subgroup_compression_gain</span>
+                            <span class="n">best_subgroup_index</span> <span class="o">=</span> <span class="n">current_index</span>
+                <span class="k">if</span> <span class="n">best_subgroup</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="c1"># Add the best subgroup candidate to the model.</span>
+                    <span class="n">current_sl</span><span class="o">.</span><span class="n">add_subgroup</span><span class="p">(</span><span class="n">best_subgroup</span><span class="p">,</span> <span class="n">bitarrays_of_positives</span><span class="p">[</span><span class="n">best_subgroup_index</span><span class="p">],</span> <span class="n">bitarrays_of_negatives</span><span class="p">[</span><span class="n">best_subgroup_index</span><span class="p">])</span>
+                    <span class="c1"># Delete the best subgroup candidate.</span>
+                    <span class="n">subgroups</span><span class="p">[</span><span class="n">best_subgroup_index</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+                    <span class="n">bitarrays_of_positives</span><span class="p">[</span><span class="n">best_subgroup_index</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+                    <span class="n">bitarrays_of_negatives</span><span class="p">[</span><span class="n">best_subgroup_index</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+                    <span class="c1"># Delete all refinements of the best subgroup candidate.</span>
+                    <span class="k">for</span> <span class="n">deletion_index</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">subgroups</span><span class="p">)):</span>
+                        <span class="c1"># refinement_of_itself=False -&gt; in this case, the value does not matter, since the original subgroup was already deleted (i.e., both subgroups will not be equals).</span>
+                        <span class="k">if</span> <span class="p">(</span><span class="n">subgroups</span><span class="p">[</span><span class="n">deletion_index</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span> <span class="p">(</span><span class="n">best_subgroup</span><span class="o">.</span><span class="n">is_refinement</span><span class="p">(</span><span class="n">subgroups</span><span class="p">[</span><span class="n">deletion_index</span><span class="p">],</span> <span class="n">refinement_of_itself</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span> <span class="ow">or</span> <span class="p">(</span><span class="n">subgroups</span><span class="p">[</span><span class="n">deletion_index</span><span class="p">]</span><span class="o">.</span><span class="n">is_refinement</span><span class="p">(</span><span class="n">best_subgroup</span><span class="p">,</span> <span class="n">refinement_of_itself</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span> <span class="p">):</span>
+                            <span class="n">subgroups</span><span class="p">[</span><span class="n">deletion_index</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+                            <span class="n">bitarrays_of_positives</span><span class="p">[</span><span class="n">deletion_index</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+                            <span class="n">bitarrays_of_negatives</span><span class="p">[</span><span class="n">deletion_index</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_handle_individual_result</span><span class="p">(</span><span class="n">current_sl</span><span class="p">)</span>
+        <span class="c1"># Close the output file.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_output_file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Antonio López Martínez-Carrasco.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

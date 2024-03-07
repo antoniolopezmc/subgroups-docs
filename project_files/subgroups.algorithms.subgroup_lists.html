@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>subgroups.algorithms.subgroup_lists package &mdash; subgroups 0.1.5 documentation</title>
+  <title>subgroups.algorithms.subgroup_lists package &mdash; subgroups 0.1.6 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=92fd9be5" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
 
@@ -15,7 +15,7 @@
   
         <script src="../_static/jquery.js?v=5d32c60e"></script>
         <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../_static/documentation_options.js?v=59fadc99"></script>
+        <script src="../_static/documentation_options.js?v=6e0256f3"></script>
         <script src="../_static/doctools.js?v=888ff710"></script>
         <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/js/theme.js"></script>
@@ -129,7 +129,7 @@
 <p>This file contains the implementation of the DSLM algorithm.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="subgroups.algorithms.subgroup_lists.dslm.DSLM">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">subgroups.algorithms.subgroup_lists.dslm.</span></span><span class="sig-name descname"><span class="pre">DSLM</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_file_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_sl</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sl_max_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maximum_positive_overlap</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maximum_negative_overlap</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_file_path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.algorithms.subgroup_lists.dslm.DSLM" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">subgroups.algorithms.subgroup_lists.dslm.</span></span><span class="sig-name descname"><span class="pre">DSLM</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_file_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_sl</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sl_max_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maximum_positive_overlap</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maximum_negative_overlap</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_file_path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/subgroups/algorithms/subgroup_lists/dslm.html#DSLM"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#subgroups.algorithms.subgroup_lists.dslm.DSLM" title="Link to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="#subgroups.algorithms.subgroup_lists.psld.PSLD" title="subgroups.algorithms.subgroup_lists.psld.PSLD"><code class="xref py py-class docutils literal notranslate"><span class="pre">PSLD</span></code></a></p>
 <p>This class represents the DSLM algorithm.</p>
 <dl class="field-list simple">
@@ -147,7 +147,7 @@
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="subgroups.algorithms.subgroup_lists.dslm.DSLM.fit">
-<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pandas_dataframe</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.algorithms.subgroup_lists.dslm.DSLM.fit" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pandas_dataframe</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/subgroups/algorithms/subgroup_lists/dslm.html#DSLM.fit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#subgroups.algorithms.subgroup_lists.dslm.DSLM.fit" title="Link to this definition"></a></dt>
 <dd><p>Main method to run the DSLM algorithm. This algorithm only supports nominal attributes (i.e., type ‘str’). IMPORTANT: missing values are not supported.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -182,7 +182,7 @@
 <p>This file contains the implementation of the GMSL algorithm.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="subgroups.algorithms.subgroup_lists.gmsl.GMSL">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">subgroups.algorithms.subgroup_lists.gmsl.</span></span><span class="sig-name descname"><span class="pre">GMSL</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_file_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_sl</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_file_path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.algorithms.subgroup_lists.gmsl.GMSL" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">subgroups.algorithms.subgroup_lists.gmsl.</span></span><span class="sig-name descname"><span class="pre">GMSL</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_file_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_sl</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_file_path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/subgroups/algorithms/subgroup_lists/gmsl.html#GMSL"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#subgroups.algorithms.subgroup_lists.gmsl.GMSL" title="Link to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="subgroups.algorithms.html#subgroups.algorithms.algorithm.Algorithm" title="subgroups.algorithms.algorithm.Algorithm"><code class="xref py py-class docutils literal notranslate"><span class="pre">Algorithm</span></code></a></p>
 <p>This class represents the GMSL algorithm.</p>
 <dl class="field-list simple">
@@ -208,7 +208,7 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="subgroups.algorithms.subgroup_lists.gmsl.GMSL.fit">
-<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pandas_dataframe</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.algorithms.subgroup_lists.gmsl.GMSL.fit" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pandas_dataframe</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/subgroups/algorithms/subgroup_lists/gmsl.html#GMSL.fit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#subgroups.algorithms.subgroup_lists.gmsl.GMSL.fit" title="Link to this definition"></a></dt>
 <dd><p>Main method to run the GMSL algorithm. This algorithm only supports nominal attributes (i.e., type ‘str’). IMPORTANT: missing values are not supported.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -249,7 +249,7 @@
 <p>This file contains the implementation of the PSLD algorithm.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="subgroups.algorithms.subgroup_lists.psld.PSLD">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">subgroups.algorithms.subgroup_lists.psld.</span></span><span class="sig-name descname"><span class="pre">PSLD</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_file_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_sl</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sl_max_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_file_path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.algorithms.subgroup_lists.psld.PSLD" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">subgroups.algorithms.subgroup_lists.psld.</span></span><span class="sig-name descname"><span class="pre">PSLD</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_file_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_sl</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sl_max_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_file_path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/subgroups/algorithms/subgroup_lists/psld.html#PSLD"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#subgroups.algorithms.subgroup_lists.psld.PSLD" title="Link to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="#subgroups.algorithms.subgroup_lists.gmsl.GMSL" title="subgroups.algorithms.subgroup_lists.gmsl.GMSL"><code class="xref py py-class docutils literal notranslate"><span class="pre">GMSL</span></code></a></p>
 <p>This class represents the PSLD algorithm.</p>
 <dl class="field-list simple">
@@ -265,7 +265,7 @@
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="subgroups.algorithms.subgroup_lists.psld.PSLD.fit">
-<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pandas_dataframe</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.algorithms.subgroup_lists.psld.PSLD.fit" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pandas_dataframe</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/subgroups/algorithms/subgroup_lists/psld.html#PSLD.fit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#subgroups.algorithms.subgroup_lists.psld.PSLD.fit" title="Link to this definition"></a></dt>
 <dd><p>Main method to run the PSLD algorithm. This algorithm only supports nominal attributes (i.e., type ‘str’). IMPORTANT: missing values are not supported.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>

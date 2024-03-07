@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>subgroups package &mdash; subgroups 0.1.5 documentation</title>
+  <title>subgroups package &mdash; subgroups 0.1.6 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=92fd9be5" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
 
@@ -15,7 +15,7 @@
   
         <script src="../_static/jquery.js?v=5d32c60e"></script>
         <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../_static/documentation_options.js?v=59fadc99"></script>
+        <script src="../_static/documentation_options.js?v=6e0256f3"></script>
         <script src="../_static/doctools.js?v=888ff710"></script>
         <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/js/theme.js"></script>
@@ -561,6 +561,7 @@
 <li class="toctree-l3"><a class="reference internal" href="subgroups.tests.utils.html">subgroups.tests.utils package</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="subgroups.tests.utils.html#submodules">Submodules</a></li>
 <li class="toctree-l4"><a class="reference internal" href="subgroups.tests.utils.html#module-subgroups.tests.utils.test_dataframe_filters">subgroups.tests.utils.test_dataframe_filters module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="subgroups.tests.utils.html#module-subgroups.tests.utils.test_file_format_transformations">subgroups.tests.utils.test_file_format_transformations module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="subgroups.tests.utils.html#module-subgroups.tests.utils">Module contents</a></li>
 </ul>
 </li>
@@ -576,6 +577,10 @@
 <li class="toctree-l2"><a class="reference internal" href="subgroups.utils.html#submodules">Submodules</a></li>
 <li class="toctree-l2"><a class="reference internal" href="subgroups.utils.html#module-subgroups.utils.dataframe_filters">subgroups.utils.dataframe_filters module</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="subgroups.utils.html#subgroups.utils.dataframe_filters.filter_by_list_of_selectors"><code class="docutils literal notranslate"><span class="pre">filter_by_list_of_selectors()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="subgroups.utils.html#module-subgroups.utils.file_format_transformations">subgroups.utils.file_format_transformations module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="subgroups.utils.html#subgroups.utils.file_format_transformations.to_input_format_for_subgroup_list_algorithms"><code class="docutils literal notranslate"><span class="pre">to_input_format_for_subgroup_list_algorithms()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="subgroups.utils.html#module-subgroups.utils.mdl">subgroups.utils.mdl module</a><ul>
@@ -599,49 +604,49 @@
 <p>This file contains new exceptions used by the library.</p>
 <dl class="py exception">
 <dt class="sig sig-object py" id="subgroups.exceptions.DatasetAttributeTypeError">
-<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">subgroups.exceptions.</span></span><span class="sig-name descname"><span class="pre">DatasetAttributeTypeError</span></span><a class="headerlink" href="#subgroups.exceptions.DatasetAttributeTypeError" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">subgroups.exceptions.</span></span><span class="sig-name descname"><span class="pre">DatasetAttributeTypeError</span></span><a class="reference internal" href="../_modules/subgroups/exceptions.html#DatasetAttributeTypeError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#subgroups.exceptions.DatasetAttributeTypeError" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">TypeError</span></code></p>
 <p>This exception is raised when the type of an attribute in a dataset is not supported by a Subgroup Discovery (SD) algorithm.</p>
 </dd></dl>
 
 <dl class="py exception">
 <dt class="sig sig-object py" id="subgroups.exceptions.DuplicateFpTreeNodeError">
-<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">subgroups.exceptions.</span></span><span class="sig-name descname"><span class="pre">DuplicateFpTreeNodeError</span></span><a class="headerlink" href="#subgroups.exceptions.DuplicateFpTreeNodeError" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">subgroups.exceptions.</span></span><span class="sig-name descname"><span class="pre">DuplicateFpTreeNodeError</span></span><a class="reference internal" href="../_modules/subgroups/exceptions.html#DuplicateFpTreeNodeError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#subgroups.exceptions.DuplicateFpTreeNodeError" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">RuntimeError</span></code></p>
 <p>This exception is raised when attempting to add a FPTreeNode which already exists.</p>
 </dd></dl>
 
 <dl class="py exception">
 <dt class="sig sig-object py" id="subgroups.exceptions.InconsistentMethodParametersError">
-<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">subgroups.exceptions.</span></span><span class="sig-name descname"><span class="pre">InconsistentMethodParametersError</span></span><a class="headerlink" href="#subgroups.exceptions.InconsistentMethodParametersError" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">subgroups.exceptions.</span></span><span class="sig-name descname"><span class="pre">InconsistentMethodParametersError</span></span><a class="reference internal" href="../_modules/subgroups/exceptions.html#InconsistentMethodParametersError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#subgroups.exceptions.InconsistentMethodParametersError" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">RuntimeError</span></code></p>
 <p>This exception is raised when a method has not been called with the appropriate parameters.</p>
 </dd></dl>
 
 <dl class="py exception">
 <dt class="sig sig-object py" id="subgroups.exceptions.OperatorNotSupportedError">
-<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">subgroups.exceptions.</span></span><span class="sig-name descname"><span class="pre">OperatorNotSupportedError</span></span><a class="headerlink" href="#subgroups.exceptions.OperatorNotSupportedError" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">subgroups.exceptions.</span></span><span class="sig-name descname"><span class="pre">OperatorNotSupportedError</span></span><a class="reference internal" href="../_modules/subgroups/exceptions.html#OperatorNotSupportedError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#subgroups.exceptions.OperatorNotSupportedError" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">NotImplementedError</span></code></p>
 <p>This exception is raised when an operator is not correctly implemented in the Operator class.</p>
 </dd></dl>
 
 <dl class="py exception">
 <dt class="sig sig-object py" id="subgroups.exceptions.ParameterNotFoundError">
-<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">subgroups.exceptions.</span></span><span class="sig-name descname"><span class="pre">ParameterNotFoundError</span></span><a class="headerlink" href="#subgroups.exceptions.ParameterNotFoundError" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">subgroups.exceptions.</span></span><span class="sig-name descname"><span class="pre">ParameterNotFoundError</span></span><a class="reference internal" href="../_modules/subgroups/exceptions.html#ParameterNotFoundError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#subgroups.exceptions.ParameterNotFoundError" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">KeyError</span></code></p>
 <p>This exception is raised when a needed parameter is not found in the quality measure computing process.</p>
 </dd></dl>
 
 <dl class="py exception">
 <dt class="sig sig-object py" id="subgroups.exceptions.SubgroupParameterNotFoundError">
-<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">subgroups.exceptions.</span></span><span class="sig-name descname"><span class="pre">SubgroupParameterNotFoundError</span></span><a class="headerlink" href="#subgroups.exceptions.SubgroupParameterNotFoundError" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">subgroups.exceptions.</span></span><span class="sig-name descname"><span class="pre">SubgroupParameterNotFoundError</span></span><a class="reference internal" href="../_modules/subgroups/exceptions.html#SubgroupParameterNotFoundError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#subgroups.exceptions.SubgroupParameterNotFoundError" title="Link to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="#subgroups.exceptions.ParameterNotFoundError" title="subgroups.exceptions.ParameterNotFoundError"><code class="xref py py-class docutils literal notranslate"><span class="pre">ParameterNotFoundError</span></code></a></p>
 <p>This exception is raised when a subgroup parameter (i.e., tp, fp, TP or FP) is not found in the quality measure computing process.</p>
 </dd></dl>
 
 <dl class="py exception">
 <dt class="sig sig-object py" id="subgroups.exceptions.VerticalListSizeError">
-<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">subgroups.exceptions.</span></span><span class="sig-name descname"><span class="pre">VerticalListSizeError</span></span><a class="headerlink" href="#subgroups.exceptions.VerticalListSizeError" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">subgroups.exceptions.</span></span><span class="sig-name descname"><span class="pre">VerticalListSizeError</span></span><a class="reference internal" href="../_modules/subgroups/exceptions.html#VerticalListSizeError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#subgroups.exceptions.VerticalListSizeError" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ValueError</span></code></p>
 <p>This exception is raised when comparing Vertical Lists with different dataset sizes.</p>
 </dd></dl>

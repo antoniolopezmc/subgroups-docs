@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>subgroups.core.operator &mdash; subgroups 0.1.6 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=92fd9be5" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../_static/documentation_options.js?v=6e0256f3"></script>
+        <script src="../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            subgroups
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../project_files/subgroups.html">subgroups package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../project_files/subgroups.algorithms.html">subgroups.algorithms package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../project_files/subgroups.core.html">subgroups.core package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../project_files/subgroups.data_structures.html">subgroups.data_structures package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../project_files/subgroups.quality_measures.html">subgroups.quality_measures package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../project_files/subgroups.tests.html">subgroups.tests package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../project_files/subgroups.utils.html">subgroups.utils package</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">subgroups</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">subgroups.core.operator</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for subgroups.core.operator</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+
+<span class="c1"># Contributors:</span>
+<span class="c1">#    Antonio López Martínez-Carrasco &lt;antoniolopezmc1995@gmail.com&gt;</span>
+
+<span class="sd">&quot;&quot;&quot;This file contains the avaible operators which can be used by the selectors.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">Enum</span>
+<span class="kn">from</span> <span class="nn">subgroups.exceptions</span> <span class="kn">import</span> <span class="n">OperatorNotSupportedError</span>
+<span class="kn">from</span> <span class="nn">pandas</span> <span class="kn">import</span> <span class="n">Series</span>
+
+<span class="c1"># Python annotations.</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Union</span>
+
+<div class="viewcode-block" id="Operator">
+<a class="viewcode-back" href="../../../project_files/subgroups.core.html#subgroups.core.operator.Operator">[docs]</a>
+<span class="k">class</span> <span class="nc">Operator</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+<span class="w">    </span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;This enumerator provides the available operators which can be used by the selectors.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="n">EQUAL</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">NOT_EQUAL</span> <span class="o">=</span> <span class="mi">2</span>
+    <span class="n">LESS</span> <span class="o">=</span> <span class="mi">3</span>
+    <span class="n">GREATER</span> <span class="o">=</span> <span class="mi">4</span>
+    <span class="n">LESS_OR_EQUAL</span> <span class="o">=</span> <span class="mi">5</span>
+    <span class="n">GREATER_OR_EQUAL</span> <span class="o">=</span> <span class="mi">6</span>
+    
+<div class="viewcode-block" id="Operator.evaluate">
+<a class="viewcode-back" href="../../../project_files/subgroups.core.html#subgroups.core.operator.Operator.evaluate">[docs]</a>
+    <span class="k">def</span> <span class="nf">evaluate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">left_element</span> <span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="n">Series</span><span class="p">],</span> <span class="n">right_element</span> <span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="n">Series</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="nb">bool</span><span class="p">,</span> <span class="n">Series</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Method to evaluate whether the expression (left_element self right_element) is True. IMPORTANT: if the operator is not supported between both elements, a TypeError exception is raised.</span>
+<span class="sd">        </span>
+<span class="sd">        :param left_element: the left element of the expression. It can be also of type &#39;pandas.Series&#39; in order to allow comparisons with whole arrays.</span>
+<span class="sd">        :param right_element: the right element of the expression. It can be also of type &#39;pandas.Series&#39; in order to allow comparisons with whole arrays.</span>
+<span class="sd">        :return: whether the expression (left_element self right_element) is True. In case of both elements are of type Series, a Series in which each element is of type bool is returned.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">left_element</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="nb">str</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">left_element</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="nb">int</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">left_element</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="nb">float</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">left_element</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">Series</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;The type of the parameter &#39;left_element&#39; must be &#39;str&#39;, &#39;int&#39;, &#39;float&#39; or &#39;pandas.Series&#39;.&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">right_element</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="nb">str</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">right_element</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="nb">int</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">right_element</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="nb">float</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">right_element</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">Series</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;The type of the parameter &#39;right_element&#39; must be &#39;str&#39;, &#39;int&#39;, &#39;float&#39; or &#39;pandas.Series&#39;.&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span> <span class="o">==</span> <span class="n">Operator</span><span class="o">.</span><span class="n">EQUAL</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">left_element</span> <span class="o">==</span> <span class="n">right_element</span>
+        <span class="k">elif</span> <span class="bp">self</span> <span class="o">==</span> <span class="n">Operator</span><span class="o">.</span><span class="n">NOT_EQUAL</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">left_element</span> <span class="o">!=</span> <span class="n">right_element</span>
+        <span class="k">elif</span> <span class="bp">self</span> <span class="o">==</span> <span class="n">Operator</span><span class="o">.</span><span class="n">LESS</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">left_element</span> <span class="o">&lt;</span> <span class="n">right_element</span>
+        <span class="k">elif</span> <span class="bp">self</span> <span class="o">==</span> <span class="n">Operator</span><span class="o">.</span><span class="n">GREATER</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">left_element</span> <span class="o">&gt;</span> <span class="n">right_element</span>
+        <span class="k">elif</span> <span class="bp">self</span> <span class="o">==</span> <span class="n">Operator</span><span class="o">.</span><span class="n">LESS_OR_EQUAL</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">left_element</span> <span class="o">&lt;=</span> <span class="n">right_element</span>
+        <span class="k">elif</span> <span class="bp">self</span> <span class="o">==</span> <span class="n">Operator</span><span class="o">.</span><span class="n">GREATER_OR_EQUAL</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">left_element</span> <span class="o">&gt;=</span> <span class="n">right_element</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">OperatorNotSupportedError</span><span class="p">(</span><span class="s2">&quot;This operator has not been added to the method &#39;evaluate&#39;.&quot;</span><span class="p">)</span></div>
+
+    
+<div class="viewcode-block" id="Operator.generate_from_str">
+<a class="viewcode-back" href="../../../project_files/subgroups.core.html#subgroups.core.operator.Operator.generate_from_str">[docs]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">generate_from_str</span><span class="p">(</span><span class="n">input_str</span> <span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;Operator&#39;</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Static method to generate an Operator from a str.</span>
+<span class="sd">        </span>
+<span class="sd">        :param input_str: the str from which to generate the Operator.</span>
+<span class="sd">        :return: the Operator generated from the str.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">input_str</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="nb">str</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;The type of the parameter &#39;input_str&#39; must be &#39;str&#39;.&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">input_str</span> <span class="o">==</span> <span class="s2">&quot;=&quot;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">Operator</span><span class="o">.</span><span class="n">EQUAL</span>
+        <span class="k">elif</span> <span class="n">input_str</span> <span class="o">==</span> <span class="s2">&quot;!=&quot;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">Operator</span><span class="o">.</span><span class="n">NOT_EQUAL</span>
+        <span class="k">elif</span> <span class="n">input_str</span> <span class="o">==</span> <span class="s2">&quot;&lt;&quot;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">Operator</span><span class="o">.</span><span class="n">LESS</span>
+        <span class="k">elif</span> <span class="n">input_str</span> <span class="o">==</span> <span class="s2">&quot;&gt;&quot;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">Operator</span><span class="o">.</span><span class="n">GREATER</span>
+        <span class="k">elif</span> <span class="n">input_str</span> <span class="o">==</span> <span class="s2">&quot;&lt;=&quot;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">Operator</span><span class="o">.</span><span class="n">LESS_OR_EQUAL</span>
+        <span class="k">elif</span> <span class="n">input_str</span> <span class="o">==</span> <span class="s2">&quot;&gt;=&quot;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">Operator</span><span class="o">.</span><span class="n">GREATER_OR_EQUAL</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span><span class="s2">&quot;The parameter &#39;input_str&#39; (with the value &#39;&quot;</span> <span class="o">+</span> <span class="n">input_str</span> <span class="o">+</span> <span class="s2">&quot;&#39;) does not match with any operator.&quot;</span><span class="p">)</span></div>
+
+    
+    <span class="k">def</span> <span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span> <span class="p">:</span> <span class="s1">&#39;Operator&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">other</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">Operator</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;You are making a comparison with an object whose type is not &#39;Operator&#39;.&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">value</span>
+    
+    <span class="k">def</span> <span class="fm">__ne__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span> <span class="p">:</span> <span class="s1">&#39;Operator&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">other</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">Operator</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;You are making a comparison with an object whose type is not &#39;Operator&#39;.&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">!=</span> <span class="n">other</span><span class="o">.</span><span class="n">value</span>
+    
+    <span class="k">def</span> <span class="fm">__lt__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span> <span class="p">:</span> <span class="s1">&#39;Operator&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">other</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">Operator</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;You are making a comparison with an object whose type is not &#39;Operator&#39;.&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">&lt;</span> <span class="n">other</span><span class="o">.</span><span class="n">value</span>
+    
+    <span class="k">def</span> <span class="fm">__gt__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span> <span class="p">:</span> <span class="s1">&#39;Operator&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">other</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">Operator</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;You are making a comparison with an object whose type is not &#39;Operator&#39;.&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">&gt;</span> <span class="n">other</span><span class="o">.</span><span class="n">value</span>
+    
+    <span class="k">def</span> <span class="fm">__le__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span> <span class="p">:</span> <span class="s1">&#39;Operator&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">other</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">Operator</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;You are making a comparison with an object whose type is not &#39;Operator&#39;.&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">&lt;=</span> <span class="n">other</span><span class="o">.</span><span class="n">value</span>
+    
+    <span class="k">def</span> <span class="fm">__ge__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span> <span class="p">:</span> <span class="s1">&#39;Operator&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">other</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">Operator</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;You are making a comparison with an object whose type is not &#39;Operator&#39;.&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">&gt;=</span> <span class="n">other</span><span class="o">.</span><span class="n">value</span>
+    
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span> <span class="o">==</span> <span class="n">Operator</span><span class="o">.</span><span class="n">EQUAL</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s2">&quot;=&quot;</span>
+        <span class="k">elif</span> <span class="bp">self</span> <span class="o">==</span> <span class="n">Operator</span><span class="o">.</span><span class="n">NOT_EQUAL</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s2">&quot;!=&quot;</span>
+        <span class="k">elif</span> <span class="bp">self</span> <span class="o">==</span> <span class="n">Operator</span><span class="o">.</span><span class="n">LESS</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s2">&quot;&lt;&quot;</span>
+        <span class="k">elif</span> <span class="bp">self</span> <span class="o">==</span> <span class="n">Operator</span><span class="o">.</span><span class="n">GREATER</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s2">&quot;&gt;&quot;</span>
+        <span class="k">elif</span> <span class="bp">self</span> <span class="o">==</span> <span class="n">Operator</span><span class="o">.</span><span class="n">LESS_OR_EQUAL</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s2">&quot;&lt;=&quot;</span>
+        <span class="k">elif</span> <span class="bp">self</span> <span class="o">==</span> <span class="n">Operator</span><span class="o">.</span><span class="n">GREATER_OR_EQUAL</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s2">&quot;&gt;=&quot;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">OperatorNotSupportedError</span><span class="p">(</span><span class="s2">&quot;This operator does not have a string representation.&quot;</span><span class="p">)</span>
+    
+    <span class="k">def</span> <span class="fm">__hash__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nb">hash</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">)</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Antonio López Martínez-Carrasco.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

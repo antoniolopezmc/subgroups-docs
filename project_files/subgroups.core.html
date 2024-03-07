@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>subgroups.core package &mdash; subgroups 0.1.5 documentation</title>
+  <title>subgroups.core package &mdash; subgroups 0.1.6 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=92fd9be5" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
 
@@ -15,7 +15,7 @@
   
         <script src="../_static/jquery.js?v=5d32c60e"></script>
         <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../_static/documentation_options.js?v=59fadc99"></script>
+        <script src="../_static/documentation_options.js?v=6e0256f3"></script>
         <script src="../_static/doctools.js?v=888ff710"></script>
         <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/js/theme.js"></script>
@@ -168,7 +168,7 @@
 <p>This file contains the avaible operators which can be used by the selectors.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="subgroups.core.operator.Operator">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">subgroups.core.operator.</span></span><span class="sig-name descname"><span class="pre">Operator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.core.operator.Operator" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">subgroups.core.operator.</span></span><span class="sig-name descname"><span class="pre">Operator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">module</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qualname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">boundary</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/subgroups/core/operator.html#Operator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#subgroups.core.operator.Operator" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
 <p>This enumerator provides the available operators which can be used by the selectors.</p>
 <dl class="py attribute">
@@ -203,7 +203,7 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="subgroups.core.operator.Operator.evaluate">
-<span class="sig-name descname"><span class="pre">evaluate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">left_element</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">right_element</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.core.operator.Operator.evaluate" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">evaluate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">left_element</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">right_element</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/subgroups/core/operator.html#Operator.evaluate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#subgroups.core.operator.Operator.evaluate" title="Link to this definition"></a></dt>
 <dd><p>Method to evaluate whether the expression (left_element self right_element) is True. IMPORTANT: if the operator is not supported between both elements, a TypeError exception is raised.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -223,7 +223,7 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="subgroups.core.operator.Operator.generate_from_str">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">generate_from_str</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.core.operator.Operator.generate_from_str" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">generate_from_str</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/subgroups/core/operator.html#Operator.generate_from_str"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#subgroups.core.operator.Operator.generate_from_str" title="Link to this definition"></a></dt>
 <dd><p>Static method to generate an Operator from a str.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -246,7 +246,7 @@
 <p>This file contains the implementation of a ‘Pattern’. A ‘Pattern’ is a sorted list of non-repeated selectors.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="subgroups.core.pattern.Pattern">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">subgroups.core.pattern.</span></span><span class="sig-name descname"><span class="pre">Pattern</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">list_of_selectors</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.core.pattern.Pattern" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">subgroups.core.pattern.</span></span><span class="sig-name descname"><span class="pre">Pattern</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">list_of_selectors</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/subgroups/core/pattern.html#Pattern"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#subgroups.core.pattern.Pattern" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>This class represents a ‘Pattern’. A ‘Pattern’ is a sorted list of non-repeated selectors.</p>
 <dl class="field-list simple">
@@ -256,7 +256,7 @@
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="subgroups.core.pattern.Pattern.add_selector">
-<span class="sig-name descname"><span class="pre">add_selector</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">selector</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.core.pattern.Pattern.add_selector" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">add_selector</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">selector</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/subgroups/core/pattern.html#Pattern.add_selector"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#subgroups.core.pattern.Pattern.add_selector" title="Link to this definition"></a></dt>
 <dd><p>Method to add a selector to the pattern. If the selector already exists, this method does nothing.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -270,7 +270,7 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="subgroups.core.pattern.Pattern.copy">
-<span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.core.pattern.Pattern.copy" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/subgroups/core/pattern.html#Pattern.copy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#subgroups.core.pattern.Pattern.copy" title="Link to this definition"></a></dt>
 <dd><p>Method to copy the Pattern.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -284,7 +284,7 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="subgroups.core.pattern.Pattern.generate_from_str">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">generate_from_str</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.core.pattern.Pattern.generate_from_str" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">generate_from_str</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/subgroups/core/pattern.html#Pattern.generate_from_str"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#subgroups.core.pattern.Pattern.generate_from_str" title="Link to this definition"></a></dt>
 <dd><p>Static method to generate a Pattern from a str.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -301,7 +301,7 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="subgroups.core.pattern.Pattern.get_selector">
-<span class="sig-name descname"><span class="pre">get_selector</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.core.pattern.Pattern.get_selector" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">get_selector</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/subgroups/core/pattern.html#Pattern.get_selector"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#subgroups.core.pattern.Pattern.get_selector" title="Link to this definition"></a></dt>
 <dd><p>Method to get a selector from the pattern by index. If the index is out of range, an ‘IndexError’ exception is raised.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -315,7 +315,7 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="subgroups.core.pattern.Pattern.is_contained">
-<span class="sig-name descname"><span class="pre">is_contained</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pandas_dataframe</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.core.pattern.Pattern.is_contained" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">is_contained</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pandas_dataframe</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/subgroups/core/pattern.html#Pattern.is_contained"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#subgroups.core.pattern.Pattern.is_contained" title="Link to this definition"></a></dt>
 <dd><p>Method to check whether the pattern is contained in each row of the pandas.DataFrame passed by parameter. IMPORTANT: If an attribute name of a selector of the pattern is not in the pandas.DataFrame passed by parameter, a KeyError exception is raised.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -332,7 +332,7 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="subgroups.core.pattern.Pattern.is_refinement">
-<span class="sig-name descname"><span class="pre">is_refinement</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">refinement_candidate</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">refinement_of_itself</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.core.pattern.Pattern.is_refinement" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">is_refinement</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">refinement_candidate</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">refinement_of_itself</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/subgroups/core/pattern.html#Pattern.is_refinement"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#subgroups.core.pattern.Pattern.is_refinement" title="Link to this definition"></a></dt>
 <dd><p>Method to check whether ‘refinement_candidate’ is a refinement of this (i.e., of ‘self’).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -352,7 +352,7 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="subgroups.core.pattern.Pattern.remove_selector">
-<span class="sig-name descname"><span class="pre">remove_selector</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">selector</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.core.pattern.Pattern.remove_selector" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">remove_selector</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">selector</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/subgroups/core/pattern.html#Pattern.remove_selector"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#subgroups.core.pattern.Pattern.remove_selector" title="Link to this definition"></a></dt>
 <dd><p>Method to remove a selector from the pattern. If the selector does not exist, this method does nothing.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -366,7 +366,7 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="subgroups.core.pattern.Pattern.remove_selector_by_index">
-<span class="sig-name descname"><span class="pre">remove_selector_by_index</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.core.pattern.Pattern.remove_selector_by_index" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">remove_selector_by_index</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/subgroups/core/pattern.html#Pattern.remove_selector_by_index"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#subgroups.core.pattern.Pattern.remove_selector_by_index" title="Link to this definition"></a></dt>
 <dd><p>Method to remove a selector from the pattern by index. If the index is out of range, an ‘IndexError’ exception is raised.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -386,7 +386,7 @@
 <p>This file contains the implementation of a ‘Selector’. A ‘Selector’ is an IMMUTABLE structure which contains an attribute name, an operator and a value.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="subgroups.core.selector.Selector">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">subgroups.core.selector.</span></span><span class="sig-name descname"><span class="pre">Selector</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">attribute_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">operator</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#subgroups.core.operator.Operator" title="subgroups.core.operator.Operator"><span class="pre">Operator</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.core.selector.Selector" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">subgroups.core.selector.</span></span><span class="sig-name descname"><span class="pre">Selector</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">attribute_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">operator</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#subgroups.core.operator.Operator" title="subgroups.core.operator.Operator"><span class="pre">Operator</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/subgroups/core/selector.html#Selector"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#subgroups.core.selector.Selector" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>This class represents a ‘Selector’. A ‘Selector’ is an IMMUTABLE structure which contains an attribute name, an operator and a value.</p>
 <dl class="field-list simple">
@@ -406,7 +406,7 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="subgroups.core.selector.Selector.generate_from_str">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">generate_from_str</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.core.selector.Selector.generate_from_str" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">generate_from_str</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/subgroups/core/selector.html#Selector.generate_from_str"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#subgroups.core.selector.Selector.generate_from_str" title="Link to this definition"></a></dt>
 <dd><p>Static method to generate a Selector from a str.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -423,7 +423,7 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="subgroups.core.selector.Selector.match">
-<span class="sig-name descname"><span class="pre">match</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">attribute_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.core.selector.Selector.match" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">match</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">attribute_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/subgroups/core/selector.html#Selector.match"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#subgroups.core.selector.Selector.match" title="Link to this definition"></a></dt>
 <dd><p>Method to check whether the parameters ‘attribute_name’ and ‘value’ match with the selector. In this case, “match” means that the expression ((attribute_name == self.attribute_name) and (value self.operator self.value)) is True. IMPORTANT: if the selector operator is not supported between value and self.value, a TypeError exception is raised.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -461,7 +461,7 @@
 <p>This file contains the implementation of a ‘Subgroup’. A ‘Subgroup’ has a description (Pattern) and a target variable of interest (Selector).</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="subgroups.core.subgroup.Subgroup">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">subgroups.core.subgroup.</span></span><span class="sig-name descname"><span class="pre">Subgroup</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">description</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.core.subgroup.Subgroup" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">subgroups.core.subgroup.</span></span><span class="sig-name descname"><span class="pre">Subgroup</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">description</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/subgroups/core/subgroup.html#Subgroup"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#subgroups.core.subgroup.Subgroup" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>This class represents a ‘Subgroup’. A ‘Subgroup’ has a description (Pattern) and a target variable of interest (Selector).</p>
 <dl class="field-list simple">
@@ -474,7 +474,7 @@
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="subgroups.core.subgroup.Subgroup.copy">
-<span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.core.subgroup.Subgroup.copy" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/subgroups/core/subgroup.html#Subgroup.copy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#subgroups.core.subgroup.Subgroup.copy" title="Link to this definition"></a></dt>
 <dd><p>Method to copy the Subgroup.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -494,7 +494,7 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="subgroups.core.subgroup.Subgroup.filter">
-<span class="sig-name descname"><span class="pre">filter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pandas_dataframe</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.core.subgroup.Subgroup.filter" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">filter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pandas_dataframe</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/subgroups/core/subgroup.html#Subgroup.filter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#subgroups.core.subgroup.Subgroup.filter" title="Link to this definition"></a></dt>
 <dd><p>Method to filter a pandas DataFrame, retrieving only certain information related to this subgroup.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -511,7 +511,7 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="subgroups.core.subgroup.Subgroup.generate_from_str">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">generate_from_str</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.core.subgroup.Subgroup.generate_from_str" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">generate_from_str</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/subgroups/core/subgroup.html#Subgroup.generate_from_str"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#subgroups.core.subgroup.Subgroup.generate_from_str" title="Link to this definition"></a></dt>
 <dd><p>Static method to generate a Subgroup from a str.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -528,7 +528,7 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="subgroups.core.subgroup.Subgroup.is_refinement">
-<span class="sig-name descname"><span class="pre">is_refinement</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">refinement_candidate</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">refinement_of_itself</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.core.subgroup.Subgroup.is_refinement" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">is_refinement</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">refinement_candidate</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">refinement_of_itself</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/subgroups/core/subgroup.html#Subgroup.is_refinement"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#subgroups.core.subgroup.Subgroup.is_refinement" title="Link to this definition"></a></dt>
 <dd><p>Method to check whether ‘refinement_candidate’ is a refinement of this (i.e., of ‘self’). A subgroup Y is a refinements of other subgroup X, if the description of Y is a refinement of the description of X, and the targets are equal.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>

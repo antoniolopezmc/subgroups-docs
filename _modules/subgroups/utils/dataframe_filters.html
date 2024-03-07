@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>subgroups.utils.dataframe_filters &mdash; subgroups 0.1.6 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=92fd9be5" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../_static/documentation_options.js?v=6e0256f3"></script>
+        <script src="../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            subgroups
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../project_files/subgroups.html">subgroups package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../project_files/subgroups.algorithms.html">subgroups.algorithms package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../project_files/subgroups.core.html">subgroups.core package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../project_files/subgroups.data_structures.html">subgroups.data_structures package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../project_files/subgroups.quality_measures.html">subgroups.quality_measures package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../project_files/subgroups.tests.html">subgroups.tests package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../project_files/subgroups.utils.html">subgroups.utils package</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">subgroups</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">subgroups.utils.dataframe_filters</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for subgroups.utils.dataframe_filters</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+
+<span class="c1"># Contributors:</span>
+<span class="c1">#    Antonio López Martínez-Carrasco &lt;antoniolopezmc1995@gmail.com&gt;</span>
+
+<span class="sd">&quot;&quot;&quot;This file contains the implementation of different functions used to filter a pandas DataFrame according to certain criteria.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">pandas</span> <span class="kn">import</span> <span class="n">DataFrame</span><span class="p">,</span> <span class="n">Series</span>
+<span class="kn">from</span> <span class="nn">subgroups.core.selector</span> <span class="kn">import</span> <span class="n">Selector</span>
+
+<div class="viewcode-block" id="filter_by_list_of_selectors">
+<a class="viewcode-back" href="../../../project_files/subgroups.utils.html#subgroups.utils.dataframe_filters.filter_by_list_of_selectors">[docs]</a>
+<span class="k">def</span> <span class="nf">filter_by_list_of_selectors</span><span class="p">(</span><span class="n">pandas_dataframe</span> <span class="p">:</span> <span class="n">DataFrame</span><span class="p">,</span> <span class="n">list_of_selectors</span> <span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Selector</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Method to filter a pandas DataFrame, retrieving only the rows covered by all selectors included in the parameter &#39;list_of_selectors&#39;. IMPORTANT: If an attribute name of a selector of the pattern is not in the pandas.DataFrame passed by parameter, a KeyError exception is raised.</span>
+<span class="sd">    </span>
+<span class="sd">    :param pandas_dataframe: the DataFrame which is filtered.</span>
+<span class="sd">    :param list_of_selectors: the list of selectors used in the filtering process. IMPORTANT: we assume that the parameter &#39;list_of_selectors&#39; only contains selectors.</span>
+<span class="sd">    :return: the pandas DataFrame obtained after the filtering process.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">pandas_dataframe</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">DataFrame</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;The type of the parameter &#39;pandas_dataframe&#39; must be &#39;pandas.DataFrame&#39;.&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">list_of_selectors</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="nb">list</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;The type of the parameter &#39;list_of_selectors&#39; must be &#39;list&#39;.&quot;</span><span class="p">)</span>
+    <span class="n">final_result</span> <span class="o">=</span> <span class="n">Series</span><span class="p">([</span><span class="kc">True</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">pandas_dataframe</span><span class="p">))</span> <span class="c1"># The empty list of selectors is contained in all the rows of a pandas DataFrame.</span>
+    <span class="c1"># For each selector, we process the whole corresponding attribute (i.e., the complete Series).</span>
+    <span class="c1"># If all the boolean values of &#39;final_result&#39; are False, we can stop the process.</span>
+    <span class="n">current_index</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">while</span> <span class="p">(</span><span class="n">final_result</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">current_index</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">list_of_selectors</span><span class="p">)):</span>
+        <span class="n">current_selector</span> <span class="o">=</span> <span class="n">list_of_selectors</span><span class="p">[</span><span class="n">current_index</span><span class="p">]</span>
+        <span class="n">current_attribute_name</span> <span class="o">=</span> <span class="n">current_selector</span><span class="o">.</span><span class="n">attribute_name</span>
+        <span class="n">corresponding_Series</span> <span class="o">=</span> <span class="n">pandas_dataframe</span><span class="p">[</span><span class="n">current_attribute_name</span><span class="p">]</span>
+        <span class="n">final_result</span> <span class="o">=</span> <span class="n">final_result</span> <span class="o">&amp;</span> <span class="n">current_selector</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">current_attribute_name</span><span class="p">,</span> <span class="n">corresponding_Series</span><span class="p">)</span>
+        <span class="n">current_index</span> <span class="o">=</span> <span class="n">current_index</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="n">pandas_dataframe</span><span class="p">[</span><span class="n">final_result</span><span class="p">]</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Antonio López Martínez-Carrasco.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

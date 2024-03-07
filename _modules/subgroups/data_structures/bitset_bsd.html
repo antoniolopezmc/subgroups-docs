@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>subgroups.data_structures.bitset_bsd &mdash; subgroups 0.1.6 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=92fd9be5" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../_static/documentation_options.js?v=6e0256f3"></script>
+        <script src="../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            subgroups
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../project_files/subgroups.html">subgroups package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../project_files/subgroups.algorithms.html">subgroups.algorithms package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../project_files/subgroups.core.html">subgroups.core package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../project_files/subgroups.data_structures.html">subgroups.data_structures package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../project_files/subgroups.quality_measures.html">subgroups.quality_measures package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../project_files/subgroups.tests.html">subgroups.tests package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../project_files/subgroups.utils.html">subgroups.utils package</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">subgroups</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">subgroups.data_structures.bitset_bsd</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for subgroups.data_structures.bitset_bsd</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+
+<span class="c1"># Contributors:</span>
+<span class="c1">#    Paco Mora Caselles &lt;pacomoracaselles@gmail.com&gt;</span>
+
+<span class="sd">&quot;&quot;&quot;This file contains the implementation of the Bitset data structure used in the BSD algorithm and its variants.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">pandas</span> <span class="kn">import</span> <span class="n">DataFrame</span>
+
+<span class="c1"># Python annotations.</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Union</span>
+<span class="kn">from</span> <span class="nn">subgroups.core.operator</span> <span class="kn">import</span> <span class="n">Operator</span>
+
+<span class="kn">from</span> <span class="nn">subgroups.core.selector</span> <span class="kn">import</span> <span class="n">Selector</span>
+<span class="kn">from</span> <span class="nn">subgroups.core.pattern</span> <span class="kn">import</span> <span class="n">Pattern</span>
+<span class="kn">from</span> <span class="nn">bitarray</span> <span class="kn">import</span> <span class="n">bitarray</span>
+
+<div class="viewcode-block" id="BitsetDictionary">
+<a class="viewcode-back" href="../../../project_files/subgroups.data_structures.html#subgroups.data_structures.bitset_bsd.BitsetDictionary">[docs]</a>
+<span class="k">class</span> <span class="nc">BitsetDictionary</span><span class="p">(</span><span class="nb">dict</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot; Internal class to implement the dicttionaries used in the bitset. This dictionary only allows to insert a Pattern or a Selector as key.</span>
+<span class="sd">    If a Selector is inserted, it is converted to a Pattern. Each entry must store a bitarray.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">()</span>
+
+    <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__iter__</span><span class="p">():</span>
+            <span class="k">yield</span> <span class="n">Pattern</span><span class="o">.</span><span class="n">generate_from_str</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="o">!=</span> <span class="n">bitarray</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;The value must be a bitarray.&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">key</span><span class="p">)</span><span class="o">==</span><span class="n">Selector</span><span class="p">):</span>
+            <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__setitem__</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">Pattern</span><span class="p">([</span><span class="n">key</span><span class="p">])),</span><span class="n">value</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">key</span><span class="p">)</span><span class="o">==</span><span class="n">Pattern</span><span class="p">):</span>
+            <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__setitem__</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">key</span><span class="p">),</span> <span class="n">value</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;The key must be a Selector or a Pattern.&quot;</span><span class="p">)</span>
+    
+    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">bitarray</span><span class="p">:</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">key</span><span class="p">)</span><span class="o">==</span><span class="n">Selector</span><span class="p">):</span>
+            <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__getitem__</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">Pattern</span><span class="p">([</span><span class="n">key</span><span class="p">])))</span>
+        <span class="k">elif</span> <span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">key</span><span class="p">)</span><span class="o">==</span><span class="n">Pattern</span><span class="p">):</span>
+            <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__getitem__</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">key</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;The key must be a Selector or a Pattern.&quot;</span><span class="p">)</span>
+    
+    <span class="k">def</span> <span class="fm">__contains__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">__o</span><span class="p">:</span> <span class="nb">object</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">__o</span><span class="p">)</span><span class="o">==</span><span class="n">Selector</span><span class="p">):</span>
+            <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__contains__</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">Pattern</span><span class="p">([</span><span class="n">__o</span><span class="p">])))</span>
+        <span class="k">elif</span> <span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">__o</span><span class="p">)</span><span class="o">==</span><span class="n">Pattern</span><span class="p">):</span>
+            <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__contains__</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">__o</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;The key must be a Selector or a Pattern.&quot;</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="BitsetBSD">
+<a class="viewcode-back" href="../../../project_files/subgroups.data_structures.html#subgroups.data_structures.bitset_bsd.BitsetBSD">[docs]</a>
+<span class="k">class</span> <span class="nc">BitsetBSD</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;This class represents a bitset used in the BSD algorithm and its variants.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;_bitset_pos&quot;</span><span class="p">,</span> <span class="s2">&quot;_bitset_neg&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Method to initialize an object of type &#39;BitsetBSD&#39;.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># For each dictionary, the key is a string representation of a pattern and the value is a bitarray that stores for each row whether it follows the pattern.</span>
+        <span class="c1"># As we are using the BitsetDictionary class, we can use Patterns or Selectors as keys.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_bitset_pos</span> <span class="o">=</span> <span class="n">BitsetDictionary</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_bitset_neg</span> <span class="o">=</span> <span class="n">BitsetDictionary</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">_get_bitset_pos</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Private Method to get the bitset_pos dictionary.</span>
+
+<span class="sd">        :return: the bitset_pos dictionary.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_bitset_pos</span>
+    
+    <span class="k">def</span> <span class="nf">_get_bitset_neg</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Private Method to get the bitset_neg dictionary.</span>
+
+<span class="sd">        :return: the bitset_neg dictionary.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_bitset_neg</span>
+    
+    <span class="k">def</span> <span class="nf">_set_bitset_pos</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bitset_pos</span> <span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Private Method to set the bitset_pos dictionary.</span>
+
+<span class="sd">        :param bitset_pos: the bitset_pos dictionary.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_bitset_pos</span> <span class="o">=</span> <span class="n">bitset_pos</span>
+    
+    <span class="k">def</span> <span class="nf">_set_bitset_neg</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bitset_neg</span> <span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Private Method to set the bitset_neg dictionary.</span>
+
+<span class="sd">        :param bitset_neg: the bitset_neg dictionary.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_bitset_neg</span> <span class="o">=</span> <span class="n">bitset_neg</span>
+    
+    <span class="n">bitset_pos</span> <span class="o">=</span> <span class="nb">property</span><span class="p">(</span><span class="n">_get_bitset_pos</span><span class="p">,</span> <span class="n">_set_bitset_pos</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;The bitset dictionary for rows that match the target value.&quot;</span><span class="p">)</span>
+    <span class="n">bitset_neg</span> <span class="o">=</span> <span class="nb">property</span><span class="p">(</span><span class="n">_get_bitset_neg</span><span class="p">,</span> <span class="n">_set_bitset_neg</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;The bitset dictionary for rows that do not match the target value.&quot;</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="BitsetBSD.build_bitset">
+<a class="viewcode-back" href="../../../project_files/subgroups.data_structures.html#subgroups.data_structures.bitset_bsd.BitsetBSD.build_bitset">[docs]</a>
+    <span class="k">def</span> <span class="nf">build_bitset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pandas_dataframe</span> <span class="p">:</span><span class="n">DataFrame</span><span class="p">,</span><span class="n">set_of_frequent_selectors</span><span class="p">:</span><span class="nb">list</span><span class="p">,</span> <span class="n">tuple_target_attribute_value</span> <span class="p">:</span> <span class="nb">tuple</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Method to build the complete tree from the root node using a set of frequent selectors.</span>
+
+<span class="sd">        :param pandas_dataframe: Input dataset. It is VERY IMPORTANT to respect the following conditions:</span>
+<span class="sd">          (1) the dataset must be a pandas dataframe,</span>
+<span class="sd">          (2) the dataset must not contain missing values,</span>
+<span class="sd">          (3) for each attribute, all its values must be of the same type.</span>
+<span class="sd">        :param set_of_frequent_selectors: The set of frequent selectors (L) to use in the building of the tree.</span>
+<span class="sd">        :param tuple_target_attribute_value: Tuple with the name of the target attribute (first element) and with the value of this attribute (second element). EXAMPLE1: (&quot;age&quot;, 25). EXAMPLE2: (&quot;class&quot;, &quot;Setosa&quot;). It is VERY IMPORTANT to respect the following conditions:</span>
+<span class="sd">          (1) the name of the target attribute MUST be a string,</span>
+<span class="sd">          (2) the name of the target attribute MUST exist in the dataset,</span>
+<span class="sd">          (3) it is VERY IMPORTANT to respect the types of the attributes: the value in the tuple (second element) MUST BE comparable with the values of the corresponding attribute in the dataset,</span>
+<span class="sd">          (4) the value of the target attribute MUST exist in the dataset.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">pandas_dataframe</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">DataFrame</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;Parameter &#39;pandas_dataframe&#39; must be a pandas DataFrame.&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">set_of_frequent_selectors</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="nb">list</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;Parameter &#39;set_of_frequent_selectors&#39; must be a list.&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">tuple_target_attribute_value</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="nb">tuple</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;Parameter &#39;tuple_target_attribute_value&#39; must be a tuple.&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">tuple_target_attribute_value</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">2</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Parameter &#39;tuple_target_attribute_value&#39; must be of length 2.&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">tuple_target_attribute_value</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="ow">is</span> <span class="ow">not</span> <span class="nb">str</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;The name of the target attribute (first element in parameter &#39;tuple_target_attribute_value&#39;) must be a string.&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Initialize an empty list for selectors</span>
+        <span class="n">selectors</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="c1"># Get the columns of the dataset without the target column</span>
+        <span class="n">columns_without_target</span> <span class="o">=</span> <span class="n">pandas_dataframe</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="n">pandas_dataframe</span><span class="o">.</span><span class="n">columns</span> <span class="o">!=</span> <span class="n">tuple_target_attribute_value</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
+        <span class="c1"># Check that each column contains only string values</span>
+        <span class="k">for</span> <span class="n">column</span> <span class="ow">in</span> <span class="n">columns_without_target</span><span class="p">:</span>
+            <span class="c1"># If the column contains only string values</span>
+            <span class="k">if</span> <span class="n">pandas_dataframe</span><span class="p">[</span><span class="n">column</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="nb">str</span><span class="p">))</span><span class="o">.</span><span class="n">all</span><span class="p">():</span>
+                <span class="c1"># Add to the list of selectors that column along with its values</span>
+                <span class="n">selectors</span> <span class="o">+=</span> <span class="p">[(</span><span class="n">column</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span> <span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">pandas_dataframe</span><span class="p">[</span><span class="n">column</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()]</span>
+        <span class="c1"># Filter the list of selectors to keep only those that are in the set of frequent selectors</span>
+        <span class="n">selectors</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">Selector</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">Operator</span><span class="o">.</span><span class="n">EQUAL</span><span class="p">,</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="ow">in</span> <span class="n">set_of_frequent_selectors</span><span class="p">,</span> <span class="n">selectors</span><span class="p">))</span>
+        <span class="c1"># Get the subset of the dataset where the target column has the target value (positive examples)</span>
+        <span class="n">df_pos</span> <span class="o">=</span> <span class="n">pandas_dataframe</span><span class="p">[</span><span class="n">pandas_dataframe</span><span class="p">[</span><span class="n">tuple_target_attribute_value</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">==</span> <span class="n">tuple_target_attribute_value</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span>
+        <span class="c1"># Get the subset of the dataset where the target column does not have the target value (negative examples)</span>
+        <span class="n">df_neg</span> <span class="o">=</span> <span class="n">pandas_dataframe</span><span class="p">[</span><span class="n">pandas_dataframe</span><span class="p">[</span><span class="n">tuple_target_attribute_value</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">!=</span> <span class="n">tuple_target_attribute_value</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span>
+        <span class="c1"># For each selector in the list of selectors</span>
+        <span class="k">for</span> <span class="n">selector</span> <span class="ow">in</span> <span class="n">selectors</span><span class="p">:</span>
+            <span class="c1"># Create a bitarray from the boolean array that indicates whether the positive examples match the selector</span>
+            <span class="n">ba_pos</span> <span class="o">=</span> <span class="n">bitarray</span><span class="p">((</span><span class="n">df_pos</span><span class="p">[</span><span class="n">selector</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">==</span> <span class="n">selector</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
+            <span class="c1"># Create a bitarray from the boolean array that indicates whether the negative examples match the selector</span>
+            <span class="n">ba_neg</span> <span class="o">=</span> <span class="n">bitarray</span><span class="p">((</span><span class="n">df_neg</span><span class="p">[</span><span class="n">selector</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">==</span> <span class="n">selector</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
+            <span class="c1"># Add the bitarrays to the corresponding bitset dictionaries with the selector as key</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_bitset_pos</span><span class="p">[</span><span class="n">Selector</span><span class="p">(</span><span class="n">selector</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">Operator</span><span class="o">.</span><span class="n">EQUAL</span><span class="p">,</span> <span class="n">selector</span><span class="p">[</span><span class="mi">1</span><span class="p">])]</span> <span class="o">=</span> <span class="n">ba_pos</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_bitset_neg</span><span class="p">[</span><span class="n">Selector</span><span class="p">(</span><span class="n">selector</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">Operator</span><span class="o">.</span><span class="n">EQUAL</span><span class="p">,</span> <span class="n">selector</span><span class="p">[</span><span class="mi">1</span><span class="p">])]</span> <span class="o">=</span> <span class="n">ba_neg</span></div>
+
+
+
+<div class="viewcode-block" id="BitsetBSD.generate_set_of_frequent_selectors">
+<a class="viewcode-back" href="../../../project_files/subgroups.data_structures.html#subgroups.data_structures.bitset_bsd.BitsetBSD.generate_set_of_frequent_selectors">[docs]</a>
+    <span class="k">def</span> <span class="nf">generate_set_of_frequent_selectors</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pandas_dataframe</span><span class="p">,</span> <span class="n">tuple_target_attribute_value</span><span class="p">,</span> <span class="n">min_support</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Method to scan the dataset (ONLY DISCRETE/NOMINAL ATTRIBUTES) and collect the sorted set of frequent selectors (L).</span>
+
+<span class="sd">        :type pandas_dataframe: pandas.DataFrame</span>
+<span class="sd">        :param pandas_dataframe: Input dataset. It is VERY IMPORTANT to respect the following conditions:</span>
+<span class="sd">          (1) the dataset must be a pandas dataframe,</span>
+<span class="sd">          (2) the dataset must not contain missing values,</span>
+<span class="sd">          (3) for each attribute, all its values must be of the same type.</span>
+<span class="sd">        :type tuple_target_attribute_value: tuple</span>
+<span class="sd">        :param tuple_target_attribute_value: Tuple with the name of the target attribute (first element) and with the value of this attribute (second element). EXAMPLE1: (&quot;age&quot;, 25). EXAMPLE2: (&quot;class&quot;, &quot;Setosa&quot;). It is VERY IMPORTANT to respect the following conditions:</span>
+<span class="sd">          (1) the name of the target attribute MUST be a string,</span>
+<span class="sd">          (2) the name of the target attribute MUST exist in the dataset,</span>
+<span class="sd">          (3) it is VERY IMPORTANT to respect the types of the attributes: the value in the tuple (second element) MUST BE comparable with the values of the corresponding attribute in the dataset,</span>
+<span class="sd">          (4) the value of the target attribute MUST exist in the dataset.</span>
+<span class="sd">        :type min_support: int</span>
+<span class="sd">        :param min_support: Minimum support threshold (NUMBER OF TIMES, NOT A PROPORTION).</span>
+<span class="sd">        :rtype: list</span>
+<span class="sd">        :return: the sorted set of frequent selectors (L) as a list.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">pandas_dataframe</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">DataFrame</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;Parameter &#39;pandas_dataframe&#39; must be a pandas DataFrame.&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">tuple_target_attribute_value</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="nb">tuple</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;Parameter &#39;tuple_target_attribute_value&#39; must be a tuple.&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">tuple_target_attribute_value</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">2</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Parameter &#39;tuple_target_attribute_value&#39; must be of length 2.&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">tuple_target_attribute_value</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="ow">is</span> <span class="ow">not</span> <span class="nb">str</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;The name of the target attribute (first element in parameter &#39;tuple_target_attribute_value&#39;) must be a string.&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">tuple_target_attribute_value</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">pandas_dataframe</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;The name of the target attribute (first element in parameter &#39;tuple_target_attribute_value&#39;) is not an attribute of the input dataset.&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">min_support</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="nb">int</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">min_support</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="nb">float</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;Parameter &#39;min_support&#39; must be a number.&quot;</span><span class="p">)</span>
+        <span class="c1"># Initialize the set of frequent selectors</span>
+        <span class="n">set_of_frequent_selectors</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+        <span class="c1"># Get the columns of the dataset without the target column</span>
+        <span class="n">columns_without_target</span> <span class="o">=</span> <span class="n">pandas_dataframe</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="n">pandas_dataframe</span><span class="o">.</span><span class="n">columns</span> <span class="o">!=</span> <span class="n">tuple_target_attribute_value</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
+        <span class="n">selectors</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">column</span> <span class="ow">in</span> <span class="n">columns_without_target</span><span class="p">:</span>
+            <span class="c1"># If the column contains only string values</span>
+            <span class="k">if</span> <span class="n">pandas_dataframe</span><span class="p">[</span><span class="n">column</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="nb">str</span><span class="p">))</span><span class="o">.</span><span class="n">all</span><span class="p">():</span>
+                <span class="c1"># Add to the list of selectors that column along with its values</span>
+                <span class="n">selectors</span> <span class="o">+=</span> <span class="p">[(</span><span class="n">column</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span> <span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">pandas_dataframe</span><span class="p">[</span><span class="n">column</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()]</span>
+        <span class="c1"># Get the rows that match the target value</span>
+        <span class="n">df_pos</span> <span class="o">=</span> <span class="n">pandas_dataframe</span><span class="p">[</span><span class="n">pandas_dataframe</span><span class="p">[</span><span class="n">tuple_target_attribute_value</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">==</span> <span class="n">tuple_target_attribute_value</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span>
+        <span class="k">for</span> <span class="n">selector</span> <span class="ow">in</span> <span class="n">selectors</span><span class="p">:</span>
+            <span class="c1"># Get the number of rows that match the selector and the target value</span>
+            <span class="n">num_pos</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">df_pos</span><span class="p">[</span><span class="n">df_pos</span><span class="p">[</span><span class="n">selector</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">==</span> <span class="n">selector</span><span class="p">[</span><span class="mi">1</span><span class="p">]])</span>
+            <span class="c1"># Save the selector and its support in the dictionary if it is above the minimum support</span>
+            <span class="k">if</span> <span class="n">num_pos</span> <span class="o">&gt;=</span> <span class="n">min_support</span><span class="p">:</span>
+                <span class="n">set_of_frequent_selectors</span><span class="p">[</span><span class="n">Selector</span><span class="p">(</span><span class="n">selector</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">Operator</span><span class="o">.</span><span class="n">EQUAL</span><span class="p">,</span> <span class="n">selector</span><span class="p">[</span><span class="mi">1</span><span class="p">])]</span> <span class="o">=</span> <span class="n">num_pos</span>
+        <span class="n">list_of_frequent_selectors</span> <span class="o">=</span> <span class="p">[(</span><span class="n">key</span><span class="p">,</span> <span class="n">set_of_frequent_selectors</span><span class="p">[</span><span class="n">key</span><span class="p">])</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">set_of_frequent_selectors</span><span class="o">.</span><span class="n">keys</span><span class="p">()]</span>
+        <span class="c1"># Sort the list of frequent selectors by tp</span>
+        <span class="n">list_of_frequent_selectors</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="c1"># Return only the selectors</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">list_of_frequent_selectors</span><span class="p">]</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Antonio López Martínez-Carrasco.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>subgroups.tests.data_structures.test_fp_tree_node &mdash; subgroups 0.1.6 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=92fd9be5" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../../_static/documentation_options.js?v=6e0256f3"></script>
+        <script src="../../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../../index.html" class="icon icon-home">
+            subgroups
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../project_files/subgroups.html">subgroups package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../project_files/subgroups.algorithms.html">subgroups.algorithms package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../project_files/subgroups.core.html">subgroups.core package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../project_files/subgroups.data_structures.html">subgroups.data_structures package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../project_files/subgroups.quality_measures.html">subgroups.quality_measures package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../project_files/subgroups.tests.html">subgroups.tests package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../project_files/subgroups.utils.html">subgroups.utils package</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">subgroups</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../index.html">Module code</a></li>
+          <li class="breadcrumb-item"><a href="../../tests.html">subgroups.tests</a></li>
+      <li class="breadcrumb-item active">subgroups.tests.data_structures.test_fp_tree_node</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for subgroups.tests.data_structures.test_fp_tree_node</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+
+<span class="c1"># Contributors:</span>
+<span class="c1">#    Antonio López Martínez-Carrasco &lt;antoniolopezmc1995@gmail.com&gt;</span>
+
+<span class="sd">&quot;&quot;&quot;Tests of the functionality contained in the file &#39;data_structures/fp_tree_node.py&#39;.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">subgroups.data_structures.fp_tree_node</span> <span class="kn">import</span> <span class="n">FPTreeNode</span>
+<span class="kn">from</span> <span class="nn">subgroups.core.selector</span> <span class="kn">import</span> <span class="n">Selector</span>
+<span class="kn">from</span> <span class="nn">subgroups.core.operator</span> <span class="kn">import</span> <span class="n">Operator</span>
+<span class="kn">from</span> <span class="nn">subgroups.exceptions</span> <span class="kn">import</span> <span class="n">DuplicateFpTreeNodeError</span>
+<span class="kn">import</span> <span class="nn">unittest</span>
+
+<div class="viewcode-block" id="TestFPTreeNode">
+<a class="viewcode-back" href="../../../../project_files/subgroups.tests.data_structures.html#subgroups.tests.data_structures.test_fp_tree_node.TestFPTreeNode">[docs]</a>
+<span class="k">class</span> <span class="nc">TestFPTreeNode</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
+
+<div class="viewcode-block" id="TestFPTreeNode.test_FPTreeNode_general">
+<a class="viewcode-back" href="../../../../project_files/subgroups.tests.data_structures.html#subgroups.tests.data_structures.test_fp_tree_node.TestFPTreeNode.test_FPTreeNode_general">[docs]</a>
+    <span class="k">def</span> <span class="nf">test_FPTreeNode_general</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="c1"># Root.</span>
+        <span class="n">selector1</span> <span class="o">=</span> <span class="n">Selector</span><span class="p">(</span><span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="n">Operator</span><span class="o">.</span><span class="n">EQUAL</span><span class="p">,</span> <span class="s2">&quot;value1&quot;</span><span class="p">)</span>
+        <span class="n">node1</span> <span class="o">=</span> <span class="n">FPTreeNode</span><span class="p">(</span><span class="n">selector1</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">node1</span><span class="o">.</span><span class="n">selector</span><span class="p">,</span> <span class="n">selector1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">node1</span><span class="o">.</span><span class="n">counters</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIsNone</span><span class="p">(</span><span class="n">node1</span><span class="o">.</span><span class="n">node_link</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">node1</span><span class="p">),</span> <span class="s2">&quot;{id: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="n">node1</span><span class="p">))</span> <span class="o">+</span> <span class="s2">&quot;, selector: name = &#39;value1&#39;, counters: [1], node_link_id: None}&quot;</span><span class="p">)</span>
+        <span class="n">node1</span><span class="o">.</span><span class="n">counters</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">node1</span><span class="o">.</span><span class="n">counters</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">node1</span><span class="o">.</span><span class="n">counters</span><span class="p">,</span> <span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIsNone</span><span class="p">(</span><span class="n">node1</span><span class="o">.</span><span class="n">node_link</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">node1</span><span class="p">),</span> <span class="s2">&quot;{id: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="n">node1</span><span class="p">))</span> <span class="o">+</span> <span class="s2">&quot;, selector: name = &#39;value1&#39;, counters: [2], node_link_id: None}&quot;</span><span class="p">)</span>
+        <span class="c1"># Childs of root.</span>
+        <span class="n">selector2</span> <span class="o">=</span> <span class="n">Selector</span><span class="p">(</span><span class="s2">&quot;att1&quot;</span><span class="p">,</span> <span class="n">Operator</span><span class="o">.</span><span class="n">EQUAL</span><span class="p">,</span> <span class="s2">&quot;value2&quot;</span><span class="p">)</span>
+        <span class="n">node2</span> <span class="o">=</span> <span class="n">FPTreeNode</span><span class="p">(</span><span class="n">selector2</span><span class="p">,</span> <span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">node2</span><span class="o">.</span><span class="n">selector</span><span class="p">,</span> <span class="n">Selector</span><span class="p">(</span><span class="s2">&quot;att1&quot;</span><span class="p">,</span> <span class="n">Operator</span><span class="o">.</span><span class="n">EQUAL</span><span class="p">,</span> <span class="s2">&quot;value2&quot;</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">node2</span><span class="o">.</span><span class="n">counters</span><span class="p">,</span> <span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+        <span class="n">selector3</span> <span class="o">=</span> <span class="n">Selector</span><span class="p">(</span><span class="s2">&quot;att2&quot;</span><span class="p">,</span> <span class="n">Operator</span><span class="o">.</span><span class="n">EQUAL</span><span class="p">,</span> <span class="s2">&quot;value3&quot;</span><span class="p">)</span>
+        <span class="n">node3</span> <span class="o">=</span> <span class="n">FPTreeNode</span><span class="p">(</span><span class="n">selector3</span><span class="p">,</span> <span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="n">selector4</span> <span class="o">=</span> <span class="n">Selector</span><span class="p">(</span><span class="s2">&quot;att2&quot;</span><span class="p">,</span> <span class="n">Operator</span><span class="o">.</span><span class="n">EQUAL</span><span class="p">,</span> <span class="s2">&quot;value3&quot;</span><span class="p">)</span>
+        <span class="n">node4</span> <span class="o">=</span> <span class="n">FPTreeNode</span><span class="p">(</span><span class="n">selector4</span><span class="p">,</span> <span class="p">[</span><span class="mi">4</span><span class="p">],</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="n">selector5</span> <span class="o">=</span> <span class="n">Selector</span><span class="p">(</span><span class="s2">&quot;att3&quot;</span><span class="p">,</span> <span class="n">Operator</span><span class="o">.</span><span class="n">EQUAL</span><span class="p">,</span> <span class="s2">&quot;value5&quot;</span><span class="p">)</span>
+        <span class="n">node5</span> <span class="o">=</span> <span class="n">FPTreeNode</span><span class="p">(</span><span class="n">selector5</span><span class="p">,</span> <span class="p">[</span><span class="mi">5</span><span class="p">],</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="c1"># Childs of &#39;node3&#39;.</span>
+        <span class="n">selector6</span> <span class="o">=</span> <span class="n">Selector</span><span class="p">(</span><span class="s2">&quot;att1&quot;</span><span class="p">,</span> <span class="n">Operator</span><span class="o">.</span><span class="n">EQUAL</span><span class="p">,</span> <span class="s2">&quot;value6&quot;</span><span class="p">)</span>
+        <span class="n">node6</span> <span class="o">=</span> <span class="n">FPTreeNode</span><span class="p">(</span><span class="n">selector6</span><span class="p">,</span> <span class="p">[</span><span class="mi">6</span><span class="p">],</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="n">selector7</span> <span class="o">=</span> <span class="n">Selector</span><span class="p">(</span><span class="s2">&quot;att2&quot;</span><span class="p">,</span> <span class="n">Operator</span><span class="o">.</span><span class="n">EQUAL</span><span class="p">,</span> <span class="s2">&quot;value7&quot;</span><span class="p">)</span>
+        <span class="n">node7</span> <span class="o">=</span> <span class="n">FPTreeNode</span><span class="p">(</span><span class="n">selector7</span><span class="p">,</span> <span class="p">[</span><span class="mi">7</span><span class="p">],</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="c1"># Add child nodes.</span>
+        <span class="n">node1</span><span class="o">.</span><span class="n">add_child</span><span class="p">(</span><span class="n">node2</span><span class="p">)</span>
+        <span class="n">node1</span><span class="o">.</span><span class="n">add_child</span><span class="p">(</span><span class="n">node3</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertRaises</span><span class="p">(</span><span class="n">DuplicateFpTreeNodeError</span><span class="p">,</span> <span class="n">node1</span><span class="o">.</span><span class="n">add_child</span><span class="p">,</span> <span class="n">node4</span><span class="p">)</span> <span class="c1"># This node will not be inserted because it has the same selector as node3.</span>
+        <span class="n">node1</span><span class="o">.</span><span class="n">add_child</span><span class="p">(</span><span class="n">node5</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">node1</span><span class="o">.</span><span class="n">number_of_children</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+        <span class="n">node3</span><span class="o">.</span><span class="n">add_child</span><span class="p">(</span><span class="n">node6</span><span class="p">)</span>
+        <span class="n">node3</span><span class="o">.</span><span class="n">add_child</span><span class="p">(</span><span class="n">node7</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">node3</span><span class="o">.</span><span class="n">number_of_children</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">node6</span><span class="o">.</span><span class="n">number_of_children</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="c1"># Check if a node has a child.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="n">node1</span><span class="o">.</span><span class="n">has_this_child</span><span class="p">(</span> <span class="n">node3</span> <span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertFalse</span><span class="p">(</span><span class="n">node1</span><span class="o">.</span><span class="n">has_this_child</span><span class="p">(</span> <span class="n">node7</span> <span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="n">node3</span><span class="o">.</span><span class="n">has_this_child</span><span class="p">(</span> <span class="n">node7</span> <span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertFalse</span><span class="p">(</span><span class="n">node3</span><span class="o">.</span><span class="n">has_this_child</span><span class="p">(</span> <span class="n">node1</span> <span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertFalse</span><span class="p">(</span><span class="n">node3</span><span class="o">.</span><span class="n">has_this_child</span><span class="p">(</span> <span class="n">node2</span> <span class="p">))</span>
+        <span class="c1"># Check the parents.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="n">node1</span><span class="o">.</span><span class="n">is_child_of</span><span class="p">(</span> <span class="kc">None</span> <span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="n">node2</span><span class="o">.</span><span class="n">is_child_of</span><span class="p">(</span> <span class="n">node1</span> <span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="n">node3</span><span class="o">.</span><span class="n">is_child_of</span><span class="p">(</span> <span class="n">node1</span> <span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="n">node4</span><span class="o">.</span><span class="n">is_child_of</span><span class="p">(</span> <span class="kc">None</span> <span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="n">node5</span><span class="o">.</span><span class="n">is_child_of</span><span class="p">(</span> <span class="n">node1</span> <span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="n">node6</span><span class="o">.</span><span class="n">is_child_of</span><span class="p">(</span> <span class="n">node3</span> <span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="n">node7</span><span class="o">.</span><span class="n">is_child_of</span><span class="p">(</span> <span class="n">node3</span> <span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="n">node1</span><span class="o">.</span><span class="n">parent</span><span class="p">),</span> <span class="nb">id</span><span class="p">(</span> <span class="kc">None</span> <span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="n">node2</span><span class="o">.</span><span class="n">parent</span><span class="p">),</span> <span class="nb">id</span><span class="p">(</span> <span class="n">node1</span> <span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="n">node3</span><span class="o">.</span><span class="n">parent</span><span class="p">),</span> <span class="nb">id</span><span class="p">(</span> <span class="n">node1</span> <span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="n">node4</span><span class="o">.</span><span class="n">parent</span><span class="p">),</span> <span class="nb">id</span><span class="p">(</span> <span class="kc">None</span> <span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="n">node5</span><span class="o">.</span><span class="n">parent</span><span class="p">),</span> <span class="nb">id</span><span class="p">(</span> <span class="n">node1</span> <span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="n">node6</span><span class="o">.</span><span class="n">parent</span><span class="p">),</span> <span class="nb">id</span><span class="p">(</span> <span class="n">node3</span> <span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="n">node7</span><span class="o">.</span><span class="n">parent</span><span class="p">),</span> <span class="nb">id</span><span class="p">(</span> <span class="n">node3</span> <span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIsNone</span><span class="p">(</span><span class="n">node1</span><span class="o">.</span><span class="n">parent</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIs</span><span class="p">(</span><span class="n">node2</span><span class="o">.</span><span class="n">parent</span><span class="p">,</span> <span class="n">node1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIs</span><span class="p">(</span><span class="n">node3</span><span class="o">.</span><span class="n">parent</span><span class="p">,</span> <span class="n">node1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIsNone</span><span class="p">(</span><span class="n">node4</span><span class="o">.</span><span class="n">parent</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIs</span><span class="p">(</span><span class="n">node5</span><span class="o">.</span><span class="n">parent</span><span class="p">,</span> <span class="n">node1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIs</span><span class="p">(</span><span class="n">node6</span><span class="o">.</span><span class="n">parent</span><span class="p">,</span> <span class="n">node3</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIs</span><span class="p">(</span><span class="n">node7</span><span class="o">.</span><span class="n">parent</span><span class="p">,</span> <span class="n">node3</span><span class="p">)</span>
+        <span class="c1"># Get child nodes by selector.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="n">node1</span><span class="o">.</span><span class="n">get_child_by_selector</span><span class="p">(</span> <span class="n">selector2</span> <span class="p">)),</span> <span class="nb">id</span><span class="p">(</span><span class="n">node2</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="n">node1</span><span class="o">.</span><span class="n">get_child_by_selector</span><span class="p">(</span> <span class="n">selector3</span> <span class="p">)),</span> <span class="nb">id</span><span class="p">(</span><span class="n">node3</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="n">node1</span><span class="o">.</span><span class="n">get_child_by_selector</span><span class="p">(</span> <span class="n">selector5</span> <span class="p">)),</span> <span class="nb">id</span><span class="p">(</span><span class="n">node5</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="n">node3</span><span class="o">.</span><span class="n">get_child_by_selector</span><span class="p">(</span> <span class="n">selector6</span> <span class="p">)),</span> <span class="nb">id</span><span class="p">(</span><span class="n">node6</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="n">node3</span><span class="o">.</span><span class="n">get_child_by_selector</span><span class="p">(</span> <span class="n">selector7</span> <span class="p">)),</span> <span class="nb">id</span><span class="p">(</span><span class="n">node7</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIs</span><span class="p">(</span><span class="n">node1</span><span class="o">.</span><span class="n">get_child_by_selector</span><span class="p">(</span> <span class="n">selector2</span> <span class="p">),</span> <span class="n">node2</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIs</span><span class="p">(</span><span class="n">node1</span><span class="o">.</span><span class="n">get_child_by_selector</span><span class="p">(</span> <span class="n">selector3</span> <span class="p">),</span> <span class="n">node3</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIs</span><span class="p">(</span><span class="n">node1</span><span class="o">.</span><span class="n">get_child_by_selector</span><span class="p">(</span> <span class="n">selector5</span> <span class="p">),</span> <span class="n">node5</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIs</span><span class="p">(</span><span class="n">node3</span><span class="o">.</span><span class="n">get_child_by_selector</span><span class="p">(</span> <span class="n">selector6</span> <span class="p">),</span> <span class="n">node6</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIs</span><span class="p">(</span><span class="n">node3</span><span class="o">.</span><span class="n">get_child_by_selector</span><span class="p">(</span> <span class="n">selector7</span> <span class="p">),</span> <span class="n">node7</span><span class="p">)</span>
+        <span class="c1"># Delete child nodes.</span>
+        <span class="n">node1</span><span class="o">.</span><span class="n">delete_child_by_selector</span><span class="p">(</span><span class="n">node5</span><span class="o">.</span><span class="n">selector</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertRaises</span><span class="p">(</span><span class="ne">KeyError</span><span class="p">,</span> <span class="n">node1</span><span class="o">.</span><span class="n">delete_child_by_selector</span><span class="p">,</span> <span class="n">node5</span><span class="o">.</span><span class="n">selector</span><span class="p">)</span> <span class="c1"># This node does not exist anymore.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">node1</span><span class="o">.</span><span class="n">number_of_children</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="n">node5</span><span class="o">.</span><span class="n">is_child_of</span><span class="p">(</span> <span class="kc">None</span> <span class="p">))</span>
+        <span class="n">node1</span><span class="o">.</span><span class="n">add_child</span><span class="p">(</span><span class="n">node5</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">node1</span><span class="o">.</span><span class="n">number_of_children</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="n">node5</span><span class="o">.</span><span class="n">is_child_of</span><span class="p">(</span> <span class="n">node1</span> <span class="p">))</span>
+        <span class="c1"># Print the tree.</span>
+        <span class="n">expected_result</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">node1</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="s2">&quot;|--- &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">node2</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="s2">&quot;|--- &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">node3</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="s2">&quot;    |--- &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">node6</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="s2">&quot;    |--- &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">node7</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="s2">&quot;|--- &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">node5</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="n">expected_result_split</span> <span class="o">=</span> <span class="n">expected_result</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">expected_result_split</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+        <span class="n">final_expected_result</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">expected_result_split</span><span class="p">)</span>
+        <span class="n">node1_printed</span> <span class="o">=</span> <span class="n">node1</span><span class="o">.</span><span class="n">tree_as_str</span><span class="p">()</span>
+        <span class="n">node1_printed_split</span> <span class="o">=</span> <span class="n">node1_printed</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">node1_printed_split</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+        <span class="n">final_node1_printed</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">node1_printed_split</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">final_expected_result</span><span class="p">,</span> <span class="n">final_node1_printed</span><span class="p">)</span>
+        <span class="c1"># Childs with the same selector, but with different father.</span>
+        <span class="n">new_node_1</span> <span class="o">=</span> <span class="n">FPTreeNode</span><span class="p">(</span><span class="n">Selector</span><span class="p">(</span><span class="s2">&quot;att2&quot;</span><span class="p">,</span> <span class="n">Operator</span><span class="o">.</span><span class="n">EQUAL</span><span class="p">,</span> <span class="s2">&quot;value3&quot;</span><span class="p">),</span> <span class="p">[</span><span class="mi">6</span><span class="p">],</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="n">node3</span><span class="o">.</span><span class="n">add_child</span><span class="p">(</span><span class="n">new_node_1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">node1</span><span class="o">.</span><span class="n">number_of_children</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">node3</span><span class="o">.</span><span class="n">number_of_children</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">new_node_1</span><span class="o">.</span><span class="n">number_of_children</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">new_node_1</span><span class="o">.</span><span class="n">selector</span><span class="p">,</span> <span class="n">node3</span><span class="o">.</span><span class="n">selector</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertFalse</span><span class="p">(</span><span class="n">node1</span><span class="o">.</span><span class="n">has_this_child</span><span class="p">(</span> <span class="n">new_node_1</span> <span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="n">node3</span><span class="o">.</span><span class="n">has_this_child</span><span class="p">(</span> <span class="n">new_node_1</span> <span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertNotEqual</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="n">node3</span><span class="p">),</span> <span class="nb">id</span><span class="p">(</span><span class="n">new_node_1</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIsNot</span><span class="p">(</span><span class="n">node3</span><span class="p">,</span> <span class="n">new_node_1</span><span class="p">)</span>
+        <span class="n">new_node_2</span> <span class="o">=</span> <span class="n">FPTreeNode</span><span class="p">(</span><span class="n">Selector</span><span class="p">(</span><span class="s2">&quot;att2&quot;</span><span class="p">,</span> <span class="n">Operator</span><span class="o">.</span><span class="n">EQUAL</span><span class="p">,</span> <span class="s2">&quot;value3&quot;</span><span class="p">),</span> <span class="p">[</span><span class="mi">6</span><span class="p">],</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="n">node6</span><span class="o">.</span><span class="n">add_child</span><span class="p">(</span><span class="n">new_node_2</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">node1</span><span class="o">.</span><span class="n">number_of_children</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">node3</span><span class="o">.</span><span class="n">number_of_children</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">new_node_2</span><span class="o">.</span><span class="n">number_of_children</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">node6</span><span class="o">.</span><span class="n">number_of_children</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">new_node_2</span><span class="o">.</span><span class="n">selector</span><span class="p">,</span> <span class="n">node3</span><span class="o">.</span><span class="n">selector</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">new_node_1</span><span class="o">.</span><span class="n">selector</span><span class="p">,</span> <span class="n">new_node_2</span><span class="o">.</span><span class="n">selector</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertFalse</span><span class="p">(</span><span class="n">node1</span><span class="o">.</span><span class="n">has_this_child</span><span class="p">(</span> <span class="n">new_node_2</span> <span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertFalse</span><span class="p">(</span><span class="n">node3</span><span class="o">.</span><span class="n">has_this_child</span><span class="p">(</span> <span class="n">new_node_2</span> <span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="n">node6</span><span class="o">.</span><span class="n">has_this_child</span><span class="p">(</span> <span class="n">new_node_2</span> <span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertNotEqual</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="n">node3</span><span class="p">),</span> <span class="nb">id</span><span class="p">(</span><span class="n">new_node_2</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertNotEqual</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="n">new_node_1</span><span class="p">),</span> <span class="nb">id</span><span class="p">(</span><span class="n">new_node_2</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIsNot</span><span class="p">(</span><span class="n">node3</span><span class="p">,</span> <span class="n">new_node_2</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIsNot</span><span class="p">(</span><span class="n">new_node_1</span><span class="p">,</span> <span class="n">new_node_2</span><span class="p">)</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Antonio López Martínez-Carrasco.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

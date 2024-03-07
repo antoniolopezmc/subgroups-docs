@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>subgroups.data_structures.vertical_list &mdash; subgroups 0.1.6 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=92fd9be5" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../_static/documentation_options.js?v=6e0256f3"></script>
+        <script src="../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            subgroups
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../project_files/subgroups.html">subgroups package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../project_files/subgroups.algorithms.html">subgroups.algorithms package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../project_files/subgroups.core.html">subgroups.core package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../project_files/subgroups.data_structures.html">subgroups.data_structures package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../project_files/subgroups.quality_measures.html">subgroups.quality_measures package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../project_files/subgroups.tests.html">subgroups.tests package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../project_files/subgroups.utils.html">subgroups.utils package</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">subgroups</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">subgroups.data_structures.vertical_list</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for subgroups.data_structures.vertical_list</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+
+<span class="c1"># Contributors:</span>
+<span class="c1">#    Antonio López Martínez-Carrasco &lt;antoniolopezmc1995@gmail.com&gt;</span>
+
+<span class="sd">&quot;&quot;&quot;This file contains the implementation of the root class of all the implemented Vertical Lists (data structure used by the VLSD algorithm). Conceptually, a Vertical List is similar to a Subgroup. This class is an abstract class and cannot be instantiated.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">abc</span> <span class="kn">import</span> <span class="n">ABC</span><span class="p">,</span> <span class="n">abstractmethod</span>
+<span class="kn">from</span> <span class="nn">subgroups.quality_measures.quality_measure</span> <span class="kn">import</span> <span class="n">QualityMeasure</span>
+<span class="kn">from</span> <span class="nn">subgroups.core.selector</span> <span class="kn">import</span> <span class="n">Selector</span>
+<span class="kn">from</span> <span class="nn">collections.abc</span> <span class="kn">import</span> <span class="n">Collection</span>
+
+<span class="c1"># Python annotations.</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Union</span>
+
+<div class="viewcode-block" id="VerticalList">
+<a class="viewcode-back" href="../../../project_files/subgroups.data_structures.html#subgroups.data_structures.vertical_list.VerticalList">[docs]</a>
+<span class="k">class</span> <span class="nc">VerticalList</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;This abstract class defines the root class of all the implemented Vertical Lists (data structure used by the VLSD algorithm). Conceptually, a Vertical List is similar to a Subgroup.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;_list_of_selectors&quot;</span><span class="p">,</span> <span class="s2">&quot;_sequence_of_instances_tp&quot;</span><span class="p">,</span> <span class="s2">&quot;_tp&quot;</span><span class="p">,</span> <span class="s2">&quot;_sequence_of_instances_fp&quot;</span><span class="p">,</span> <span class="s2">&quot;_fp&quot;</span><span class="p">,</span> <span class="s2">&quot;_number_of_dataset_instances&quot;</span><span class="p">,</span> <span class="s2">&quot;_quality_value&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">list_of_selectors</span> <span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Selector</span><span class="p">],</span> <span class="n">sequence_of_instances_tp</span> <span class="p">:</span> <span class="n">Collection</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">sequence_of_instances_fp</span> <span class="p">:</span> <span class="n">Collection</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">number_of_dataset_instances</span> <span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">quality_value</span> <span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">list_of_selectors</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="nb">list</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;The type of the parameter &#39;list_of_selectors&#39; must be &#39;list&#39;.&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">sequence_of_instances_tp</span><span class="p">,</span> <span class="n">Collection</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;The parameter &#39;sequence_of_instances_tp&#39; must be an instance of a subclass of the &#39;Collection&#39; class.&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">sequence_of_instances_fp</span><span class="p">,</span> <span class="n">Collection</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;The parameter &#39;sequence_of_instances_fp&#39; must be an instance of a subclass of the &#39;Collection&#39; class.&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">number_of_dataset_instances</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="nb">int</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;The type of the parameter &#39;number_of_dataset_instances&#39; must be &#39;int&#39;.&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">quality_value</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="nb">int</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">quality_value</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="nb">float</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;The type of the parameter &#39;quality_value&#39; must be &#39;int&#39; or &#39;float&#39;.&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_list_of_selectors</span> <span class="o">=</span> <span class="n">list_of_selectors</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_number_of_dataset_instances</span> <span class="o">=</span> <span class="n">number_of_dataset_instances</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_quality_value</span> <span class="o">=</span> <span class="n">quality_value</span>
+    
+    <span class="k">def</span> <span class="nf">_get_list_of_selectors</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">Selector</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_list_of_selectors</span>
+
+    <span class="nd">@property</span>
+    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">sequence_of_instances_tp</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Collection</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;The sequence of IDs of the dataset instances which are covered by the selectors (&#39;list_of_selectors&#39;) and also by the target.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;The &#39;_get_sequence_of_instances_tp&#39; method from the &#39;VerticalList&#39; abstract class is an abstract method.&quot;</span><span class="p">)</span>
+    
+    <span class="nd">@property</span>
+    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">sequence_of_instances_fp</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Collection</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;The sequence of IDs of the dataset instances which are covered by the selectors (&#39;list_of_selectors&#39;), but not by the target.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;The &#39;_get_sequence_of_instances_fp&#39; method from the &#39;VerticalList&#39; abstract class is an abstract method.&quot;</span><span class="p">)</span>
+    
+    <span class="nd">@property</span>
+    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">tp</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;The number of dataset instances which are covered by the selectors (&#39;list_of_selectors&#39;) and also by the target.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;The &#39;_get_tp&#39; method from the &#39;VerticalList&#39; abstract class is an abstract method.&quot;</span><span class="p">)</span>
+    
+    <span class="nd">@property</span>
+    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">fp</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;The number of dataset instances which are covered by the selectors (&#39;list_of_selectors&#39;), but not by the target.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;The &#39;_get_fp&#39; method from the &#39;VerticalList&#39; abstract class is an abstract method.&quot;</span><span class="p">)</span>
+    
+    <span class="nd">@property</span>
+    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">n</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;The number of dataset instances which are covered by the selectors (&#39;list_of_selectors&#39;), no matter the target.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;The &#39;_get_n&#39; method from the &#39;VerticalList&#39; abstract class is an abstract method.&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_get_number_of_dataset_instances</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_number_of_dataset_instances</span>
+
+    <span class="k">def</span> <span class="nf">_get_quality_value</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_quality_value</span>
+    
+    <span class="k">def</span> <span class="nf">_set_quality_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">quality_value</span> <span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_quality_value</span> <span class="o">=</span> <span class="n">quality_value</span>
+
+    <span class="n">list_of_selectors</span> <span class="o">=</span> <span class="nb">property</span><span class="p">(</span><span class="n">_get_list_of_selectors</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;The list of selectors represented by the Vertical List.&quot;</span><span class="p">)</span>
+    <span class="n">number_of_dataset_instances</span> <span class="o">=</span> <span class="nb">property</span><span class="p">(</span><span class="n">_get_number_of_dataset_instances</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;Number of instances of the dataset from which this Vertical List has been generated.&quot;</span><span class="p">)</span>
+    <span class="n">quality_value</span> <span class="o">=</span> <span class="nb">property</span><span class="p">(</span><span class="n">_get_quality_value</span><span class="p">,</span> <span class="n">_set_quality_value</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;The Vertical List quality value.&quot;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="VerticalList.compute_quality_value">
+<a class="viewcode-back" href="../../../project_files/subgroups.data_structures.html#subgroups.data_structures.vertical_list.VerticalList.compute_quality_value">[docs]</a>
+    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">compute_quality_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">quality_measure</span> <span class="p">:</span> <span class="n">QualityMeasure</span><span class="p">,</span> <span class="n">dict_of_parameters</span> <span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]])</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Method to compute the Vertical List quality value using the dictionary of parameters passed by parameter. This method uses the parameters &#39;tp&#39; and &#39;fp&#39; of the Vertical List, not of the dictionary of parameters passed by parameter. IMPORTANT: this method does not modify the Vertical List.</span>
+<span class="sd">        </span>
+<span class="sd">        :param quality_measure: the quality measure which is used.</span>
+<span class="sd">        :param dict_of_parameters: python dictionary which contains all the needed parameters with which to compute the Vertical List quality value. IMPORTANT: this method uses the &#39;tp&#39; and &#39;fp&#39; parameters of the Vertical List, not of the dictionary of parameters passed by parameter.</span>
+<span class="sd">        :return: the computed value for the Vertical List quality value.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;The &#39;compute_quality_value&#39; method from the &#39;VerticalList&#39; abstract class is an abstract method.&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="VerticalList.join">
+<a class="viewcode-back" href="../../../project_files/subgroups.data_structures.html#subgroups.data_structures.vertical_list.VerticalList.join">[docs]</a>
+    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">join</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other_vertical_list</span> <span class="p">:</span> <span class="s1">&#39;VerticalList&#39;</span><span class="p">,</span> <span class="n">quality_measure</span> <span class="p">:</span> <span class="n">QualityMeasure</span><span class="p">,</span> <span class="n">dict_of_parameters</span> <span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]],</span> <span class="n">return_None_if_n_is_0</span> <span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="s1">&#39;VerticalList&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Method to create a new Vertical List as a result of the join of two Vertical Lists. The join of two Vertical Lists implies the following: (1) the last selector of the list of selectors of the second Vertical List is added to the end of the list of selectors of the first Vertical List, and (2) the new sequences of IDs (both) are the intersection of the corresponding original ones.</span>
+<span class="sd">        </span>
+<span class="sd">        :param other_vertical_list: the Vertical List with which to make the join.</span>
+<span class="sd">        :param quality_measure: the quality measure which is used to compute the quality value of the created Vertical List.</span>
+<span class="sd">        :param dict_of_parameters: python dictionary which contains all the needed parameters with which to compute the Vertical List quality value. IMPORTANT: this method uses the &#39;tp&#39; and &#39;fp&#39; parameters of the created Vertical List, not of the dictionary of parameters passed by parameter.</span>
+<span class="sd">        :param return_None_if_n_is_0: if the subgroup parameter n (i.e., tp + fp) of the resulting Vertical List (i.e., the join) is 0, this means that both sequence of instances are empty and, therefore, this means that the pattern represented by the Vertical List is not in any instance in the dataset. If the parameter &#39;return_None_if_n_is_0&#39; is True, None will be returned instead of a Vertical List object. By default, this parameter is False.</span>
+<span class="sd">        :return: a new Vertical List as a result of the join of this Vertical List (self) and &#39;other_vertical_list&#39;.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;The &#39;join&#39; method from the &#39;VerticalList&#39; abstract class is an abstract method.&quot;</span><span class="p">)</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Antonio López Martínez-Carrasco.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

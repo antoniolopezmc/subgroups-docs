@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>subgroups.algorithms.subgroup_sets.sdmapstar &mdash; subgroups 0.1.6 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=92fd9be5" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../../_static/documentation_options.js?v=6e0256f3"></script>
+        <script src="../../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../../index.html" class="icon icon-home">
+            subgroups
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../project_files/subgroups.html">subgroups package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../project_files/subgroups.algorithms.html">subgroups.algorithms package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../project_files/subgroups.core.html">subgroups.core package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../project_files/subgroups.data_structures.html">subgroups.data_structures package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../project_files/subgroups.quality_measures.html">subgroups.quality_measures package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../project_files/subgroups.tests.html">subgroups.tests package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../project_files/subgroups.utils.html">subgroups.utils package</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">subgroups</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">subgroups.algorithms.subgroup_sets.sdmapstar</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for subgroups.algorithms.subgroup_sets.sdmapstar</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+
+<span class="c1"># Contributors:</span>
+<span class="c1">#    Paco Mora Caselles &lt;pacomoracaselles@gmail.com&gt;</span>
+
+<span class="sd">&quot;&quot;&quot;This file contains the implementation of the SDMapStar algorithm.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">pandas</span> <span class="kn">import</span> <span class="n">DataFrame</span>
+<span class="kn">from</span> <span class="nn">pandas.api.types</span> <span class="kn">import</span> <span class="n">is_string_dtype</span>
+<span class="kn">from</span> <span class="nn">subgroups.algorithms.algorithm</span> <span class="kn">import</span> <span class="n">Algorithm</span>
+<span class="kn">from</span> <span class="nn">subgroups.quality_measures.quality_measure</span> <span class="kn">import</span> <span class="n">QualityMeasure</span>
+<span class="kn">from</span> <span class="nn">subgroups.exceptions</span> <span class="kn">import</span> <span class="n">InconsistentMethodParametersError</span><span class="p">,</span> <span class="n">DatasetAttributeTypeError</span>
+<span class="kn">from</span> <span class="nn">subgroups.data_structures.fp_tree_for_sdmapstar</span> <span class="kn">import</span> <span class="n">FPTreeForSDMapStar</span>
+<span class="kn">from</span> <span class="nn">subgroups.core.pattern</span> <span class="kn">import</span> <span class="n">Pattern</span>
+<span class="kn">from</span> <span class="nn">subgroups.core.operator</span> <span class="kn">import</span> <span class="n">Operator</span>
+<span class="kn">from</span> <span class="nn">subgroups.core.selector</span> <span class="kn">import</span> <span class="n">Selector</span>
+<span class="kn">from</span> <span class="nn">subgroups.core.subgroup</span> <span class="kn">import</span> <span class="n">Subgroup</span>
+
+<span class="c1"># Python annotations.</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Union</span>
+
+<span class="k">def</span> <span class="nf">_generate_all_combinations</span><span class="p">(</span><span class="n">list_of_selectors</span> <span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Selector</span><span class="p">]):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Private method to generate all the combinations (including the empty list) of the list of selectors passed by parameter.</span>
+<span class="sd">    </span>
+<span class="sd">    :param list_of_selectors: the list of selectors which is used.</span>
+<span class="sd">    :return: all combinations (including the empty list) of the list of selectors passed by parameter.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">list_of_selectors</span> <span class="o">==</span> <span class="p">[]:</span>
+        <span class="k">return</span> <span class="p">[[]]</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">_generate_all_combinations</span><span class="p">(</span><span class="n">list_of_selectors</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span>
+    <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="p">[[</span><span class="n">list_of_selectors</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">+</span> <span class="n">y</span> <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">x</span><span class="p">]</span>
+
+<span class="k">def</span> <span class="nf">_delete_subgroup_parameters_from_a_dictionary</span><span class="p">(</span><span class="n">dict_of_parameters</span> <span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Private method to delete the subgroup parameters (i.e., tp, fp, TP and FP) from a dictionary of parameters. IMPORTANT: this method modifies the parameter, does not return a new dictionary.</span>
+<span class="sd">    </span>
+<span class="sd">    :param dict_of_parameters: the dictionary of parameters which is modified.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">del</span> <span class="n">dict_of_parameters</span><span class="p">[</span><span class="n">QualityMeasure</span><span class="o">.</span><span class="n">TRUE_POSITIVES</span><span class="p">]</span>
+    <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+        <span class="k">pass</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">del</span> <span class="n">dict_of_parameters</span><span class="p">[</span><span class="n">QualityMeasure</span><span class="o">.</span><span class="n">FALSE_POSITIVES</span><span class="p">]</span>
+    <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+        <span class="k">pass</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">del</span> <span class="n">dict_of_parameters</span><span class="p">[</span><span class="n">QualityMeasure</span><span class="o">.</span><span class="n">TRUE_POPULATION</span><span class="p">]</span>
+    <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+        <span class="k">pass</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">del</span> <span class="n">dict_of_parameters</span><span class="p">[</span><span class="n">QualityMeasure</span><span class="o">.</span><span class="n">FALSE_POPULATION</span><span class="p">]</span>
+    <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+        <span class="k">pass</span>
+
+<div class="viewcode-block" id="SDMapStar">
+<a class="viewcode-back" href="../../../../project_files/subgroups.algorithms.subgroup_sets.html#subgroups.algorithms.subgroup_sets.sdmapstar.SDMapStar">[docs]</a>
+<span class="k">class</span> <span class="nc">SDMapStar</span><span class="p">(</span><span class="n">Algorithm</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;This class represents the SDMapStar algorithm.</span>
+
+<span class="sd">    :param quality_measure: the quality measure which is used.</span>
+<span class="sd">    :param optimistic_estimate: the optimistic estimate of the quality measure which is used.</span>
+<span class="sd">    :param minimum_quality_measure_value: the minimum quality measure value threshold.</span>
+<span class="sd">    :param minimum_tp: the minimum true positives (tp) threshold.</span>
+<span class="sd">    :param minimum_fp: the minimum false positives (fp) threshold.</span>
+<span class="sd">    :param minimum_n: the minimum subgroup description size (n) threshold.</span>
+<span class="sd">    :param additional_parameters_for_the_quality_measure: if the quality measure passed by parameter needs more parameters apart from tp, fp, TP and FP to be computed, they need to be specified here.</span>
+<span class="sd">    :param write_results_in_file: whether the results obtained will be written in a file. By default, False.</span>
+<span class="sd">    :param file_path: if &#39;write_results_in_file&#39; is True, path of the file in which the results will be written.</span>
+<span class="sd">    :param num_subgroups: the number of subgroups used to prune the search space. By default, 0. This value is equivalent to using the SDMap algorithm.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;_quality_measure&quot;</span><span class="p">,</span> <span class="s2">&quot;_optimistic_estimate&quot;</span> <span class="p">,</span> <span class="s2">&quot;_minimum_quality_measure_value&quot;</span><span class="p">,</span> <span class="s2">&quot;_minimum_tp&quot;</span><span class="p">,</span> <span class="s2">&quot;_minimum_fp&quot;</span><span class="p">,</span> <span class="s2">&quot;_minimum_n&quot;</span><span class="p">,</span> <span class="s2">&quot;_additional_parameters_for_the_quality_measure&quot;</span><span class="p">,</span> <span class="s2">&quot;_unselected_subgroups&quot;</span><span class="p">,</span> <span class="s2">&quot;_selected_subgroups&quot;</span><span class="p">,</span> <span class="s2">&quot;_file_path&quot;</span><span class="p">,</span> <span class="s2">&quot;_file&quot;</span><span class="p">,</span> <span class="s2">&quot;_num_subgroups&quot;</span><span class="p">,</span><span class="s2">&quot;_additional_parameters_for_the_optimistic_estimate&quot;</span><span class="p">,</span><span class="s2">&quot;_k_subgroups&quot;</span><span class="p">,</span><span class="s2">&quot;_pruned_subgroups&quot;</span><span class="p">,</span><span class="s2">&quot;_conditional_pruned_branches&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">quality_measure</span> <span class="p">:</span> <span class="n">QualityMeasure</span><span class="p">,</span> <span class="n">optimistic_estimate</span><span class="p">:</span> <span class="n">QualityMeasure</span><span class="p">,</span> <span class="n">minimum_quality_measure_value</span> <span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span> <span class="n">minimum_tp</span> <span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">minimum_fp</span> <span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">minimum_n</span> <span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">additional_parameters_for_the_quality_measure</span> <span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(),</span> <span class="n">additional_parameters_for_the_optimistic_estimate</span> <span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(),</span> <span class="n">write_results_in_file</span> <span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">file_path</span> <span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">num_subgroups</span> <span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">quality_measure</span><span class="p">,</span> <span class="n">QualityMeasure</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;The parameter &#39;quality_measure&#39; must be an instance of a subclass of the &#39;QualityMeasure&#39; class.&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">minimum_quality_measure_value</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="nb">int</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">minimum_quality_measure_value</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="nb">float</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;The type of the parameter &#39;minimum_quality_measure_value&#39; must be &#39;int&#39; or &#39;float&#39;.&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">minimum_tp</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="nb">int</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">minimum_tp</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;The type of the parameter &#39;minimum_tp&#39; must be &#39;int&#39; or &#39;NoneType&#39;.&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">minimum_fp</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="nb">int</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">minimum_fp</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;The type of the parameter &#39;minimum_fp&#39; must be &#39;int&#39; or &#39;NoneType&#39;.&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">minimum_n</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="nb">int</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">minimum_n</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;The type of the parameter &#39;minimum_n&#39; must be &#39;int&#39; or &#39;NoneType&#39;.&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">additional_parameters_for_the_quality_measure</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="nb">dict</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;The type of the parameter &#39;additional_parameters_for_the_quality_measure&#39; must be &#39;dict&#39;&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">write_results_in_file</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="nb">bool</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;The type of the parameter &#39;write_results_in_file&#39; must be &#39;bool&#39;&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">num_subgroups</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="nb">int</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;The type of the parameter &#39;num_subgroups&#39; must be &#39;int&#39;&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">((</span><span class="nb">type</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="nb">str</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">file_path</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">)):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;The type of the parameter &#39;file_path&#39; must be &#39;str&#39; or &#39;NoneType&#39;.&quot;</span><span class="p">)</span>
+        <span class="c1"># If &#39;write_results_in_file&#39; is True, &#39;file_path&#39; must not be None.</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">write_results_in_file</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">file_path</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;If the parameter &#39;write_results_in_file&#39; is True, the parameter &#39;file_path&#39; must not be None.&quot;</span><span class="p">)</span>
+        <span class="c1"># We check whether &#39;optimistic_estimate&#39; is an optimistic estimate of &#39;quality_measure&#39;.</span>
+        <span class="k">if</span> <span class="n">quality_measure</span><span class="o">.</span><span class="n">get_name</span><span class="p">()</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">optimistic_estimate</span><span class="o">.</span><span class="n">optimistic_estimate_of</span><span class="p">():</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;The quality measure &quot;</span> <span class="o">+</span> <span class="n">optimistic_estimate</span><span class="o">.</span><span class="n">get_name</span><span class="p">()</span> <span class="o">+</span> <span class="s2">&quot; is not an optimistic estimate of the quality measure &quot;</span> <span class="o">+</span> <span class="n">quality_measure</span><span class="o">.</span><span class="n">get_name</span><span class="p">()</span> <span class="o">+</span> <span class="s2">&quot;.&quot;</span><span class="p">)</span>
+        <span class="c1"># Depending on the values of the parameters &#39;minimum_tp&#39;, &#39;minimum_fp&#39; and &#39;minimum_n&#39; ...</span>
+        <span class="k">if</span> <span class="p">(</span> <span class="p">(</span><span class="n">minimum_tp</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">minimum_fp</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">minimum_n</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">)</span> <span class="p">)</span> <span class="ow">or</span> \
+            <span class="p">(</span> <span class="p">(</span><span class="n">minimum_tp</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">minimum_fp</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">minimum_n</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">)</span> <span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_quality_measure</span> <span class="o">=</span> <span class="n">quality_measure</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_optimistic_estimate</span> <span class="o">=</span> <span class="n">optimistic_estimate</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_minimum_quality_measure_value</span> <span class="o">=</span> <span class="n">minimum_quality_measure_value</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_minimum_tp</span> <span class="o">=</span> <span class="n">minimum_tp</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_minimum_fp</span> <span class="o">=</span> <span class="n">minimum_fp</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_minimum_n</span> <span class="o">=</span> <span class="n">minimum_n</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_unselected_subgroups</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_selected_subgroups</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_num_subgroups</span> <span class="o">=</span> <span class="n">num_subgroups</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_additional_parameters_for_the_quality_measure</span> <span class="o">=</span> <span class="n">additional_parameters_for_the_quality_measure</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+            <span class="n">_delete_subgroup_parameters_from_a_dictionary</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_additional_parameters_for_the_quality_measure</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_additional_parameters_for_the_optimistic_estimate</span> <span class="o">=</span> <span class="n">additional_parameters_for_the_optimistic_estimate</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+            <span class="n">_delete_subgroup_parameters_from_a_dictionary</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_additional_parameters_for_the_optimistic_estimate</span><span class="p">)</span>
+            <span class="c1">#We only save the results in a file if &#39;write_results_in_file&#39; is True.</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">write_results_in_file</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_file_path</span> <span class="o">=</span> <span class="n">file_path</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_file_path</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_file</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="c1">#quality measure of the best k subgroups. This list is sorted in ascending order.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_k_subgroups</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_pruned_subgroups</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="c1">#pruned branches when building conditional fptrees</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_conditional_pruned_branches</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">InconsistentMethodParametersError</span><span class="p">(</span><span class="s2">&quot;If &#39;minimum_tp&#39; and &#39;minimum_fp&#39; have a value of type &#39;int&#39;, &#39;minimum_n&#39; must be None; and if &#39;minimum_n&#39; has a value of type &#39;int&#39;, &#39;minimum_tp&#39; and &#39;minimum_fp&#39; must be None.&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_get_quality_measure</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">QualityMeasure</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_quality_measure</span>
+
+    <span class="k">def</span> <span class="nf">_get_optimistic_estimate</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">QualityMeasure</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_optimistic_estimate</span>
+    
+    <span class="k">def</span> <span class="nf">_get_minimum_quality_measure_value</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_minimum_quality_measure_value</span>
+    
+    <span class="k">def</span> <span class="nf">_get_minimum_tp</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_minimum_tp</span>
+    
+    <span class="k">def</span> <span class="nf">_get_minimum_fp</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_minimum_fp</span>
+    
+    <span class="k">def</span> <span class="nf">_get_minimum_n</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_minimum_n</span>
+    
+    <span class="k">def</span> <span class="nf">_get_additional_parameters_for_the_quality_measure</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_additional_parameters_for_the_quality_measure</span>
+
+    <span class="k">def</span> <span class="nf">_get_k_subgroups</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_k_subgroups</span>
+
+    <span class="k">def</span> <span class="nf">_get_num_subgroups</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_num_subgroups</span>
+    
+    <span class="k">def</span> <span class="nf">_get_pruned_subgroups</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pruned_subgroups</span>
+
+    <span class="k">def</span> <span class="nf">_get_conditional_pruned_branches</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_conditional_pruned_branches</span>
+
+    <span class="n">quality_measure</span> <span class="o">=</span> <span class="nb">property</span><span class="p">(</span><span class="n">_get_quality_measure</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;The quality measure which is used.&quot;</span><span class="p">)</span>
+    <span class="n">optimistic_estimate</span> <span class="o">=</span> <span class="nb">property</span><span class="p">(</span><span class="n">_get_optimistic_estimate</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;The optimistic estimate of the quality measure which is used.&quot;</span><span class="p">)</span>
+    <span class="n">minimum_quality_measure_value</span> <span class="o">=</span> <span class="nb">property</span><span class="p">(</span><span class="n">_get_minimum_quality_measure_value</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;The minimum quality measure value threshold.&quot;</span><span class="p">)</span>
+    <span class="n">minimum_tp</span> <span class="o">=</span> <span class="nb">property</span><span class="p">(</span><span class="n">_get_minimum_tp</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;The minimum true positives (tp) threshold.&quot;</span><span class="p">)</span>
+    <span class="n">minimum_fp</span> <span class="o">=</span> <span class="nb">property</span><span class="p">(</span><span class="n">_get_minimum_fp</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;The minimum false positives (fp) threshold.&quot;</span><span class="p">)</span>
+    <span class="n">minimum_n</span> <span class="o">=</span> <span class="nb">property</span><span class="p">(</span><span class="n">_get_minimum_n</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;The minimum subgroup description size (n) threshold.&quot;</span><span class="p">)</span>
+    <span class="n">additional_parameters_for_the_quality_measure</span> <span class="o">=</span> <span class="nb">property</span><span class="p">(</span><span class="n">_get_additional_parameters_for_the_quality_measure</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;The additional needed parameters with which to compute the quality measure.&quot;</span><span class="p">)</span>
+    <span class="n">k_subgroups</span> <span class="o">=</span> <span class="nb">property</span><span class="p">(</span><span class="n">_get_k_subgroups</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;The list of the k subgroups used to prune.&quot;</span><span class="p">)</span>
+    <span class="n">num_subgroups</span> <span class="o">=</span> <span class="nb">property</span><span class="p">(</span><span class="n">_get_num_subgroups</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;The maximum number of subgroups in &#39;k_subgroups&#39;.&quot;</span><span class="p">)</span>
+    <span class="n">pruned_subgroups</span> <span class="o">=</span> <span class="nb">property</span><span class="p">(</span><span class="n">_get_pruned_subgroups</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;The number of pruned subgroups because of the top k threshold.&quot;</span><span class="p">)</span>
+    <span class="n">conditional_pruned_branches</span> <span class="o">=</span> <span class="nb">property</span><span class="p">(</span><span class="n">_get_conditional_pruned_branches</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;The number of conditional pruned branches.&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_get_unselected_subgroups</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_unselected_subgroups</span>
+
+    <span class="k">def</span> <span class="nf">_get_selected_subgroups</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_selected_subgroups</span>
+
+    <span class="k">def</span> <span class="nf">_get_visited_nodes</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_unselected_subgroups</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_selected_subgroups</span>
+
+    <span class="n">unselected_subgroups</span> <span class="o">=</span> <span class="nb">property</span><span class="p">(</span><span class="n">_get_unselected_subgroups</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;Number of unselected subgroups after executing the SDMapStar algorithm (before executing the &#39;fit&#39; method, this attribute is 0).&quot;</span><span class="p">)</span>
+    <span class="n">selected_subgroups</span> <span class="o">=</span> <span class="nb">property</span><span class="p">(</span><span class="n">_get_selected_subgroups</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;Number of selected subgroups after executing the SDMapStar algorithm (before executing the &#39;fit&#39; method, this attribute is 0).&quot;</span><span class="p">)</span>
+    <span class="n">visited_nodes</span> <span class="o">=</span> <span class="nb">property</span><span class="p">(</span><span class="n">_get_visited_nodes</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;Number of visited nodes after executing the SDMapStar algorithm (before executing the &#39;fit&#39; method, this attribute is 0).&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_handle_individual_result</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">individual_result</span> <span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">Pattern</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Private method to handle each individual result generated by the SDMapStar algorithm.</span>
+<span class="sd">        </span>
+<span class="sd">        :param individual_result: the individual result which is handled. In this case, it is a subgroup description, a target as a tuple and the subgroup parameters tp, fp, TP and FP.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Get the subgroup parameters.</span>
+        <span class="n">tp</span> <span class="o">=</span> <span class="n">individual_result</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+        <span class="n">fp</span> <span class="o">=</span> <span class="n">individual_result</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+        <span class="n">TP</span> <span class="o">=</span> <span class="n">individual_result</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span>
+        <span class="n">FP</span> <span class="o">=</span> <span class="n">individual_result</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span>
+        <span class="c1"># Compute the quality measure of the frequent pattern along with the target (i.e., the quality measure of the subgroup).</span>
+        <span class="n">dict_of_parameters</span> <span class="o">=</span> <span class="p">{</span><span class="n">QualityMeasure</span><span class="o">.</span><span class="n">TRUE_POSITIVES</span> <span class="p">:</span> <span class="n">tp</span><span class="p">,</span> <span class="n">QualityMeasure</span><span class="o">.</span><span class="n">FALSE_POSITIVES</span> <span class="p">:</span> <span class="n">fp</span><span class="p">,</span> <span class="n">QualityMeasure</span><span class="o">.</span><span class="n">TRUE_POPULATION</span> <span class="p">:</span> <span class="n">TP</span><span class="p">,</span> <span class="n">QualityMeasure</span><span class="o">.</span><span class="n">FALSE_POPULATION</span> <span class="p">:</span> <span class="n">FP</span><span class="p">}</span>
+        <span class="n">dict_of_parameters</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_additional_parameters_for_the_quality_measure</span><span class="p">)</span>
+        <span class="n">quality_measure_value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_quality_measure</span><span class="o">.</span><span class="n">compute</span><span class="p">(</span><span class="n">dict_of_parameters</span><span class="p">)</span>
+        <span class="c1"># Add the subgroup only if the quality measure value is greater or equal than the threshold.</span>
+        <span class="k">if</span> <span class="n">quality_measure_value</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_minimum_quality_measure_value</span><span class="p">:</span>
+            <span class="c1"># If applicable, write in the file defined in the __init__ method.</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_file_path</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="c1"># Get the description and the target.</span>
+                <span class="n">subgroup_description</span> <span class="o">=</span> <span class="n">individual_result</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="n">target_as_tuple</span> <span class="o">=</span> <span class="n">individual_result</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="c1"># Attribute name -&gt; target_as_tuple[0], Attribute value -&gt; target_as_tuple[1]</span>
+                <span class="c1"># Create the subgroup.</span>
+                <span class="n">subgroup</span> <span class="o">=</span> <span class="n">Subgroup</span><span class="p">(</span><span class="n">subgroup_description</span><span class="p">,</span> <span class="n">Selector</span><span class="p">(</span><span class="n">target_as_tuple</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">Operator</span><span class="o">.</span><span class="n">EQUAL</span><span class="p">,</span> <span class="n">target_as_tuple</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+                <span class="c1"># Write.</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">subgroup</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; ; &quot;</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;Quality Measure &quot;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_quality_measure</span><span class="o">.</span><span class="n">get_name</span><span class="p">()</span> <span class="o">+</span> <span class="s2">&quot; = &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">quality_measure_value</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; ; &quot;</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;tp = &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">tp</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; ; &quot;</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;fp = &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">fp</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; ; &quot;</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;TP = &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">TP</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; ; &quot;</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;FP = &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">FP</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="c1"># Increment the number of selected subgroups.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_selected_subgroups</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_selected_subgroups</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="k">else</span><span class="p">:</span> <span class="c1"># If the quality measure is not greater or equal, increment the number of unselected subgroups.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_unselected_subgroups</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_unselected_subgroups</span> <span class="o">+</span> <span class="mi">1</span>
+    
+    <span class="k">def</span> <span class="nf">_fpgrowth</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fptree</span> <span class="p">:</span> <span class="n">FPTreeForSDMapStar</span><span class="p">,</span> <span class="n">alpha</span> <span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="n">Selector</span><span class="p">],</span> <span class="kc">None</span><span class="p">],</span> <span class="n">target</span> <span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span> <span class="n">TP</span> <span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">FP</span> <span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Private method to run the adapted FPGrowth algorithm in order to generate frequent patterns.</span>
+<span class="sd">        </span>
+<span class="sd">        :param fptree: the current FPTree. At the beginning, it is the FPTreeForSDMapStar generated from the complete dataset. Although, it will change between recursive calls to this method.</span>
+<span class="sd">        :param alpha: a list of selectors (or None, in the first call to this method).</span>
+<span class="sd">        :param target: a tuple with 2 elements: the target attribute name and the target value.</span>
+<span class="sd">        :param TP: the true population of the dataset (i.e., the number of instances in which the target appears).</span>
+<span class="sd">        :param FP: the false population of the dataset (i.e., the number of instances in which the target does not appear).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Check if fptree contains a single path.</span>
+        <span class="k">if</span> <span class="n">fptree</span><span class="o">.</span><span class="n">there_is_a_single_path</span><span class="p">():</span>
+            <span class="c1"># Generate all the combinations of the selectors in the single path.</span>
+            <span class="n">all_combinations</span> <span class="o">=</span> <span class="n">_generate_all_combinations</span><span class="p">(</span><span class="n">fptree</span><span class="o">.</span><span class="n">_sorted_header_table</span><span class="p">)</span>
+            <span class="c1"># Remove the empty list.</span>
+            <span class="n">all_combinations</span><span class="o">.</span><span class="n">remove</span><span class="p">([])</span>
+            <span class="c1"># Iterate throughout the combinations.</span>
+            <span class="k">for</span> <span class="n">beta</span> <span class="ow">in</span> <span class="n">all_combinations</span><span class="p">:</span>
+                <span class="c1"># Generate the patter &#39;beta U alpha&#39;.</span>
+                <span class="c1"># IMPORTANT: in this case, we can use the class Pattern for the frequent patterns because each frequent pattern will be the description of a final subgroup.</span>
+                <span class="k">if</span> <span class="n">alpha</span><span class="p">:</span>
+                    <span class="n">pattern</span> <span class="o">=</span> <span class="n">Pattern</span><span class="p">(</span><span class="n">beta</span> <span class="o">+</span> <span class="n">alpha</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">pattern</span> <span class="o">=</span> <span class="n">Pattern</span><span class="p">(</span><span class="n">beta</span><span class="p">)</span>
+                <span class="c1"># The values of the counters tp and fp of &#39;pattern&#39; will be those of the selector in beta with the less values of the counters tp and fp in the fptree (in the header table of the fptree).</span>
+                <span class="n">most_unfrequent_selector</span> <span class="o">=</span> <span class="kc">None</span>
+                <span class="n">index</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="c1"># IMPORTANT: this is not an infinite loop because ALL the selectors in beta are always also in the header table (because all the combinations had generated from the header table).</span>
+                <span class="k">while</span> <span class="p">(</span><span class="n">most_unfrequent_selector</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">):</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="n">fptree</span><span class="o">.</span><span class="n">_sorted_header_table</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="ow">in</span> <span class="n">beta</span><span class="p">):</span> <span class="c1"># This comparison has been extracted from the SDMap implementation in Vikamine.</span>
+                        <span class="n">most_unfrequent_selector</span> <span class="o">=</span> <span class="n">fptree</span><span class="o">.</span><span class="n">_sorted_header_table</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
+                    <span class="n">index</span> <span class="o">=</span> <span class="n">index</span> <span class="o">+</span> <span class="mi">1</span>
+                <span class="n">tp</span> <span class="o">=</span> <span class="n">fptree</span><span class="o">.</span><span class="n">header_table</span><span class="p">[</span><span class="n">most_unfrequent_selector</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+                <span class="n">fp</span> <span class="o">=</span> <span class="n">fptree</span><span class="o">.</span><span class="n">header_table</span><span class="p">[</span><span class="n">most_unfrequent_selector</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+                <span class="c1">#If num_subgroups = 0, we do not use the SDMapStar optimizations.</span>
+                <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">num_subgroups</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">):</span>
+                    <span class="c1">#update the K subgroups</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_updateKSubgroups</span><span class="p">(</span><span class="n">tp</span><span class="p">,</span><span class="n">fp</span><span class="p">,</span><span class="n">TP</span><span class="p">,</span><span class="n">FP</span><span class="p">)</span>
+                    <span class="c1"># if k subgroups treshold is higher than the optimistic estimate, we omit the conditional tree</span>
+                    <span class="n">dict_of_parameters</span> <span class="o">=</span> <span class="p">{</span><span class="n">QualityMeasure</span><span class="o">.</span><span class="n">TRUE_POSITIVES</span> <span class="p">:</span> <span class="n">tp</span><span class="p">,</span> <span class="n">QualityMeasure</span><span class="o">.</span><span class="n">FALSE_POSITIVES</span> <span class="p">:</span> <span class="n">fp</span><span class="p">,</span> <span class="n">QualityMeasure</span><span class="o">.</span><span class="n">TRUE_POPULATION</span> <span class="p">:</span> <span class="n">TP</span><span class="p">,</span> <span class="n">QualityMeasure</span><span class="o">.</span><span class="n">FALSE_POPULATION</span> <span class="p">:</span> <span class="n">FP</span><span class="p">}</span>
+                    <span class="n">dict_of_parameters</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_additional_parameters_for_the_optimistic_estimate</span><span class="p">)</span>
+                    <span class="n">oe</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_optimistic_estimate</span><span class="o">.</span><span class="n">compute</span><span class="p">(</span><span class="n">dict_of_parameters</span><span class="p">)</span>
+                    <span class="c1">#k_subgroups is sorted, so the first element is the worst subgroup</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">k_subgroups</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">oe</span><span class="p">):</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">_pruned_subgroups</span> <span class="o">+=</span> <span class="mi">1</span>
+                        <span class="k">continue</span>
+                <span class="c1"># Handle this result.</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_handle_individual_result</span><span class="p">(</span> <span class="p">(</span><span class="n">pattern</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">tp</span><span class="p">,</span> <span class="n">fp</span><span class="p">,</span> <span class="n">TP</span><span class="p">,</span> <span class="n">FP</span><span class="p">)</span> <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">sorted_selectors</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">num_subgroups</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">):</span>
+                <span class="c1"># SDMapStar optimization: sort the selectors to select the most promising first using the optimistic estimate</span>
+                <span class="k">for</span> <span class="n">selector</span> <span class="ow">in</span> <span class="n">fptree</span><span class="o">.</span><span class="n">header_table</span><span class="p">:</span>
+                    <span class="c1">#calculate the optimistic estimate</span>
+                    <span class="n">tp</span> <span class="o">=</span> <span class="n">fptree</span><span class="o">.</span><span class="n">header_table</span><span class="p">[</span><span class="n">selector</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+                    <span class="n">fp</span> <span class="o">=</span> <span class="n">fptree</span><span class="o">.</span><span class="n">header_table</span><span class="p">[</span><span class="n">selector</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+                    <span class="n">dict_of_parameters</span> <span class="o">=</span> <span class="p">{</span><span class="n">QualityMeasure</span><span class="o">.</span><span class="n">TRUE_POSITIVES</span> <span class="p">:</span> <span class="n">tp</span><span class="p">,</span> <span class="n">QualityMeasure</span><span class="o">.</span><span class="n">FALSE_POSITIVES</span> <span class="p">:</span> <span class="n">fp</span><span class="p">,</span> <span class="n">QualityMeasure</span><span class="o">.</span><span class="n">TRUE_POPULATION</span> <span class="p">:</span> <span class="n">TP</span><span class="p">,</span> <span class="n">QualityMeasure</span><span class="o">.</span><span class="n">FALSE_POPULATION</span> <span class="p">:</span> <span class="n">FP</span><span class="p">}</span>
+                    <span class="n">dict_of_parameters</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_additional_parameters_for_the_optimistic_estimate</span><span class="p">)</span>
+                    <span class="n">oe</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_optimistic_estimate</span><span class="o">.</span><span class="n">compute</span><span class="p">(</span><span class="n">dict_of_parameters</span><span class="p">)</span>
+                    <span class="c1">#We store the optimistic estimate and the selector together to sort them</span>
+                    <span class="n">sorted_selectors</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">oe</span><span class="p">,</span><span class="n">selector</span><span class="p">))</span>
+                <span class="c1"># sort the selector by their optimistic estimate</span>
+                <span class="n">optimistics_estimates</span><span class="p">,</span> <span class="n">sorted_selectors</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="nb">sorted</span><span class="p">(</span><span class="n">sorted_selectors</span><span class="p">,</span><span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1">#If num_subgroups = 0, we do not use the SDMapStar optimizations.</span>
+                <span class="n">sorted_selectors</span> <span class="o">=</span> <span class="n">fptree</span><span class="o">.</span><span class="n">header_table</span>
+            <span class="c1"># Iterate throughout the selectors in the sorted header table of the fptree.</span>
+            <span class="k">for</span> <span class="n">ai</span> <span class="ow">in</span> <span class="n">sorted_selectors</span><span class="p">:</span>
+                <span class="c1"># Generate the pattern &#39;beta = ai U a&#39;.</span>
+                <span class="c1">#  -&gt; As list in order to build the conditional FPTree and as Pattern in order to add it to the final result.</span>
+                <span class="c1"># IMPORTANT: in this case, we can use the class Pattern for the frequent patterns because each frequent pattern will be the description of a final subgroup.</span>
+                <span class="k">if</span> <span class="n">alpha</span><span class="p">:</span>
+                    <span class="n">beta_as_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">ai</span><span class="p">]</span> <span class="o">+</span> <span class="n">alpha</span>
+                    <span class="n">beta_as_Pattern</span> <span class="o">=</span> <span class="n">Pattern</span><span class="p">(</span><span class="n">beta_as_list</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">beta_as_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">ai</span><span class="p">]</span>
+                    <span class="n">beta_as_Pattern</span> <span class="o">=</span> <span class="n">Pattern</span><span class="p">(</span><span class="n">beta_as_list</span><span class="p">)</span>
+                <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">num_subgroups</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">):</span>
+                    <span class="n">aux</span> <span class="o">=</span> <span class="n">fptree</span><span class="o">.</span><span class="n">header_table</span><span class="p">[</span><span class="n">ai</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+                    <span class="c1">#update k subgroups (tp,fp)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_updateKSubgroups</span><span class="p">(</span><span class="n">aux</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">aux</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">TP</span><span class="p">,</span><span class="n">FP</span><span class="p">)</span>
+                    <span class="c1"># if k subgroups threshold is higher than the optimistic estimate, we omit the conditional tree</span>
+                    <span class="n">dict_of_parameters</span> <span class="o">=</span> <span class="p">{</span><span class="n">QualityMeasure</span><span class="o">.</span><span class="n">TRUE_POSITIVES</span> <span class="p">:</span> <span class="n">aux</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">QualityMeasure</span><span class="o">.</span><span class="n">FALSE_POSITIVES</span> <span class="p">:</span> <span class="n">aux</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">QualityMeasure</span><span class="o">.</span><span class="n">TRUE_POPULATION</span> <span class="p">:</span> <span class="n">TP</span><span class="p">,</span> <span class="n">QualityMeasure</span><span class="o">.</span><span class="n">FALSE_POPULATION</span> <span class="p">:</span> <span class="n">FP</span><span class="p">}</span>
+                    <span class="n">dict_of_parameters</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_additional_parameters_for_the_optimistic_estimate</span><span class="p">)</span>
+                    <span class="n">oe</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_optimistic_estimate</span><span class="o">.</span><span class="n">compute</span><span class="p">(</span><span class="n">dict_of_parameters</span><span class="p">)</span>
+                    <span class="c1">#k_subgroups is sorted, so the first element is the worst subgroup</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">k_subgroups</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">oe</span><span class="p">):</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">_pruned_subgroups</span> <span class="o">+=</span> <span class="mi">1</span>
+                        <span class="k">continue</span>
+                <span class="c1"># The values of the counters tp and fp of &#39;beta&#39; will be those of the selector ai in the header table.</span>
+                <span class="n">tp</span> <span class="o">=</span> <span class="n">fptree</span><span class="o">.</span><span class="n">header_table</span><span class="p">[</span><span class="n">ai</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+                <span class="n">fp</span> <span class="o">=</span> <span class="n">fptree</span><span class="o">.</span><span class="n">header_table</span><span class="p">[</span><span class="n">ai</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+                <span class="c1"># Handle this result.</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_handle_individual_result</span><span class="p">(</span> <span class="p">(</span><span class="n">beta_as_Pattern</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">tp</span><span class="p">,</span> <span class="n">fp</span><span class="p">,</span> <span class="n">TP</span><span class="p">,</span> <span class="n">FP</span><span class="p">)</span> <span class="p">)</span>
+                <span class="c1"># Build the conditional FPTree.</span>
+                <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">num_subgroups</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">):</span>
+                    <span class="c1"># Call conditionalFPTree with prune</span>
+                    <span class="n">conditional_fptree</span><span class="p">,</span> <span class="n">pruned_branches</span> <span class="o">=</span> <span class="n">fptree</span><span class="o">.</span><span class="n">generate_conditional_fp_tree_star</span><span class="p">(</span><span class="n">beta_as_list</span><span class="p">,</span> <span class="n">minimum_tp</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">minimum_tp</span><span class="p">,</span> <span class="n">minimum_fp</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">minimum_fp</span><span class="p">,</span> <span class="n">minimum_n</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">minimum_n</span><span class="p">,</span><span class="n">min_optimistic_estimate</span> <span class="o">=</span>  <span class="bp">self</span><span class="o">.</span><span class="n">k_subgroups</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">optimistic_estimate</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_optimistic_estimate</span><span class="p">,</span> <span class="n">additional_parameters</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_additional_parameters_for_the_optimistic_estimate</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_conditional_pruned_branches</span> <span class="o">+=</span> <span class="n">pruned_branches</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="c1"># Call conditionalFPTree wihtout prune</span>
+                    <span class="n">conditional_fptree</span> <span class="o">=</span> <span class="n">fptree</span><span class="o">.</span><span class="n">generate_conditional_fp_tree</span><span class="p">(</span><span class="n">beta_as_list</span><span class="p">,</span> <span class="n">minimum_tp</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">minimum_tp</span><span class="p">,</span> <span class="n">minimum_fp</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">minimum_fp</span><span class="p">,</span> <span class="n">minimum_n</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">minimum_n</span><span class="p">)</span>
+                <span class="c1"># Recursive call.</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">conditional_fptree</span><span class="o">.</span><span class="n">is_empty</span><span class="p">():</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_fpgrowth</span><span class="p">(</span><span class="n">conditional_fptree</span><span class="p">,</span> <span class="n">beta_as_list</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">TP</span><span class="p">,</span> <span class="n">FP</span><span class="p">)</span>
+
+                    
+    <span class="k">def</span> <span class="nf">_updateKSubgroups</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">tp</span><span class="p">:</span><span class="nb">int</span><span class="p">,</span><span class="n">fp</span><span class="p">:</span><span class="nb">int</span><span class="p">,</span><span class="n">TP</span><span class="p">:</span><span class="nb">int</span><span class="p">,</span><span class="n">FP</span><span class="p">:</span><span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Internal method to update and sort k subgroups.</span>
+
+<span class="sd">        :param tp: true positives</span>
+<span class="sd">        :param fp: false positives</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">tp</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="nb">int</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;Parameter &#39;tp&#39; must be a int.&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">fp</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="nb">int</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;Parameter &#39;fp&#39; must be a int.&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">TP</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="nb">int</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;Parameter &#39;TP&#39; must be a int.&quot;</span><span class="p">,</span><span class="nb">type</span><span class="p">(</span><span class="n">TP</span><span class="p">))</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">FP</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="nb">int</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;Parameter &#39;FP&#39; must be a int.&quot;</span><span class="p">)</span>
+        <span class="n">dict_of_parameters</span> <span class="o">=</span> <span class="p">{</span><span class="n">QualityMeasure</span><span class="o">.</span><span class="n">TRUE_POSITIVES</span> <span class="p">:</span> <span class="n">tp</span><span class="p">,</span> <span class="n">QualityMeasure</span><span class="o">.</span><span class="n">FALSE_POSITIVES</span> <span class="p">:</span> <span class="n">fp</span><span class="p">,</span> <span class="n">QualityMeasure</span><span class="o">.</span><span class="n">TRUE_POPULATION</span> <span class="p">:</span> <span class="n">TP</span><span class="p">,</span> <span class="n">QualityMeasure</span><span class="o">.</span><span class="n">FALSE_POPULATION</span> <span class="p">:</span> <span class="n">FP</span><span class="p">}</span>
+        <span class="n">dict_of_parameters</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_additional_parameters_for_the_optimistic_estimate</span><span class="p">)</span>
+        <span class="n">quality_value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">quality_measure</span><span class="o">.</span><span class="n">compute</span><span class="p">(</span><span class="n">dict_of_parameters</span><span class="p">)</span>
+        <span class="c1">#if k-subgroups is not full</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_k_subgroups</span><span class="p">)</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_subgroups</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_k_subgroups</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">quality_value</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_k_subgroups</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_k_subgroups</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">quality_value</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_k_subgroups</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">quality_value</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_k_subgroups</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+
+<div class="viewcode-block" id="SDMapStar.fit">
+<a class="viewcode-back" href="../../../../project_files/subgroups.algorithms.subgroup_sets.html#subgroups.algorithms.subgroup_sets.sdmapstar.SDMapStar.fit">[docs]</a>
+    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pandas_dataframe</span> <span class="p">:</span> <span class="n">DataFrame</span><span class="p">,</span> <span class="n">target</span> <span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Main method to run the SDMapStar algorithm. This algorithm only supports nominal attributes (i.e., type &#39;str&#39;). IMPORTANT: missing values are not supported yet.</span>
+<span class="sd">        </span>
+<span class="sd">        :param pandas_dataframe: the DataFrame which is scanned. This algorithm only supports nominal attributes (i.e., type &#39;str&#39;). IMPORTANT: missing values are not supported yet.</span>
+<span class="sd">        :param target: a tuple with 2 elements: the target attribute name and the target value.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">pandas_dataframe</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">DataFrame</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;The type of the parameter &#39;pandas_dataframe&#39; must be &#39;DataFrame&#39;.&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">target</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="nb">tuple</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;The type of the parameter &#39;target&#39; must be &#39;tuple&#39;.&quot;</span><span class="p">)</span>
+        <span class="c1"># IMPORTANT: this algorithm only supports nominal attributes (i.e., type &#39;str&#39;).</span>
+        <span class="k">for</span> <span class="n">column</span> <span class="ow">in</span> <span class="n">pandas_dataframe</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">is_string_dtype</span><span class="p">(</span><span class="n">pandas_dataframe</span><span class="p">[</span><span class="n">column</span><span class="p">]):</span>
+                <span class="k">raise</span> <span class="n">DatasetAttributeTypeError</span><span class="p">(</span><span class="s2">&quot;Error in attribute &#39;&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">column</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;&#39;. This algorithm only supports nominal attributes (i.e., type &#39;str&#39;).&quot;</span><span class="p">)</span>
+        <span class="c1"># Obtain TP and FP of the dataset.</span>
+        <span class="n">TP</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">pandas_dataframe</span><span class="p">[</span><span class="n">target</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">==</span> <span class="n">target</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="n">FP</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">pandas_dataframe</span><span class="o">.</span><span class="n">index</span><span class="p">)</span> <span class="o">-</span> <span class="n">TP</span>
+        <span class="c1"># Create an empty FPTreeForSDMap.</span>
+        <span class="n">fptree</span> <span class="o">=</span> <span class="n">FPTreeForSDMapStar</span><span class="p">(</span><span class="n">TP</span><span class="p">,</span><span class="n">FP</span><span class="p">)</span>
+        <span class="c1"># Generate the set of frequent selectors.</span>
+        <span class="n">set_of_frequent_selectors</span> <span class="o">=</span> <span class="n">fptree</span><span class="o">.</span><span class="n">generate_set_of_frequent_selectors</span><span class="p">(</span><span class="n">pandas_dataframe</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">minimum_tp</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">minimum_tp</span><span class="p">,</span> <span class="n">minimum_fp</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">minimum_fp</span><span class="p">,</span> <span class="n">minimum_n</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">minimum_n</span><span class="p">)</span>
+        <span class="c1"># Build the FPTree.</span>
+        <span class="n">fptree</span><span class="o">.</span><span class="n">build_tree</span><span class="p">(</span><span class="n">pandas_dataframe</span><span class="p">,</span> <span class="n">set_of_frequent_selectors</span><span class="p">,</span> <span class="n">target</span><span class="p">)</span>
+        <span class="c1"># Only if the fptree is not empty ...</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">fptree</span><span class="o">.</span><span class="n">is_empty</span><span class="p">():</span>
+            <span class="c1"># Call to the adapated FPGrowth algorithm in order to obtain frequent patterns. In this point, we also open and close the file.</span>
+            <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_file_path</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_file</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_file_path</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_fpgrowth</span><span class="p">(</span><span class="n">fptree</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">TP</span><span class="p">,</span> <span class="n">FP</span><span class="p">)</span>
+            <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_file_path</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_file</span> <span class="o">=</span> <span class="kc">None</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Antonio López Martínez-Carrasco.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

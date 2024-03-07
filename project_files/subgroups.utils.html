@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>subgroups.utils package &mdash; subgroups 0.1.5 documentation</title>
+  <title>subgroups.utils package &mdash; subgroups 0.1.6 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=92fd9be5" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
 
@@ -15,7 +15,7 @@
   
         <script src="../_static/jquery.js?v=5d32c60e"></script>
         <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../_static/documentation_options.js?v=59fadc99"></script>
+        <script src="../_static/documentation_options.js?v=6e0256f3"></script>
         <script src="../_static/doctools.js?v=888ff710"></script>
         <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/js/theme.js"></script>
@@ -56,6 +56,7 @@
 <li class="toctree-l3 current"><a class="current reference internal" href="#">subgroups.utils package</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#submodules">Submodules</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-subgroups.utils.dataframe_filters">subgroups.utils.dataframe_filters module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-subgroups.utils.file_format_transformations">subgroups.utils.file_format_transformations module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-subgroups.utils.mdl">subgroups.utils.mdl module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-subgroups.utils">Module contents</a></li>
 </ul>
@@ -76,6 +77,10 @@
 <li class="toctree-l2"><a class="reference internal" href="#submodules">Submodules</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-subgroups.utils.dataframe_filters">subgroups.utils.dataframe_filters module</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#subgroups.utils.dataframe_filters.filter_by_list_of_selectors"><code class="docutils literal notranslate"><span class="pre">filter_by_list_of_selectors()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-subgroups.utils.file_format_transformations">subgroups.utils.file_format_transformations module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#subgroups.utils.file_format_transformations.to_input_format_for_subgroup_list_algorithms"><code class="docutils literal notranslate"><span class="pre">to_input_format_for_subgroup_list_algorithms()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#module-subgroups.utils.mdl">subgroups.utils.mdl module</a><ul>
@@ -122,10 +127,10 @@
 </section>
 <section id="module-subgroups.utils.dataframe_filters">
 <span id="subgroups-utils-dataframe-filters-module"></span><h2>subgroups.utils.dataframe_filters module<a class="headerlink" href="#module-subgroups.utils.dataframe_filters" title="Link to this heading"></a></h2>
-<p>This file contains the implementation of some additional functions used for filtering a pandas DataFrame according to certain criteria.</p>
+<p>This file contains the implementation of different functions used to filter a pandas DataFrame according to certain criteria.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="subgroups.utils.dataframe_filters.filter_by_list_of_selectors">
-<span class="sig-prename descclassname"><span class="pre">subgroups.utils.dataframe_filters.</span></span><span class="sig-name descname"><span class="pre">filter_by_list_of_selectors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pandas_dataframe</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">list_of_selectors</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.utils.dataframe_filters.filter_by_list_of_selectors" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">subgroups.utils.dataframe_filters.</span></span><span class="sig-name descname"><span class="pre">filter_by_list_of_selectors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pandas_dataframe</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">list_of_selectors</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/subgroups/utils/dataframe_filters.html#filter_by_list_of_selectors"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#subgroups.utils.dataframe_filters.filter_by_list_of_selectors" title="Link to this definition"></a></dt>
 <dd><p>Method to filter a pandas DataFrame, retrieving only the rows covered by all selectors included in the parameter ‘list_of_selectors’. IMPORTANT: If an attribute name of a selector of the pattern is not in the pandas.DataFrame passed by parameter, a KeyError exception is raised.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -144,12 +149,36 @@
 </dd></dl>
 
 </section>
+<section id="module-subgroups.utils.file_format_transformations">
+<span id="subgroups-utils-file-format-transformations-module"></span><h2>subgroups.utils.file_format_transformations module<a class="headerlink" href="#module-subgroups.utils.file_format_transformations" title="Link to this heading"></a></h2>
+<p>This file contains the implementation of different functions used to transform the resulting files obtained by the algorithms.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="subgroups.utils.file_format_transformations.to_input_format_for_subgroup_list_algorithms">
+<span class="sig-prename descclassname"><span class="pre">subgroups.utils.file_format_transformations.</span></span><span class="sig-name descname"><span class="pre">to_input_format_for_subgroup_list_algorithms</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">original_file_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transformed_file_path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/subgroups/utils/file_format_transformations.html#to_input_format_for_subgroup_list_algorithms"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#subgroups.utils.file_format_transformations.to_input_format_for_subgroup_list_algorithms" title="Link to this definition"></a></dt>
+<dd><p>Method to transform the format of a file generated by a traditional SD algorithm (that mines a subgroup set) to the the input file format of the algorithms that mine subgroup lists.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>original_file_path</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>) – path of the original file.</p></li>
+<li><p><strong>transformed_file_path</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>) – path of the transformed file.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]</span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>a 2-tuple of the form: (number of subgroups correctly read, number of subgroups not correctly read).</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
 <section id="module-subgroups.utils.mdl">
 <span id="subgroups-utils-mdl-module"></span><h2>subgroups.utils.mdl module<a class="headerlink" href="#module-subgroups.utils.mdl" title="Link to this heading"></a></h2>
-<p>This file contains the implementation of some additional functions used in the MDL principle.</p>
+<p>This file contains the implementation of different functions used by the MDL principle.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="subgroups.utils.mdl.log2_multinomial_with_recurrence">
-<span class="sig-prename descclassname"><span class="pre">subgroups.utils.mdl.</span></span><span class="sig-name descname"><span class="pre">log2_multinomial_with_recurrence</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">number_of_categories</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">number_of_samples</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.utils.mdl.log2_multinomial_with_recurrence" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">subgroups.utils.mdl.</span></span><span class="sig-name descname"><span class="pre">log2_multinomial_with_recurrence</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">number_of_categories</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">number_of_samples</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/subgroups/utils/mdl.html#log2_multinomial_with_recurrence"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#subgroups.utils.mdl.log2_multinomial_with_recurrence" title="Link to this definition"></a></dt>
 <dd><p>Compute the logarithm to base 2 of the multinomial distribution complexity.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -169,7 +198,7 @@
 
 <dl class="py function">
 <dt class="sig sig-object py" id="subgroups.utils.mdl.multinomial_with_recurrence">
-<span class="sig-prename descclassname"><span class="pre">subgroups.utils.mdl.</span></span><span class="sig-name descname"><span class="pre">multinomial_with_recurrence</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">number_of_categories</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">number_of_samples</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.utils.mdl.multinomial_with_recurrence" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">subgroups.utils.mdl.</span></span><span class="sig-name descname"><span class="pre">multinomial_with_recurrence</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">number_of_categories</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">number_of_samples</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/subgroups/utils/mdl.html#multinomial_with_recurrence"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#subgroups.utils.mdl.multinomial_with_recurrence" title="Link to this definition"></a></dt>
 <dd><p>Compute the multinomial distribution complexity.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -189,7 +218,7 @@
 
 <dl class="py function">
 <dt class="sig sig-object py" id="subgroups.utils.mdl.universal_code_for_integer">
-<span class="sig-prename descclassname"><span class="pre">subgroups.utils.mdl.</span></span><span class="sig-name descname"><span class="pre">universal_code_for_integer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_integer_value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.utils.mdl.universal_code_for_integer" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">subgroups.utils.mdl.</span></span><span class="sig-name descname"><span class="pre">universal_code_for_integer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_integer_value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/subgroups/utils/mdl.html#universal_code_for_integer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#subgroups.utils.mdl.universal_code_for_integer" title="Link to this definition"></a></dt>
 <dd><p>Compute the universal code LN(i) for the input integer value.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -206,7 +235,7 @@
 
 <dl class="py function">
 <dt class="sig sig-object py" id="subgroups.utils.mdl.universal_code_for_integer_with_maximum">
-<span class="sig-prename descclassname"><span class="pre">subgroups.utils.mdl.</span></span><span class="sig-name descname"><span class="pre">universal_code_for_integer_with_maximum</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_integer_value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maximum_integer_value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#subgroups.utils.mdl.universal_code_for_integer_with_maximum" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">subgroups.utils.mdl.</span></span><span class="sig-name descname"><span class="pre">universal_code_for_integer_with_maximum</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_integer_value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maximum_integer_value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/subgroups/utils/mdl.html#universal_code_for_integer_with_maximum"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#subgroups.utils.mdl.universal_code_for_integer_with_maximum" title="Link to this definition"></a></dt>
 <dd><p>Compute the universal code LN(i) for the input integer value, when a maximum integer value exists.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>

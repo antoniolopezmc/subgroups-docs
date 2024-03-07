@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>subgroups.algorithms.subgroup_sets.qfinder &mdash; subgroups 0.1.6 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=92fd9be5" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../../_static/documentation_options.js?v=6e0256f3"></script>
+        <script src="../../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../../index.html" class="icon icon-home">
+            subgroups
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../project_files/subgroups.html">subgroups package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../project_files/subgroups.algorithms.html">subgroups.algorithms package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../project_files/subgroups.core.html">subgroups.core package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../project_files/subgroups.data_structures.html">subgroups.data_structures package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../project_files/subgroups.quality_measures.html">subgroups.quality_measures package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../project_files/subgroups.tests.html">subgroups.tests package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../project_files/subgroups.utils.html">subgroups.utils package</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">subgroups</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">subgroups.algorithms.subgroup_sets.qfinder</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for subgroups.algorithms.subgroup_sets.qfinder</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+
+<span class="c1"># Contributors:</span>
+<span class="c1">#    Paco Mora Caselles &lt;pacomoracaselles@gmail.com&gt;</span>
+
+<span class="sd">&quot;&quot;&quot;This file contains the implementation of the QFinder algorithm.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">itertools</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Union</span>
+<span class="kn">from</span> <span class="nn">pandas</span> <span class="kn">import</span> <span class="n">DataFrame</span>
+<span class="kn">from</span> <span class="nn">pandas.api.types</span> <span class="kn">import</span> <span class="n">is_string_dtype</span>
+<span class="kn">from</span> <span class="nn">subgroups.algorithms.algorithm</span> <span class="kn">import</span> <span class="n">Algorithm</span>
+<span class="kn">from</span> <span class="nn">subgroups.exceptions</span> <span class="kn">import</span> <span class="n">DatasetAttributeTypeError</span>
+<span class="kn">from</span> <span class="nn">subgroups.core.pattern</span> <span class="kn">import</span> <span class="n">Pattern</span>
+<span class="kn">from</span> <span class="nn">subgroups.core.operator</span> <span class="kn">import</span> <span class="n">Operator</span>
+<span class="kn">from</span> <span class="nn">subgroups.core.selector</span> <span class="kn">import</span> <span class="n">Selector</span>
+<span class="kn">from</span> <span class="nn">subgroups.core.subgroup</span> <span class="kn">import</span> <span class="n">Subgroup</span>
+<span class="kn">from</span> <span class="nn">bitarray</span> <span class="kn">import</span> <span class="n">bitarray</span>
+<span class="kn">from</span> <span class="nn">subgroups.data_structures.bitset_qfinder</span> <span class="kn">import</span> <span class="n">Bitset_QFinder</span>
+<span class="kn">import</span> <span class="nn">operator</span>
+
+<div class="viewcode-block" id="QFinder">
+<a class="viewcode-back" href="../../../../project_files/subgroups.algorithms.subgroup_sets.html#subgroups.algorithms.subgroup_sets.qfinder.QFinder">[docs]</a>
+<span class="k">class</span> <span class="nc">QFinder</span><span class="p">(</span><span class="n">Algorithm</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;This class represents the QFinder algorithm.</span>
+
+<span class="sd">    :param cats: the number of maximum values for each column. If there is more values, we take the most frequent ones. If this value is -1, we take all the values.</span>
+<span class="sd">    :param max_complexity: the maximum complexity (length) of the patterns.</span>
+<span class="sd">    :param coverage_thld: the minimum coverage threshold.</span>
+<span class="sd">    :param or_thld: the minimum odds ratio and adjusted odds ratio threshold.</span>
+<span class="sd">    :param p_val_thld: the maximum p-value threshold. This threshold is used for p-values corrected for confounders and adjusted p-values.</span>
+<span class="sd">    :param abs_contribution_thld: the minimum absolute contribution threshold.</span>
+<span class="sd">    :param contribution_thld: the minimum contribution ratio threshold.</span>
+<span class="sd">    :param write_results_in_file: if True, the results will be written in a file.</span>
+<span class="sd">    :param file_path: the path of the file where the results will be written.</span>
+<span class="sd">    :param write_stats_in_file: if True, the statistics will be written in a HTML file.</span>
+<span class="sd">    :param stats_path: the path of the file where the statistics will be written.</span>
+<span class="sd">    :param delta: minimum delta to consider that a subgroup has a higher effect size.</span>
+<span class="sd">    :param num_subgroups: the number of top subgroups to return.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;_num_subgroups&#39;</span><span class="p">,</span><span class="s1">&#39;_cats&#39;</span><span class="p">,</span> <span class="s1">&#39;_max_complexity&#39;</span><span class="p">,</span> <span class="s1">&#39;_thresholds&#39;</span><span class="p">,</span><span class="s1">&#39;_credibility_values&#39;</span> <span class="p">,</span> <span class="s1">&#39;_file&#39;</span><span class="p">,</span> <span class="s1">&#39;_file_path&#39;</span><span class="p">,</span> <span class="s1">&#39;_stats_path&#39;</span> <span class="p">,</span> <span class="s1">&#39;_df&#39;</span><span class="p">,</span><span class="s1">&#39;_delta&#39;</span><span class="p">,</span> <span class="s1">&#39;_num_subgroups&#39;</span><span class="p">,</span> <span class="s1">&#39;_top_patterns&#39;</span><span class="p">,</span> <span class="s1">&#39;_candidate_patterns&#39;</span><span class="p">)</span>
+
+    <span class="c1"># A credibility criterion is a credibility measure and a threhosld. Here we set if the credibility measure value</span>
+    <span class="c1"># should be greater or equal than the threshold or less or equal than the threshold.</span>
+    <span class="n">_credibility_criterions</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;coverage&quot;</span> <span class="p">:</span>  <span class="n">operator</span><span class="o">.</span><span class="n">ge</span><span class="p">,</span>
+        <span class="s2">&quot;odds_ratio&quot;</span> <span class="p">:</span> <span class="n">operator</span><span class="o">.</span><span class="n">ge</span><span class="p">,</span>
+        <span class="s2">&quot;p_value&quot;</span> <span class="p">:</span> <span class="n">operator</span><span class="o">.</span><span class="n">le</span><span class="p">,</span>
+        <span class="s2">&quot;absolute_contribution&quot;</span> <span class="p">:</span> <span class="n">operator</span><span class="o">.</span><span class="n">ge</span><span class="p">,</span>
+        <span class="s2">&quot;contribution_ratio&quot;</span> <span class="p">:</span> <span class="n">operator</span><span class="o">.</span><span class="n">le</span><span class="p">,</span>
+        <span class="c1"># &quot;adjusted_odds_ratio&quot; : operator.ge,</span>
+        <span class="c1"># &quot;corrected_p_value&quot; : operator.le,</span>
+        <span class="s2">&quot;adjusted_p_value&quot;</span> <span class="p">:</span> <span class="n">operator</span><span class="o">.</span><span class="n">le</span>
+    <span class="p">}</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num_subgroups</span> <span class="p">:</span><span class="nb">int</span><span class="p">,</span> <span class="n">cats</span> <span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">max_complexity</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">coverage_thld</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.1</span><span class="p">,</span> <span class="n">or_thld</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.2</span><span class="p">,</span> <span class="n">p_val_thld</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.05</span><span class="p">,</span> <span class="n">abs_contribution_thld</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.2</span><span class="p">,</span> <span class="n">contribution_thld</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="n">delta</span> <span class="p">:</span><span class="nb">float</span> <span class="o">=</span> <span class="mf">0.2</span><span class="p">,</span> <span class="n">write_results_in_file</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">file_path</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span><span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">write_stats_in_file</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">stats_path</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span><span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">num_subgroups</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="nb">int</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;The type of the parameter &#39;num_subgroups&#39; must be &#39;int&#39;.&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">cats</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="nb">int</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;The type of the parameter &#39;cats&#39; must be &#39;int&#39;.&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">max_complexity</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="nb">int</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;The type of the parameter &#39;max_complexity&#39; must be &#39;int&#39;.&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">coverage_thld</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="nb">float</span> <span class="ow">and</span> <span class="nb">type</span><span class="p">(</span><span class="n">coverage_thld</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="nb">int</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;The type of the parameter &#39;coverage_thld&#39; must be &#39;float&#39;.&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">or_thld</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="nb">float</span> <span class="ow">and</span> <span class="nb">type</span><span class="p">(</span><span class="n">or_thld</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="nb">int</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;The type of the parameter &#39;or_thld&#39; must be &#39;float&#39;.&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">p_val_thld</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="nb">float</span> <span class="ow">and</span> <span class="nb">type</span><span class="p">(</span><span class="n">p_val_thld</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="nb">int</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;The type of the parameter &#39;p_val_thld&#39; must be &#39;float&#39;.&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">abs_contribution_thld</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="nb">float</span> <span class="ow">and</span> <span class="nb">type</span><span class="p">(</span><span class="n">abs_contribution_thld</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="nb">int</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;The type of the parameter &#39;abs_contribution_thld&#39; must be &#39;float&#39;.&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">contribution_thld</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="nb">float</span> <span class="ow">and</span> <span class="nb">type</span><span class="p">(</span><span class="n">contribution_thld</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="nb">int</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;The type of the parameter &#39;contribution_thld&#39; must be &#39;float&#39;.&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">delta</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="nb">float</span> <span class="ow">and</span> <span class="nb">type</span><span class="p">(</span><span class="n">delta</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="nb">int</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;The type of the parameter &#39;delta&#39; must be &#39;float&#39;.&quot;</span><span class="p">)</span>
+        <span class="c1"># We check that that the parameter values are valid.</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">cats</span> <span class="o">&lt;</span> <span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;The parameter &#39;cats&#39; must be greater than or equal to -1.&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">coverage_thld</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">coverage_thld</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;The parameter &#39;coverage_thld&#39; must be between 0 and 1.&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">or_thld</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;The parameter &#39;or_thld&#39; must be greater than or equal to 0.&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">p_val_thld</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">p_val_thld</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;The parameter &#39;p_val_thld&#39; must be between 0 and 1.&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">abs_contribution_thld</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">abs_contribution_thld</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;The parameter &#39;abs_contribution_thld&#39; must be between 0 and 1.&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">contribution_thld</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;The parameter &#39;contribution_thld&#39; must be greater than or equal to 0.&quot;</span><span class="p">)</span>
+        <span class="c1"># If &#39;write_results_in_file&#39; is True, &#39;file_path&#39; must not be None.</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">write_results_in_file</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">file_path</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;If the parameter &#39;write_results_in_file&#39; is True, the parameter &#39;file_path&#39; must not be None.&quot;</span><span class="p">)</span>
+        <span class="c1"># If &#39;write_stats_in_file&#39; is True, &#39;stats_path&#39; must not be None.</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">write_stats_in_file</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">stats_path</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;If the parameter &#39;write_stats_in_file&#39; is True, the parameter &#39;stats_path&#39; must not be None.&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_num_subgroups</span> <span class="o">=</span> <span class="n">num_subgroups</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_cats</span> <span class="o">=</span> <span class="n">cats</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_max_complexity</span> <span class="o">=</span> <span class="n">max_complexity</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_delta</span> <span class="o">=</span> <span class="n">delta</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">write_results_in_file</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_file_path</span> <span class="o">=</span> <span class="n">file_path</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_file_path</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_file</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">write_stats_in_file</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_stats_path</span> <span class="o">=</span> <span class="n">stats_path</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_stats_path</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_top_patterns</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_candidate_patterns</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="c1"># Thresholds for each credibility measure.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_thresholds</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;coverage&quot;</span> <span class="p">:</span> <span class="n">coverage_thld</span><span class="p">,</span>
+            <span class="s2">&quot;odds_ratio&quot;</span> <span class="p">:</span> <span class="n">or_thld</span><span class="p">,</span>
+            <span class="s2">&quot;p_value&quot;</span> <span class="p">:</span> <span class="n">p_val_thld</span><span class="p">,</span>
+            <span class="s2">&quot;absolute_contribution&quot;</span> <span class="p">:</span> <span class="n">abs_contribution_thld</span><span class="p">,</span>
+            <span class="s2">&quot;contribution_ratio&quot;</span> <span class="p">:</span> <span class="n">contribution_thld</span><span class="p">,</span>
+            <span class="c1"># &quot;adjusted_odds_ratio&quot; : self._or_thld,</span>
+            <span class="c1"># &quot;corrected_p_value&quot; : self._p_val_thld,</span>
+            <span class="s2">&quot;adjusted_p_value&quot;</span> <span class="p">:</span> <span class="n">p_val_thld</span>
+        <span class="p">}</span>
+
+    <span class="k">def</span> <span class="nf">_get_selected_subgrouops</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_top_patterns</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_get_unselected_subgroups</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_candidate_patterns</span><span class="p">)</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_top_patterns</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_get_visited_subgroups</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_candidate_patterns</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_get_top_patterns</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">Pattern</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_top_patterns</span>
+    
+    <span class="n">selected_subgroups</span> <span class="o">=</span> <span class="nb">property</span><span class="p">(</span><span class="n">_get_selected_subgrouops</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;The number of selected subgroups.&quot;</span><span class="p">)</span>
+    <span class="n">unselected_subgroups</span> <span class="o">=</span> <span class="nb">property</span><span class="p">(</span><span class="n">_get_unselected_subgroups</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;The number of unselected subgroups.&quot;</span><span class="p">)</span>
+    <span class="n">visited_subgroups</span> <span class="o">=</span> <span class="nb">property</span><span class="p">(</span><span class="n">_get_visited_subgroups</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;The number of visited subgroups.&quot;</span><span class="p">)</span>
+    <span class="n">top_patterns</span> <span class="o">=</span> <span class="nb">property</span><span class="p">(</span><span class="n">_get_top_patterns</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;The list of the selected patterns.&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_generate_candidate_patterns</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">df</span> <span class="p">:</span> <span class="n">DataFrame</span><span class="p">,</span> <span class="n">tuple_target_attribute_value</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">,</span> <span class="n">max_complexity</span> <span class="p">:</span> <span class="nb">int</span> <span class="p">,</span><span class="n">cats</span> <span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">Pattern</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Method to generate the set of candidate patterns for the QFinder algorithm.</span>
+
+<span class="sd">        :param df: the dataset.</span>
+<span class="sd">        :param tuple_as_target: the tuple which contains the target attribute name and the target attribute values.</span>
+<span class="sd">        :param max_complexity: the maximum length of the patterns.</span>
+<span class="sd">        :param cats: the number of maximum values for each column. If there is more values, we take the most frequent ones. If this value is -1, we take all the values.</span>
+<span class="sd">        :return: the set of candidate patterns.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">df</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">DataFrame</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;The type of the parameter &#39;df&#39; must be &#39;DataFrame&#39;.&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">tuple_target_attribute_value</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="nb">tuple</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;The type of the parameter &#39;tuple_as_target&#39; must be &#39;tuple&#39;.&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">cats</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="nb">int</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;The type of the parameter &#39;cats&#39; must be &#39;int&#39;.&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">max_complexity</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="nb">int</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;The type of the parameter &#39;max_complexity&#39; must be &#39;int&#39;.&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">tuple_target_attribute_value</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">2</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;The parameter &#39;tuple_as_target&#39; must contain two elements.&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="ow">not</span> <span class="n">is_string_dtype</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">tuple_target_attribute_value</span><span class="p">[</span><span class="mi">0</span><span class="p">]])):</span>
+            <span class="k">raise</span> <span class="n">DatasetAttributeTypeError</span><span class="p">(</span><span class="s2">&quot;The attribute &#39;</span><span class="si">{}</span><span class="s2">&#39; must be a string.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">tuple_target_attribute_value</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+        <span class="c1"># We do not generate patterns with the target attribute.</span>
+        <span class="n">df_without_target</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="n">tuple_target_attribute_value</span><span class="p">[</span><span class="mi">0</span><span class="p">]])</span>
+        <span class="c1"># We generate the list of candidate simple patterns (length 1).</span>
+        <span class="n">simple_patterns</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">column</span> <span class="ow">in</span> <span class="n">df_without_target</span><span class="p">:</span>
+            <span class="c1"># Number of different values for the current column.</span>
+            <span class="n">n_values</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">df_without_target</span><span class="p">[</span><span class="n">column</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">())</span>
+            <span class="c1"># If we don&#39;t have to limit the number of values, we take all of them.</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">n_values</span> <span class="o">&lt;=</span> <span class="n">cats</span> <span class="ow">or</span> <span class="n">cats</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+                <span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">df_without_target</span><span class="p">[</span><span class="n">column</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">():</span>
+                    <span class="c1"># We will save each selector (column = value) as a pattern.</span>
+                    <span class="n">simple_patterns</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Pattern</span><span class="p">([</span><span class="n">Selector</span><span class="p">(</span><span class="n">column</span><span class="p">,</span> <span class="n">Operator</span><span class="o">.</span><span class="n">EQUAL</span><span class="p">,</span> <span class="n">value</span><span class="p">)]))</span>
+            <span class="c1"># If we have to limit the number of values, we take the cats-1 most frequent ones and the rest of them are grouped in the &quot;other&quot; value.</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">value_counts</span> <span class="o">=</span> <span class="n">df_without_target</span><span class="p">[</span><span class="n">column</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+                <span class="c1"># If the &quot;other&quot; value is already in the dataset, we need to make sure that the added value is different.</span>
+                <span class="n">other</span> <span class="o">=</span> <span class="s2">&quot;other&quot;</span>
+                <span class="k">while</span> <span class="n">other</span> <span class="ow">in</span> <span class="n">value_counts</span><span class="o">.</span><span class="n">index</span><span class="p">:</span>
+                    <span class="n">other</span> <span class="o">+=</span> <span class="s2">&quot;_&quot;</span>
+                <span class="c1"># Most frequent values.</span>
+                <span class="n">top_values</span> <span class="o">=</span> <span class="n">value_counts</span><span class="o">.</span><span class="n">nlargest</span><span class="p">(</span><span class="n">cats</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">index</span>
+                <span class="c1"># Least frequent values. These values will be grouped in the &quot;other&quot; value.</span>
+                <span class="n">other_values</span> <span class="o">=</span> <span class="n">value_counts</span><span class="o">.</span><span class="n">nsmallest</span><span class="p">(</span><span class="n">n_values</span> <span class="o">-</span> <span class="n">cats</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">index</span>
+                <span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">top_values</span><span class="p">:</span>
+                    <span class="n">simple_patterns</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Pattern</span><span class="p">([</span><span class="n">Selector</span><span class="p">(</span><span class="n">column</span><span class="p">,</span> <span class="n">Operator</span><span class="o">.</span><span class="n">EQUAL</span><span class="p">,</span> <span class="n">value</span><span class="p">)]))</span>
+                <span class="c1"># We edit our copy of the dataset to set the &quot;other&quot; value to the rows which have a value that is not in the top_values.</span>
+                <span class="n">df_without_target</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df_without_target</span><span class="p">[</span><span class="n">column</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">other_values</span><span class="p">),</span> <span class="n">column</span><span class="p">]</span> <span class="o">=</span> <span class="n">other</span>
+                <span class="n">simple_patterns</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Pattern</span><span class="p">([</span><span class="n">Selector</span><span class="p">(</span><span class="n">column</span><span class="p">,</span> <span class="n">Operator</span><span class="o">.</span><span class="n">EQUAL</span><span class="p">,</span> <span class="n">other</span><span class="p">)]))</span>
+        <span class="n">complex_patterns</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">max_complexity</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+            <span class="n">max_complexity</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">df_without_target</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+        <span class="c1"># We generate the list of candidate patterns by combining the simple patterns.</span>
+        <span class="k">for</span> <span class="n">L</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">max_complexity</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+            <span class="c1"># We take each combination of L simple patterns.</span>
+            <span class="k">for</span> <span class="n">subset</span> <span class="ow">in</span> <span class="n">itertools</span><span class="o">.</span><span class="n">combinations</span><span class="p">(</span><span class="n">simple_patterns</span><span class="p">,</span> <span class="n">L</span><span class="p">):</span>
+                <span class="n">column_values</span> <span class="o">=</span> <span class="p">[</span> <span class="n">s</span><span class="o">.</span><span class="n">get_selector</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">attribute_name</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">subset</span> <span class="p">]</span>
+                <span class="c1"># If we are taking twice the same column, the pattern is not valid.</span>
+                <span class="k">if</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">column_values</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">column_values</span><span class="p">))):</span>
+                    <span class="k">continue</span>
+                <span class="n">pattern</span> <span class="o">=</span> <span class="n">Pattern</span><span class="p">([])</span>
+                <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">subset</span><span class="p">:</span>
+                    <span class="n">pattern</span><span class="o">.</span><span class="n">add_selector</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">get_selector</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+                <span class="n">complex_patterns</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pattern</span><span class="p">)</span>
+        <span class="c1"># The list of candidate patterns is the union of the list of simple patterns and the list of complex patterns.</span>
+        <span class="k">return</span> <span class="n">simple_patterns</span> <span class="o">+</span> <span class="n">complex_patterns</span>
+
+    <span class="k">def</span> <span class="nf">_handle_individual_result</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">credibility</span><span class="p">:</span> <span class="n">bitarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Method to compute the rank of a pattern.</span>
+
+<span class="sd">        :param credibility: the bitarray representing the pattern&#39;s credibility.</span>
+<span class="sd">        :return: the rank of the pattern.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">rank</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="c1"># Since most of the ranks are achieved only if the previous ones are also achieved, we can stop the loop when we find the first rank that is not achieved.</span>
+        <span class="c1"># This won&#39;t work for the fifth rank, since it only requieres that either the third or the fourth rank are achieved (and its own criterion).</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">credibility</span><span class="p">)):</span>
+            <span class="c1"># The fifth rank consists in subgroups of rank 3 OR 4 that also satisfy the fifth criterion, so we do not exit the loop if the fourth criterion is not satisfied.</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">credibility</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="ow">and</span> <span class="n">i</span><span class="o">!=</span><span class="mi">3</span><span class="p">:</span>
+                <span class="k">break</span>
+            <span class="k">if</span> <span class="n">credibility</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
+                <span class="n">rank</span> <span class="o">=</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span>
+        <span class="k">return</span> <span class="n">rank</span>
+
+    <span class="k">def</span> <span class="nf">_redundant</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">p1</span><span class="p">:</span> <span class="n">Pattern</span><span class="p">,</span> <span class="n">p2</span><span class="p">:</span> <span class="n">Pattern</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Check if two patterns are redundant.</span>
+
+<span class="sd">        :param p1: the first pattern.</span>
+<span class="sd">        :param p2: the second pattern.</span>
+<span class="sd">        :return: True if the patterns are redundant, False otherwise.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Since we are only using nominal attributes, we only need to check if one pattern is a refinement of the other. We consider a pattern to be a refinement of itself.</span>
+        <span class="k">return</span> <span class="n">p1</span><span class="o">.</span><span class="n">is_refinement</span><span class="p">(</span><span class="n">p2</span><span class="p">,</span><span class="kc">True</span><span class="p">)</span> <span class="ow">or</span> <span class="n">p2</span><span class="o">.</span><span class="n">is_refinement</span><span class="p">(</span><span class="n">p1</span><span class="p">,</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_rank_patterns</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">Pattern</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Method to assing a rank to each of the candidate patterns.</span>
+
+<span class="sd">        :return: the list of candidate patterns sorted by their rank.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># We first sort the patterns by their p_value. This sorting will be used in case of ties in the ranking.</span>
+        <span class="n">sorted_patterns</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_candidate_patterns</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">pattern</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_credibility_values</span><span class="p">[</span><span class="s2">&quot;p_value&quot;</span><span class="p">][</span><span class="nb">str</span><span class="p">(</span><span class="n">pattern</span><span class="p">)])</span>
+        <span class="n">ranks</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">pattern</span> <span class="ow">in</span> <span class="n">sorted_patterns</span><span class="p">:</span>
+            <span class="c1"># We compute the credibility of each pattern. The credibility of a pattern is a list of booleans, where each boolean represents a criterion.</span>
+            <span class="n">credibility</span> <span class="o">=</span> <span class="n">bitarray</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">cred</span> <span class="ow">in</span> <span class="n">QFinder</span><span class="o">.</span><span class="n">_credibility_criterions</span><span class="p">:</span>
+                <span class="n">credibility</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">QFinder</span><span class="o">.</span><span class="n">_credibility_criterions</span><span class="p">[</span><span class="n">cred</span><span class="p">](</span><span class="bp">self</span><span class="o">.</span><span class="n">_credibility_values</span><span class="p">[</span><span class="n">cred</span><span class="p">][</span><span class="nb">str</span><span class="p">(</span><span class="n">pattern</span><span class="p">)],</span><span class="bp">self</span><span class="o">.</span><span class="n">_thresholds</span><span class="p">[</span><span class="n">cred</span><span class="p">]))</span>
+            <span class="c1"># We compute the rank of the pattern.</span>
+            <span class="n">rank</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_handle_individual_result</span><span class="p">(</span><span class="n">credibility</span><span class="p">)</span>
+            <span class="n">ranks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">rank</span><span class="p">)</span>
+        <span class="c1"># We sort the patterns according to their ranks.</span>
+        <span class="c1"># If two patterns have the same rank, we sort them according to their appearance in sorted_patterns (i.e. according to their p-values).</span>
+        <span class="n">ranked_patterns</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">sorted_patterns</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">pattern</span><span class="p">:</span> <span class="n">ranks</span><span class="p">[</span><span class="n">sorted_patterns</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">pattern</span><span class="p">)],</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">ranked_patterns</span>
+
+    <span class="k">def</span> <span class="nf">_select_top_k</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ranked_patterns</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">Pattern</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Method to select the top-k patterns according to the ranking and the redundancy criterion.</span>
+
+<span class="sd">        :param ranked_patterns: the list of candidate patterns sorted by their rank.</span>
+<span class="sd">        :return: the list of top-k patterns.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">top_k_patterns</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="c1"># We separate the patterns by their length</span>
+        <span class="n">ranked_patterns_by_length</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">pattern</span> <span class="ow">in</span> <span class="n">ranked_patterns</span><span class="p">:</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">pattern</span><span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">ranked_patterns_by_length</span><span class="p">):</span>
+                <span class="n">ranked_patterns_by_length</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">pattern</span><span class="p">)]</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">ranked_patterns_by_length</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">pattern</span><span class="p">)]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pattern</span><span class="p">)</span>
+        <span class="c1"># We iterate over the patterns by length, from the shortest to the longest.</span>
+        <span class="k">for</span> <span class="n">length</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">ranked_patterns_by_length</span><span class="o">.</span><span class="n">keys</span><span class="p">()):</span>
+            <span class="k">for</span> <span class="n">pattern</span> <span class="ow">in</span> <span class="n">ranked_patterns_by_length</span><span class="p">[</span><span class="n">length</span><span class="p">]:</span>
+                <span class="c1"># If p-value(pattern) &gt; max(p-value(top_k_patterns)) and |top_k_patterns| == k, we continue to the next length.</span>
+                <span class="k">if</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">top_k_patterns</span><span class="p">)</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">_num_subgroups</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_credibility_values</span><span class="p">[</span><span class="s2">&quot;p_value&quot;</span><span class="p">][</span><span class="nb">str</span><span class="p">(</span><span class="n">pattern</span><span class="p">)]</span> <span class="o">&gt;</span> <span class="nb">max</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">pattern</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_credibility_values</span><span class="p">[</span><span class="s2">&quot;p_value&quot;</span><span class="p">][</span><span class="nb">str</span><span class="p">(</span><span class="n">pattern</span><span class="p">)],</span> <span class="n">top_k_patterns</span><span class="p">))):</span>
+                    <span class="k">break</span>
+                <span class="c1"># We check the redundancy of the pattern with the patterns in top_k_patterns. Breaking the loop means that the pattern is redundant and we continue to the next pattern.</span>
+                <span class="k">for</span> <span class="n">top_pattern</span> <span class="ow">in</span> <span class="n">top_k_patterns</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_redundant</span><span class="p">(</span><span class="n">pattern</span><span class="p">,</span> <span class="n">top_pattern</span><span class="p">):</span>
+                        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">pattern</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">top_pattern</span><span class="p">):</span>
+                            <span class="k">break</span>
+                        <span class="c1"># If the effect size (odds_ratio) of the pattern is not significantly larger than the effect size of the top pattern, we continue to the next pattern.</span>
+                        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">pattern</span><span class="p">)</span> <span class="o">&gt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">top_pattern</span><span class="p">)</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_credibility_values</span><span class="p">[</span><span class="s2">&quot;odds_ratio&quot;</span><span class="p">][</span><span class="nb">str</span><span class="p">(</span><span class="n">pattern</span><span class="p">)]</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_credibility_values</span><span class="p">[</span><span class="s2">&quot;odds_ratio&quot;</span><span class="p">][</span><span class="nb">str</span><span class="p">(</span><span class="n">top_pattern</span><span class="p">)]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_delta</span><span class="p">:</span>
+                            <span class="k">break</span>
+                <span class="k">else</span><span class="p">:</span> 
+                    <span class="c1"># If we didn&#39;t break, the pattern is not redundant or we justify the redundancy with a high effect size.</span>
+                    <span class="c1"># In this case, we remove the patterns in top_k_patterns that are redundant with the new pattern and we add the pattern to top_k_patterns.</span>
+                    <span class="k">for</span> <span class="n">top_pattern</span> <span class="ow">in</span> <span class="n">top_k_patterns</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_redundant</span><span class="p">(</span><span class="n">pattern</span><span class="p">,</span><span class="n">top_pattern</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">pattern</span><span class="p">)</span> <span class="o">&gt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">top_pattern</span><span class="p">)</span> <span class="ow">and</span> \
+                            <span class="bp">self</span><span class="o">.</span><span class="n">_credibility_values</span><span class="p">[</span><span class="s2">&quot;odds_ratio&quot;</span><span class="p">][</span><span class="nb">str</span><span class="p">(</span><span class="n">pattern</span><span class="p">)]</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">_credibility_values</span><span class="p">[</span><span class="s2">&quot;odds_ratio&quot;</span><span class="p">][</span><span class="nb">str</span><span class="p">(</span><span class="n">top_pattern</span><span class="p">)]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_delta</span> <span class="ow">and</span> \
+                                <span class="bp">self</span><span class="o">.</span><span class="n">_credibility_values</span><span class="p">[</span><span class="s2">&quot;p_value&quot;</span><span class="p">][</span><span class="nb">str</span><span class="p">(</span><span class="n">pattern</span><span class="p">)]</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">_credibility_values</span><span class="p">[</span><span class="s2">&quot;p_value&quot;</span><span class="p">][</span><span class="nb">str</span><span class="p">(</span><span class="n">top_pattern</span><span class="p">)]:</span>
+                            <span class="n">top_k_patterns</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">top_pattern</span><span class="p">)</span>
+                    <span class="n">top_k_patterns</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pattern</span><span class="p">)</span>
+                    <span class="c1"># If |top_k_patterns| &gt; k, we remove the pattern with the highest p-value.</span>
+                    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">top_k_patterns</span><span class="p">)</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">_num_subgroups</span><span class="p">:</span>
+                        <span class="n">max_p_val_pattern</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">top_k_patterns</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">pattern</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_credibility_values</span><span class="p">[</span><span class="s2">&quot;p_value&quot;</span><span class="p">][</span><span class="nb">str</span><span class="p">(</span><span class="n">pattern</span><span class="p">)])</span>
+                        <span class="n">top_k_patterns</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">max_p_val_pattern</span><span class="p">)</span>
+                    <span class="k">continue</span>
+                <span class="c1"># If we did break the first top_pattern in top_patterns loop, we continue to the next pattern.</span>
+                <span class="k">break</span>
+        <span class="k">return</span> <span class="n">top_k_patterns</span>
+    
+<div class="viewcode-block" id="QFinder.fit">
+<a class="viewcode-back" href="../../../../project_files/subgroups.algorithms.subgroup_sets.html#subgroups.algorithms.subgroup_sets.qfinder.QFinder.fit">[docs]</a>
+    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pandas_dataframe</span><span class="p">:</span> <span class="n">DataFrame</span><span class="p">,</span> <span class="n">tuple_target_attribute_value</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Main method to run the QFinder algorithm. This algorithm only supports nominal attributes (i.e., type &#39;str&#39;). IMPORTANT: missing values are not supported yet.</span>
+<span class="sd">        </span>
+<span class="sd">        :param data: the DataFrame which is scanned. This algorithm only supports nominal attributes (i.e., type &#39;str&#39;). IMPORTANT: missing values are not supported yet.</span>
+<span class="sd">        :param target: a tuple with 2 elements: the target attribute name and the target value.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">pandas_dataframe</span><span class="p">)</span> <span class="o">!=</span> <span class="n">DataFrame</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;The dataset must be a pandas DataFrame.&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">tuple_target_attribute_value</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">tuple</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;The target must be a tuple.&quot;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">column</span> <span class="ow">in</span> <span class="n">pandas_dataframe</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">is_string_dtype</span><span class="p">(</span><span class="n">pandas_dataframe</span><span class="p">[</span><span class="n">column</span><span class="p">]):</span>
+                <span class="k">raise</span> <span class="n">DatasetAttributeTypeError</span><span class="p">(</span><span class="s2">&quot;Error in attribute &#39;&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">column</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;&#39;. This algorithm only supports nominal attributes (i.e., type &#39;str&#39;).&quot;</span><span class="p">)</span>
+        <span class="c1"># We copy the DataFrame to avoid modifying the original when dealing with &quot;other&quot; values.</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">pandas_dataframe</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="c1"># We generate the list of candidate patterns.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_candidate_patterns</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_generate_candidate_patterns</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">tuple_target_attribute_value</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_max_complexity</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cats</span><span class="p">)</span>
+        <span class="c1"># We compute the credibility measures for each candidate pattern using the bitset structure.</span>
+        <span class="n">qfinder_bitset</span> <span class="o">=</span> <span class="n">Bitset_QFinder</span><span class="p">()</span>
+        <span class="n">qfinder_bitset</span><span class="o">.</span><span class="n">generate_bitset</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">tuple_target_attribute_value</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_candidate_patterns</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_candidate_patterns</span> <span class="o">=</span> <span class="n">qfinder_bitset</span><span class="o">.</span><span class="n">get_non_empty_patterns</span><span class="p">()</span>
+        <span class="n">coverages</span><span class="p">,</span> <span class="n">odds_ratios</span><span class="p">,</span> <span class="n">p_values</span><span class="p">,</span> <span class="n">absolute_contributions</span><span class="p">,</span> <span class="n">contribution_ratios</span><span class="p">,</span> <span class="n">adjusted_p_values</span> \
+            <span class="o">=</span> <span class="n">qfinder_bitset</span><span class="o">.</span><span class="n">compute_credibility_measures</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">tuple_target_attribute_value</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">==</span> <span class="n">tuple_target_attribute_value</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_credibility_values</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;coverage&quot;</span><span class="p">:</span> <span class="n">coverages</span><span class="p">,</span>
+            <span class="s2">&quot;odds_ratio&quot;</span><span class="p">:</span> <span class="n">odds_ratios</span><span class="p">,</span>
+            <span class="s2">&quot;p_value&quot;</span><span class="p">:</span> <span class="n">p_values</span><span class="p">,</span>
+            <span class="s2">&quot;absolute_contribution&quot;</span><span class="p">:</span> <span class="n">absolute_contributions</span><span class="p">,</span>
+            <span class="s2">&quot;contribution_ratio&quot;</span><span class="p">:</span> <span class="n">contribution_ratios</span><span class="p">,</span>
+            <span class="c1"># &quot;adjusted_odds_ratio&quot;: adjusted_odds_ratios,</span>
+            <span class="c1"># &quot;corrected_p_value&quot;: corrected_p_values,</span>
+            <span class="s2">&quot;adjusted_p_value&quot;</span><span class="p">:</span> <span class="n">adjusted_p_values</span>
+        <span class="p">}</span>
+        <span class="n">ranked_patterns</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_rank_patterns</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_top_patterns</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_select_top_k</span><span class="p">(</span><span class="n">ranked_patterns</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_file_path</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_to_file</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_file_path</span><span class="p">,</span><span class="n">tuple_target_attribute_value</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_credibility_values</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stats_path</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_to_stats_file</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="QFinder.test_subgroups">
+<a class="viewcode-back" href="../../../../project_files/subgroups.algorithms.subgroup_sets.html#subgroups.algorithms.subgroup_sets.qfinder.QFinder.test_subgroups">[docs]</a>
+    <span class="k">def</span> <span class="nf">test_subgroups</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">test_dataframe</span> <span class="p">:</span> <span class="n">DataFrame</span><span class="p">,</span> <span class="n">tuple_target_attribute_value</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">,</span> <span class="n">write_to_file</span><span class="p">:</span><span class="nb">bool</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">file_path</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span><span class="kc">None</span><span class="p">]</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Method to test the best subgroups on a different dataset. This method can only be called after the fit method.</span>
+<span class="sd">        </span>
+<span class="sd">        :param test_dataframe: the DataFrame which is scanned. This algorithm only supports nominal attributes (i.e., type &#39;str&#39;). IMPORTANT: missing values are not supported yet.</span>
+<span class="sd">        :param target: a tuple with 2 elements: the target attribute name and the target value.</span>
+<span class="sd">        :return: a dictionary with the credibility measures for each subgroup.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># We make sure that the fit method has been called before.</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_top_patterns</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;The fit method must be called before testing subgroups.&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">test_dataframe</span><span class="p">)</span> <span class="o">!=</span> <span class="n">DataFrame</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;The dataset must be a pandas DataFrame.&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">tuple_target_attribute_value</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">tuple</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;The target must be a tuple.&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">write_to_file</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">bool</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;The write_to_file parameter must be a boolean.&quot;</span><span class="p">)</span>
+        <span class="c1"># If wirte_to_file is True, file_path must not be None.</span>
+        <span class="k">if</span> <span class="n">write_to_file</span> <span class="ow">and</span> <span class="n">file_path</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;The file path must be specified.&quot;</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">write_to_file</span> <span class="ow">and</span> <span class="nb">type</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">str</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;The file path must be a string.&quot;</span><span class="p">)</span>
+        <span class="c1"># We generate a different bitset for the test dataset, which whill be used to compute the credibility measures.</span>
+        <span class="n">qfinder_bitset</span> <span class="o">=</span> <span class="n">Bitset_QFinder</span><span class="p">()</span>
+        <span class="n">qfinder_bitset</span><span class="o">.</span><span class="n">generate_bitset</span><span class="p">(</span><span class="n">test_dataframe</span><span class="p">,</span> <span class="n">tuple_target_attribute_value</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_top_patterns</span><span class="p">)</span>
+        <span class="n">coverages</span><span class="p">,</span> <span class="n">odds_ratios</span><span class="p">,</span> <span class="n">p_values</span><span class="p">,</span> <span class="n">absolute_contributions</span><span class="p">,</span> <span class="n">contribution_ratios</span><span class="p">,</span> <span class="n">adjusted_p_values</span> \
+            <span class="o">=</span> <span class="n">qfinder_bitset</span><span class="o">.</span><span class="n">compute_credibility_measures</span><span class="p">(</span><span class="n">test_dataframe</span><span class="p">[</span><span class="n">tuple_target_attribute_value</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">==</span> <span class="n">tuple_target_attribute_value</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="n">parameters</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;coverages&quot;</span><span class="p">:</span> <span class="n">coverages</span><span class="p">,</span>
+            <span class="s2">&quot;odds_ratios&quot;</span><span class="p">:</span> <span class="n">odds_ratios</span><span class="p">,</span>
+            <span class="s2">&quot;p_values&quot;</span><span class="p">:</span> <span class="n">p_values</span><span class="p">,</span>
+            <span class="s2">&quot;absolute_contributions&quot;</span><span class="p">:</span> <span class="n">absolute_contributions</span><span class="p">,</span>
+            <span class="s2">&quot;contribution_ratios&quot;</span><span class="p">:</span> <span class="n">contribution_ratios</span><span class="p">,</span>
+            <span class="s2">&quot;adjusted_p_values&quot;</span><span class="p">:</span> <span class="n">adjusted_p_values</span>
+        <span class="p">}</span>
+        <span class="k">if</span> <span class="n">write_to_file</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_to_file</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="n">tuple_target_attribute_value</span><span class="p">,</span> <span class="n">parameters</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">parameters</span></div>
+
+    
+    <span class="k">def</span> <span class="nf">_to_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_path</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">credibility_values</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Writes the top-k patterns to a file.</span>
+
+<span class="sd">        :param target: a tuple with 2 elements: the target attribute name and the target value.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_file</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">pat</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_top_patterns</span><span class="p">:</span>
+            <span class="n">subgroup</span> <span class="o">=</span> <span class="n">Subgroup</span><span class="p">(</span><span class="n">pat</span><span class="p">,</span> <span class="n">Selector</span><span class="p">(</span><span class="n">target</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">Operator</span><span class="o">.</span><span class="n">EQUAL</span><span class="p">,</span> <span class="n">target</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">subgroup</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; ; &quot;</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">cred</span> <span class="ow">in</span> <span class="n">credibility_values</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">cred</span> <span class="o">+</span> <span class="s2">&quot;: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">credibility_values</span><span class="p">[</span><span class="n">cred</span><span class="p">][</span><span class="nb">str</span><span class="p">(</span><span class="n">pat</span><span class="p">)])</span> <span class="o">+</span> <span class="s2">&quot; ; &quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_file</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="nf">_to_stats_file</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Write the credibility measures of each pattern to a file.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="n">cred</span> <span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_credibility_values</span><span class="p">[</span><span class="n">cred</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">())</span> <span class="k">for</span> <span class="n">cred</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_credibility_values</span>
+            <span class="p">}</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+        <span class="c1"># Set the row names to be the patterns.</span>
+        <span class="n">df</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_credibility_values</span><span class="p">[</span><span class="s2">&quot;odds_ratio&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+        <span class="n">df</span><span class="o">.</span><span class="n">to_html</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_stats_path</span><span class="p">)</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Antonio López Martínez-Carrasco.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

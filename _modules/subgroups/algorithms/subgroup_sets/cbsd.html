@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>subgroups.algorithms.subgroup_sets.cbsd &mdash; subgroups 0.1.6 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=92fd9be5" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../../_static/documentation_options.js?v=6e0256f3"></script>
+        <script src="../../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../../index.html" class="icon icon-home">
+            subgroups
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../project_files/subgroups.html">subgroups package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../project_files/subgroups.algorithms.html">subgroups.algorithms package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../project_files/subgroups.core.html">subgroups.core package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../project_files/subgroups.data_structures.html">subgroups.data_structures package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../project_files/subgroups.quality_measures.html">subgroups.quality_measures package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../project_files/subgroups.tests.html">subgroups.tests package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../project_files/subgroups.utils.html">subgroups.utils package</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">subgroups</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">subgroups.algorithms.subgroup_sets.cbsd</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for subgroups.algorithms.subgroup_sets.cbsd</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+
+<span class="c1"># Contributors:</span>
+<span class="c1">#    Paco Mora Caselles &lt;pacomoracaselles@gmail.com&gt;</span>
+
+<span class="sd">&quot;&quot;&quot;This file contains the implementation of the CBSD algorithm.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">subgroups.algorithms.subgroup_sets.bsd</span> <span class="kn">import</span> <span class="n">BSD</span>
+<span class="kn">from</span> <span class="nn">subgroups.core.pattern</span> <span class="kn">import</span> <span class="n">Pattern</span>
+<span class="kn">from</span> <span class="nn">subgroups.data_structures.bitset_bsd</span> <span class="kn">import</span> <span class="n">BitsetDictionary</span>
+<span class="kn">from</span> <span class="nn">bitarray</span> <span class="kn">import</span> <span class="n">bitarray</span>
+
+<div class="viewcode-block" id="CBSD">
+<a class="viewcode-back" href="../../../../project_files/subgroups.algorithms.subgroup_sets.html#subgroups.algorithms.subgroup_sets.cbsd.CBSD">[docs]</a>
+<span class="k">class</span> <span class="nc">CBSD</span><span class="p">(</span><span class="n">BSD</span><span class="p">):</span>
+
+    <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">_handle_individual_result</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">individual_result</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">BitsetDictionary</span><span class="p">,</span> <span class="n">BitsetDictionary</span><span class="p">,</span> <span class="nb">list</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Private method to handle each individual result generated by the algorithm.</span>
+
+<span class="sd">        :param individual_result: The individual result generated by the algorithm. It consists of a tuple with the values (selCond, sCurr, oe, quality,CcondPos,CcondNeg, cCurrPos, cCurrNeg,newSelRel,tp,fp).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_visited_subgroups</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="n">selCond</span> <span class="o">=</span> <span class="n">individual_result</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">sCurr</span> <span class="o">=</span> <span class="n">individual_result</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">oe</span> <span class="o">=</span> <span class="n">individual_result</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+        <span class="n">quality</span> <span class="o">=</span> <span class="n">individual_result</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+        <span class="n">CcondPos</span> <span class="o">=</span> <span class="n">individual_result</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span>
+        <span class="n">CcondNeg</span> <span class="o">=</span> <span class="n">individual_result</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span>
+        <span class="n">cCurrPos</span> <span class="o">=</span> <span class="n">individual_result</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span>
+        <span class="n">cCurrNeg</span> <span class="o">=</span> <span class="n">individual_result</span><span class="p">[</span><span class="mi">7</span><span class="p">]</span>
+        <span class="n">newSelRel</span> <span class="o">=</span> <span class="n">individual_result</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span>
+        <span class="n">tp</span> <span class="o">=</span> <span class="n">individual_result</span><span class="p">[</span><span class="mi">9</span><span class="p">]</span>
+        <span class="n">fp</span> <span class="o">=</span> <span class="n">individual_result</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span>
+        <span class="c1"># if optimistic estimate &gt; quality of worst subgroup or k-subgroups is not full</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">oe</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_k_subgroups</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_k_subgroups</span><span class="p">)</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_subgroups</span><span class="p">):</span>
+            <span class="c1"># Add the current selector to the list of new selectors added to the conditional pattern</span>
+            <span class="n">newSelRel</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">oe</span><span class="p">,</span> <span class="n">sCurr</span><span class="p">))</span>
+            <span class="c1"># Add the current selector with the pattern to the dictionaries of positive and negative entries</span>
+            <span class="n">CcondPos</span><span class="p">,</span><span class="n">CcondNeg</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_attach</span><span class="p">(</span><span class="n">cCurrPos</span><span class="p">,</span> <span class="n">cCurrNeg</span><span class="p">,</span> <span class="n">CcondPos</span><span class="p">,</span> <span class="n">CcondNeg</span><span class="p">,</span> <span class="n">sCurr</span><span class="p">,</span> <span class="n">selCond</span><span class="p">)</span>
+            <span class="c1">#if quality &gt; min or k-subgroups is not full</span>
+            <span class="k">if</span> <span class="n">quality</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_k_subgroups</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_k_subgroups</span><span class="p">)</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_subgroups</span><span class="p">:</span>
+                <span class="c1"># sg = conditional pattern + current selector</span>
+                <span class="k">if</span> <span class="n">selCond</span><span class="p">:</span>
+                    <span class="n">sg</span> <span class="o">=</span> <span class="n">selCond</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+                    <span class="n">sg</span><span class="o">.</span><span class="n">add_selector</span><span class="p">(</span><span class="n">sCurr</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">sg</span> <span class="o">=</span> <span class="n">Pattern</span><span class="p">([</span><span class="n">sCurr</span><span class="p">])</span>
+                <span class="n">r</span><span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_checkRel</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_k_subgroups</span><span class="p">,</span> <span class="n">cCurrPos</span><span class="p">,</span> <span class="n">cCurrNeg</span><span class="p">,</span><span class="n">quality</span><span class="p">,</span><span class="n">sg</span><span class="p">)</span>
+                <span class="c1"># If the subgroup is relevant, we add it to the list of k-subgroups</span>
+                <span class="k">if</span> <span class="n">r</span><span class="p">:</span>
+                                        <span class="c1"># (quality, subgroup, bits, optimistic_estimate,(tp,fp))</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_k_subgroups</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">quality</span><span class="p">,</span> <span class="n">sg</span><span class="p">,</span> <span class="n">cCurrPos</span> <span class="o">+</span> <span class="n">cCurrNeg</span><span class="p">,</span><span class="n">oe</span><span class="p">,(</span><span class="n">tp</span><span class="p">,</span><span class="n">fp</span><span class="p">)))</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_k_subgroups</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_k_subgroups</span><span class="p">,</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+                    <span class="c1"># Check if the subgroups in k_subgroups are still relevant</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_checkRelevancies</span><span class="p">(</span><span class="n">cCurrPos</span> <span class="o">+</span> <span class="n">cCurrNeg</span><span class="p">,</span> <span class="n">sg</span><span class="p">,</span><span class="n">quality</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_k_subgroups</span><span class="p">)</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_subgroups</span><span class="p">:</span>
+                        <span class="c1">#Remove lowest quality subgroup</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">_k_subgroups</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">_unselected_subgroups</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_unselected_subgroups</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_unselected_subgroups</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_unselected_subgroups</span> <span class="o">+=</span><span class="mi">1</span>
+        <span class="k">return</span> <span class="n">CcondPos</span><span class="p">,</span><span class="n">CcondNeg</span><span class="p">,</span><span class="n">newSelRel</span>
+
+    <span class="k">def</span> <span class="nf">_checkRelevancies</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">bits</span> <span class="p">:</span> <span class="n">bitarray</span><span class="p">,</span><span class="n">sg</span> <span class="p">:</span> <span class="n">Pattern</span><span class="p">,</span><span class="n">quality</span> <span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Internal method to check relevacies in _k_subgroups.</span>
+<span class="sd">        :param bits: bitarray of positive and negative instances</span>
+<span class="sd">        :param sg: Pattern that represents a subgroup</span>
+<span class="sd">        :param quality: sg quality</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">quality</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="nb">float</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;Parameter &#39;quality&#39; must be a float.&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">bits</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">bitarray</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;Parameter &#39;bits&#39; must be a bitarray.&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">sg</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">Pattern</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;Parameter &#39;sg&#39; must be a Pattern.&quot;</span><span class="p">)</span>
+        <span class="c1"># Eliminate the dummy subgroup</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_k_subgroups</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_k_subgroups</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="c1"># New list of k_subgroups</span>
+        <span class="n">aux</span> <span class="o">=</span><span class="p">[]</span>
+        <span class="k">for</span> <span class="nb">tuple</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_k_subgroups</span><span class="p">:</span>
+            <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">rel</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="c1"># If the subgroup in the list is the one we are checking in this call or they have different quality --&gt; is relevant</span>
+            <span class="k">if</span> <span class="nb">tuple</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="n">sg</span> <span class="ow">or</span> <span class="nb">tuple</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="n">quality</span><span class="p">:</span>
+                <span class="n">rel</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="k">while</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="nb">tuple</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">rel</span><span class="p">:</span>
+                <span class="c1"># If the new subgroup does not contain the old subgroup --&gt; is relevant</span>
+                <span class="k">if</span> <span class="nb">tuple</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">bits</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
+                    <span class="n">rel</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="n">i</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span>
+            <span class="c1"># We add the old subgroup to the new list of k_subgroups if it is relevant</span>
+            <span class="k">if</span> <span class="n">rel</span><span class="p">:</span>
+                <span class="n">aux</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">tuple</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_irrelevants</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="nb">tuple</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="nb">tuple</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="nb">tuple</span><span class="p">[</span><span class="mi">2</span><span class="p">]))</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_unselected_subgroups</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_k_subgroups</span> <span class="o">=</span> <span class="n">aux</span>
+
+    <span class="k">def</span> <span class="nf">_checkRel</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">res</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">ccurrPos</span><span class="p">:</span> <span class="n">bitarray</span><span class="p">,</span> <span class="n">ccurrNeg</span><span class="p">:</span> <span class="n">bitarray</span><span class="p">,</span> <span class="n">quality</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">sCurr</span><span class="p">:</span> <span class="n">Pattern</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Internal method to check if sCurr is relevant in res.</span>
+
+<span class="sd">        :param res: list of tuples</span>
+<span class="sd">        :param ccurrPos: bitarray of positive instances</span>
+<span class="sd">        :param ccurrNeg: bitarray of negative instances</span>
+<span class="sd">        :param quality: sCurr quality</span>
+<span class="sd">        :param sCurr: Pattern of the subgroup found</span>
+<span class="sd">        :return: check if ccurrPos + ccurrNeg is relevant in res</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">res</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="nb">list</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;Parameter &#39;res&#39; must be a list.&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">ccurrPos</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">bitarray</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;Parameter &#39;ccurrPos&#39; must be a bitarray.&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">ccurrNeg</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">bitarray</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;Parameter &#39;ccurrNeg&#39; must be a bitarray.&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">quality</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="nb">float</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;Parameter &#39;quality&#39; must be a float.&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">sCurr</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">Pattern</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;Parameter &#39;sCurr&#39; must be a Pattern.&quot;</span><span class="p">)</span>
+        <span class="c1">#if is empty</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">res</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]:</span>
+            <span class="k">return</span> <span class="kc">True</span>
+        <span class="n">bits</span> <span class="o">=</span> <span class="n">ccurrPos</span> <span class="o">+</span> <span class="n">ccurrNeg</span>
+        <span class="k">for</span> <span class="nb">tuple</span> <span class="ow">in</span> <span class="n">res</span><span class="p">:</span>
+            <span class="c1"># If the quality is not the same --&gt; is relevant</span>
+            <span class="k">if</span><span class="p">(</span><span class="nb">tuple</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">quality</span><span class="p">):</span>
+                <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="n">rel</span> <span class="o">=</span> <span class="kc">False</span>
+                <span class="k">while</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="nb">tuple</span><span class="p">[</span><span class="mi">2</span><span class="p">]):</span>
+                    <span class="c1"># If the old subgroup does not contain the new subgroup --&gt; is relevant</span>
+                    <span class="k">if</span> <span class="ow">not</span> <span class="nb">tuple</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="ow">and</span> <span class="n">bits</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
+                        <span class="n">rel</span> <span class="o">=</span> <span class="kc">True</span>
+                        <span class="k">break</span>
+                    <span class="n">i</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span><span class="mi">1</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">rel</span><span class="p">:</span>
+                    <span class="c1"># If the subgroups are the same or the new subgroup contains the old subgroup, we prune the shorter subgroup</span>
+                    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="nb">tuple</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">&gt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">sCurr</span><span class="p">):</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">_irrelevants</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">sCurr</span><span class="p">,</span> <span class="n">quality</span><span class="p">,</span> <span class="n">bits</span><span class="p">))</span>
+                        <span class="k">return</span> <span class="kc">False</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">_k_subgroups</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="nb">tuple</span><span class="p">)</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">_irrelevants</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="nb">tuple</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="nb">tuple</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="nb">tuple</span><span class="p">[</span><span class="mi">2</span><span class="p">]))</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">_unselected_subgroups</span> <span class="o">+=</span> <span class="mi">1</span>
+                        <span class="c1"># If we remove the old subgroup, we will return True in order to add the new subgroup</span>
+                        <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">return</span> <span class="kc">True</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Antonio López Martínez-Carrasco.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

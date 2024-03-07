@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>subgroups.algorithms.subgroup_sets.vlsd &mdash; subgroups 0.1.6 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=92fd9be5" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../../_static/documentation_options.js?v=6e0256f3"></script>
+        <script src="../../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../../index.html" class="icon icon-home">
+            subgroups
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../project_files/subgroups.html">subgroups package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../project_files/subgroups.algorithms.html">subgroups.algorithms package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../project_files/subgroups.core.html">subgroups.core package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../project_files/subgroups.data_structures.html">subgroups.data_structures package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../project_files/subgroups.quality_measures.html">subgroups.quality_measures package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../project_files/subgroups.tests.html">subgroups.tests package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../project_files/subgroups.utils.html">subgroups.utils package</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">subgroups</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">subgroups.algorithms.subgroup_sets.vlsd</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for subgroups.algorithms.subgroup_sets.vlsd</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+
+<span class="c1"># Contributors:</span>
+<span class="c1">#    Antonio López Martínez-Carrasco &lt;antoniolopezmc1995@gmail.com&gt;</span>
+
+<span class="sd">&quot;&quot;&quot;This file contains the implementation of the VLSD algorithm.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">pandas</span> <span class="kn">import</span> <span class="n">DataFrame</span>
+<span class="kn">from</span> <span class="nn">pandas.api.types</span> <span class="kn">import</span> <span class="n">is_string_dtype</span>
+<span class="kn">from</span> <span class="nn">subgroups.algorithms.algorithm</span> <span class="kn">import</span> <span class="n">Algorithm</span>
+<span class="kn">from</span> <span class="nn">subgroups.quality_measures.quality_measure</span> <span class="kn">import</span> <span class="n">QualityMeasure</span>
+<span class="kn">from</span> <span class="nn">subgroups.exceptions</span> <span class="kn">import</span> <span class="n">DatasetAttributeTypeError</span>
+<span class="kn">from</span> <span class="nn">subgroups.data_structures.vertical_list</span> <span class="kn">import</span> <span class="n">VerticalList</span>
+<span class="kn">from</span> <span class="nn">subgroups.data_structures.vertical_list_with_bitsets</span> <span class="kn">import</span> <span class="n">VerticalListWithBitsets</span>
+<span class="kn">from</span> <span class="nn">subgroups.data_structures.vertical_list_with_sets</span> <span class="kn">import</span> <span class="n">VerticalListWithSets</span>
+<span class="kn">from</span> <span class="nn">subgroups.core.pattern</span> <span class="kn">import</span> <span class="n">Pattern</span>
+<span class="kn">from</span> <span class="nn">subgroups.core.operator</span> <span class="kn">import</span> <span class="n">Operator</span>
+<span class="kn">from</span> <span class="nn">subgroups.core.selector</span> <span class="kn">import</span> <span class="n">Selector</span>
+<span class="kn">from</span> <span class="nn">subgroups.core.subgroup</span> <span class="kn">import</span> <span class="n">Subgroup</span>
+
+<span class="c1"># Python annotations.</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Union</span><span class="p">,</span> <span class="n">ClassVar</span>
+
+<span class="k">def</span> <span class="nf">_delete_subgroup_parameters_from_a_dictionary</span><span class="p">(</span><span class="n">dict_of_parameters</span> <span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Private method to delete the subgroup parameters (i.e., tp, fp, TP and FP) from a dictionary of parameters. IMPORTANT: this method modifies the parameter, does not return a new dictionary.</span>
+<span class="sd">    </span>
+<span class="sd">    :param dict_of_parameters: the dictionary of parameters which is modified.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">del</span> <span class="n">dict_of_parameters</span><span class="p">[</span><span class="n">QualityMeasure</span><span class="o">.</span><span class="n">TRUE_POSITIVES</span><span class="p">]</span>
+    <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+        <span class="k">pass</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">del</span> <span class="n">dict_of_parameters</span><span class="p">[</span><span class="n">QualityMeasure</span><span class="o">.</span><span class="n">FALSE_POSITIVES</span><span class="p">]</span>
+    <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+        <span class="k">pass</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">del</span> <span class="n">dict_of_parameters</span><span class="p">[</span><span class="n">QualityMeasure</span><span class="o">.</span><span class="n">TRUE_POPULATION</span><span class="p">]</span>
+    <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+        <span class="k">pass</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">del</span> <span class="n">dict_of_parameters</span><span class="p">[</span><span class="n">QualityMeasure</span><span class="o">.</span><span class="n">FALSE_POPULATION</span><span class="p">]</span>
+    <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+        <span class="k">pass</span>
+
+<span class="k">def</span> <span class="nf">_query_triangular_matrix</span><span class="p">(</span><span class="n">matrix</span> <span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="n">Selector</span><span class="p">,</span> <span class="nb">dict</span><span class="p">[</span><span class="n">Selector</span><span class="p">,</span> <span class="n">VerticalList</span><span class="p">]],</span> <span class="n">index_a</span> <span class="p">:</span> <span class="n">Selector</span><span class="p">,</span> <span class="n">index_b</span> <span class="p">:</span> <span class="n">Selector</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">VerticalList</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Private method to query a triangular matrix.</span>
+<span class="sd">    </span>
+<span class="sd">    :param matrix: the triangular matrix which is queried.</span>
+<span class="sd">    :param index_a: the first index in the query.</span>
+<span class="sd">    :param index_b: the second index in the query.</span>
+<span class="sd">    :return: either the Vertical List contained in matrix[index_a][index_b], or the Vertical List contained in matrix[index_b][index_a] if the firt one was None, or None if they were both None.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">matrix</span><span class="p">[</span><span class="n">index_a</span><span class="p">][</span><span class="n">index_b</span><span class="p">]</span>
+    <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">matrix</span><span class="p">[</span><span class="n">index_b</span><span class="p">][</span><span class="n">index_a</span><span class="p">]</span>
+        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+<div class="viewcode-block" id="VLSD">
+<a class="viewcode-back" href="../../../../project_files/subgroups.algorithms.subgroup_sets.html#subgroups.algorithms.subgroup_sets.vlsd.VLSD">[docs]</a>
+<span class="k">class</span> <span class="nc">VLSD</span><span class="p">(</span><span class="n">Algorithm</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;This class represents the VLSD algorithm.</span>
+<span class="sd">    </span>
+<span class="sd">    :param quality_measure: the quality measure which is used.</span>
+<span class="sd">    :param q_minimum_threshold: the minimum quality threshold for the quality measure.</span>
+<span class="sd">    :param optimistic_estimate: the optimistic estimate of the quality measure which is used.</span>
+<span class="sd">    :param oe_minimum_threshold: the minimum quality threshold for the optimistic estimate.</span>
+<span class="sd">    :param additional_parameters_for_the_quality_measure: if the quality measure passed by parameter needs more parameters apart from tp, fp, TP and FP to be computed, they need to be specified here.</span>
+<span class="sd">    :param additional_parameters_for_the_optimistic_estimate: if the optimistic estimate passed by parameter needs more parameters apart from tp, fp, TP and FP to be computed, they need to be specified here.</span>
+<span class="sd">    :param sort_criterion_in_s1: the criterion to use in order to sort the Vertical Lists with only one selector. Three values are possible: &quot;quality-ascending&quot; (sort ascending by quality value), &quot;quality-descending&quot; (sort descending by quality value), and &quot;no-order&quot; (do not sort and maintain the generation order). By default, &quot;no-order&quot;.</span>
+<span class="sd">    :param sort_criterion_in_other_sizes: the criterion to use in order to sort the Vertical Lists with more than one selector. Three values are possible: &quot;quality-ascending&quot; (sort ascending by quality value), &quot;quality-descending&quot; (sort descending by quality value), and &quot;no-order&quot; (do not sort and maintain the generation order). By default, &quot;no-order&quot;.</span>
+<span class="sd">    :param write_results_in_file: whether the results obtained will be written in a file. By default, False.</span>
+<span class="sd">    :param file_path: if &#39;write_results_in_file&#39; is True, path of the file in which the results will be written.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="n">SORT_CRITERION_QUALITY_ASCENDING</span> <span class="p">:</span> <span class="n">ClassVar</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;quality-ascending&quot;</span>
+    <span class="n">SORT_CRITERION_QUALITY_DESCENDING</span> <span class="p">:</span> <span class="n">ClassVar</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;quality-descending&quot;</span>
+    <span class="n">SORT_CRITERION_NO_ORDER</span> <span class="p">:</span> <span class="n">ClassVar</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;no-order&quot;</span>
+    <span class="n">SORT_CRITERION</span> <span class="p">:</span> <span class="n">ClassVar</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[</span><span class="n">SORT_CRITERION_QUALITY_ASCENDING</span><span class="p">,</span> <span class="n">SORT_CRITERION_QUALITY_DESCENDING</span><span class="p">,</span> <span class="n">SORT_CRITERION_NO_ORDER</span><span class="p">]</span>
+    
+    <span class="n">VERTICAL_LISTS_WITH_BITSETS</span> <span class="p">:</span> <span class="n">ClassVar</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;bitsets&quot;</span>
+    <span class="n">VERTICAL_LISTS_WITH_SETS</span> <span class="p">:</span> <span class="n">ClassVar</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;sets&quot;</span>
+    <span class="n">VERTICAL_LISTS_IMPLEMENTATION</span> <span class="p">:</span> <span class="n">ClassVar</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[</span><span class="n">VERTICAL_LISTS_WITH_BITSETS</span><span class="p">,</span> <span class="n">VERTICAL_LISTS_WITH_SETS</span><span class="p">]</span>
+
+    <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;_quality_measure&quot;</span><span class="p">,</span> <span class="s2">&quot;_q_minimum_threshold&quot;</span><span class="p">,</span> <span class="s2">&quot;_optimistic_estimate&quot;</span><span class="p">,</span> <span class="s2">&quot;_oe_minimum_threshold&quot;</span><span class="p">,</span> <span class="s2">&quot;_additional_parameters_for_the_quality_measure&quot;</span><span class="p">,</span> <span class="s2">&quot;_additional_parameters_for_the_optimistic_estimate&quot;</span><span class="p">,</span> <span class="s2">&quot;_unselected_subgroups&quot;</span><span class="p">,</span> <span class="s2">&quot;_selected_subgroups&quot;</span><span class="p">,</span> <span class="s2">&quot;_sort_criterion_in_s1&quot;</span><span class="p">,</span> <span class="s2">&quot;_sort_criterion_in_other_sizes&quot;</span><span class="p">,</span> <span class="s2">&quot;_vertical_lists_implementation&quot;</span><span class="p">,</span> <span class="s2">&quot;_file_path&quot;</span><span class="p">,</span> <span class="s2">&quot;_file&quot;</span><span class="p">)</span>
+    
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">quality_measure</span> <span class="p">:</span> <span class="n">QualityMeasure</span><span class="p">,</span> <span class="n">q_minimum_threshold</span> <span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span> <span class="n">optimistic_estimate</span> <span class="p">:</span> <span class="n">QualityMeasure</span><span class="p">,</span> <span class="n">oe_minimum_threshold</span> <span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span> <span class="n">additional_parameters_for_the_quality_measure</span> <span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(),</span> <span class="n">additional_parameters_for_the_optimistic_estimate</span> <span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(),</span> <span class="n">sort_criterion_in_s1</span> <span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">SORT_CRITERION_NO_ORDER</span><span class="p">,</span> <span class="n">sort_criterion_in_other_sizes</span> <span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">SORT_CRITERION_NO_ORDER</span><span class="p">,</span> <span class="n">vertical_lists_implementation</span> <span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">VERTICAL_LISTS_WITH_BITSETS</span><span class="p">,</span> <span class="n">write_results_in_file</span> <span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">file_path</span> <span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">quality_measure</span><span class="p">,</span> <span class="n">QualityMeasure</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;The parameter &#39;quality_measure&#39; must be an instance of a subclass of the &#39;QualityMeasure&#39; class.&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">q_minimum_threshold</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="nb">int</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">q_minimum_threshold</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="nb">float</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;The type of the parameter &#39;q_minimum_threshold&#39; must be &#39;int&#39; or &#39;float&#39;.&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">optimistic_estimate</span><span class="p">,</span> <span class="n">QualityMeasure</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;The parameter &#39;optimistic_estimate&#39; must be an instance of a subclass of the &#39;QualityMeasure&#39; class.&quot;</span><span class="p">)</span>
+        <span class="c1"># We check whether &#39;optimistic_estimate&#39; is an optimistic estimate of &#39;quality_measure&#39;.</span>
+        <span class="k">if</span> <span class="n">quality_measure</span><span class="o">.</span><span class="n">get_name</span><span class="p">()</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">optimistic_estimate</span><span class="o">.</span><span class="n">optimistic_estimate_of</span><span class="p">():</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;The quality measure &quot;</span> <span class="o">+</span> <span class="n">optimistic_estimate</span><span class="o">.</span><span class="n">get_name</span><span class="p">()</span> <span class="o">+</span> <span class="s2">&quot; is not an optimistic estimate of the quality measure &quot;</span> <span class="o">+</span> <span class="n">quality_measure</span><span class="o">.</span><span class="n">get_name</span><span class="p">()</span> <span class="o">+</span> <span class="s2">&quot;.&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">oe_minimum_threshold</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="nb">int</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">oe_minimum_threshold</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="nb">float</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;The type of the parameter &#39;oe_minimum_threshold&#39; must be &#39;int&#39; or &#39;float&#39;.&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">additional_parameters_for_the_quality_measure</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="nb">dict</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;The type of the parameter &#39;additional_parameters_for_the_quality_measure&#39; must be &#39;dict&#39;&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">additional_parameters_for_the_optimistic_estimate</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="nb">dict</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;The type of the parameter &#39;additional_parameters_for_the_optimistic_estimate&#39; must be &#39;dict&#39;&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">sort_criterion_in_s1</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">VLSD</span><span class="o">.</span><span class="n">SORT_CRITERION</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;The value of the parameter &#39;sort_criterion_in_s1&#39; is not valid. See the documentation.&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">sort_criterion_in_other_sizes</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">VLSD</span><span class="o">.</span><span class="n">SORT_CRITERION</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;The value of the parameter &#39;sort_criterion_in_other_sizes&#39; is not valid. See the documentation.&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">vertical_lists_implementation</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">VLSD</span><span class="o">.</span><span class="n">VERTICAL_LISTS_IMPLEMENTATION</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;The value of the parameter &#39;vertical_lists_implementation&#39; is not valid. See the documentation.&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">write_results_in_file</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="nb">bool</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;The type of the parameter &#39;write_results_in_file&#39; must be &#39;bool&#39;&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">((</span><span class="nb">type</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="nb">str</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">file_path</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">)):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;The type of the parameter &#39;file_path&#39; must be &#39;str&#39; or &#39;NoneType&#39;.&quot;</span><span class="p">)</span>
+        <span class="c1"># If &#39;write_results_in_file&#39; is True, &#39;file_path&#39; must not be None.</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">write_results_in_file</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">file_path</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;If the parameter &#39;write_results_in_file&#39; is True, the parameter &#39;file_path&#39; must not be None.&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_quality_measure</span> <span class="o">=</span> <span class="n">quality_measure</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_q_minimum_threshold</span> <span class="o">=</span> <span class="n">q_minimum_threshold</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_optimistic_estimate</span> <span class="o">=</span> <span class="n">optimistic_estimate</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_oe_minimum_threshold</span> <span class="o">=</span> <span class="n">oe_minimum_threshold</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_additional_parameters_for_the_quality_measure</span> <span class="o">=</span> <span class="n">additional_parameters_for_the_quality_measure</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">_delete_subgroup_parameters_from_a_dictionary</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_additional_parameters_for_the_quality_measure</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_additional_parameters_for_the_optimistic_estimate</span> <span class="o">=</span> <span class="n">additional_parameters_for_the_optimistic_estimate</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">_delete_subgroup_parameters_from_a_dictionary</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_additional_parameters_for_the_optimistic_estimate</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_unselected_subgroups</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_selected_subgroups</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_sort_criterion_in_s1</span> <span class="o">=</span> <span class="n">sort_criterion_in_s1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_sort_criterion_in_other_sizes</span> <span class="o">=</span> <span class="n">sort_criterion_in_other_sizes</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_vertical_lists_implementation</span> <span class="o">=</span> <span class="n">vertical_lists_implementation</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">write_results_in_file</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_file_path</span> <span class="o">=</span> <span class="n">file_path</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_file_path</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_file</span> <span class="o">=</span> <span class="kc">None</span>
+    
+    <span class="k">def</span> <span class="nf">_get_quality_measure</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">QualityMeasure</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_quality_measure</span>
+    
+    <span class="k">def</span> <span class="nf">_get_q_minimum_threshold</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_q_minimum_threshold</span>
+    
+    <span class="k">def</span> <span class="nf">_get_optimistic_estimate</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">QualityMeasure</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_optimistic_estimate</span>
+    
+    <span class="k">def</span> <span class="nf">_get_oe_minimum_threshold</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_oe_minimum_threshold</span>
+    
+    <span class="k">def</span> <span class="nf">_get_additional_parameters_for_the_quality_measure</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_additional_parameters_for_the_quality_measure</span>
+    
+    <span class="k">def</span> <span class="nf">_get_additional_parameters_for_the_optimistic_estimate</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_additional_parameters_for_the_optimistic_estimate</span>
+    
+    <span class="n">quality_measure</span> <span class="o">=</span> <span class="nb">property</span><span class="p">(</span><span class="n">_get_quality_measure</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;The quality measure which is used.&quot;</span><span class="p">)</span>
+    <span class="n">q_minimum_threshold</span> <span class="o">=</span> <span class="nb">property</span><span class="p">(</span><span class="n">_get_q_minimum_threshold</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;The minimum quality threshold for the quality measure.&quot;</span><span class="p">)</span>
+    <span class="n">optimistic_estimate</span> <span class="o">=</span> <span class="nb">property</span><span class="p">(</span><span class="n">_get_optimistic_estimate</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;The optimistic estimate of the quality measure which is used.&quot;</span><span class="p">)</span>
+    <span class="n">oe_minimum_threshold</span> <span class="o">=</span> <span class="nb">property</span><span class="p">(</span><span class="n">_get_oe_minimum_threshold</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;The minimum quality threshold for the optimistic estimate.&quot;</span><span class="p">)</span>
+    <span class="n">additional_parameters_for_the_quality_measure</span> <span class="o">=</span> <span class="nb">property</span><span class="p">(</span><span class="n">_get_additional_parameters_for_the_quality_measure</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;The additional needed parameters with which to compute the quality measure.&quot;</span><span class="p">)</span>
+    <span class="n">additional_parameters_for_the_optimistic_estimate</span> <span class="o">=</span> <span class="nb">property</span><span class="p">(</span><span class="n">_get_additional_parameters_for_the_optimistic_estimate</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;The additional needed parameters with which to compute the optimistic estimate.&quot;</span><span class="p">)</span>
+    
+    <span class="k">def</span> <span class="nf">_get_unselected_subgroups</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_unselected_subgroups</span>
+
+    <span class="k">def</span> <span class="nf">_get_selected_subgroups</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_selected_subgroups</span>
+
+    <span class="k">def</span> <span class="nf">_get_visited_nodes</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_unselected_subgroups</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_selected_subgroups</span>
+
+    <span class="n">unselected_subgroups</span> <span class="o">=</span> <span class="nb">property</span><span class="p">(</span><span class="n">_get_unselected_subgroups</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;Number of unselected subgroups after executing the VLSD algorithm (before executing the &#39;fit&#39; method, this attribute is 0).&quot;</span><span class="p">)</span>
+    <span class="n">selected_subgroups</span> <span class="o">=</span> <span class="nb">property</span><span class="p">(</span><span class="n">_get_selected_subgroups</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;Number of selected subgroups after executing the VLSD algorithm (before executing the &#39;fit&#39; method, this attribute is 0).&quot;</span><span class="p">)</span>
+    <span class="n">visited_nodes</span> <span class="o">=</span> <span class="nb">property</span><span class="p">(</span><span class="n">_get_visited_nodes</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;Number of visited nodes after executing the VLSD algorithm (before executing the &#39;fit&#39; method, this attribute is 0).&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_get_sort_criterion_in_s1</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sort_criterion_in_s1</span>
+    
+    <span class="k">def</span> <span class="nf">_get_sort_criterion_in_other_sizes</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sort_criterion_in_other_sizes</span>
+    
+    <span class="n">sort_criterion_in_s1</span> <span class="o">=</span> <span class="nb">property</span><span class="p">(</span><span class="n">_get_sort_criterion_in_s1</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;The criterion to use in order to sort the Vertical Lists with only one selector.&quot;</span><span class="p">)</span>
+    <span class="n">sort_criterion_in_other_sizes</span> <span class="o">=</span> <span class="nb">property</span><span class="p">(</span><span class="n">_get_sort_criterion_in_other_sizes</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;The criterion to use in order to sort the Vertical Lists with more than one selector.&quot;</span><span class="p">)</span>
+    
+    <span class="k">def</span> <span class="nf">_handle_individual_result</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">individual_result</span> <span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">VerticalList</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Private method to handle each individual result generated by the VLSD algorithm.</span>
+<span class="sd">        </span>
+<span class="sd">        :param individual_result: the individual result which is handled. In this case, it is a Vertical List, a target as a tuple and the subgroup parameters TP and FP.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Get the subgroup parameters.</span>
+        <span class="n">tp</span> <span class="o">=</span> <span class="n">individual_result</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">tp</span>
+        <span class="n">fp</span> <span class="o">=</span> <span class="n">individual_result</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">fp</span>
+        <span class="n">TP</span> <span class="o">=</span> <span class="n">individual_result</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+        <span class="n">FP</span> <span class="o">=</span> <span class="n">individual_result</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+        <span class="c1"># Compute the quality measure of the frequent pattern along with the target (i.e., the quality measure of the subgroup).</span>
+        <span class="n">dict_of_parameters</span> <span class="o">=</span> <span class="p">{</span><span class="n">QualityMeasure</span><span class="o">.</span><span class="n">TRUE_POSITIVES</span> <span class="p">:</span> <span class="n">tp</span><span class="p">,</span> <span class="n">QualityMeasure</span><span class="o">.</span><span class="n">FALSE_POSITIVES</span> <span class="p">:</span> <span class="n">fp</span><span class="p">,</span> <span class="n">QualityMeasure</span><span class="o">.</span><span class="n">TRUE_POPULATION</span> <span class="p">:</span> <span class="n">TP</span><span class="p">,</span> <span class="n">QualityMeasure</span><span class="o">.</span><span class="n">FALSE_POPULATION</span> <span class="p">:</span> <span class="n">FP</span><span class="p">}</span>
+        <span class="n">dict_of_parameters</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_additional_parameters_for_the_quality_measure</span><span class="p">)</span>
+        <span class="n">quality_measure_value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_quality_measure</span><span class="o">.</span><span class="n">compute</span><span class="p">(</span><span class="n">dict_of_parameters</span><span class="p">)</span>
+        <span class="c1"># Add the subgroup only if the quality measure value is greater or equal than the threshold.</span>
+        <span class="k">if</span> <span class="n">quality_measure_value</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_q_minimum_threshold</span><span class="p">:</span>
+            <span class="c1"># If applicable, write in the file defined in the __init__ method.</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_file_path</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="c1"># Get the description and the target.</span>
+                <span class="n">subgroup_description</span> <span class="o">=</span> <span class="n">Pattern</span><span class="p">(</span><span class="n">individual_result</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">list_of_selectors</span><span class="p">)</span>
+                <span class="n">target_as_tuple</span> <span class="o">=</span> <span class="n">individual_result</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="c1"># Attribute name -&gt; target_as_tuple[0], Attribute value -&gt; target_as_tuple[1]</span>
+                <span class="c1"># Create the subgroup.</span>
+                <span class="n">subgroup</span> <span class="o">=</span> <span class="n">Subgroup</span><span class="p">(</span><span class="n">subgroup_description</span><span class="p">,</span> <span class="n">Selector</span><span class="p">(</span><span class="n">target_as_tuple</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">Operator</span><span class="o">.</span><span class="n">EQUAL</span><span class="p">,</span> <span class="n">target_as_tuple</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+                <span class="c1"># Write.</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">subgroup</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; ; &quot;</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;Sequence of instances tp = &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">individual_result</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">sequence_of_instances_tp</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; ; &quot;</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;Sequence of instances fp = &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">individual_result</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">sequence_of_instances_fp</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; ; &quot;</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;Quality Measure &quot;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_quality_measure</span><span class="o">.</span><span class="n">get_name</span><span class="p">()</span> <span class="o">+</span> <span class="s2">&quot; = &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">quality_measure_value</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; ; &quot;</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;Optimistic Estimate &quot;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_optimistic_estimate</span><span class="o">.</span><span class="n">get_name</span><span class="p">()</span> <span class="o">+</span> <span class="s2">&quot; = &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">individual_result</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">quality_value</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; ; &quot;</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;tp = &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">tp</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; ; &quot;</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;fp = &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">fp</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; ; &quot;</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;TP = &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">TP</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; ; &quot;</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;FP = &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">FP</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="c1"># Increment the number of selected subgroups.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_selected_subgroups</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_selected_subgroups</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="k">else</span><span class="p">:</span> <span class="c1"># If the quality measure is not greater or equal, increment the number of unselected subgroups.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_unselected_subgroups</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_unselected_subgroups</span> <span class="o">+</span> <span class="mi">1</span>
+    
+    <span class="c1"># IMPORTANT: although the subgroup parameters TP and FP can be computed from &#39;pandas_dataframe&#39;, we also pass them by parameter in this method to avoid computing them twice (in the &#39;fit&#39; method and in this method).</span>
+    <span class="k">def</span> <span class="nf">_generate_subgroups_s1</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pandas_dataframe</span> <span class="p">:</span> <span class="n">DataFrame</span><span class="p">,</span> <span class="n">target</span> <span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span> <span class="n">TP</span> <span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">FP</span> <span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">VerticalList</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Private method to generate the list of Vertical Lists of size 1 (i.e., whose list of selectors has only one selector), prune it and sort it.</span>
+<span class="sd">        </span>
+<span class="sd">        :param pandas_dataframe: the DataFrame which is scanned. This algorithm only supports nominal attributes (i.e., type &#39;str&#39;) without missing values.</span>
+<span class="sd">        :param target: a tuple with 2 elements: the target attribute name and the target value.</span>
+<span class="sd">        :param TP: the true population of the dataset. IMPORTANT: although it can be computed from &#39;pandas_dataframe&#39;, we pass it by parameter to avoid computing it twice (in the &#39;fit&#39; method and in this method).</span>
+<span class="sd">        :param FP: the false population of the dataset. IMPORTANT: although it can be computed from &#39;pandas_dataframe&#39;, we pass it by parameter to avoid computing it twice (in the &#39;fit&#39; method and in this method).</span>
+<span class="sd">        :return: a list in which each element is a Vertical List of size 1 (i.e., it only has one selector in its list of selectors). The list is pruned according to the threshold and sorted according to &#39;sort_criterion_in_s1&#39; attribute.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Get the target column as a mask: True if the value is equal to the target value and False otherwise.</span>
+        <span class="n">target_attribute_as_a_mask</span> <span class="o">=</span> <span class="p">(</span><span class="n">pandas_dataframe</span><span class="p">[</span><span class="n">target</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">==</span> <span class="n">target</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="c1"># Result.</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="c1"># Iterate through the columns (except the target).</span>
+        <span class="k">for</span> <span class="n">column</span> <span class="ow">in</span> <span class="n">pandas_dataframe</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">target</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+            <span class="c1"># Use the &#39;groupby&#39; method in order to group each value depending on whether appears with the target or not.</span>
+            <span class="c1"># - In this case, the property &#39;indices&#39; is a dictionary in which the key is the tuple &quot;(value, value)&quot; and the</span>
+            <span class="c1">#   value is a sequence of register indices in which that combination appears.</span>
+            <span class="n">values_and_target_grouped</span> <span class="o">=</span> <span class="n">pandas_dataframe</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="n">column</span><span class="p">,</span> <span class="n">target_attribute_as_a_mask</span><span class="p">])</span><span class="o">.</span><span class="n">indices</span>
+            <span class="c1"># Set of values which have been already processed.</span>
+            <span class="n">processed_values</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+            <span class="c1"># Iterate through the tuples returned by the groupby method.</span>
+            <span class="k">for</span> <span class="n">value_target_tuple</span> <span class="ow">in</span> <span class="n">values_and_target_grouped</span><span class="p">:</span>
+                <span class="n">value</span> <span class="o">=</span> <span class="n">value_target_tuple</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="c1"># Process the tuple only if the value was not seen before.</span>
+                <span class="k">if</span> <span class="n">value</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">processed_values</span><span class="p">:</span>
+                    <span class="c1"># Registers which have the target.</span>
+                    <span class="k">try</span><span class="p">:</span>
+                        <span class="n">registers_tp</span> <span class="o">=</span> <span class="n">values_and_target_grouped</span><span class="p">[(</span><span class="n">value</span><span class="p">,</span><span class="kc">True</span><span class="p">)]</span>
+                    <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+                        <span class="n">registers_tp</span> <span class="o">=</span> <span class="p">[]</span> <span class="c1"># Empty sequence.</span>
+                    <span class="c1"># Registers which do not have the target.</span>
+                    <span class="k">try</span><span class="p">:</span>
+                        <span class="n">registers_fp</span> <span class="o">=</span> <span class="n">values_and_target_grouped</span><span class="p">[(</span><span class="n">value</span><span class="p">,</span><span class="kc">False</span><span class="p">)]</span>
+                    <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+                        <span class="n">registers_fp</span> <span class="o">=</span> <span class="p">[]</span> <span class="c1"># Empty sequence.</span>
+                    <span class="c1"># Compute the optimistic estimate.</span>
+                    <span class="n">dict_of_parameters</span> <span class="o">=</span> <span class="p">{</span><span class="n">QualityMeasure</span><span class="o">.</span><span class="n">TRUE_POSITIVES</span> <span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">registers_tp</span><span class="p">),</span> <span class="n">QualityMeasure</span><span class="o">.</span><span class="n">FALSE_POSITIVES</span> <span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">registers_fp</span><span class="p">),</span> <span class="n">QualityMeasure</span><span class="o">.</span><span class="n">TRUE_POPULATION</span> <span class="p">:</span> <span class="n">TP</span><span class="p">,</span> <span class="n">QualityMeasure</span><span class="o">.</span><span class="n">FALSE_POPULATION</span> <span class="p">:</span> <span class="n">FP</span><span class="p">}</span>
+                    <span class="n">dict_of_parameters</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_additional_parameters_for_the_optimistic_estimate</span><span class="p">)</span>
+                    <span class="n">optimistic_estimate_value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_optimistic_estimate</span><span class="o">.</span><span class="n">compute</span><span class="p">(</span><span class="n">dict_of_parameters</span><span class="p">)</span>
+                    <span class="c1"># Pruning: add the Vertical List only if the optimistic estimate value is greater or equal than the threshold.</span>
+                    <span class="k">if</span> <span class="n">optimistic_estimate_value</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_oe_minimum_threshold</span><span class="p">:</span>
+                        <span class="c1"># Create the Vertical List (depending on the specified implementation).</span>
+                        <span class="n">vl</span> <span class="o">=</span> <span class="kc">None</span>
+                        <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_vertical_lists_implementation</span> <span class="o">==</span> <span class="n">VLSD</span><span class="o">.</span><span class="n">VERTICAL_LISTS_WITH_BITSETS</span><span class="p">):</span>
+                            <span class="n">vl</span> <span class="o">=</span> <span class="n">VerticalListWithBitsets</span><span class="p">([</span><span class="n">Selector</span><span class="p">(</span><span class="n">column</span><span class="p">,</span> <span class="n">Operator</span><span class="o">.</span><span class="n">EQUAL</span><span class="p">,</span> <span class="n">value</span><span class="p">)],</span> <span class="n">registers_tp</span><span class="p">,</span> <span class="n">registers_fp</span><span class="p">,</span> <span class="n">TP</span><span class="o">+</span><span class="n">FP</span><span class="p">,</span> <span class="n">optimistic_estimate_value</span><span class="p">)</span>
+                        <span class="k">elif</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_vertical_lists_implementation</span> <span class="o">==</span> <span class="n">VLSD</span><span class="o">.</span><span class="n">VERTICAL_LISTS_WITH_SETS</span><span class="p">):</span>
+                            <span class="n">vl</span> <span class="o">=</span> <span class="n">VerticalListWithSets</span><span class="p">([</span><span class="n">Selector</span><span class="p">(</span><span class="n">column</span><span class="p">,</span> <span class="n">Operator</span><span class="o">.</span><span class="n">EQUAL</span><span class="p">,</span> <span class="n">value</span><span class="p">)],</span> <span class="n">registers_tp</span><span class="p">,</span> <span class="n">registers_fp</span><span class="p">,</span> <span class="n">TP</span><span class="o">+</span><span class="n">FP</span><span class="p">,</span> <span class="n">optimistic_estimate_value</span><span class="p">)</span>
+                        <span class="c1"># Add it to the final list.</span>
+                        <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">vl</span><span class="p">)</span>
+                    <span class="c1"># Finally, add the value to &#39;processed_values&#39;.</span>
+                    <span class="n">processed_values</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+        <span class="c1"># Sort by quality value (optimistic_estimate_value) according to &#39;sort_criterion_in_s1&#39;.</span>
+        <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_sort_criterion_in_s1</span> <span class="o">==</span> <span class="n">VLSD</span><span class="o">.</span><span class="n">SORT_CRITERION_QUALITY_ASCENDING</span><span class="p">):</span>
+            <span class="n">result</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">reverse</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span> <span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">quality_value</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_sort_criterion_in_s1</span> <span class="o">==</span> <span class="n">VLSD</span><span class="o">.</span><span class="n">SORT_CRITERION_QUALITY_DESCENDING</span><span class="p">):</span>
+            <span class="n">result</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span> <span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">quality_value</span><span class="p">)</span>
+        <span class="c1"># Return the list.</span>
+        <span class="k">return</span> <span class="n">result</span>
+    
+    <span class="k">def</span> <span class="nf">_search</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">P</span> <span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">VerticalList</span><span class="p">],</span> <span class="n">M</span> <span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="n">Selector</span><span class="p">,</span> <span class="nb">dict</span><span class="p">[</span><span class="n">Selector</span><span class="p">,</span> <span class="n">VerticalList</span><span class="p">]],</span> <span class="n">target</span> <span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span> <span class="n">TP</span> <span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">FP</span> <span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Private search method.</span>
+<span class="sd">        </span>
+<span class="sd">        :param P: a list of Vertical Lists.</span>
+<span class="sd">        :param M: the 2-dimensional matrix M (in this case, it is a python dictionary).</span>
+<span class="sd">        :param target: a tuple with 2 elements: the target attribute name and the target value.</span>
+<span class="sd">        :param TP: the true population of the dataset (i.e., the number of instances in which the target appears).</span>
+<span class="sd">        :param FP: the false population of the dataset (i.e., the number of instances in which the target does not appear).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">index_x</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="c1"># Main loop: while P list is not completely processed (the last element is never processed).</span>
+        <span class="k">while</span> <span class="p">(</span><span class="n">index_x</span> <span class="o">&lt;</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">P</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">)):</span>
+            <span class="n">s_x</span> <span class="o">=</span> <span class="n">P</span><span class="p">[</span><span class="n">index_x</span><span class="p">]</span>
+            <span class="c1"># Simulate the &quot;pop_first&quot; method.</span>
+            <span class="c1"># --&gt; IMPORTANT: we set None instead of directly delete the first element, because deleting an element that is not the last</span>
+            <span class="c1">#     in a python list is O(n), because all the elements at the right of the deleted element are moved one position to the left.</span>
+            <span class="n">P</span><span class="p">[</span><span class="n">index_x</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="n">index_x</span> <span class="o">=</span> <span class="n">index_x</span> <span class="o">+</span> <span class="mi">1</span>
+            <span class="c1"># Get the last selector of s_x.</span>
+            <span class="n">s_x_last_selector</span> <span class="o">=</span> <span class="n">s_x</span><span class="o">.</span><span class="n">list_of_selectors</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+            <span class="c1"># List in which the children will be stored.</span>
+            <span class="n">V</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="c1"># Join between s_x and each node to its right.</span>
+            <span class="k">for</span> <span class="n">index_y</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">index_x</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">P</span><span class="p">)):</span> <span class="c1"># In this case, it is not index_x+1 because the index was already increased.</span>
+                <span class="n">s_y</span> <span class="o">=</span> <span class="n">P</span><span class="p">[</span><span class="n">index_y</span><span class="p">]</span>
+                <span class="c1"># Get the last selector of s_y.</span>
+                <span class="n">s_y_last_selector</span> <span class="o">=</span> <span class="n">s_y</span><span class="o">.</span><span class="n">list_of_selectors</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+                <span class="c1"># Query M.</span>
+                <span class="n">vertical_list_in_M</span> <span class="o">=</span> <span class="n">_query_triangular_matrix</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">s_x_last_selector</span><span class="p">,</span> <span class="n">s_y_last_selector</span><span class="p">)</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">vertical_list_in_M</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">vertical_list_in_M</span><span class="o">.</span><span class="n">quality_value</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">oe_minimum_threshold</span><span class="p">):</span>
+                    <span class="n">s_xy_dict_of_parameters</span> <span class="o">=</span> <span class="p">{</span><span class="n">QualityMeasure</span><span class="o">.</span><span class="n">TRUE_POPULATION</span> <span class="p">:</span> <span class="n">TP</span><span class="p">,</span> <span class="n">QualityMeasure</span><span class="o">.</span><span class="n">FALSE_POPULATION</span> <span class="p">:</span> <span class="n">FP</span><span class="p">}</span>
+                    <span class="n">s_xy_dict_of_parameters</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_additional_parameters_for_the_optimistic_estimate</span><span class="p">)</span>
+                    <span class="n">s_xy</span> <span class="o">=</span> <span class="n">s_x</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">s_y</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_optimistic_estimate</span><span class="p">,</span> <span class="n">s_xy_dict_of_parameters</span><span class="p">,</span> <span class="n">return_None_if_n_is_0</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="n">s_xy</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">s_xy</span><span class="o">.</span><span class="n">quality_value</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">oe_minimum_threshold</span><span class="p">):</span>
+                        <span class="c1"># Add s_xy to V list.</span>
+                        <span class="n">V</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">s_xy</span><span class="p">)</span>
+                        <span class="c1"># Handle this result.</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">_handle_individual_result</span><span class="p">(</span> <span class="p">(</span><span class="n">s_xy</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">TP</span><span class="p">,</span> <span class="n">FP</span><span class="p">)</span> <span class="p">)</span>
+            <span class="c1"># Check whether V is not empty.</span>
+            <span class="k">if</span> <span class="n">V</span><span class="p">:</span>
+                <span class="c1"># Sort by quality value (optimistic_estimate_value) according to &#39;sort_criterion_in_other_sizes&#39;.</span>
+                <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_sort_criterion_in_other_sizes</span> <span class="o">==</span> <span class="n">VLSD</span><span class="o">.</span><span class="n">SORT_CRITERION_QUALITY_ASCENDING</span><span class="p">):</span>
+                    <span class="n">V</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">reverse</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span> <span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">quality_value</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_sort_criterion_in_other_sizes</span> <span class="o">==</span> <span class="n">VLSD</span><span class="o">.</span><span class="n">SORT_CRITERION_QUALITY_DESCENDING</span><span class="p">):</span>
+                    <span class="n">V</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span> <span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">quality_value</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_search</span><span class="p">(</span><span class="n">V</span><span class="p">,</span> <span class="n">M</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">TP</span><span class="p">,</span> <span class="n">FP</span><span class="p">)</span>
+    
+<div class="viewcode-block" id="VLSD.fit">
+<a class="viewcode-back" href="../../../../project_files/subgroups.algorithms.subgroup_sets.html#subgroups.algorithms.subgroup_sets.vlsd.VLSD.fit">[docs]</a>
+    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pandas_dataframe</span> <span class="p">:</span> <span class="n">DataFrame</span><span class="p">,</span> <span class="n">target</span> <span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Main method to run the VLSD algorithm. This algorithm only supports nominal attributes (i.e., type &#39;str&#39;). IMPORTANT: missing values are not supported.</span>
+<span class="sd">        </span>
+<span class="sd">        :param pandas_dataframe: the DataFrame which is scanned. This algorithm only supports nominal attributes (i.e., type &#39;str&#39;). IMPORTANT: missing values are not supported.</span>
+<span class="sd">        :param target: a tuple with 2 elements: the target attribute name and the target value.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">pandas_dataframe</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">DataFrame</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;The type of the parameter &#39;pandas_dataframe&#39; must be &#39;DataFrame&#39;.&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">target</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="nb">tuple</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;The type of the parameter &#39;target&#39; must be &#39;tuple&#39;.&quot;</span><span class="p">)</span>
+        <span class="c1"># IMPORTANT: this algorithm only supports nominal attributes (i.e., type &#39;str&#39;).</span>
+        <span class="k">for</span> <span class="n">column</span> <span class="ow">in</span> <span class="n">pandas_dataframe</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">is_string_dtype</span><span class="p">(</span><span class="n">pandas_dataframe</span><span class="p">[</span><span class="n">column</span><span class="p">]):</span>
+                <span class="k">raise</span> <span class="n">DatasetAttributeTypeError</span><span class="p">(</span><span class="s2">&quot;Error in attribute &#39;&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">column</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;&#39;. This algorithm only supports nominal attributes (i.e., type &#39;str&#39;).&quot;</span><span class="p">)</span>
+        <span class="c1"># Open the file if the path is not None.</span>
+        <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_file_path</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_file</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_file_path</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span>
+        <span class="c1"># Obtain TP and FP of the dataset.</span>
+        <span class="n">TP</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">pandas_dataframe</span><span class="p">[</span><span class="n">target</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">==</span> <span class="n">target</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="n">FP</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">pandas_dataframe</span><span class="o">.</span><span class="n">index</span><span class="p">)</span> <span class="o">-</span> <span class="n">TP</span>
+        <span class="c1"># Get the list of Vertical Lists of size 1 (i.e., only one selector in their lists of selectors).</span>
+        <span class="n">S1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_generate_subgroups_s1</span><span class="p">(</span><span class="n">pandas_dataframe</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">TP</span><span class="p">,</span> <span class="n">FP</span><span class="p">)</span>
+        <span class="c1"># Handle each individual result.</span>
+        <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">S1</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_handle_individual_result</span><span class="p">(</span> <span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">TP</span><span class="p">,</span> <span class="n">FP</span><span class="p">)</span> <span class="p">)</span>
+        <span class="c1"># Create 2-dimensional empty matrix M (in this case, it is a python dictionary).</span>
+        <span class="n">M</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+        <span class="c1"># Double iteration through S1.</span>
+        <span class="k">for</span> <span class="n">index_x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">S1</span><span class="p">)):</span> <span class="c1"># From 0 to len(S1)-1.</span>
+            <span class="n">s_x</span> <span class="o">=</span> <span class="n">S1</span><span class="p">[</span><span class="n">index_x</span><span class="p">]</span>
+            <span class="c1"># Get the last selector of s_x. In this point, there is only one.</span>
+            <span class="n">s_x_last_selector</span> <span class="o">=</span> <span class="n">s_x</span><span class="o">.</span><span class="n">list_of_selectors</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+            <span class="k">for</span> <span class="n">index_y</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">index_x</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">S1</span><span class="p">)):</span> <span class="c1"># IMPORTANT: x &lt; y ==&gt; From x+1 to len(S1)-1.</span>
+                <span class="n">s_y</span> <span class="o">=</span> <span class="n">S1</span><span class="p">[</span><span class="n">index_y</span><span class="p">]</span>
+                <span class="c1"># Get the last selector of s_y. In this point, there is only one.</span>
+                <span class="n">s_y_last_selector</span> <span class="o">=</span> <span class="n">s_y</span><span class="o">.</span><span class="n">list_of_selectors</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+                <span class="c1"># Get the quality value of the join of s_x and s_y.</span>
+                <span class="n">s_xy_dict_of_parameters</span> <span class="o">=</span> <span class="p">{</span><span class="n">QualityMeasure</span><span class="o">.</span><span class="n">TRUE_POPULATION</span> <span class="p">:</span> <span class="n">TP</span><span class="p">,</span> <span class="n">QualityMeasure</span><span class="o">.</span><span class="n">FALSE_POPULATION</span> <span class="p">:</span> <span class="n">FP</span><span class="p">}</span>
+                <span class="n">s_xy_dict_of_parameters</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_additional_parameters_for_the_optimistic_estimate</span><span class="p">)</span>
+                <span class="n">s_xy</span> <span class="o">=</span> <span class="n">s_x</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">s_y</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_optimistic_estimate</span><span class="p">,</span> <span class="n">s_xy_dict_of_parameters</span><span class="p">,</span> <span class="n">return_None_if_n_is_0</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+                <span class="c1"># Check whether n (i.e., tp+fp) is 0 or greater than 0 (in this case, &#39;s_xy&#39; will be None) and whether &#39;s_xy&#39; has quality enough.</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">s_xy</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">s_xy</span><span class="o">.</span><span class="n">quality_value</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_oe_minimum_threshold</span><span class="p">):</span>
+                    <span class="c1"># Add to the dictionary.</span>
+                    <span class="k">if</span> <span class="n">s_x_last_selector</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">M</span><span class="p">:</span>
+                        <span class="n">M</span><span class="p">[</span><span class="n">s_x_last_selector</span><span class="p">]</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+                    <span class="c1"># ---&gt; IMPORTANT: M[s_x_last_selector][s_y_last_selector] is equal to M[s_y_last_selector][s_x_last_selector], but only one entry is added (to save memory). This will have to be kept in mind later.</span>
+                    <span class="n">M</span><span class="p">[</span><span class="n">s_x_last_selector</span><span class="p">][</span><span class="n">s_y_last_selector</span><span class="p">]</span> <span class="o">=</span> <span class="n">s_xy</span>
+        <span class="c1"># Iterate through the Vertical Lists of size 2 and call to search method.</span>
+        <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">S1</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span> <span class="c1"># From 0 to len(S1)-2.</span>
+            <span class="n">selector_i</span> <span class="o">=</span> <span class="n">S1</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="o">.</span><span class="n">list_of_selectors</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">selector_i</span> <span class="ow">in</span> <span class="n">M</span><span class="p">):</span>
+                <span class="c1"># Get all the values (in this case, Vertical Lists) from the corresponding dictionary.</span>
+                <span class="n">P</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">M</span><span class="p">[</span><span class="n">selector_i</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+                <span class="c1"># Sort by quality value (optimistic_estimate_value) according to &#39;sort_criterion_in_other_sizes&#39;.</span>
+                <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_sort_criterion_in_other_sizes</span> <span class="o">==</span> <span class="n">VLSD</span><span class="o">.</span><span class="n">SORT_CRITERION_QUALITY_ASCENDING</span><span class="p">):</span>
+                    <span class="n">P</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">reverse</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span> <span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">quality_value</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_sort_criterion_in_other_sizes</span> <span class="o">==</span> <span class="n">VLSD</span><span class="o">.</span><span class="n">SORT_CRITERION_QUALITY_DESCENDING</span><span class="p">):</span>
+                    <span class="n">P</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span> <span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">quality_value</span><span class="p">)</span>
+                <span class="c1"># Handle each individual result.</span>
+                <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">P</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_handle_individual_result</span><span class="p">(</span> <span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">TP</span><span class="p">,</span> <span class="n">FP</span><span class="p">)</span> <span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_search</span><span class="p">(</span><span class="n">P</span><span class="p">,</span> <span class="n">M</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">TP</span><span class="p">,</span> <span class="n">FP</span><span class="p">)</span>
+        <span class="c1"># Close the file if it was opened before.</span>
+        <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_file_path</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_file</span> <span class="o">=</span> <span class="kc">None</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Antonio López Martínez-Carrasco.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

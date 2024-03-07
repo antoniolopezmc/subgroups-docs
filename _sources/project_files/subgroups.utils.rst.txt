@@ -12,6 +12,14 @@ subgroups.utils.dataframe\_filters module
    :undoc-members:
    :show-inheritance:
 
+subgroups.utils.file\_format\_transformations module
+----------------------------------------------------
+
+.. automodule:: subgroups.utils.file_format_transformations
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 subgroups.utils.mdl module
 --------------------------
 

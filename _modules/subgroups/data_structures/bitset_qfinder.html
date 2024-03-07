@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>subgroups.data_structures.bitset_qfinder &mdash; subgroups 0.1.6 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=92fd9be5" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../_static/documentation_options.js?v=6e0256f3"></script>
+        <script src="../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            subgroups
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../project_files/subgroups.html">subgroups package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../project_files/subgroups.algorithms.html">subgroups.algorithms package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../project_files/subgroups.core.html">subgroups.core package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../project_files/subgroups.data_structures.html">subgroups.data_structures package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../project_files/subgroups.quality_measures.html">subgroups.quality_measures package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../project_files/subgroups.tests.html">subgroups.tests package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../project_files/subgroups.utils.html">subgroups.utils package</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">subgroups</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">subgroups.data_structures.bitset_qfinder</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for subgroups.data_structures.bitset_qfinder</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+
+<span class="c1"># Contributors:</span>
+<span class="c1">#    Paco Mora Caselles &lt;pacomoracaselles@gmail.com&gt;</span>
+
+<span class="sd">&quot;&quot;&quot;This file contains the implementation of the Bitset data structure used in the QFinder to create the regression models.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">pandas</span> <span class="kn">import</span> <span class="n">DataFrame</span><span class="p">,</span> <span class="n">Series</span>
+
+<span class="c1"># Python annotations.</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Union</span>
+<span class="kn">from</span> <span class="nn">subgroups.core.operator</span> <span class="kn">import</span> <span class="n">Operator</span>
+<span class="kn">import</span> <span class="nn">statsmodels.api</span> <span class="k">as</span> <span class="nn">sm</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="kn">from</span> <span class="nn">subgroups.core.selector</span> <span class="kn">import</span> <span class="n">Selector</span>
+<span class="kn">from</span> <span class="nn">subgroups.core.pattern</span> <span class="kn">import</span> <span class="n">Pattern</span>
+
+<div class="viewcode-block" id="Bitset_QFinder">
+<a class="viewcode-back" href="../../../project_files/subgroups.data_structures.html#subgroups.data_structures.bitset_qfinder.Bitset_QFinder">[docs]</a>
+<span class="k">class</span> <span class="nc">Bitset_QFinder</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<span class="w">    </span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This class represents a bitset used in the QFinder algorithm.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+
+    <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;_df&quot;</span><span class="p">,</span><span class="s2">&quot;_TP&quot;</span><span class="p">,</span> <span class="s2">&quot;_FP&quot;</span><span class="p">]</span>
+
+
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_df</span> <span class="o">=</span> <span class="n">DataFrame</span><span class="p">()</span>
+
+
+
+
+<div class="viewcode-block" id="Bitset_QFinder.generate_bitset">
+<a class="viewcode-back" href="../../../project_files/subgroups.data_structures.html#subgroups.data_structures.bitset_qfinder.Bitset_QFinder.generate_bitset">[docs]</a>
+    <span class="k">def</span> <span class="nf">generate_bitset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">df</span> <span class="p">:</span> <span class="n">DataFrame</span><span class="p">,</span> <span class="n">tuple_target_attribute_value</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">,</span> <span class="n">list_of_candidate_patterns</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Pattern</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        This method generates a bitset from a dataset and a list of candidate patterns.</span>
+<span class="sd">        Each column of the bitset represents a candidate pattern and each row represents an instance of the dataset.</span>
+<span class="sd">        The value of each cell is True if the corresponding pattern appears in the corresponding instance and False otherwise.</span>
+
+<span class="sd">        :param df: dataset from which the bitset is generated.</span>
+<span class="sd">        :param tuple_target_attribute_value: tuple which contains the name of the target attribute and its value.</span>
+<span class="sd">        :param list_of_candidate_patterns: list of candidate patterns.</span>
+
+<span class="sd">        </span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_TP</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="n">tuple_target_attribute_value</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">==</span> <span class="n">tuple_target_attribute_value</span><span class="p">[</span><span class="mi">1</span><span class="p">]])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_FP</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">)</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_TP</span>
+        
+        <span class="n">df_without_target</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="n">tuple_target_attribute_value</span><span class="p">[</span><span class="mi">0</span><span class="p">]])</span>
+        
+        <span class="n">pattern_matches</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">pattern</span> <span class="ow">in</span> <span class="n">list_of_candidate_patterns</span><span class="p">:</span>
+            <span class="n">entry</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="k">for</span> <span class="n">selector</span> <span class="ow">in</span> <span class="n">pattern</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">entry</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">entry</span> <span class="o">=</span> <span class="n">df_without_target</span><span class="p">[</span><span class="n">selector</span><span class="o">.</span><span class="n">attribute_name</span><span class="p">]</span> <span class="o">==</span> <span class="n">selector</span><span class="o">.</span><span class="n">value</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">entry</span> <span class="o">=</span> <span class="n">entry</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">df_without_target</span><span class="p">[</span><span class="n">selector</span><span class="o">.</span><span class="n">attribute_name</span><span class="p">]</span> <span class="o">==</span> <span class="n">selector</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+            <span class="c1"># If the pattern is empty (it does not appear in the dataset), we do not add it to the bitset.</span>
+            <span class="k">if</span> <span class="n">entry</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">pattern_matches</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">pattern</span><span class="p">)]</span> <span class="o">=</span> <span class="n">entry</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_df</span> <span class="o">=</span> <span class="n">DataFrame</span><span class="p">(</span><span class="n">pattern_matches</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="Bitset_QFinder.get_non_empty_patterns">
+<a class="viewcode-back" href="../../../project_files/subgroups.data_structures.html#subgroups.data_structures.bitset_qfinder.Bitset_QFinder.get_non_empty_patterns">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_non_empty_patterns</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">Pattern</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Method to get the candidate patterns after removing those that do not appear in the dataset.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">Pattern</span><span class="o">.</span><span class="n">generate_from_str</span><span class="p">(</span><span class="n">pattern_as_str</span><span class="p">)</span> <span class="k">for</span> <span class="n">pattern_as_str</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_df</span><span class="o">.</span><span class="n">columns</span><span class="p">]</span></div>
+
+
+    
+<div class="viewcode-block" id="Bitset_QFinder.compute_credibility_measures">
+<a class="viewcode-back" href="../../../project_files/subgroups.data_structures.html#subgroups.data_structures.bitset_qfinder.Bitset_QFinder.compute_credibility_measures">[docs]</a>
+    <span class="k">def</span> <span class="nf">compute_credibility_measures</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">target_column</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">dict</span><span class="p">,</span> <span class="nb">dict</span><span class="p">,</span> <span class="nb">dict</span><span class="p">,</span> <span class="nb">dict</span><span class="p">,</span> <span class="nb">dict</span><span class="p">,</span> <span class="nb">dict</span><span class="p">]:</span>
+
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Method to compute the credibility measures for each candidate pattern.</span>
+<span class="sd">            </span>
+<span class="sd">            :param target_column: target column of the dataset.</span>
+<span class="sd">            :return: a tuple with dictionaries with the credibility values for each candidate pattern.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c1"># WARNING: Corrected measures for confounders are not implemented yet</span>
+        <span class="c1"># We create the global model for corrected and adjusted credibility measures</span>
+        <span class="c1"># results = sm.Logit(target_column, self._df).fit(method=&#39;nm&#39;)</span>
+        <span class="c1"># adjusted_odds_ratios = results.params.apply(np.exp).to_dict()</span>
+        <span class="c1"># corrected_p_values = results.pvalues.to_dict()</span>
+        
+        <span class="n">odds_ratios</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">p_values</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">coverages</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">absolute_contributions</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">contribution_ratios</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="c1"># We create models to calculate the odds ratios and p-values for each pattern</span>
+        <span class="k">for</span> <span class="n">pattern</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_df</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+            <span class="n">results</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">GLM</span><span class="p">(</span><span class="n">target_column</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_df</span><span class="p">[</span><span class="n">pattern</span><span class="p">],</span> <span class="n">family</span><span class="o">=</span><span class="n">sm</span><span class="o">.</span><span class="n">families</span><span class="o">.</span><span class="n">Binomial</span><span class="p">())</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+            <span class="n">odds_ratios</span><span class="p">[</span><span class="n">pattern</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">results</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="n">p_values</span><span class="p">[</span><span class="n">pattern</span><span class="p">]</span> <span class="o">=</span> <span class="n">results</span><span class="o">.</span><span class="n">pvalues</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">coverages</span><span class="p">[</span><span class="n">pattern</span><span class="p">]</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_df</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_df</span><span class="p">[</span><span class="n">pattern</span><span class="p">]])</span><span class="o">/</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_TP</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_FP</span><span class="p">)</span>
+
+        <span class="c1"># We calculate the absolute contribution and the contribution ratio for each pattern</span>
+        <span class="k">for</span> <span class="n">pattern_as_str</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_df</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+            <span class="n">minimum_absolute_contribution</span> <span class="o">=</span> <span class="mi">1</span>
+            <span class="n">maximum_absolute_contribution</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">odds_ratio</span> <span class="o">=</span> <span class="n">odds_ratios</span><span class="p">[</span><span class="n">pattern_as_str</span><span class="p">]</span>
+            <span class="n">pattern</span> <span class="o">=</span> <span class="n">Pattern</span><span class="o">.</span><span class="n">generate_from_str</span><span class="p">(</span><span class="n">pattern_as_str</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">pattern</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">minimum_absolute_contribution</span> <span class="o">=</span> <span class="mi">1</span>
+                <span class="n">maximum_absolute_contribution</span> <span class="o">=</span> <span class="mi">1</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">selector</span> <span class="ow">in</span> <span class="n">pattern</span><span class="p">:</span>
+                    <span class="n">pattern_without_selector</span> <span class="o">=</span> <span class="n">pattern</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+                    <span class="n">pattern_without_selector</span><span class="o">.</span><span class="n">remove_selector</span><span class="p">(</span><span class="n">selector</span><span class="p">)</span>
+                    <span class="n">pattern_without_selector_odds_ratio</span> <span class="o">=</span> <span class="n">odds_ratios</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">pattern_without_selector</span><span class="p">)]</span>
+                    <span class="n">minimum_absolute_contribution</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">minimum_absolute_contribution</span><span class="p">,</span> <span class="n">odds_ratio</span><span class="o">/</span><span class="n">pattern_without_selector_odds_ratio</span><span class="p">)</span>
+                    <span class="n">maximum_absolute_contribution</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">maximum_absolute_contribution</span><span class="p">,</span> <span class="n">odds_ratio</span><span class="o">/</span><span class="n">pattern_without_selector_odds_ratio</span><span class="p">)</span>
+            <span class="n">absolute_contributions</span><span class="p">[</span><span class="n">pattern_as_str</span><span class="p">]</span> <span class="o">=</span> <span class="n">minimum_absolute_contribution</span>
+            <span class="k">if</span> <span class="n">minimum_absolute_contribution</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">contribution_ratios</span><span class="p">[</span><span class="n">pattern_as_str</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">inf</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">contribution_ratios</span><span class="p">[</span><span class="n">pattern_as_str</span><span class="p">]</span> <span class="o">=</span> <span class="n">maximum_absolute_contribution</span><span class="o">/</span><span class="n">minimum_absolute_contribution</span>
+        
+
+        <span class="c1"># We use the Bonferroni correction for adjusted corrected p-values: each p_value is multiplied by the number of predictors</span>
+        <span class="n">adjusted_p_values</span> <span class="o">=</span> <span class="p">{</span><span class="n">pat</span> <span class="p">:</span> <span class="n">p_values</span><span class="p">[</span><span class="n">pat</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_df</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span> <span class="k">for</span> <span class="n">pat</span> <span class="ow">in</span> <span class="n">p_values</span><span class="o">.</span><span class="n">keys</span><span class="p">()}</span>
+
+        <span class="k">return</span> <span class="n">coverages</span><span class="p">,</span> <span class="n">odds_ratios</span><span class="p">,</span> <span class="n">p_values</span><span class="p">,</span> <span class="n">absolute_contributions</span><span class="p">,</span> <span class="n">contribution_ratios</span><span class="p">,</span> <span class="n">adjusted_p_values</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Antonio López Martínez-Carrasco.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

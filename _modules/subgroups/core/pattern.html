@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>subgroups.core.pattern &mdash; subgroups 0.1.6 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=92fd9be5" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../_static/documentation_options.js?v=6e0256f3"></script>
+        <script src="../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            subgroups
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../project_files/subgroups.html">subgroups package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../project_files/subgroups.algorithms.html">subgroups.algorithms package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../project_files/subgroups.core.html">subgroups.core package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../project_files/subgroups.data_structures.html">subgroups.data_structures package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../project_files/subgroups.quality_measures.html">subgroups.quality_measures package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../project_files/subgroups.tests.html">subgroups.tests package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../project_files/subgroups.utils.html">subgroups.utils package</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">subgroups</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">subgroups.core.pattern</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for subgroups.core.pattern</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+
+<span class="c1"># Contributors:</span>
+<span class="c1">#    Antonio López Martínez-Carrasco &lt;antoniolopezmc1995@gmail.com&gt;</span>
+
+<span class="sd">&quot;&quot;&quot;This file contains the implementation of a &#39;Pattern&#39;. A &#39;Pattern&#39; is a sorted list of non-repeated selectors.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">subgroups.core.selector</span> <span class="kn">import</span> <span class="n">Selector</span>
+<span class="kn">from</span> <span class="nn">bisect</span> <span class="kn">import</span> <span class="n">bisect_left</span>
+<span class="kn">from</span> <span class="nn">pandas</span> <span class="kn">import</span> <span class="n">Series</span><span class="p">,</span> <span class="n">DataFrame</span>
+
+<span class="c1"># Python annotations.</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Iterator</span>
+
+<div class="viewcode-block" id="Pattern">
+<a class="viewcode-back" href="../../../project_files/subgroups.core.html#subgroups.core.pattern.Pattern">[docs]</a>
+<span class="k">class</span> <span class="nc">Pattern</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;This class represents a &#39;Pattern&#39;. A &#39;Pattern&#39; is a sorted list of non-repeated selectors.</span>
+<span class="sd">    </span>
+<span class="sd">    :param list_of_selectors: a list of selectors. IMPORTANT: we assume that the list only contains selectors.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;_list_of_selectors&quot;</span><span class="p">)</span>
+    
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">list_of_selectors</span> <span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Selector</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">list_of_selectors</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="nb">list</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;The type of the parameter &#39;list_of_selectors&#39; must be &#39;list&#39;.&quot;</span><span class="p">)</span>
+        <span class="c1"># We use a temporal list in order to store a copy of the list &#39;list_of_selectors&#39;. IMPORTANT: We only copy the list, but not the selectors contained in it.</span>
+        <span class="n">temporal_list_of_selectors</span> <span class="o">=</span> <span class="n">list_of_selectors</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="c1"># Sort the temporal list of selectors.</span>
+        <span class="n">temporal_list_of_selectors</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+        <span class="c1"># Initialize &#39;self._list_of_selectors&#39; to empty list.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_list_of_selectors</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="c1"># Append the elements of the list &#39;temporal_list_of_selectors&#39; to the list &#39;self._list_of_selectors&#39;, avoiding the duplicates.</span>
+        <span class="k">for</span> <span class="n">elem</span> <span class="ow">in</span> <span class="n">temporal_list_of_selectors</span><span class="p">:</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_list_of_selectors</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_list_of_selectors</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">!=</span> <span class="n">elem</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_list_of_selectors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">elem</span><span class="p">)</span>
+    
+<div class="viewcode-block" id="Pattern.add_selector">
+<a class="viewcode-back" href="../../../project_files/subgroups.core.html#subgroups.core.pattern.Pattern.add_selector">[docs]</a>
+    <span class="k">def</span> <span class="nf">add_selector</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">selector</span> <span class="p">:</span> <span class="n">Selector</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Method to add a selector to the pattern. If the selector already exists, this method does nothing.</span>
+<span class="sd">        </span>
+<span class="sd">        :param selector: the selector which is added.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">selector</span><span class="p">,</span> <span class="n">Selector</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;The parameter &#39;selector&#39; must be an instance of the &#39;Selector&#39; class or of a subclass thereof.&quot;</span><span class="p">)</span>
+        <span class="c1"># We can use the bisection algorithm because the list is sorted.</span>
+        <span class="n">index</span> <span class="o">=</span> <span class="n">bisect_left</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_list_of_selectors</span><span class="p">,</span> <span class="n">selector</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">index</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_list_of_selectors</span><span class="p">)):</span> <span class="c1"># The list is empty OR the element will be inserted in the right side of the list.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_list_of_selectors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">selector</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_list_of_selectors</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">!=</span> <span class="n">selector</span><span class="p">):</span> <span class="c1"># The list is not empty AND the element will not be inserted in the right side of the list.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_list_of_selectors</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">selector</span><span class="p">)</span></div>
+
+    
+<div class="viewcode-block" id="Pattern.remove_selector">
+<a class="viewcode-back" href="../../../project_files/subgroups.core.html#subgroups.core.pattern.Pattern.remove_selector">[docs]</a>
+    <span class="k">def</span> <span class="nf">remove_selector</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">selector</span> <span class="p">:</span> <span class="n">Selector</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Method to remove a selector from the pattern. If the selector does not exist, this method does nothing.</span>
+<span class="sd">        </span>
+<span class="sd">        :param selector: the selector which is removed.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">selector</span><span class="p">,</span> <span class="n">Selector</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;The parameter &#39;selector&#39; must be an instance of the &#39;Selector&#39; class or of a subclass thereof.&quot;</span><span class="p">)</span>
+        <span class="c1"># We can use the bisection algorithm because the list is sorted.</span>
+        <span class="n">index</span> <span class="o">=</span> <span class="n">bisect_left</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_list_of_selectors</span><span class="p">,</span> <span class="n">selector</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">index</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_list_of_selectors</span><span class="p">))</span> <span class="ow">and</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_list_of_selectors</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">==</span> <span class="n">selector</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_list_of_selectors</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">index</span><span class="p">)</span></div>
+
+    
+<div class="viewcode-block" id="Pattern.remove_selector_by_index">
+<a class="viewcode-back" href="../../../project_files/subgroups.core.html#subgroups.core.pattern.Pattern.remove_selector_by_index">[docs]</a>
+    <span class="k">def</span> <span class="nf">remove_selector_by_index</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span> <span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Method to remove a selector from the pattern by index. If the index is out of range, an &#39;IndexError&#39; exception is raised.</span>
+<span class="sd">        </span>
+<span class="sd">        :param index: the index which is used.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">index</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="nb">int</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;The type of the parameter &#39;index&#39; must be &#39;int&#39;.&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_list_of_selectors</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">index</span><span class="p">)</span></div>
+
+    
+<div class="viewcode-block" id="Pattern.get_selector">
+<a class="viewcode-back" href="../../../project_files/subgroups.core.html#subgroups.core.pattern.Pattern.get_selector">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_selector</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span> <span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Selector</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Method to get a selector from the pattern by index. If the index is out of range, an &#39;IndexError&#39; exception is raised.</span>
+<span class="sd">        </span>
+<span class="sd">        :param index: the index which is used.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">index</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="nb">int</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;The type of the parameter &#39;index&#39; must be &#39;int&#39;.&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_list_of_selectors</span><span class="p">[</span><span class="n">index</span><span class="p">]</span></div>
+
+    
+<div class="viewcode-block" id="Pattern.copy">
+<a class="viewcode-back" href="../../../project_files/subgroups.core.html#subgroups.core.pattern.Pattern.copy">[docs]</a>
+    <span class="k">def</span> <span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;Pattern&#39;</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Method to copy the Pattern.</span>
+<span class="sd">        </span>
+<span class="sd">        :return: the copy of the Pattern WITH THE SAME SELECTORS (THE SAME OBJECTS). This method does not copy the selectors of the list (it is not needed because the selectors are immutable).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">new_list_of_selectors</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_list_of_selectors</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">new_pattern</span> <span class="o">=</span> <span class="n">Pattern</span><span class="p">([])</span> <span class="c1"># The list of selectors is already sorted. It is not needed to sort it in the __init__ method.</span>
+        <span class="n">new_pattern</span><span class="o">.</span><span class="n">_list_of_selectors</span> <span class="o">=</span> <span class="n">new_list_of_selectors</span>
+        <span class="k">return</span> <span class="n">new_pattern</span></div>
+
+    
+<div class="viewcode-block" id="Pattern.is_contained">
+<a class="viewcode-back" href="../../../project_files/subgroups.core.html#subgroups.core.pattern.Pattern.is_contained">[docs]</a>
+    <span class="k">def</span> <span class="nf">is_contained</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pandas_dataframe</span> <span class="p">:</span> <span class="n">DataFrame</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Series</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Method to check whether the pattern is contained in each row of the pandas.DataFrame passed by parameter. IMPORTANT: If an attribute name of a selector of the pattern is not in the pandas.DataFrame passed by parameter, a KeyError exception is raised.</span>
+<span class="sd">        </span>
+<span class="sd">        :param pandas_dataframe: the pandas.DataFrame with which the pattern is checked.</span>
+<span class="sd">        :return: whether the pattern is contained in each row of the pandas.DataFrame passed by parameter.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">pandas_dataframe</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">DataFrame</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;The type of the parameter &#39;pandas_dataframe&#39; must be &#39;pandas.DataFrame&#39;.&quot;</span><span class="p">)</span>
+        <span class="n">final_result</span> <span class="o">=</span> <span class="n">Series</span><span class="p">([</span><span class="kc">True</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">pandas_dataframe</span><span class="p">))</span> <span class="c1"># The empty pattern is contained in all the rows of a pandas DataFrame.</span>
+        <span class="c1"># For each selector, we process the whole corresponding attribute (i.e., the complete Series).</span>
+        <span class="c1"># If all the boolean values of &#39;final_result&#39; are False, we can stop the process.</span>
+        <span class="n">current_index</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">while</span> <span class="p">(</span><span class="n">final_result</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">current_index</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_list_of_selectors</span><span class="p">)):</span>
+            <span class="n">current_selector</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_list_of_selectors</span><span class="p">[</span><span class="n">current_index</span><span class="p">]</span>
+            <span class="n">current_attribute_name</span> <span class="o">=</span> <span class="n">current_selector</span><span class="o">.</span><span class="n">attribute_name</span>
+            <span class="n">corresponding_Series</span> <span class="o">=</span> <span class="n">pandas_dataframe</span><span class="p">[</span><span class="n">current_attribute_name</span><span class="p">]</span>
+            <span class="n">final_result</span> <span class="o">=</span> <span class="n">final_result</span> <span class="o">&amp;</span> <span class="n">current_selector</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">current_attribute_name</span><span class="p">,</span> <span class="n">corresponding_Series</span><span class="p">)</span>
+            <span class="n">current_index</span> <span class="o">=</span> <span class="n">current_index</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="k">return</span> <span class="n">final_result</span></div>
+
+    
+<div class="viewcode-block" id="Pattern.is_refinement">
+<a class="viewcode-back" href="../../../project_files/subgroups.core.html#subgroups.core.pattern.Pattern.is_refinement">[docs]</a>
+    <span class="k">def</span> <span class="nf">is_refinement</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">refinement_candidate</span> <span class="p">:</span> <span class="s1">&#39;Pattern&#39;</span><span class="p">,</span> <span class="n">refinement_of_itself</span> <span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Method to check whether &#39;refinement_candidate&#39; is a refinement of this (i.e., of &#39;self&#39;).</span>
+<span class="sd">        </span>
+<span class="sd">        :param refinement_candidate: pattern candidate to be a refinement of this (i.e., of &#39;self&#39;).</span>
+<span class="sd">        :param refinement_of_itself: is a pattern a refinement of itself? Sometimes it may be better to assume yes and sometimes no. Therefore, if both patterns are equal, then this method returns the value of &#39;refinement_of_itself&#39;.</span>
+<span class="sd">        :return: whether &#39;refinement_candidate&#39; is a refinement of this (i.e., &#39;self&#39;).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># TODO: implementing it more efficient (i.e., not using sets), and verifying whether it is actually more efficient. </span>
+        <span class="n">self_as_set</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_list_of_selectors</span><span class="p">)</span>
+        <span class="n">refinement_candidate_as_set</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">refinement_candidate</span><span class="o">.</span><span class="n">_list_of_selectors</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">self_as_set</span><span class="p">)</span> <span class="o">&gt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">refinement_candidate_as_set</span><span class="p">)):</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">elif</span> <span class="n">self_as_set</span> <span class="o">==</span> <span class="n">refinement_candidate_as_set</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">refinement_of_itself</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">self_as_set</span><span class="o">.</span><span class="n">issubset</span><span class="p">(</span><span class="n">refinement_candidate_as_set</span><span class="p">)</span></div>
+
+    
+<div class="viewcode-block" id="Pattern.generate_from_str">
+<a class="viewcode-back" href="../../../project_files/subgroups.core.html#subgroups.core.pattern.Pattern.generate_from_str">[docs]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">generate_from_str</span><span class="p">(</span><span class="n">input_str</span> <span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;Pattern&#39;</span><span class="p">:</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Static method to generate a Pattern from a str.</span>
+<span class="sd">        </span>
+<span class="sd">        :param input_str: the str from which to generate the Pattern. We assume the format defined by one of the following regular expressions: (1) &#39;\\[\\]&#39; (empty Pattern), (2) &#39;\\[selector\\]&#39; (Pattern with only one selector), (3) &#39;\\[selector(, selector)+\\]&#39; (Pattern with more than one selector).</span>
+<span class="sd">        :return: the Pattern generated from the str.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">input_str</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="nb">str</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;The type of the parameter &#39;input_str&#39; must be &#39;str&#39;.&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">input_str</span> <span class="o">==</span> <span class="s2">&quot;[]&quot;</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">Pattern</span><span class="p">([])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">list_of_selectors</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">list_of_selectors_as_text</span> <span class="o">=</span> <span class="n">input_str</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="c1"># Delete the initial &#39;[&#39; and the final &#39;]&#39;.</span>
+            <span class="n">list_of_selectors_as_text_split</span> <span class="o">=</span> <span class="n">list_of_selectors_as_text</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;, &quot;</span><span class="p">)</span> <span class="c1"># Separator: &#39;, &#39; (comma and whitespce).</span>
+            <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">list_of_selectors_as_text_split</span><span class="p">:</span>
+                <span class="n">list_of_selectors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Selector</span><span class="o">.</span><span class="n">generate_from_str</span><span class="p">(</span><span class="n">element</span><span class="p">))</span>
+            <span class="k">return</span> <span class="n">Pattern</span><span class="p">(</span><span class="n">list_of_selectors</span><span class="p">)</span></div>
+
+    
+    <span class="k">def</span> <span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span> <span class="p">:</span> <span class="s1">&#39;Pattern&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">Pattern</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;You are making a comparison with an object which is not an instance of the &#39;Pattern&#39; class or of a subclass thereof.&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_list_of_selectors</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">other</span><span class="o">.</span><span class="n">_list_of_selectors</span><span class="p">):</span>
+            <span class="k">return</span> <span class="kc">False</span> <span class="c1"># If they have different lengths, return False.</span>
+        <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_list_of_selectors</span><span class="p">)):</span> <span class="c1"># We check only the length of one list, because the length of the other list is the same.</span>
+            <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_list_of_selectors</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">!=</span> <span class="n">other</span><span class="o">.</span><span class="n">_list_of_selectors</span><span class="p">[</span><span class="n">index</span><span class="p">]):</span>
+                <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">return</span> <span class="kc">True</span>
+    
+    <span class="k">def</span> <span class="fm">__ne__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span> <span class="p">:</span> <span class="s1">&#39;Pattern&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">Pattern</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;You are making a comparison with an object which is not an instance of the &#39;Pattern&#39; class or of a subclass thereof.&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_list_of_selectors</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">other</span><span class="o">.</span><span class="n">_list_of_selectors</span><span class="p">):</span>
+            <span class="k">return</span> <span class="kc">True</span> <span class="c1"># If they have different lengths, return True.</span>
+        <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_list_of_selectors</span><span class="p">)):</span> <span class="c1"># We check only the length of one list, because the length of the other list is the same.</span>
+            <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_list_of_selectors</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">!=</span> <span class="n">other</span><span class="o">.</span><span class="n">_list_of_selectors</span><span class="p">[</span><span class="n">index</span><span class="p">]):</span>
+                <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">return</span> <span class="kc">False</span>
+    
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_list_of_selectors</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s2">&quot;[]&quot;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="s2">&quot;[&quot;</span>
+            <span class="n">current_index</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="k">while</span> <span class="p">(</span><span class="n">current_index</span> <span class="o">&lt;</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_list_of_selectors</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">)):</span>
+                <span class="n">result</span> <span class="o">=</span> <span class="n">result</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_list_of_selectors</span><span class="p">[</span><span class="n">current_index</span><span class="p">])</span> <span class="o">+</span> <span class="s2">&quot;, &quot;</span>
+                <span class="n">current_index</span> <span class="o">=</span> <span class="n">current_index</span> <span class="o">+</span> <span class="mi">1</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">result</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_list_of_selectors</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="o">+</span> <span class="s2">&quot;]&quot;</span> <span class="c1"># -1 -&gt; The last element.</span>
+            <span class="k">return</span> <span class="n">result</span>
+    
+    <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_list_of_selectors</span><span class="p">)</span>
+    
+    <span class="k">def</span> <span class="fm">__contains__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span> <span class="p">:</span> <span class="n">Selector</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">Selector</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;You are using an object which is not an instance of the &#39;Selector&#39; class or of a subclass thereof.&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_list_of_selectors</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="c1"># We can use the bisection algorithm because the list is sorted.</span>
+        <span class="n">index</span> <span class="o">=</span> <span class="n">bisect_left</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_list_of_selectors</span><span class="p">,</span> <span class="n">item</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">index</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_list_of_selectors</span><span class="p">))</span> <span class="ow">and</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_list_of_selectors</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">==</span> <span class="n">item</span><span class="p">)</span>
+    
+    <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="n">Selector</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="nb">iter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_list_of_selectors</span><span class="p">)</span></div>
+
+    
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Antonio López Martínez-Carrasco.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

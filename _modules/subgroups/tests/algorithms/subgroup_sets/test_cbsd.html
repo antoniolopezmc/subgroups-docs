@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>subgroups.tests.algorithms.subgroup_sets.test_cbsd &mdash; subgroups 0.1.6 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../../../_static/pygments.css?v=92fd9be5" />
+      <link rel="stylesheet" type="text/css" href="../../../../../_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../../../_static/documentation_options.js?v=6e0256f3"></script>
+        <script src="../../../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../../../index.html" class="icon icon-home">
+            subgroups
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../project_files/subgroups.html">subgroups package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../project_files/subgroups.algorithms.html">subgroups.algorithms package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../project_files/subgroups.core.html">subgroups.core package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../project_files/subgroups.data_structures.html">subgroups.data_structures package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../project_files/subgroups.quality_measures.html">subgroups.quality_measures package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../project_files/subgroups.tests.html">subgroups.tests package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../project_files/subgroups.utils.html">subgroups.utils package</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../../index.html">subgroups</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../../index.html">Module code</a></li>
+          <li class="breadcrumb-item"><a href="../../../tests.html">subgroups.tests</a></li>
+      <li class="breadcrumb-item active">subgroups.tests.algorithms.subgroup_sets.test_cbsd</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for subgroups.tests.algorithms.subgroup_sets.test_cbsd</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+
+<span class="c1"># Contributors:</span>
+<span class="c1">#    Paco Mora Caselles &lt;pacomoracaselles@gmail.com&gt;</span>
+
+<span class="sd">&quot;&quot;&quot;Tests of the functionality contained in the file &#39;algorithms/cbsd.py&#39;.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">os</span> <span class="kn">import</span> <span class="n">remove</span>
+<span class="kn">from</span> <span class="nn">bitarray</span> <span class="kn">import</span> <span class="n">bitarray</span>
+<span class="kn">from</span> <span class="nn">pandas</span> <span class="kn">import</span> <span class="n">DataFrame</span>
+<span class="kn">from</span> <span class="nn">subgroups.algorithms.subgroup_sets.cbsd</span> <span class="kn">import</span> <span class="n">CBSD</span>
+<span class="kn">from</span> <span class="nn">subgroups.core.operator</span> <span class="kn">import</span> <span class="n">Operator</span>
+<span class="kn">from</span> <span class="nn">subgroups.core.pattern</span> <span class="kn">import</span> <span class="n">Pattern</span>
+<span class="kn">from</span> <span class="nn">subgroups.core.selector</span> <span class="kn">import</span> <span class="n">Selector</span>
+<span class="kn">from</span> <span class="nn">subgroups.core.subgroup</span> <span class="kn">import</span> <span class="n">Subgroup</span>
+<span class="kn">from</span> <span class="nn">subgroups.quality_measures.wracc</span> <span class="kn">import</span> <span class="n">WRAcc</span>
+<span class="kn">from</span> <span class="nn">subgroups.quality_measures.wracc_optimistic_estimate_1</span> <span class="kn">import</span> <span class="n">WRAccOptimisticEstimate1</span>
+<span class="kn">import</span> <span class="nn">unittest</span>
+
+
+<div class="viewcode-block" id="TestCBSD">
+<a class="viewcode-back" href="../../../../../project_files/subgroups.tests.algorithms.subgroup_sets.html#subgroups.tests.algorithms.subgroup_sets.test_cbsd.TestCBSD">[docs]</a>
+<span class="k">class</span> <span class="nc">TestCBSD</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
+
+<div class="viewcode-block" id="TestCBSD.test_CBSD_init_method">
+<a class="viewcode-back" href="../../../../../project_files/subgroups.tests.algorithms.subgroup_sets.html#subgroups.tests.algorithms.subgroup_sets.test_cbsd.TestCBSD.test_CBSD_init_method">[docs]</a>
+    <span class="k">def</span> <span class="nf">test_CBSD_init_method</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertRaises</span><span class="p">(</span><span class="ne">TypeError</span><span class="p">,</span> <span class="n">CBSD</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;hello&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertRaises</span><span class="p">(</span><span class="ne">TypeError</span><span class="p">,</span> <span class="n">CBSD</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">WRAcc</span><span class="p">(),</span><span class="s2">&quot;hello&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertRaises</span><span class="p">(</span><span class="ne">TypeError</span><span class="p">,</span> <span class="n">CBSD</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">WRAcc</span><span class="p">(),</span><span class="n">WRAccOptimisticEstimate1</span><span class="p">(),</span><span class="s2">&quot;hello&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertRaises</span><span class="p">(</span><span class="ne">TypeError</span><span class="p">,</span> <span class="n">CBSD</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">WRAcc</span><span class="p">(),</span><span class="n">WRAccOptimisticEstimate1</span><span class="p">(),</span><span class="mi">1</span><span class="p">,</span><span class="s2">&quot;hello&quot;</span><span class="p">)</span>
+        <span class="n">CBSD</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">WRAcc</span><span class="p">(),</span><span class="n">WRAccOptimisticEstimate1</span><span class="p">(),</span><span class="mi">5</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="n">write_results_in_file</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">CBSD</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">WRAcc</span><span class="p">(),</span><span class="n">WRAccOptimisticEstimate1</span><span class="p">(),</span><span class="mi">5</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="n">write_results_in_file</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">file_path</span><span class="o">=</span><span class="s2">&quot;./asdasfha/fsdvm&quot;</span><span class="p">)</span> <span class="c1"># Path does not exist, but it is not checked</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertRaises</span><span class="p">(</span><span class="ne">TypeError</span><span class="p">,</span> <span class="n">CBSD</span><span class="p">,</span> <span class="mi">0</span> <span class="p">,</span> <span class="n">WRAcc</span><span class="p">(),</span> <span class="n">WRAccOptimisticEstimate1</span><span class="p">(),</span> <span class="mi">5</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span> <span class="n">write_results_in_file</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">file_path</span><span class="o">=</span><span class="mi">24</span><span class="p">)</span> <span class="c1"># If &#39;file_path&#39; is present, it must be of type str, no matter the flag.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertRaises</span><span class="p">(</span><span class="ne">TypeError</span><span class="p">,</span> <span class="n">CBSD</span><span class="p">,</span> <span class="mi">0</span> <span class="p">,</span> <span class="n">WRAcc</span><span class="p">(),</span> <span class="n">WRAccOptimisticEstimate1</span><span class="p">(),</span> <span class="mi">5</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span> <span class="n">write_results_in_file</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">file_path</span><span class="o">=</span><span class="mi">24</span><span class="p">)</span> <span class="c1"># If &#39;file_path&#39; is present, it must be of type str, no matter the flag.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertRaises</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="n">CBSD</span><span class="p">,</span> <span class="mi">0</span> <span class="p">,</span> <span class="n">WRAcc</span><span class="p">(),</span> <span class="n">WRAccOptimisticEstimate1</span><span class="p">(),</span> <span class="mi">5</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span> <span class="n">write_results_in_file</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">file_path</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="c1"># If &#39;write_results_in_file&#39; is True, &#39;file_path&#39; must not be None.</span></div>
+
+
+<div class="viewcode-block" id="TestCBSD.test_CBSD_checkRel">
+<a class="viewcode-back" href="../../../../../project_files/subgroups.tests.algorithms.subgroup_sets.html#subgroups.tests.algorithms.subgroup_sets.test_cbsd.TestCBSD.test_CBSD_checkRel">[docs]</a>
+    <span class="k">def</span> <span class="nf">test_CBSD_checkRel</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">bsd</span> <span class="o">=</span> <span class="n">CBSD</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">WRAcc</span><span class="p">(),</span><span class="n">WRAccOptimisticEstimate1</span><span class="p">(),</span><span class="mi">5</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="n">write_results_in_file</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">0</span><span class="p">,</span><span class="n">Pattern</span><span class="p">([</span><span class="n">Selector</span><span class="p">(</span><span class="s2">&quot;att1&quot;</span><span class="p">,</span><span class="n">Operator</span><span class="o">.</span><span class="n">EQUAL</span><span class="p">,</span><span class="s2">&quot;A&quot;</span><span class="p">)]),</span><span class="n">bitarray</span><span class="p">(</span><span class="s2">&quot;110000&quot;</span><span class="p">))]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertFalse</span><span class="p">(</span><span class="n">bsd</span><span class="o">.</span><span class="n">_checkRel</span><span class="p">(</span><span class="n">res</span><span class="p">,</span><span class="n">bitarray</span><span class="p">(</span><span class="s2">&quot;110&quot;</span><span class="p">),</span><span class="n">bitarray</span><span class="p">(</span><span class="s2">&quot;000&quot;</span><span class="p">),</span><span class="mf">0.</span><span class="p">,</span><span class="n">Pattern</span><span class="p">([])))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="n">bsd</span><span class="o">.</span><span class="n">_checkRel</span><span class="p">(</span><span class="n">res</span><span class="p">,</span><span class="n">bitarray</span><span class="p">(</span><span class="s2">&quot;110&quot;</span><span class="p">),</span><span class="n">bitarray</span><span class="p">(</span><span class="s2">&quot;010&quot;</span><span class="p">),</span><span class="mf">0.</span><span class="p">,</span><span class="n">Pattern</span><span class="p">([])))</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">0</span><span class="p">,</span><span class="n">Pattern</span><span class="p">([</span><span class="n">Selector</span><span class="p">(</span><span class="s2">&quot;att1&quot;</span><span class="p">,</span><span class="n">Operator</span><span class="o">.</span><span class="n">EQUAL</span><span class="p">,</span><span class="s2">&quot;A&quot;</span><span class="p">)]),</span><span class="n">bitarray</span><span class="p">(</span><span class="s2">&quot;110010&quot;</span><span class="p">))]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertFalse</span><span class="p">(</span><span class="n">bsd</span><span class="o">.</span><span class="n">_checkRel</span><span class="p">(</span><span class="n">res</span><span class="p">,</span><span class="n">bitarray</span><span class="p">(</span><span class="s2">&quot;110&quot;</span><span class="p">),</span><span class="n">bitarray</span><span class="p">(</span><span class="s2">&quot;010&quot;</span><span class="p">),</span><span class="mf">0.</span><span class="p">,</span><span class="n">Pattern</span><span class="p">([])))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertFalse</span><span class="p">(</span><span class="n">bsd</span><span class="o">.</span><span class="n">_checkRel</span><span class="p">(</span><span class="n">res</span><span class="p">,</span><span class="n">bitarray</span><span class="p">(</span><span class="s2">&quot;100&quot;</span><span class="p">),</span><span class="n">bitarray</span><span class="p">(</span><span class="s2">&quot;010&quot;</span><span class="p">),</span><span class="mf">0.</span><span class="p">,</span><span class="n">Pattern</span><span class="p">([])))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="n">bsd</span><span class="o">.</span><span class="n">_checkRel</span><span class="p">(</span><span class="n">res</span><span class="p">,</span><span class="n">bitarray</span><span class="p">(</span><span class="s2">&quot;100&quot;</span><span class="p">),</span><span class="n">bitarray</span><span class="p">(</span><span class="s2">&quot;011&quot;</span><span class="p">),</span><span class="mf">0.</span><span class="p">,</span><span class="n">Pattern</span><span class="p">([])))</span></div>
+
+        
+<div class="viewcode-block" id="TestCBSD.test_CBSD_checkRelevancies">
+<a class="viewcode-back" href="../../../../../project_files/subgroups.tests.algorithms.subgroup_sets.html#subgroups.tests.algorithms.subgroup_sets.test_cbsd.TestCBSD.test_CBSD_checkRelevancies">[docs]</a>
+    <span class="k">def</span> <span class="nf">test_CBSD_checkRelevancies</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">bsd</span> <span class="o">=</span> <span class="n">CBSD</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">WRAcc</span><span class="p">(),</span><span class="n">WRAccOptimisticEstimate1</span><span class="p">(),</span><span class="mi">5</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="n">write_results_in_file</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">0</span><span class="p">,</span><span class="n">Pattern</span><span class="p">([</span><span class="n">Selector</span><span class="p">(</span><span class="s2">&quot;att1&quot;</span><span class="p">,</span><span class="n">Operator</span><span class="o">.</span><span class="n">EQUAL</span><span class="p">,</span><span class="s2">&quot;A&quot;</span><span class="p">)]),</span><span class="n">bitarray</span><span class="p">(</span><span class="s2">&quot;110000&quot;</span><span class="p">)),(</span><span class="mi">0</span><span class="p">,</span><span class="n">Pattern</span><span class="p">([</span><span class="n">Selector</span><span class="p">(</span><span class="s2">&quot;att1&quot;</span><span class="p">,</span><span class="n">Operator</span><span class="o">.</span><span class="n">EQUAL</span><span class="p">,</span><span class="s2">&quot;B&quot;</span><span class="p">)]),</span><span class="n">bitarray</span><span class="p">(</span><span class="s2">&quot;110000&quot;</span><span class="p">))]</span>
+        <span class="n">bsd</span><span class="o">.</span><span class="n">_k_subgroups</span> <span class="o">=</span> <span class="n">res</span>
+        <span class="n">bsd</span><span class="o">.</span><span class="n">_checkRelevancies</span><span class="p">(</span><span class="n">bitarray</span><span class="p">(</span><span class="s2">&quot;110000&quot;</span><span class="p">),</span><span class="n">Pattern</span><span class="p">([</span><span class="n">Selector</span><span class="p">(</span><span class="s2">&quot;att1&quot;</span><span class="p">,</span><span class="n">Operator</span><span class="o">.</span><span class="n">EQUAL</span><span class="p">,</span><span class="s2">&quot;A&quot;</span><span class="p">)]),</span><span class="mf">0.1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">bsd</span><span class="o">.</span><span class="n">_k_subgroups</span><span class="p">,</span><span class="n">res</span><span class="p">)</span> <span class="c1"># The subgroup att1=B has the same bitarray, but it has a different quality</span>
+        <span class="n">bsd</span><span class="o">.</span><span class="n">_checkRelevancies</span><span class="p">(</span><span class="n">bitarray</span><span class="p">(</span><span class="s2">&quot;110000&quot;</span><span class="p">),</span><span class="n">Pattern</span><span class="p">([</span><span class="n">Selector</span><span class="p">(</span><span class="s2">&quot;att1&quot;</span><span class="p">,</span><span class="n">Operator</span><span class="o">.</span><span class="n">EQUAL</span><span class="p">,</span><span class="s2">&quot;A&quot;</span><span class="p">)]),</span><span class="mf">0.</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertNotEqual</span><span class="p">(</span><span class="n">bsd</span><span class="o">.</span><span class="n">_k_subgroups</span><span class="p">,</span><span class="n">res</span><span class="p">)</span> <span class="c1"># The subgroup att1=B is irrelevant</span></div>
+
+
+<div class="viewcode-block" id="TestCBSD.test_CBSD_fit1">
+<a class="viewcode-back" href="../../../../../project_files/subgroups.tests.algorithms.subgroup_sets.html#subgroups.tests.algorithms.subgroup_sets.test_cbsd.TestCBSD.test_CBSD_fit1">[docs]</a>
+    <span class="k">def</span> <span class="nf">test_CBSD_fit1</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">DataFrame</span><span class="p">({</span><span class="s2">&quot;a1&quot;</span> <span class="p">:</span> <span class="p">[</span><span class="s2">&quot;a&quot;</span><span class="p">,</span><span class="s2">&quot;b&quot;</span><span class="p">,</span><span class="s2">&quot;c&quot;</span><span class="p">,</span><span class="s2">&quot;c&quot;</span><span class="p">],</span> <span class="s2">&quot;a2&quot;</span> <span class="p">:</span> <span class="p">[</span><span class="s2">&quot;q&quot;</span><span class="p">,</span><span class="s2">&quot;q&quot;</span><span class="p">,</span><span class="s2">&quot;s&quot;</span><span class="p">,</span><span class="s2">&quot;q&quot;</span><span class="p">],</span> <span class="s2">&quot;a3&quot;</span> <span class="p">:</span> <span class="p">[</span><span class="s2">&quot;f&quot;</span><span class="p">,</span><span class="s2">&quot;g&quot;</span><span class="p">,</span><span class="s2">&quot;h&quot;</span><span class="p">,</span><span class="s2">&quot;k&quot;</span><span class="p">],</span> <span class="s2">&quot;class&quot;</span> <span class="p">:</span> <span class="p">[</span><span class="s2">&quot;n&quot;</span><span class="p">,</span><span class="s2">&quot;y&quot;</span><span class="p">,</span><span class="s2">&quot;n&quot;</span><span class="p">,</span><span class="s2">&quot;y&quot;</span><span class="p">]})</span>
+        <span class="n">target</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;class&quot;</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">)</span>
+        <span class="c1"># IMPORTANT: WRAcc quality measure is defined between -1 and 1.</span>
+        <span class="n">bsd</span> <span class="o">=</span> <span class="n">CBSD</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">WRAcc</span><span class="p">(),</span><span class="n">WRAccOptimisticEstimate1</span><span class="p">(),</span><span class="mi">5</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="n">write_results_in_file</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">bsd</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">target</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">bsd</span><span class="o">.</span><span class="n">selected_subgroups</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">bsd</span><span class="o">.</span><span class="n">unselected_subgroups</span><span class="p">,</span> <span class="mi">56</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">bsd</span><span class="o">.</span><span class="n">visited_subgroups</span><span class="p">,</span> <span class="mi">25</span><span class="p">)</span></div>
+
+        
+<div class="viewcode-block" id="TestCBSD.test_CBSD_fit2">
+<a class="viewcode-back" href="../../../../../project_files/subgroups.tests.algorithms.subgroup_sets.html#subgroups.tests.algorithms.subgroup_sets.test_cbsd.TestCBSD.test_CBSD_fit2">[docs]</a>
+    <span class="k">def</span> <span class="nf">test_CBSD_fit2</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">DataFrame</span><span class="p">({</span><span class="s2">&quot;a1&quot;</span> <span class="p">:</span> <span class="p">[</span><span class="s2">&quot;a&quot;</span><span class="p">,</span><span class="s2">&quot;b&quot;</span><span class="p">,</span><span class="s2">&quot;c&quot;</span><span class="p">,</span><span class="s2">&quot;c&quot;</span><span class="p">],</span> <span class="s2">&quot;a2&quot;</span> <span class="p">:</span> <span class="p">[</span><span class="s2">&quot;q&quot;</span><span class="p">,</span><span class="s2">&quot;q&quot;</span><span class="p">,</span><span class="s2">&quot;s&quot;</span><span class="p">,</span><span class="s2">&quot;q&quot;</span><span class="p">],</span> <span class="s2">&quot;a3&quot;</span> <span class="p">:</span> <span class="p">[</span><span class="s2">&quot;f&quot;</span><span class="p">,</span><span class="s2">&quot;g&quot;</span><span class="p">,</span><span class="s2">&quot;h&quot;</span><span class="p">,</span><span class="s2">&quot;k&quot;</span><span class="p">],</span> <span class="s2">&quot;class&quot;</span> <span class="p">:</span> <span class="p">[</span><span class="s2">&quot;n&quot;</span><span class="p">,</span><span class="s2">&quot;y&quot;</span><span class="p">,</span><span class="s2">&quot;n&quot;</span><span class="p">,</span><span class="s2">&quot;y&quot;</span><span class="p">]})</span>
+        <span class="n">target</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;class&quot;</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">)</span>
+        <span class="c1"># IMPORTANT: WRAcc quality measure is defined between -1 and 1.</span>
+        <span class="n">bsd</span> <span class="o">=</span> <span class="n">CBSD</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">WRAcc</span><span class="p">(),</span><span class="n">WRAccOptimisticEstimate1</span><span class="p">(),</span><span class="mi">2</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="n">write_results_in_file</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">bsd</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">target</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">bsd</span><span class="o">.</span><span class="n">selected_subgroups</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">bsd</span><span class="o">.</span><span class="n">unselected_subgroups</span><span class="p">,</span> <span class="mi">23</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">bsd</span><span class="o">.</span><span class="n">visited_subgroups</span><span class="p">,</span> <span class="mi">17</span><span class="p">)</span></div>
+
+        
+<div class="viewcode-block" id="TestCBSD.test_CBSD_fit3">
+<a class="viewcode-back" href="../../../../../project_files/subgroups.tests.algorithms.subgroup_sets.html#subgroups.tests.algorithms.subgroup_sets.test_cbsd.TestCBSD.test_CBSD_fit3">[docs]</a>
+    <span class="k">def</span> <span class="nf">test_CBSD_fit3</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">DataFrame</span><span class="p">({</span><span class="s2">&quot;a1&quot;</span> <span class="p">:</span> <span class="p">[</span><span class="s2">&quot;a&quot;</span><span class="p">,</span><span class="s2">&quot;b&quot;</span><span class="p">,</span><span class="s2">&quot;c&quot;</span><span class="p">,</span><span class="s2">&quot;c&quot;</span><span class="p">],</span> <span class="s2">&quot;a2&quot;</span> <span class="p">:</span> <span class="p">[</span><span class="s2">&quot;q&quot;</span><span class="p">,</span><span class="s2">&quot;q&quot;</span><span class="p">,</span><span class="s2">&quot;s&quot;</span><span class="p">,</span><span class="s2">&quot;q&quot;</span><span class="p">],</span> <span class="s2">&quot;a3&quot;</span> <span class="p">:</span> <span class="p">[</span><span class="s2">&quot;f&quot;</span><span class="p">,</span><span class="s2">&quot;g&quot;</span><span class="p">,</span><span class="s2">&quot;h&quot;</span><span class="p">,</span><span class="s2">&quot;k&quot;</span><span class="p">],</span> <span class="s2">&quot;class&quot;</span> <span class="p">:</span> <span class="p">[</span><span class="s2">&quot;n&quot;</span><span class="p">,</span><span class="s2">&quot;y&quot;</span><span class="p">,</span><span class="s2">&quot;n&quot;</span><span class="p">,</span><span class="s2">&quot;y&quot;</span><span class="p">]})</span>
+        <span class="n">target</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;class&quot;</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">)</span>
+        <span class="c1"># IMPORTANT: WRAcc quality measure is defined between -1 and 1.</span>
+        <span class="n">bsd</span> <span class="o">=</span> <span class="n">CBSD</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="n">WRAcc</span><span class="p">(),</span><span class="n">WRAccOptimisticEstimate1</span><span class="p">(),</span><span class="mi">5</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="n">write_results_in_file</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">bsd</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">target</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">bsd</span><span class="o">.</span><span class="n">selected_subgroups</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">bsd</span><span class="o">.</span><span class="n">unselected_subgroups</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">bsd</span><span class="o">.</span><span class="n">visited_subgroups</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span></div>
+
+    
+<div class="viewcode-block" id="TestCBSD.test_CBSD_fit4">
+<a class="viewcode-back" href="../../../../../project_files/subgroups.tests.algorithms.subgroup_sets.html#subgroups.tests.algorithms.subgroup_sets.test_cbsd.TestCBSD.test_CBSD_fit4">[docs]</a>
+    <span class="k">def</span> <span class="nf">test_CBSD_fit4</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;bread&#39;</span><span class="p">:</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="s1">&#39;yes&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span> <span class="s1">&#39;yes&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span> <span class="s1">&#39;no&#39;</span><span class="p">,</span> <span class="mi">3</span><span class="p">:</span> <span class="s1">&#39;yes&#39;</span><span class="p">,</span> <span class="mi">4</span><span class="p">:</span> <span class="s1">&#39;yes&#39;</span><span class="p">,</span> <span class="mi">5</span><span class="p">:</span> <span class="s1">&#39;yes&#39;</span><span class="p">,</span> <span class="mi">6</span><span class="p">:</span> <span class="s1">&#39;yes&#39;</span><span class="p">},</span> <span class="s1">&#39;milk&#39;</span><span class="p">:</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="s1">&#39;yes&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span> <span class="s1">&#39;no&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span> <span class="s1">&#39;yes&#39;</span><span class="p">,</span> <span class="mi">3</span><span class="p">:</span> <span class="s1">&#39;yes&#39;</span><span class="p">,</span> <span class="mi">4</span><span class="p">:</span> <span class="s1">&#39;yes&#39;</span><span class="p">,</span> <span class="mi">5</span><span class="p">:</span> <span class="s1">&#39;yes&#39;</span><span class="p">,</span> <span class="mi">6</span><span class="p">:</span> <span class="s1">&#39;yes&#39;</span><span class="p">},</span> <span class="s1">&#39;beer&#39;</span><span class="p">:</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="s1">&#39;no&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span> <span class="s1">&#39;yes&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span> <span class="s1">&#39;yes&#39;</span><span class="p">,</span> <span class="mi">3</span><span class="p">:</span> <span class="s1">&#39;yes&#39;</span><span class="p">,</span> <span class="mi">4</span><span class="p">:</span> <span class="s1">&#39;no&#39;</span><span class="p">,</span> <span class="mi">5</span><span class="p">:</span> <span class="s1">&#39;yes&#39;</span><span class="p">,</span> <span class="mi">6</span><span class="p">:</span> <span class="s1">&#39;no&#39;</span><span class="p">},</span> <span class="s1">&#39;coke&#39;</span><span class="p">:</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="s1">&#39;no&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span> <span class="s1">&#39;no&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span> <span class="s1">&#39;yes&#39;</span><span class="p">,</span> <span class="mi">3</span><span class="p">:</span> <span class="s1">&#39;no&#39;</span><span class="p">,</span> <span class="mi">4</span><span class="p">:</span> <span class="s1">&#39;yes&#39;</span><span class="p">,</span> <span class="mi">5</span><span class="p">:</span> <span class="s1">&#39;no&#39;</span><span class="p">,</span> <span class="mi">6</span><span class="p">:</span> <span class="s1">&#39;yes&#39;</span><span class="p">},</span> <span class="s1">&#39;diaper&#39;</span><span class="p">:</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="s1">&#39;no&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span> <span class="s1">&#39;yes&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span> <span class="s1">&#39;yes&#39;</span><span class="p">,</span> <span class="mi">3</span><span class="p">:</span> <span class="s1">&#39;yes&#39;</span><span class="p">,</span> <span class="mi">4</span><span class="p">:</span> <span class="s1">&#39;yes&#39;</span><span class="p">,</span> <span class="mi">5</span><span class="p">:</span> <span class="s1">&#39;yes&#39;</span><span class="p">,</span> <span class="mi">6</span><span class="p">:</span> <span class="s1">&#39;yes&#39;</span><span class="p">}})</span>
+        <span class="n">target</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;diaper&quot;</span><span class="p">,</span> <span class="s2">&quot;yes&quot;</span><span class="p">)</span>
+        <span class="n">bsd</span> <span class="o">=</span> <span class="n">CBSD</span><span class="p">(</span><span class="n">min_support</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">quality_measure</span><span class="o">=</span><span class="n">WRAcc</span><span class="p">(),</span><span class="n">optimistic_estimate</span> <span class="o">=</span> <span class="n">WRAccOptimisticEstimate1</span><span class="p">(),</span> <span class="n">num_subgroups</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span><span class="n">max_depth</span><span class="o">=</span><span class="mi">100</span> <span class="p">,</span> <span class="n">write_results_in_file</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">file_path</span> <span class="o">=</span> <span class="s2">&quot;./results.txt&quot;</span> <span class="p">)</span>
+        <span class="n">bsd</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">target</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">bsd</span><span class="o">.</span><span class="n">selected_subgroups</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>
+        <span class="n">file_to_read</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;./results.txt&quot;</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span>
+        <span class="n">list_of_written_results</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">file_to_read</span><span class="p">:</span>
+            <span class="n">list_of_written_results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+        <span class="n">list_of_subgroups</span> <span class="o">=</span> <span class="p">[</span><span class="n">Subgroup</span><span class="o">.</span><span class="n">generate_from_str</span><span class="p">(</span><span class="n">elem</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;;&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">][:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="k">for</span> <span class="n">elem</span> <span class="ow">in</span> <span class="n">list_of_written_results</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIn</span><span class="p">(</span><span class="n">Subgroup</span><span class="o">.</span><span class="n">generate_from_str</span><span class="p">(</span><span class="s2">&quot;Description: [bread = &#39;yes&#39;, beer = &#39;yes&#39;, coke = &#39;no&#39;, milk = &#39;no&#39;], Target: diaper = &#39;yes&#39;&quot;</span><span class="p">),</span> <span class="n">list_of_subgroups</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIn</span><span class="p">(</span><span class="n">Subgroup</span><span class="o">.</span><span class="n">generate_from_str</span><span class="p">(</span><span class="s2">&quot;Description: [beer = &#39;yes&#39;, bread = &#39;no&#39;, coke = &#39;yes&#39;, milk = &#39;yes&#39;], Target: diaper = &#39;yes&#39;&quot;</span><span class="p">),</span> <span class="n">list_of_subgroups</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIn</span><span class="p">(</span><span class="n">Subgroup</span><span class="o">.</span><span class="n">generate_from_str</span><span class="p">(</span><span class="s2">&quot;Description: [beer = &#39;no&#39;, bread = &#39;yes&#39;, coke = &#39;yes&#39;, milk = &#39;yes&#39;], Target: diaper = &#39;yes&#39;&quot;</span><span class="p">),</span> <span class="n">list_of_subgroups</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIn</span><span class="p">(</span><span class="n">Subgroup</span><span class="o">.</span><span class="n">generate_from_str</span><span class="p">(</span><span class="s2">&quot;Description: [beer = &#39;yes&#39;, bread = &#39;yes&#39;, coke = &#39;no&#39;, milk = &#39;yes&#39;], Target: diaper = &#39;yes&#39;&quot;</span><span class="p">),</span> <span class="n">list_of_subgroups</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIn</span><span class="p">(</span><span class="n">Subgroup</span><span class="o">.</span><span class="n">generate_from_str</span><span class="p">(</span><span class="s2">&quot;Description: [beer = &#39;yes&#39;, milk = &#39;yes&#39;], Target: diaper = &#39;yes&#39;&quot;</span><span class="p">),</span> <span class="n">list_of_subgroups</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIn</span><span class="p">(</span><span class="n">Subgroup</span><span class="o">.</span><span class="n">generate_from_str</span><span class="p">(</span><span class="s2">&quot;Description: [coke = &#39;yes&#39;, milk = &#39;yes&#39;], Target: diaper = &#39;yes&#39;&quot;</span><span class="p">),</span> <span class="n">list_of_subgroups</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIn</span><span class="p">(</span><span class="n">Subgroup</span><span class="o">.</span><span class="n">generate_from_str</span><span class="p">(</span><span class="s2">&quot;Description: [beer = &#39;yes&#39;, bread = &#39;yes&#39;, coke = &#39;no&#39;], Target: diaper = &#39;yes&#39;&quot;</span><span class="p">),</span> <span class="n">list_of_subgroups</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIn</span><span class="p">(</span><span class="n">Subgroup</span><span class="o">.</span><span class="n">generate_from_str</span><span class="p">(</span><span class="s2">&quot;Description: [beer = &#39;yes&#39;], Target: diaper = &#39;yes&#39;&quot;</span><span class="p">),</span> <span class="n">list_of_subgroups</span><span class="p">)</span>
+        <span class="n">file_to_read</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="n">remove</span><span class="p">(</span><span class="s2">&quot;./results.txt&quot;</span><span class="p">)</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Antonio López Martínez-Carrasco.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
